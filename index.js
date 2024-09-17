@@ -1,14 +1,15 @@
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
+// tg.themeParams.bottom_bar_bg_color = "#1468B1";
+//tg.backgroundColor = "#EFEFF4";
+tg.headerColor = "#1468B1";
+// tg.bottomBarColor = "#1468B1";
+// tg.backgroudColor = "#efeff4";
+// tg.colorScheme = "light";
 
 tg.expand(); //разворачиваем на все окно
 
 //tg.bottomBarColor = "#1468B1";
-tg.themeParams.bottom_bar_bg_color = "#1468B1";
-//tg.backgroundColor = "#EFEFF4";
-tg.headerColor = "#1468B1";
-tg.bottomBarColor = "#1468B1";
-tg.backgroudColor = "#efeff4";
-tg.colorScheme = "light";
+
 
 // .remove .add
 

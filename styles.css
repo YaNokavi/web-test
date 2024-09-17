@@ -206,7 +206,6 @@ body {
   /* display: flex; */
   width: 100%;
   height: auto;
-
   font: 400 12px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 14px;
@@ -216,7 +215,6 @@ body {
   display: -webkit-box; /* Включаем флексбоксы */
   -webkit-box-orient: vertical;
   overflow: hidden;
-
   color: #a6a6a6;
 }
 
