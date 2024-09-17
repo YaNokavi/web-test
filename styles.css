@@ -1,0 +1,334 @@
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/*Заголовок страницы*/
+.profile-header {
+  display: flex;
+  position: fixed;
+  background-color: #1468b1;
+  color: #fff;
+  width: 100%;
+  padding: 5px;
+  font: 600 22px/1 Inter, sans-serif;
+  letter-spacing: 0.07px;
+  text-align: center;
+  justify-content: center;
+  top: 0;
+}
+
+.profile-title {
+  align-self: stretch;
+  padding-bottom: 6px;
+}
+/*Главный экран прокрутки*/
+.main-block {
+  display: flex;
+  position: relative;
+  margin-top: 38px;
+  margin-bottom: 82px;
+  width: 100%;
+  flex-grow: 1;
+  text-align: center;
+  align-items: center;
+  /* justify-content: center; */
+  background-color: #efeff4;
+  overflow-y: auto;
+  flex-direction: column;
+}
+
+.profile-first-block {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  top: 0;
+  margin-top: 10px;
+  width: 97%;
+  height: 144px;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+
+  flex: none;
+  align-self: auto;
+  flex-grow: 0;
+}
+
+.profile-logo {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
+  margin-top: 10px;
+  background-color: #df3f40;
+  border-radius: 15px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-logo-name {
+  font: 600 40px/1 Inter, sans-serif;
+  letter-spacing: 0.066px;
+  color: #ffffff;
+}
+
+.profile-userid {
+  position: absolute;
+  width: 100px;
+  height: 15px;
+  font: 400 10px/1 Inter, sans-serif;
+  line-height: 15px;
+  letter-spacing: -0.43px;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  color: rgba(0, 0, 0, 0.41);
+}
+
+.profile-nickname {
+  position: fixed;
+}
+
+.tab-bar {
+  display: flex;
+  position: fixed;
+  height: 70px;
+  justify-content: stretch;
+  padding-top: 12px;
+  background-color: #1468b1;
+  align-items: flex-start;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.tab-item {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #9bb1c5;
+  object-fit: contain;
+  object-position: center;
+}
+
+.tab-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 28px;
+}
+
+.tab-label {
+  /* color: #9bb1c5; */
+  font: 500 10px/1.3 Roboto, sans-serif;
+  letter-spacing: 0.06px;
+  margin-top: 2px;
+}
+
+.tab-item.tab-item-active {
+  color: #ffffff;
+}
+
+.course-block {
+  position: relative;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+
+  top: 0;
+  margin-top: 10px;
+  width: 97%;
+  height: 120px;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+.course-logo {
+  display: flex;
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  /* margin-left: 10px;
+  margin-top: 10px; */
+  background-image: url("./icons/logo_cuna.jpg");
+  background-size: cover;
+  border-radius: 15px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-block-text {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  margin-left: 120px;
+  margin-right: 10px;
+
+  width: 100%;
+  height: 100px;
+}
+
+.course-block-name {
+  width: 100%;
+  height: 15px;
+  top: 0;
+  font: 700 14px/1 Inter, sans-serif;
+  text-align: left;
+  font-style: normal;
+  line-height: 15px;
+  letter-spacing: -0.43px;
+
+  color: #000000;
+}
+
+.course-block-description {
+  /* display: flex; */
+  width: 100%;
+  height: auto;
+
+  font: 400 12px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 14px;
+  text-align: left;
+
+  -webkit-line-clamp: 4; /* Число отображаемых строк */
+  display: -webkit-box; /* Включаем флексбоксы */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  color: #a6a6a6;
+}
+
+.course-block-author-rating {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  height: 13px;
+  bottom: 0px;
+}
+
+.course-block-author {
+  margin-right: auto;
+  height: 100%;
+
+  font: 400 10px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 11px;
+  letter-spacing: -0.43px;
+
+  color: #a6a6a6;
+}
+
+.course-block-rating {
+  height: 100%;
+
+  font: 400 12px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 15px;
+
+  color: #a6a6a6;
+}
+
+.course-block-rating-star {
+  margin-left: 2px;
+}
+
+.favorite-courses-enable {
+  position: relative;
+  box-sizing: border-box; 
+
+  display: flex;
+  flex-direction: column;
+
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  /* padding: 0px;
+  gap: 10px; */
+  margin: auto;
+  
+  width: 60%;
+  min-width: 250px;
+  height: 97px;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+.favorite-courses-enable-title {
+  width: 100%;
+  height: 22px;
+  margin-bottom: 8px;
+
+  font: 600 17px/1 "Inter", sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: 0.4px;
+
+  color: #000000;  
+
+}
+
+.favorite-courses-enable-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+  /* gap: 13px; */
+
+  width: 85%;
+  min-width: 210px;
+  height: 50px;
+  
+
+  background: #1468b1;
+  border-radius: 15px;
+
+}
+
+
+.favorite-courses-enable-button-text{
+  /* display: flex; */
+  width: auto;
+  height: 22px;
+  margin-right: auto;
+  margin-left: 23px;
+  
+  font: 510 17px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: 0.4px;
+  
+  color: #FFFFFF;
+}
+
+.favorite-courses-enable-button-icon{
+  /* display: flex; */
+  margin-left: auto;
+  margin-right: 20px;
+  
+}
+
