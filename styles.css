@@ -146,6 +146,8 @@ body {
 
 .tab-item.tab-item-active {
   animation: tabcolor 0.2s forwards;
+  pointer-events: none;
+  cursor: default;
 }
 
 .course-block {

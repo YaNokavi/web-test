@@ -1,4 +1,13 @@
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
+
+<script
+      src="https://telegram.org/js/telegram-web-app.js"
+      onload="window.Telegram.WebApp.expand();
+       window.Telegram.WebApp.setHeaderColor('#1468B1');
+        window.Telegram.WebApp.setBackgroundColor('#efeff4');
+        window.Telegram.WebApp.colorScheme(light);"
+    ></script>
+
 // tg.themeParams.bottom_bar_bg_color = "#1468B1";
 //tg.backgroundColor = "#EFEFF4";
 // tg.headerColor = "#1468B1";
@@ -6,10 +15,9 @@ let tg = window.Telegram.WebApp; //нужно получить объект wind
 // tg.backgroudColor = "#efeff4";
 // tg.colorScheme = "light";
 
- //разворачиваем на все окно
+//разворачиваем на все окно
 
 //tg.bottomBarColor = "#1468B1";
-
 
 // .remove .add
 
@@ -80,7 +88,6 @@ request.onload = function () {
 };
 
 function showCourses(jsonObj) {}
-
 
 //    let usercard = document.getElementById("usercard"); //Используем getElementById, чтобы получить карточку пользователя
 
