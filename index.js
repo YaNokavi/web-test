@@ -1,8 +1,8 @@
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
 
 tg.expand();
-tg.setHeaderColor = "#1468B1";
-tg.setBackgroundColor = "#efeff4";
+tg.headerColor = "#1468B1";
+tg.backgroundColor = "#efeff4";
 tg.colorScheme = "light";
 
 // tg.themeParams.bottom_bar_bg_color = "#1468B1";
