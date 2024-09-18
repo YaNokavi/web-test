@@ -354,3 +354,56 @@ body {
     color: #fff;
   }
 }
+
+
+[data-mode=light] {
+  --color-bg-primary: var(--palette-dark-4);
+  --color-bg-secondary: var(--palette-white);
+  --color-bg-button-tertiary: var(--palette-transparent-grey-8);
+  --color-bg-tertiary: var(--palette-transparent-dark-05);
+  --color-bg-skeleton: var(--palette-transparent-grey-8);
+  --color-bg-section: #ffffff;
+  --color-bg-section-light: #ffffff;
+  --color-text-primary: var(--palette-dark);
+  --color-text-middle: var(--palette-transparent-dark-75);
+  --color-text-secondary: var(--palette-transparent-dark-50);
+  --color-text-tertiary: var(--palette-transparent-dark-30);
+  --color-text-fourth: var(--palette-transparent-dark-18);
+  --color-text-hint: var(--palette-dark-20);
+  --color-text-accent: #42a0ff;
+  --color-text-invalid: #ff5a50;
+  --color-text-success: var(--palette-green);
+  --color-black: var(--palette-black);
+  --color-white: var(--palette-white);
+  --color-separator: var(--palette-transparent-dark-36);
+  --color-accent-brand: var(--palette-brand-dark);
+  --color-accent-red: var(--palette-red-light);
+  --color-accent-green: var(--palette-green-light);
+  --color-link: var(--palette-brand-dark);
+  --elevation-1: var(--elevation-light-1)
+}
+
+[data-mode=dark] {
+  --color-bg-primary: var(--palette-dark);
+  --color-bg-secondary: var(--palette-dark-90);
+  --color-bg-button-tertiary: var(--palette-transparent-grey-18);
+  --color-bg-tertiary: var(--palette-transparent-white-05);
+  --color-bg-skeleton: var(--palette-transparent-grey-18);
+  --color-bg-section: #ffffff;
+  --color-bg-section-light: #1c1c1e;
+  --color-text-primary: var(--palette-white);
+  --color-text-middle: var(--palette-transparent-white-75);
+  --color-text-secondary: var(--palette-transparent-white-50);
+  --color-text-tertiary: var(--palette-transparent-white-30);
+  --color-text-fourth: var(--palette-transparent-white-18);
+  --color-text-hint: var(--palette-dark-20);
+  --color-text-accent: #42a0ff;
+  --color-text-invalid: #ff5a50;
+  --color-text-success: var(--palette-green);
+  --color-separator: var(--palette-transparent-grey-65);
+  --color-accent-brand: var(--palette-brand-dark);
+  --color-accent-red: var(--palette-red-dark);
+  --color-accent-green: var(--palette-green-light);
+  --color-link: var(--palette-brand-light);
+  --elevation-1: var(--elevation-dark-1)
+}
