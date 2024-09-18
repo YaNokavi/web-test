@@ -114,6 +114,9 @@ body {
 .tab-item {
   display: flex;
   flex: 1 1 0;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s, visibility 0.4s;
   -webkit-tap-highlight-color: transparent;
   flex-direction: column;
   text-decoration: none;
@@ -146,6 +149,9 @@ body {
 .course-block {
   position: relative;
   box-sizing: border-box;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s, visibility 0.4s;
 
   display: flex;
   flex-direction: row;
@@ -256,6 +262,10 @@ body {
 .favorite-courses-enable {
   position: relative;
   box-sizing: border-box; 
+
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s, visibility 0.4s;
 
   display: flex;
   flex-direction: column;
