@@ -1,3 +1,5 @@
+"use strict"
+
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
 
 // tg.setBackgroundColor = '#efeff4';
