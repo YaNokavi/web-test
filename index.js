@@ -6,7 +6,7 @@ let tg = window.Telegram.WebApp; //нужно получить объект wind
 // tg.backgroudColor = "#efeff4";
 // tg.colorScheme = "light";
 
-tg.expand(); //разворачиваем на все окно
+ //разворачиваем на все окно
 
 //tg.bottomBarColor = "#1468B1";
 
