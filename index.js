@@ -63,13 +63,7 @@ tg.expand();
 
 //    });
 //  });
-var userId = document.querySelector(".profile-userid");
-userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
 
-var nickname = document.querySelector(".profile-logo-name");
-nickname.innerText = `${tg.initDataUnsafe.user.username}`.toUpperCase.slice[
-  (0, 2)
-];
 
 var request = new XMLHttpRequest();
 request.open("POST", "http://blabl/hello?userId=1");

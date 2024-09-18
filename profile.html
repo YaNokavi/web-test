@@ -203,6 +203,19 @@
       </a>
     </div>
 
-    <script src="index.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <script>
+      let tg = "window.Telegram.WebApp;";
+      tg.setHeaderColor('#1468B1')
+      // tg.expand();
+
+      var userId = document.querySelector(".profile-userid");
+      userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
+
+      var nickname = document.querySelector(".profile-logo-name");
+      nickname.innerText =
+        `${tg.initDataUnsafe.user.username}`.toUpperCase.slice[(0, 2)];
+    </script>
   </body>
 </html>
