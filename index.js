@@ -2,8 +2,7 @@
 
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
 
-// tg.setHeaderColor("#1468B1");
-document.body.style.visibility = "visible";
+
 
 // tg.setHeaderColor('#1468B1');
 // tg.setBackgroundColor = '#efeff4';
