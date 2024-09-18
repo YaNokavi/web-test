@@ -1,12 +1,9 @@
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
 
-<script
-      src="https://telegram.org/js/telegram-web-app.js"
-      onload="window.Telegram.WebApp.expand();
-       window.Telegram.WebApp.setHeaderColor('#1468B1');
-        window.Telegram.WebApp.setBackgroundColor('#efeff4');
-        window.Telegram.WebApp.colorScheme('light');"
-    ></script>
+tg.expand();
+tg.setHeaderColor("#1468B1");
+tg.setBackgroundColor("#efeff4");
+tg.colorScheme("light");
 
 // tg.themeParams.bottom_bar_bg_color = "#1468B1";
 //tg.backgroundColor = "#EFEFF4";
