@@ -25,8 +25,7 @@
   <head>
     <script
       src="https://telegram.org/js/telegram-web-app.js"
-      onload="window.Telegram.WebApp.setHeaderColor('#1468B1');
-      window.Telegram.WebApp.disableAutoUpdates()"
+      onload="window.Telegram.WebApp.setHeaderColor('#1468B1');"
     ></script>
     <meta charset="UTF-8" />
     <meta
@@ -209,9 +208,7 @@
       userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
   
       var nickname = document.querySelector(".profile-logo.profile-logo-name");
-      nickname.innerText = `${tg.initDataUnsafe.user.username}`[toUpperCase([
-        (0, 2)
-      ])];
+      nickname.innerText = `${tg.initDataUnsafe.user.username}`[0];
     </script>
   </body>
 

@@ -390,7 +390,7 @@ body {
   --color-bg-tertiary: var(--palette-transparent-white-05);
   --color-bg-skeleton: var(--palette-transparent-grey-18);
   --color-bg-section: #ffffff;
-  --color-bg-section-light: #1c1c1e;
+  --color-bg-section-light: #ffffff;
   --color-text-primary: var(--palette-white);
   --color-text-middle: var(--palette-transparent-white-75);
   --color-text-secondary: var(--palette-transparent-white-50);
