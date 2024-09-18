@@ -208,7 +208,7 @@
       userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
   
       var nickname = document.querySelector(".profile-logo.profile-logo-name");
-      nickname.innerText = `${tg.initDataUnsafe.user.username}`;
+      nickname.innerText = `${tg.initDataUnsafe.user.username}`[0, 1];
     </script>
   </body>
 
