@@ -1,11 +1,9 @@
-"use strict"
+"use strict";
 
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
 
-document.addEventListener('DOMContentLoaded', () => {
-  applyCustomHeaderColor('#1468B1');
-  document.body.style.visibility = "visible";
-});
+// tg.setHeaderColor("#1468B1");
+document.body.style.visibility = "visible";
 
 // tg.setHeaderColor('#1468B1');
 // tg.setBackgroundColor = '#efeff4';
@@ -68,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //    });
 //  });
-
 
 var request = new XMLHttpRequest();
 // request.open("POST", "http://blabl/hello?userId=1");
