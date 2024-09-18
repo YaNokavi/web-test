@@ -11,6 +11,7 @@ body {
 .profile-header {
   display: flex;
   position: fixed;
+  
   background-color: #1468b1;
   color: #fff;
   width: 100%;
@@ -25,6 +26,8 @@ body {
 .profile-title {
   align-self: stretch;
   padding-bottom: 6px;
+  animation: ani 0.4s forwards;
+  text-rendering: optimizeSpeed;
 }
 /*Главный экран прокрутки*/
 .main-block {
@@ -45,6 +48,7 @@ body {
 .profile-first-block {
   box-sizing: border-box;
 
+  animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -114,9 +118,7 @@ body {
 .tab-item {
   display: flex;
   flex: 1 1 0;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.4s, visibility 0.4s;
+
   -webkit-tap-highlight-color: transparent;
   flex-direction: column;
   text-decoration: none;
@@ -143,16 +145,14 @@ body {
 }
 
 .tab-item.tab-item-active {
-  color: #ffffff;
+  animation: tabcolor 0.2s forwards;
 }
 
 .course-block {
   position: relative;
   box-sizing: border-box;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.4s, visibility 0.4s;
-
+  
+  animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
 
@@ -261,11 +261,10 @@ body {
 
 .favorite-courses-enable {
   position: relative;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.4s, visibility 0.4s;
+  opacity: 0;
+  animation: ani 0.4s forwards;
 
   display: flex;
   flex-direction: column;
@@ -276,7 +275,7 @@ body {
   /* padding: 0px;
   gap: 10px; */
   margin: auto;
-  
+
   width: 60%;
   min-width: 250px;
   height: 97px;
@@ -296,8 +295,7 @@ body {
   line-height: 22px;
   letter-spacing: 0.4px;
 
-  color: #000000;  
-
+  color: #000000;
 }
 
 .favorite-courses-enable-button {
@@ -311,33 +309,46 @@ body {
   width: 85%;
   min-width: 210px;
   height: 50px;
-  
 
   background: #1468b1;
   border-radius: 15px;
-
 }
 
-
-.favorite-courses-enable-button-text{
+.favorite-courses-enable-button-text {
   /* display: flex; */
   width: auto;
   height: 22px;
   margin-right: auto;
   margin-left: 23px;
-  
+
   font: 510 17px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 22px;
   letter-spacing: 0.4px;
-  
-  color: #FFFFFF;
+
+  color: #ffffff;
 }
 
-.favorite-courses-enable-button-icon{
+.favorite-courses-enable-button-icon {
   /* display: flex; */
   margin-left: auto;
   margin-right: 20px;
-  
 }
 
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes tabcolor {
+  0% {
+    color: #9bb1c5;
+  }
+  100% {
+    color: #fff;
+  }
+}
