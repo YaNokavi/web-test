@@ -202,9 +202,9 @@
     </div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
+
     <script>
-      let tg = "window.Telegram.WebApp;";
+      let tg = window.Telegram.WebApp;
 
       var userId = document.querySelector(".profile-userid");
       userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
