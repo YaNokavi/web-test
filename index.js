@@ -4,7 +4,7 @@ let tg = window.Telegram.WebApp; //нужно получить объект wind
 // tg.setHeaderColor = '#1468B1';
 // tg.setBackgroundColor = '#efeff4';
 // tg.colorScheme = 'light';
-// tg.expand();
+tg.expand();
 
 // tg.themeParams.bottom_bar_bg_color = "#1468B1";
 //tg.backgroundColor = "#EFEFF4";
