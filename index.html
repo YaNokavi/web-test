@@ -23,11 +23,11 @@
   "
 >
   <head>
-    <script
+    <!-- <script
       src="https://telegram.org/js/telegram-web-app.js"
       onload="window.Telegram.WebApp.setHeaderColor('#1468B1');
     window.Telegram.WebApp.expand();"
-    ></script>
+    ></script> -->
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -224,6 +224,7 @@
     let tg = window.Telegram.WebApp;
 
     tg.setHeaderColor("#1468B1");
+    tg.expand();
 
     // var userId = document.querySelector(".profile-userid");
     var userIdText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
