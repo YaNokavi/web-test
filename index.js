@@ -5,6 +5,8 @@ let tg = window.Telegram.WebApp; //нужно получить объект wind
 var userId = document.querySelector(".profile-userid");
 userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
 
+export default userId.innerText;
+
 var logoname = document.querySelector(".profile-logo.profile-logo-name");
 logoname.innerText =
   `${tg.initDataUnsafe.user.username}`[0] +
