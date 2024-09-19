@@ -30,10 +30,8 @@
     />
     <title>Cryptuna</title>
 
-    <script
-      src="https://telegram.org/js/telegram-web-app.js"
-      onload="window.Telegram.WebApp.setHeaderColor('#1468B1');"
-    ></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"
+    onload="window.Telegram.WebApp.setHeaderColor('#1468B1');"></script>
 
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
@@ -203,36 +201,20 @@
 
     <!-- <script src="https://telegram.org/js/telegram-web-app.js" ></script> -->
     <script>
-      function runOnce() {
-        let tg = window.Telegram.WebApp;
+      
+      let tg = window.Telegram.WebApp;
 
-        // tg.setHeaderColor("#1468B1");
+      // tg.setHeaderColor("#1468B1");
 
-        var userId = document.querySelector(".profile-userid");
-        // userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
-
-        var logoname = document.querySelector(
-          ".profile-logo.profile-logo-name"
-        );
-        // logoname.innerText =
-        //   `${tg.initDataUnsafe.user.username}`[0] +
-        //   `${tg.initDataUnsafe.user.username}`[1];
-
-        var username = document.querySelector(".profile-nickname");
-        // username.innerText = `${tg.initDataUnsafe.user.username}`;
-      }
-
-      // Проверяем, установлен ли флаг в LocalStorage
-      if (!localStorage.getItem("scriptExecuted")) {
-        runOnce();
-        // Устанавливаем флаг, чтобы больше не выполнять функцию
-        localStorage.setItem("scriptExecuted", "true");
-      }
-
+      var userId = document.querySelector(".profile-userid");
       userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
+
+      var logoname = document.querySelector(".profile-logo.profile-logo-name");
       logoname.innerText =
         `${tg.initDataUnsafe.user.username}`[0] +
         `${tg.initDataUnsafe.user.username}`[1];
+
+      var username = document.querySelector(".profile-nickname");
       username.innerText = `${tg.initDataUnsafe.user.username}`;
     </script>
   </body>
