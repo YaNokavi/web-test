@@ -199,8 +199,22 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
       function runOncePerSession() {
-        console.log("Этот код выполняется один раз за сессию");
-        // Здесь может быть другой код, который нужно выполнить однажды за сессию
+        let tg = window.Telegram.WebApp;
+
+        tg.setHeaderColor("#1468B1");
+
+        var userId = document.querySelector(".profile-userid");
+        userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
+
+        var logoname = document.querySelector(
+          ".profile-logo.profile-logo-name"
+        );
+        logoname.innerText =
+          `${tg.initDataUnsafe.user.username}`[0] +
+          `${tg.initDataUnsafe.user.username}`[1];
+
+        var username = document.querySelector(".profile-nickname");
+        username.innerText = `${tg.initDataUnsafe.user.username}`;
       }
 
       // Проверяем, установлен ли флаг в SessionStorage
@@ -209,21 +223,6 @@
         // Устанавливаем флаг, чтобы больше не выполнять функцию в данной сессии
         sessionStorage.setItem("scriptExecutedInSession", "true");
       }
-
-      let tg = window.Telegram.WebApp;
-
-      tg.setHeaderColor("#1468B1");
-
-      var userId = document.querySelector(".profile-userid");
-      userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
-
-      var logoname = document.querySelector(".profile-logo.profile-logo-name");
-      logoname.innerText =
-        `${tg.initDataUnsafe.user.username}`[0] +
-        `${tg.initDataUnsafe.user.username}`[1];
-
-      var username = document.querySelector(".profile-nickname");
-      username.innerText = `${tg.initDataUnsafe.user.username}`;
     </script>
   </body>
 </html>
