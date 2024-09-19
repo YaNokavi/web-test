@@ -209,17 +209,17 @@
         // tg.setHeaderColor("#1468B1");
 
         var userId = document.querySelector(".profile-userid");
-        userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
+        // userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
 
         var logoname = document.querySelector(
           ".profile-logo.profile-logo-name"
         );
-        logoname.innerText =
-          `${tg.initDataUnsafe.user.username}`[0] +
-          `${tg.initDataUnsafe.user.username}`[1];
+        // logoname.innerText =
+        //   `${tg.initDataUnsafe.user.username}`[0] +
+        //   `${tg.initDataUnsafe.user.username}`[1];
 
         var username = document.querySelector(".profile-nickname");
-        username.innerText = `${tg.initDataUnsafe.user.username}`;
+        // username.innerText = `${tg.initDataUnsafe.user.username}`;
       }
 
       // Проверяем, установлен ли флаг в LocalStorage
@@ -228,6 +228,12 @@
         // Устанавливаем флаг, чтобы больше не выполнять функцию
         localStorage.setItem("scriptExecuted", "true");
       }
+
+      userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
+      logoname.innerText =
+        `${tg.initDataUnsafe.user.username}`[0] +
+        `${tg.initDataUnsafe.user.username}`[1];
+      username.innerText = `${tg.initDataUnsafe.user.username}`;
     </script>
   </body>
 </html>
