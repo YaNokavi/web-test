@@ -220,9 +220,17 @@
     </script> -->
 
     <script>
-      var dat = sessionStorage.getItem('data');
-      var userId = document.querySelector(".profile-userid");
-      userId.innerText = dat
+      var userIdData = sessionStorage.getItem('userIdData');
+      var logoName = sessionStorage.getItem('logoname');
+      var userName = sessionStorage.getItem('username');
+
+      var userIdProfile = document.querySelector(".profile-userid");
+      var logoNameProfile = document.querySelector(".profile-logo.profile-logo-name");
+      var userNameProfile = document.querySelector(".profile-nickname");
+
+      userIdProfile.innerText = userIdData
+      logoNameProfile.innerText = logoName
+      userNameProfile.innerText = userNameProfile
       
     </script>
   </body>
