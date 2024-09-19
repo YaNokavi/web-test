@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
 
-  <body data-mode="dark">
+  <body>
     <div class="profile-header">
       <div class="profile-title">Профиль</div>
     </div>
@@ -196,8 +196,20 @@
       </a>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js" async="true"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
+      function runOncePerSession() {
+        console.log("Этот код выполняется один раз за сессию");
+        // Здесь может быть другой код, который нужно выполнить однажды за сессию
+      }
+
+      // Проверяем, установлен ли флаг в SessionStorage
+      if (!sessionStorage.getItem("scriptExecutedInSession")) {
+        runOncePerSession();
+        // Устанавливаем флаг, чтобы больше не выполнять функцию в данной сессии
+        sessionStorage.setItem("scriptExecutedInSession", "true");
+      }
+
       let tg = window.Telegram.WebApp;
 
       tg.setHeaderColor("#1468B1");
