@@ -2,7 +2,16 @@
 
 let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
 
+var userId = document.querySelector(".profile-userid");
+userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
 
+var logoname = document.querySelector(".profile-logo.profile-logo-name");
+logoname.innerText =
+  `${tg.initDataUnsafe.user.username}`[0] +
+  `${tg.initDataUnsafe.user.username}`[1];
+
+var username = document.querySelector(".profile-nickname");
+username.innerText = `${tg.initDataUnsafe.user.username}`;
 
 // tg.setHeaderColor('#1468B1');
 // tg.setBackgroundColor = '#efeff4';
