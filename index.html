@@ -219,6 +219,7 @@
     </div>
   </body>
 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     let tg = window.Telegram.WebApp;
 
@@ -227,7 +228,6 @@
     // var userId = document.querySelector(".profile-userid");
     var userIdText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
     console.log(userIdText);
-    
 
     // var logoname = document.querySelector(".profile-logo.profile-logo-name");
     // logoname.innerText =
@@ -237,7 +237,7 @@
     // var username = document.querySelector(".profile-nickname");
     // username.innerText = `${tg.initDataUnsafe.user.username}`;
 
-    sessionStorage.setItem('data', userIdText);
+    sessionStorage.setItem("data", userIdText);
     window.location.href = "profile.html";
   </script>
 </html>
