@@ -1,6 +1,6 @@
 "use strict";
 
-let tg = window.Telegram.WebApp; //нужно получить объект window.Telegram.WebApp Телеграмма
+let tg = window.Telegram.WebApp;
 
 tg.setHeaderColor("#1468B1");
 tg.expand();
