@@ -24,17 +24,16 @@
 >
   <head>
     <script
-    src="https://telegram.org/js/telegram-web-app.js"
-    onload="window.Telegram.WebApp.setHeaderColor('#1468B1');
-    window.Telegram.WebApp.expand();"></script>
+      src="https://telegram.org/js/telegram-web-app.js"
+      onload="window.Telegram.WebApp.setHeaderColor('#1468B1');
+    window.Telegram.WebApp.expand();"
+    ></script>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
     <title>Cryptuna</title>
-
-    
 
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
@@ -218,9 +217,26 @@
         <div class="tab-label">Профиль</div>
       </a>
     </div>
-
   </body>
-  
 
-  <script src="index.js"></script>
+  <script>
+    let tg = window.Telegram.WebApp;
+
+    tg.setHeaderColor("#1468B1");
+
+    // var userId = document.querySelector(".profile-userid");
+    var userIdText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
+    
+
+    // var logoname = document.querySelector(".profile-logo.profile-logo-name");
+    // logoname.innerText =
+    //   `${tg.initDataUnsafe.user.username}`[0] +
+    //   `${tg.initDataUnsafe.user.username}`[1];
+
+    // var username = document.querySelector(".profile-nickname");
+    // username.innerText = `${tg.initDataUnsafe.user.username}`;
+
+    sessionStorage.setItem('data', userIdText);
+    window.location.href = "profile.html";
+  </script>
 </html>
