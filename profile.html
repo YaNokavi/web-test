@@ -196,9 +196,8 @@
       </a>
     </div>
 
-    
-
-    <script src="https://telegram.org/js/telegram-web-app.js">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
       let tg = window.Telegram.WebApp;
 
       tg.setHeaderColor("#1468B1");
@@ -214,7 +213,5 @@
       var username = document.querySelector(".profile-nickname");
       username.innerText = `${tg.initDataUnsafe.user.username}`;
     </script>
-
-  
   </body>
 </html>
