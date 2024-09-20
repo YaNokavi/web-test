@@ -167,8 +167,6 @@ body {
   animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
-  -webkit-tap-highlight-color: transparent;
-  text-decoration: none;
 
   top: 0;
   margin-top: 10px;
@@ -221,6 +219,9 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
 
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+
   color: #000000;
 }
 
@@ -232,6 +233,9 @@ body {
   font-style: normal;
   line-height: 14px;
   text-align: left;
+
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
 
   -webkit-line-clamp: 4; /* Число отображаемых строк */
   display: -webkit-box; /* Включаем флексбоксы */
