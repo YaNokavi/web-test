@@ -23,11 +23,6 @@
   "
 >
   <head>
-    <!-- <script
-      src="https://telegram.org/js/telegram-web-app.js"
-      onload="window.Telegram.WebApp.setHeaderColor('#1468B1');
-    window.Telegram.WebApp.expand();"
-    ></script> -->
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -187,7 +182,11 @@
         <div class="tab-label">Мои курсы</div>
       </a>
 
-      <a href="profile.html" class="tab-item" onclick="navigator.vibrate([1000])">
+      <a
+        href="profile.html"
+        class="tab-item"
+        onclick="navigator.vibrate([1000])"
+      >
         <svg
           width="29"
           height="28"
@@ -242,5 +241,16 @@
 
     tg.enableClosingConfirmation();
 
+    function handleLinkClick() {
+      // Вибрация на 200 миллисекунд
+      if (navigator.vibrate) {
+        navigator.vibrate(200);
+      }
+      // Здесь можно добавить код для перехода по ссылке
+    }
+
+    // Пример ссылки
+    const linkElement = document.querySelectorAll("a");
+    linkElement.addEventListener("click", handleLinkClick);
   </script>
 </html>
