@@ -52,7 +52,7 @@
     </div>
 
     <div class="tab-bar">
-      <a href="friends.html" class="tab-item" onclick="navigator.vibrate(200);">
+      <a href="friends.html" class="tab-item" onclick="window.navigator.vibrate(200);">
         <svg
           width="28"
           height="28"
@@ -105,7 +105,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item" onclick="navigator.vibrate(200);">
+      <a href="catalog.html" class="tab-item" onclick="window.navigator.vibrate(200);">
         <svg
           width="29"
           height="28"
@@ -139,7 +139,7 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html" class="tab-item" onclick="navigator.vibrate(200);">
+      <a href="favorite.html" class="tab-item" onclick="window.navigator.vibrate(200);">
         <svg
           width="28"
           height="28"
@@ -166,7 +166,7 @@
         <div class="tab-label">Мои курсы</div>
       </a>
 
-      <a href="profile.html" class="tab-item tab-item-active" onclick="navigator.vibrate(200);">
+      <a href="profile.html" class="tab-item tab-item-active" onclick="window.navigator.vibrate(200);">
         <svg
           width="29"
           height="28"
@@ -201,24 +201,6 @@
       </a>
     </div>
 
-    <!-- <script src="https://telegram.org/js/telegram-web-app.js" ></script>
-    <script>
-      let tg = window.Telegram.WebApp;
-
-      tg.setHeaderColor("#1468B1");
-
-      var userId = document.querySelector(".profile-userid");
-      userId.innerText = "User ID: " + `${tg.initDataUnsafe.user.id}`;
-
-      var logoname = document.querySelector(".profile-logo.profile-logo-name");
-      logoname.innerText =
-        `${tg.initDataUnsafe.user.username}`[0] +
-        `${tg.initDataUnsafe.user.username}`[1];
-
-      var username = document.querySelector(".profile-nickname");
-      username.innerText = `${tg.initDataUnsafe.user.username}`;
-    </script> -->
-
     <script>
       var userIdData = sessionStorage.getItem('userIdData');
       var logoName = sessionStorage.getItem('logoname');
@@ -231,6 +213,10 @@
       userIdProfile.innerText = userIdData
       logoNameProfile.innerText = logoName
       userNameProfile.innerText = userName
+
+      function vibro() {
+        navigator.vibrate
+      }
       
     </script>
   </body>
