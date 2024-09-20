@@ -187,7 +187,7 @@
         <div class="tab-label">Мои курсы</div>
       </a>
 
-      <a href="profile.html" class="tab-item" onclick="navigator.vibrate(150);">
+      <a href="profile.html" class="tab-item" onclick="navigator.vibrate([1000])">
         <svg
           width="29"
           height="28"
@@ -239,5 +239,7 @@
     sessionStorage.setItem("userIdData", userIdData);
     sessionStorage.setItem("logoname", logoname);
     sessionStorage.setItem("username", username);
+
+    window.navigator.vibrate(15000);
   </script>
 </html>
