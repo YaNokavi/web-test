@@ -52,7 +52,7 @@
     </div>
 
     <div class="tab-bar">
-      <a href="friends.html" class="tab-item" >
+      <a href="friends.html" class="tab-item" onclick="navigator.vibrate(150);">
         <svg
           width="28"
           height="28"
@@ -105,11 +105,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a
-        href="catalog.html"
-        class="tab-item"
-        
-      >
+      <a href="catalog.html" class="tab-item" onclick="navigator.vibrate(150);">
         <svg
           width="29"
           height="28"
@@ -146,7 +142,7 @@
       <a
         href="favorite.html"
         class="tab-item"
-        
+        onclick="navigator.vibrate(150);"
       >
         <svg
           width="28"
@@ -177,7 +173,7 @@
       <a
         href="profile.html"
         class="tab-item tab-item-active"
-        
+        onclick="navigator.vibrate(150);"
       >
         <svg
           width="29"
@@ -229,7 +225,8 @@
       userNameProfile.innerText = userName;
 
       window.navigator = window.navigator || {};
-      document.querySelectorAll(".tab-item")
+      document
+        .querySelectorAll(".tab-item")
         .addEventListener("click", function () {
           navigator.vibrate(300);
         });
