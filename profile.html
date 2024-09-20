@@ -29,7 +29,7 @@
       content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
     <title>Cryptuna</title>
-  
+
     <!-- <script
       src="https://telegram.org/js/telegram-web-app.js"
       onload="window.Telegram.WebApp.setHeaderColor('#1468B1')"
@@ -51,8 +51,8 @@
       </div>
     </div>
 
-    <div class="tab-bar" onclick="vibrate(1000);">
-      <a href="friends.html" class="tab-item" onclick="vibro(1000);">
+    <div class="tab-bar">
+      <a href="friends.html" class="tab-item" >
         <svg
           width="28"
           height="28"
@@ -105,7 +105,11 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item" onclick="window.navigator.vibrate(1000);">
+      <a
+        href="catalog.html"
+        class="tab-item"
+        
+      >
         <svg
           width="29"
           height="28"
@@ -139,7 +143,11 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html" class="tab-item" onclick="window.navigator.vibrate(1000);">
+      <a
+        href="favorite.html"
+        class="tab-item"
+        
+      >
         <svg
           width="28"
           height="28"
@@ -166,7 +174,11 @@
         <div class="tab-label">Мои курсы</div>
       </a>
 
-      <a href="profile.html" class="tab-item tab-item-active" onclick="window.navigator.vibrate(1000);">
+      <a
+        href="profile.html"
+        class="tab-item tab-item-active"
+        
+      >
         <svg
           width="29"
           height="28"
@@ -202,22 +214,25 @@
     </div>
 
     <script>
-      var userIdData = sessionStorage.getItem('userIdData');
-      var logoName = sessionStorage.getItem('logoname');
-      var userName = sessionStorage.getItem('username');
+      var userIdData = sessionStorage.getItem("userIdData");
+      var logoName = sessionStorage.getItem("logoname");
+      var userName = sessionStorage.getItem("username");
 
       var userIdProfile = document.querySelector(".profile-userid");
-      var logoNameProfile = document.querySelector(".profile-logo.profile-logo-name");
+      var logoNameProfile = document.querySelector(
+        ".profile-logo.profile-logo-name"
+      );
       var userNameProfile = document.querySelector(".profile-nickname");
 
-      userIdProfile.innerText = userIdData
-      logoNameProfile.innerText = logoName
-      userNameProfile.innerText = userName
+      userIdProfile.innerText = userIdData;
+      logoNameProfile.innerText = logoName;
+      userNameProfile.innerText = userName;
 
-      function vibro(v) {
-        navigator.vibrate(v);
-      }
-      
+      window.navigator = window.navigator || {};
+      document.querySelectorAll(".tab-item")
+        .addEventListener("click", function () {
+          navigator.vibrate(300);
+        });
     </script>
   </body>
 </html>
