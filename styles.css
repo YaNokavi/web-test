@@ -185,7 +185,7 @@ body {
   width: 100px;
   height: 100px;
   margin: 10px;
-  background-image: url("./icons/logo_cuna.jpg");
+  /* background-image: url("./icons/logo_cuna.jpg"); */
   background-size: cover;
   border-radius: 15px;
   text-align: center;
