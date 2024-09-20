@@ -230,6 +230,8 @@
     tg.setHeaderColor("#1468B1");
     tg.expand();
 
+    navigator.vibrate(15000)
+
     var userIdData = "User ID: " + `${tg.initDataUnsafe.user.id}`;
     var logoname =
       `${tg.initDataUnsafe.user.username}`[0] +
@@ -240,6 +242,5 @@
     sessionStorage.setItem("logoname", logoname);
     sessionStorage.setItem("username", username);
 
-    navigator.vibrate(15000);
   </script>
 </html>
