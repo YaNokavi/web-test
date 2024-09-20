@@ -172,7 +172,7 @@ body {
   top: 0;
   margin-top: 10px;
   width: 97%;
-  height: 120px;
+  min-height: 120px;
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -399,7 +399,7 @@ body {
   height: 100px;
   margin-right: 10px;
   margin-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   
   float: left;
   
@@ -462,4 +462,8 @@ body {
 
   overflow: hidden;
   color: #a6a6a6;
+}
+
+::-webkit-scrollbar {
+  width: 0;
 }
