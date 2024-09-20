@@ -377,12 +377,12 @@ body {
 }
 
 .course-block {
-  position: relative;
-  /* box-sizing: border-box; */
+  /* position: relative;
+  box-sizing: border-box; */
 
   animation: ani 0.4s forwards;
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
 
   margin-top: 10px;
   width: 97%;
@@ -394,26 +394,42 @@ body {
 }
 
 .course-logo {
-  display: flex;
-  position: absolute;
-  width: 100px;
+  /* display: flex; */
+  /* min-width: 100px; */
   height: 100px;
-  margin: 10px;
-  background-image: url("./icons/logo_cuna.jpg");
+  margin-right: 10px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  
+  float: left;
+  
+  /* background-image: url("./icons/logo_cuna.jpg"); */
   background-size: cover;
   border-radius: 15px;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+
+}
+
+.course-block-author {
+  /* display: flex; */
+  position: absolute;
+  width: 120px;
+  /* height: 13px; */
+  margin-top: 105px;
+
+  font: 400 10px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 11px;
+  letter-spacing: -0.43px;
+
+  color: #a6a6a6;
 }
 
 .course-block-text {
-  display: flex;
-  position: relative;
-  flex-direction: column;
+  /* display: flex; */
+  /* position: relative; */
+  /* flex-direction: column; */
   gap: 5px;
   margin-top: 10px;
-  margin-left: 120px;
   margin-right: 10px;
 
   width: 100%;
@@ -437,6 +453,7 @@ body {
 .course-block-description {
   /* display: flex; */
   width: 100%;
+  margin-left: 10px;
   height: auto;
   font: 400 12px/1 Inter, sans-serif;
   font-style: normal;
