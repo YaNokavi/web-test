@@ -230,7 +230,7 @@ body {
 
   /* -webkit-tap-highlight-color: transparent;
   text-decoration: none; */
-
+  text-decoration: none;
   color: #000000;
 }
 
@@ -245,7 +245,7 @@ body {
 
   /* -webkit-tap-highlight-color: transparent;
   text-decoration: none; */
-
+  text-decoration: none;
   -webkit-line-clamp: 4; /* Число отображаемых строк */
   display: -webkit-box; /* Включаем флексбоксы */
   -webkit-box-orient: vertical;
