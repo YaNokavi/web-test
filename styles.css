@@ -167,6 +167,8 @@ body {
   animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
 
   top: 0;
   margin-top: 10px;
