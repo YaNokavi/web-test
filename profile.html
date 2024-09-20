@@ -51,8 +51,8 @@
       </div>
     </div>
 
-    <div class="tab-bar">
-      <a href="friends.html" class="tab-item" onclick="window.navigator.vibrate(200);">
+    <div class="tab-bar" onclick="vibrate(200);">
+      <a href="friends.html" class="tab-item" onclick="vibro(200);">
         <svg
           width="28"
           height="28"
@@ -214,8 +214,8 @@
       logoNameProfile.innerText = logoName
       userNameProfile.innerText = userName
 
-      function vibro() {
-        navigator.vibrate
+      function vibro(v) {
+        navigator.vibrate(v);
       }
       
     </script>
