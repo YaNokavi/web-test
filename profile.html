@@ -30,15 +30,6 @@
     />
     <title>Cryptuna</title>
 
-    <script>
-      window.navigator = window.navigator || {};
-      document
-        .querySelectorAll(".tab-item")
-        .addEventListener("click", function () {
-          navigator.vibrate(300);
-        });
-    </script>
-
     <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
 
@@ -56,7 +47,7 @@
     </div>
 
     <div class="tab-bar">
-      <a href="friends.html" class="tab-item" >
+      <a onclick="navigator.vibrate(150);" href="friends.html" class="tab-item">
         <svg
           width="28"
           height="28"
@@ -109,7 +100,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item" >
+      <a onclick="navigator.vibrate(150);" href="catalog.html" class="tab-item">
         <svg
           width="29"
           height="28"
@@ -144,9 +135,9 @@
       </a>
 
       <a
+      onclick="navigator.vibrate(150);"
         href="favorite.html"
         class="tab-item"
-        
       >
         <svg
           width="28"
@@ -175,9 +166,9 @@
       </a>
 
       <a
+      onclick="navigator.vibrate(150);"
         href="profile.html"
         class="tab-item tab-item-active"
-        
       >
         <svg
           width="29"
@@ -227,6 +218,8 @@
       userIdProfile.innerText = userIdData;
       logoNameProfile.innerText = logoName;
       userNameProfile.innerText = userName;
+
+      
     </script>
   </body>
 </html>
