@@ -61,7 +61,6 @@
           </svg>
         </a>
       </div>
-      <button onclick="navigator.vibrate(1000);">Test</button>
     </div>
 
     <div class="tab-bar">
@@ -231,10 +230,8 @@
     tg.expand();
 
     var userIdData = "User ID: " + `${tg.initDataUnsafe.user.id}`;
-    var logoname =
-      `${tg.initDataUnsafe.user.username}`[0] +
-      `${tg.initDataUnsafe.user.username}`[1];
-    var username = `${tg.initDataUnsafe.user.username}`;
+    var logoname = `${tg.initDataUnsafe.user.first_name}`[0];
+    var username = `${tg.initDataUnsafe.user.first_name}`;
 
     sessionStorage.setItem("userIdData", userIdData);
     sessionStorage.setItem("logoname", logoname);
