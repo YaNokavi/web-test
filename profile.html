@@ -55,9 +55,9 @@
             <div class="profile-balance-block-logo"></div>
           </div>
           <div class="profile-balance-block-info" id="pop">
-            <svg
+            <svg 
               style="-webkit-tap-highlight-color: transparent"
-              id="popup"
+              id="popu"
               width="16"
               height="16"
               viewBox="0 0 14 14"
@@ -253,23 +253,28 @@
       // Сделать потом данные о количестве токенов у юзера
 
       var popup = document.querySelector(".popup");
-      var popupBtn = document.querySelector("#pop");
-      var popupBtnSvg = document.querySelector("#popup");
+      var popupBtn = document.getElementById("pop");
+      var popupBtnSvg = document.getElementById("popu");
 
       popupBtn.addEventListener("click", () => {
         popup.style.display = "flex";
+        setTimeout(() => {
+        }, 190);
       });
 
-      popupBtnSvg.addEventListener("click", () => {
+      popupBtnSvg.addEventListener("click", (e) => {
+        e.stopPropagation();
         popup.style.display = "flex";
+        setTimeout(() => {
+        }, 190);
       });
 
       document.addEventListener("click", function (e) {
         if (
           e.target !== popup &&
           !popup.contains(e.target) &&
-          e.target !== popupBtn &&
-          e.target !== popupBtnSvg
+           e.target !== popupBtn
+           
         ) {
           popup.classList.add("hide-popup");
           setTimeout(() => {
