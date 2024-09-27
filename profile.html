@@ -42,12 +42,14 @@
       <div class="profile-first-block">
         <div class="profile-logo profile-logo-name"></div>
         <div class="profile-userid"></div>
-        <div class="profile-nickname"></div>
+        <div class="profile-nickname">
+          <div class="profile-balance-block">1000</div>
+        </div>
       </div>
     </div>
 
     <div class="tab-bar">
-      <a onclick="navigator.vibrate(150);" href="friends.html" class="tab-item">
+      <a href="friends.html" class="tab-item">
         <svg
           width="28"
           height="28"
@@ -100,7 +102,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a onclick="navigator.vibrate(150);" href="catalog.html" class="tab-item">
+      <a href="catalog.html" class="tab-item">
         <svg
           width="29"
           height="28"
@@ -135,7 +137,6 @@
       </a>
 
       <a
-      onclick="navigator.vibrate(150);"
         href="favorite.html"
         class="tab-item"
       >
@@ -166,7 +167,6 @@
       </a>
 
       <a
-      onclick="navigator.vibrate(150);"
         href="profile.html"
         class="tab-item tab-item-active"
       >
@@ -218,6 +218,7 @@
       userIdProfile.innerText = userIdData;
       logoNameProfile.innerText = logoName;
       userNameProfile.innerText = userName;
+      // Сделать потом данные о количестве токенов у юзера
 
       
     </script>
