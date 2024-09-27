@@ -171,6 +171,7 @@ body {
   /* position: relative;
   display: inline-block;
   cursor: pointer; */
+  -webkit-tap-highlight-color: transparent;
   flex-direction: row;
   justify-content: center;
   align-items: center;
