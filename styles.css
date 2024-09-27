@@ -49,7 +49,7 @@ body {
   overflow-x: hidden;
   flex-direction: column;
 }
-
+/*Профиль*/
 .profile-first-block {
   position: relative;
   box-sizing: border-box;
@@ -102,14 +102,15 @@ body {
 }
 
 .profile-nickname {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: left; */
+  text-align: left;
 
   width: 100%;
   height: 15px;
   margin-top: 15px;
-  margin-left: 110px;
+  margin-left: 130px;
   font: 700 30px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 15px;
@@ -118,21 +119,67 @@ body {
   color: #000000;
 }
 
-.profile-balance-block{
+.profile-balance-info-block {
   display: flex;
-  /* flex-direction: row; */
-
-  top: 0;
-  /*margin-top: 10px;
-  width: 97%; */
-  width: 20px;
-  height: 15px; 
-
-  background: #c26565;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  position: absolute;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 130px;
+  width: fit-content;
+  height: 32px;
 }
 
+.profile-balance-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 8px;
+  justify-content: space-between;
+
+  width: fit-content;
+  height: 32px;
+
+  background: rgba(20, 104, 177, 0.15);
+  border-radius: 8px;
+}
+
+.profile-balance-block-text {
+  margin-top: 2px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  align-items: center;
+
+  color: #1468b1;
+}
+
+.profile-balance-block-logo {
+  width: 20px;
+  height: 20px;
+
+  margin-left: 3px;
+  background-size: cover;
+  background-image: url(icons/logo-token.png);
+  border-radius: 22px;
+}
+
+.profile-balance-block-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0px;
+  margin-left: 8px;
+  width: 30px;
+  height: 32px;
+
+  background: rgba(20, 104, 177, 0.15);
+  border-radius: 8px;
+}
+/*Кнопки снизу*/
 .tab-bar {
   display: flex;
   position: fixed;
@@ -156,7 +203,7 @@ body {
   text-decoration: none;
   align-items: center;
   justify-content: center;
-  
+
   color: #9bb1c5;
   object-fit: contain;
   object-position: center;
@@ -181,7 +228,7 @@ body {
   pointer-events: none;
   cursor: default;
 }
-
+/*Каталог*/
 .courses-block {
   /* position: relative;
   box-sizing: border-box; */
@@ -304,7 +351,7 @@ body {
 .courses-block-rating-star {
   margin-left: 2px;
 }
-
+/*Избранные курсы*/
 .favorite-courses-enable {
   position: relative;
   box-sizing: border-box;
@@ -382,7 +429,7 @@ body {
   margin-left: auto;
   margin-right: 20px;
 }
-
+/*Анимации*/
 @keyframes ani {
   0% {
     opacity: 0;
@@ -400,7 +447,7 @@ body {
     color: #fff;
   }
 }
-
+/*Стили курса*/
 .course-block {
   /* position: relative;
   box-sizing: border-box; */
@@ -412,7 +459,6 @@ body {
   margin-top: 10px;
   width: 97%;
   height: auto;
-
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -427,13 +473,11 @@ body {
   margin-top: 0px;
   margin-bottom: 15px;
 
-  
   float: left;
-  
+
   /* background-image: url("./icons/logo_cuna.jpg"); */
   background-size: cover;
   border-radius: 15px;
-
 }
 
 .course-block-author {
@@ -462,7 +506,6 @@ body {
 
   width: 100%;
   height: auto;
-
 }
 
 .course-block-name {
@@ -491,7 +534,7 @@ body {
   overflow: hidden;
   color: #a6a6a6;
 }
-
+/*Отключение отображения прокрутки*/
 ::-webkit-scrollbar {
   width: 0;
 }

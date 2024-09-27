@@ -23,6 +23,12 @@
   "
 >
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -232,12 +238,11 @@
     var userIdData = "User ID: " + `${tg.initDataUnsafe.user.id}`;
     var logoname = `${tg.initDataUnsafe.user.username}`[0];
     var username = `${tg.initDataUnsafe.user.username}`;
-    
+
     sessionStorage.setItem("userIdData", userIdData);
     sessionStorage.setItem("logoname", logoname);
     sessionStorage.setItem("username", username);
 
     tg.enableClosingConfirmation();
-
   </script>
 </html>
