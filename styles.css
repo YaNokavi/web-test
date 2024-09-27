@@ -182,6 +182,34 @@ body {
   background: rgba(20, 104, 177, 0.15);
   border-radius: 8px;
 }
+
+.popup {
+  display: none;
+  animation: ani 0.2s forwards;
+  position: absolute;
+
+  top: 40px;
+  left: 0;
+
+  width: fit-content;
+  height: 30px;
+  background: rgba(20, 104, 177, 0.15);
+  border-radius: 8px;
+
+}
+
+.popup-text{
+  width: 200px;
+  margin-top: 4px;
+  font: 600 11px/1 Inter, sans-serif;
+  font-style: normal;
+  color: #1468b1;
+}
+
+.hide-popup {
+  animation: aniHide 0.2s forwards;
+}
+
 /*Кнопки снизу*/
 .tab-bar {
   display: flex;
@@ -549,35 +577,4 @@ body {
 /*Отключение отображения прокрутки*/
 ::-webkit-scrollbar {
   width: 0;
-}
-
-.popup {
-  display: none;
-  animation: ani 0.2s forwards;
-  position: absolute;
-  /* top: 30%;
-  left: 40%; */
-  /* transform: translate(-50%, -50%); */
-
-  /* margin-bottom: 90px; */
-
-  left: 124px;
-
-  width: fit-content;
-  height: 50px;
-  background: rgba(20, 104, 177, 0.15);
-  border-radius: 8px;
-
-}
-
-.popup-text{
-  width: 150px;
-  margin: 10px;
-  font: 400 12px/1 Inter, sans-serif;
-  font-style: normal;
-  color: #1468b1;
-}
-
-.hide-popup {
-  animation: aniHide 0.2s forwards;
 }
