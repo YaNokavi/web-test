@@ -53,6 +53,7 @@ body {
 .profile-first-block {
   position: relative;
   box-sizing: border-box;
+  overflow: hidden;
 
   animation: ani 0.4s forwards;
   display: flex;
@@ -102,13 +103,10 @@ body {
 }
 
 .profile-nickname {
-  /* display: flex; */
-  flex-direction: column;
-  /* justify-content: left; */
   text-align: left;
-
+  
   width: 100%;
-  height: 15px;
+  height: auto;
   margin-top: 28px;
   margin-left: 130px;
   font: 700 30px/1 Inter, sans-serif;
@@ -168,9 +166,6 @@ body {
 
 .profile-balance-block-info {
   display: flex;
-  /* position: relative;
-  display: inline-block;
-  cursor: pointer; */
   -webkit-tap-highlight-color: transparent;
   flex-direction: row;
   justify-content: center;
@@ -200,9 +195,10 @@ body {
 }
 
 .popup-text{
-  width: 200px;
+  /* text-align: justify; */
+  width: 230px;
   margin-top: 4px;
-  font: 600 11px/1 Inter, sans-serif;
+  font: 600 9px/1 Inter, sans-serif;
   font-style: normal;
   color: #1468b1;
 }
@@ -339,8 +335,7 @@ body {
   line-height: 14px;
   text-align: left;
 
-  /* -webkit-tap-highlight-color: transparent;
-  text-decoration: none; */
+
   text-decoration: none;
   -webkit-line-clamp: 4; /* Число отображаемых строк */
   display: -webkit-box; /* Включаем флексбоксы */
