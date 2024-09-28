@@ -195,9 +195,8 @@ body {
 }
 
 .popup-text{
-  /* text-align: justify; */
-  width: 230px;
-  margin-top: 4px;
+  align-content: center;
+  width: 205px;
   font: 600 9px/1 Inter, sans-serif;
   font-style: normal;
   color: #1468b1;
