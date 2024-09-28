@@ -376,6 +376,7 @@ body {
 }
 
 .courses-block-rating-star {
+  margin-top: 1px;
   margin-left: 2px;
 }
 /*Избранные курсы*/
