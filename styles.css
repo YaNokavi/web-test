@@ -706,8 +706,8 @@ body {
 }
 
 .preloader-animation {
-  border: 5px solid #b7cde3; /* Основной цвет круга */
-  border-top-color: #2c3e50; /* Цвет верхней части круга */
+  border: 5px solid #ffffff; /* Основной цвет круга */
+  border-top-color: #1468b1; /* Цвет верхней части круга */
   border-radius: 50%; /* Круглая форма */
   width: 50px; /* Ширина элемента */
   height: 50px; /* Высота элемента */
