@@ -625,13 +625,13 @@ body {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 15px;
 
   display: flex;
   align-items: center;
   text-align: center;
-  letter-spacing: 0px;
+  letter-spacing: -0.4px;
 
   color: #a6a6a6;
 }
