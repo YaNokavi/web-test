@@ -27,12 +27,8 @@ body {
 
 .profile-title {
   position: fixed;
-
-  /* align-self: stretch;
-  text-align: center; */
   padding-bottom: 6px;
   animation: ani 0.4s forwards;
-  text-rendering: optimizeSpeed;
 }
 /*Главный экран прокрутки*/
 .main-block {
@@ -44,6 +40,7 @@ body {
   flex-grow: 1;
   text-align: center;
   align-items: center;
+  z-index: 9999;
   /* justify-content: center; */
   background-color: #efeff4;
   overflow-y: auto;
@@ -586,7 +583,7 @@ body {
 
   margin-top: 10px;
   width: 95%;
-  min-height: 410px;
+  height: 410px;
   margin-bottom: 22px;
 
   background: #ffffff;
