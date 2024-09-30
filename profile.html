@@ -255,17 +255,18 @@
       );
       var userNameProfile = document.querySelector(".profile-nickname");
 
+      
       userIdProfile.innerText = userIdData;
       logoNameProfile.innerText = logoName;
       if (userName.length <= 15) {
         userNameProfile.style.fontSize = "30px";
         userNameProfile.innerText = userName;
       } else if (userName.length > 15 && userName.length < 19) {
-        userNameProfile.style.fontSize = "26px";
+        userNameProfile.style.fontSize = "24px";
         userNameProfile.innerText = userName;
       } else if (userName.length >= 19) {
-        userName = userName.slice(0, -(userName.length - 18)) + "...";
-        userNameProfile.style.fontSize = "22px";
+        userName = userName.slice(0, -(userName.length-17)) + "...";
+        userNameProfile.style.fontSize = "24px";
         userNameProfile.innerText = userName;
       }
 
