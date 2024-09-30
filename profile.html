@@ -77,7 +77,8 @@
             </svg>
             <div class="popup">
               <div class="popup-text">
-                Накапливай CUNA-токены за прохождение курсов! Покажи другим, насколько ты крут
+                Накапливай CUNA-токены за прохождение курсов! Покажи другим,
+                насколько ты крут
               </div>
             </div>
           </div>
@@ -236,6 +237,10 @@
     </div>
 
     <script>
+      window.onload = function () {
+        document.getElementById("preloader").style.display = "none";
+      };
+
       var userIdData = sessionStorage.getItem("userIdData");
       var logoName = sessionStorage.getItem("logoname");
       var userName = sessionStorage.getItem("username");

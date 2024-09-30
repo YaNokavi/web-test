@@ -230,6 +230,10 @@
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
+    window.onload = function () {
+      document.getElementById("preloader").style.display = "none";
+    };
+    
     let tg = window.Telegram.WebApp;
 
     tg.setHeaderColor("#1468B1");
