@@ -12,6 +12,7 @@ body {
   display: flex;
   position: fixed;
 
+  z-index: 9999;
   background-color: #1468b1;
   color: #fff;
   height: 38px;
@@ -214,6 +215,7 @@ body {
   padding-top: 12px;
   background-color: #1468b1;
   align-items: flex-start;
+  z-index: 9999;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -658,7 +660,7 @@ body {
   right: 0;
   bottom: 0;
   background-color: #fff; /* Цвет фона во время загрузки */
-  z-index: 9999; /* Убедитесь, что прелоадер выше других элементов */
+  z-index: 9998; /* Убедитесь, что прелоадер выше других элементов */
   display: flex;
   align-items: center;
   justify-content: center;
