@@ -584,7 +584,7 @@ body {
 
   margin-top: 10px;
   width: 97%;
-  height: 497px;
+  min-height: 490px;
   margin-bottom: 22px;
 
   background: #ffffff;
@@ -614,6 +614,7 @@ body {
 }
 
 .friends-block-null-button-invite{
+  animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -622,8 +623,8 @@ body {
   cursor: pointer;
   text-decoration: none;
   width: 97%;
-  height: 70px;
-  min-height: 70px;
+  height: 60px;
+  min-height: 60px;
   margin-top: auto;
   margin-bottom: 22px;
   background: #1468b1;
@@ -631,6 +632,7 @@ body {
 }
 
 .friends-block-null-button-link {
+  animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -639,8 +641,8 @@ body {
   cursor: pointer;
   text-decoration: none;
   width: 97%;
-  height: 70px;
-  min-height: 70px;
+  height: 60px;
+  min-height: 60px;
   margin-bottom: 22px;
 
   background: #1468b1;
