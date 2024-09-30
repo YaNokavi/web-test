@@ -257,7 +257,14 @@
 
       userIdProfile.innerText = userIdData;
       logoNameProfile.innerText = logoName;
-      userNameProfile.innerText = userName;
+      if (userName.length <= 15) {
+        userNameProfile.style.fontSize = "30px";
+        userNameProfile.innerText = userName;
+      } else if (userName.length > 15 && userName.length <= 20) {
+        userNameProfile.style.fontSize = "28";
+        userNameProfile.innerText = userName;
+      }
+      
 
       // Сделать потом данные о количестве токенов у юзера
 

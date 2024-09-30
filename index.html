@@ -43,7 +43,7 @@
     <div id="preloader">
       <div class="preloader-animation"></div>
     </div>
-    
+
     <div class="profile-header">
       <div class="profile-title">Мои курсы</div>
     </div>
@@ -244,7 +244,7 @@
     tg.expand();
 
     var userIdData = "User ID: " + `${tg.initDataUnsafe.user.id}`;
-    var logoname = `${tg.initDataUnsafe.user.username}`[0];
+    var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
     var username = `${tg.initDataUnsafe.user.username}`;
 
     sessionStorage.setItem("userIdData", userIdData);
