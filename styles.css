@@ -61,7 +61,7 @@ body {
 
   top: 0;
   margin-top: 10px;
-  width: 97%;
+  width: 95%;
   /* min-width: 370px; */
   height: 144px;
 
@@ -265,7 +265,7 @@ body {
 
   top: 0;
   margin-top: 10px;
-  width: 97%;
+  width: 95%;
   min-height: 120px;
 
   -webkit-tap-highlight-color: transparent;
@@ -491,7 +491,7 @@ body {
   /* flex-direction: row; */
 
   margin-top: 10px;
-  width: 97%;
+  width: 95%;
   height: auto;
 
   background: #ffffff;
@@ -583,8 +583,8 @@ body {
   align-items: center;
 
   margin-top: 10px;
-  width: 97%;
-  min-height: 490px;
+  width: 95%;
+  min-height: 430px;
   margin-bottom: 22px;
 
   background: #ffffff;
@@ -622,7 +622,7 @@ body {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 97%;
+  width: 95%;
   height: 60px;
   min-height: 60px;
   margin-top: auto;
@@ -640,7 +640,7 @@ body {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 97%;
+  width: 95%;
   height: 60px;
   min-height: 60px;
   margin-bottom: 22px;
