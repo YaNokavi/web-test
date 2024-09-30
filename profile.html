@@ -255,16 +255,20 @@
       );
       var userNameProfile = document.querySelector(".profile-nickname");
 
+      userName = "Cryptuna_supportww";
       userIdProfile.innerText = userIdData;
       logoNameProfile.innerText = logoName;
       if (userName.length <= 15) {
         userNameProfile.style.fontSize = "30px";
         userNameProfile.innerText = userName;
-      } else if (userName.length > 15 && userName.length <= 20) {
-        userNameProfile.style.fontSize = "28";
+      } else if (userName.length > 15 && userName.length < 19) {
+        userNameProfile.style.fontSize = "26px";
+        userNameProfile.innerText = userName;
+      } else if (userName.length >= 19) {
+        userName = userName.slice(0, -(userName.length-18)) + "...";
+        userNameProfile.style.fontSize = "22px";
         userNameProfile.innerText = userName;
       }
-      
 
       // Сделать потом данные о количестве токенов у юзера
 
