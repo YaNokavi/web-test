@@ -40,16 +40,23 @@
   </head>
 
   <body>
+    <div id="preloader">
+      <div class="preloader-animation"></div>
+    </div>
+
     <div class="profile-header">
       <div class="profile-title">Друзья</div>
     </div>
+
     <div class="main-block">
       <div class="friends-block-null">
         <img
           src="gif/chpic.su_-_WaterworldEmoji_026-ezgif.com-gif-maker.gif"
-          style="position: absolute; height: 150px; width: 150px; top: 30px;"
+          style="position: absolute; height: 150px; width: 150px; top: 30px"
         />
-        <div class="friends-block-null-text">Приглашай друзей и получай больше Cuna-токенов</div>
+        <div class="friends-block-null-text">
+          Приглашай друзей и получай больше Cuna-токенов
+        </div>
       </div>
       <div class="friends-block-null-button-invite"></div>
       <div class="friends-block-null-button-link"></div>
@@ -213,5 +220,9 @@
     </div>
   </body>
 
-  <script src="index.js"></script>
+  <script>
+    window.onload = function () {
+      document.getElementById("preloader").style.display = "none";
+    };
+  </script>
 </html>
