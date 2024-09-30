@@ -40,6 +40,10 @@
   </head>
 
   <body>
+    <div id="preloader">
+      <div class="preloader-animation"></div>
+    </div>
+    
     <div class="profile-header">
       <div class="profile-title">Мои курсы</div>
     </div>
@@ -233,7 +237,7 @@
     window.onload = function () {
       document.getElementById("preloader").style.display = "none";
     };
-    
+
     let tg = window.Telegram.WebApp;
 
     tg.setHeaderColor("#1468B1");
