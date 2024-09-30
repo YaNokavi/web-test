@@ -648,6 +648,24 @@ body {
   border-radius: 15px;
 }
 
+.friends-block-null-button-text {
+  width: auto;
+  height: 22px;
+  margin-right: 10px;
+  margin-left: auto;
+
+  font: 600 17px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: -0.4px;
+  text-decoration: none;
+
+  color: #ffffff;
+}
+
+.friends-block-null-button-icon {
+  margin-right: auto;
+}
 
 /*Загрузка страницы*/
 #preloader {
