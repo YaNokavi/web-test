@@ -584,7 +584,8 @@ body {
 
   margin-top: 10px;
   width: 97%;
-  height: 430px;
+  height: 497px;
+  margin-bottom: 33px;
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -622,7 +623,9 @@ body {
   text-decoration: none;
   width: 97%;
   height: 60px;
-
+  min-height: 60px;
+  margin-top: auto;
+  margin-bottom: 33px;
   background: #1468b1;
   border-radius: 15px;
 }
@@ -637,14 +640,15 @@ body {
   text-decoration: none;
   width: 97%;
   height: 60px;
-  bottom: 10px;
+  min-height: 60px;
+  margin-bottom: 33px;
 
   background: #1468b1;
   border-radius: 15px;
 }
 
 
-/**/
+/*Загрузка страницы*/
 #preloader {
   position: fixed;
   top: 0;
