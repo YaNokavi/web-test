@@ -27,7 +27,7 @@ body {
 
 .profile-title {
   position: fixed;
-  padding-bottom: 6px;
+  margin-top: 5px;
   animation: ani 0.4s forwards;
 }
 /*Главный экран прокрутки*/
