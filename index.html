@@ -73,7 +73,7 @@
       </div>
     </div>
     <div class="no-select">
-      <div class="tab-bar">
+      <div class="tab-bar" id="tab">
         <a href="friends.html" class="tab-item">
           <svg
             width="28"
@@ -249,14 +249,8 @@
 
     tg.enableClosingConfirmation();
 
-    function vibro() {
-      tg.HapticFeedback({
-        type: "medium",
-      });
-    }
-
     document
-      .querySelectorAll(".tab-item")
+      .getElementById("tab")
       .addEventListener("click", function () {
         Telegram.WebApp.HapticFeedback.impactOccurred("light");
       });
