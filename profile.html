@@ -23,6 +23,11 @@
   "
 >
   <head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      let tg = window.Telegram.WebApp;
+      tg.setHeaderColor("#1468B1");
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -241,12 +246,11 @@
       </div>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
       };
-      let tg = window.Telegram.WebApp;
+
       var userIdData = sessionStorage.getItem("userIdData");
       var logoName = sessionStorage.getItem("logoname");
       var userName = sessionStorage.getItem("username");
