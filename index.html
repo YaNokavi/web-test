@@ -161,7 +161,11 @@
           <div class="tab-label">Каталог</div>
         </a>
 
-        <a href="favorite.html" class="tab-item tab-item-active" onclick="vibro()">
+        <a
+          href="favorite.html"
+          class="tab-item tab-item-active"
+          onclick="vibro()"
+        >
           <svg
             width="28"
             height="28"
@@ -246,10 +250,13 @@
 
     tg.enableClosingConfirmation();
 
+    document
+      .querySelectorAll(".tab-item")
+      .addEventListener("click", () => vibro());
     function vibro() {
       tg.HapticFeedback({
-        type: 'medium',
-        is_active: true
+        type: "medium",
+        is_active: true,
       });
     }
   </script>
