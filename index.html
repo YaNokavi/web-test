@@ -44,10 +44,9 @@
       <div class="preloader-animation"></div>
     </div>
 
-      <div class="profile-header">
-        <div class="profile-title">Мои курсы</div>
-      </div>
-
+    <div class="profile-header">
+      <div class="profile-title">Мои курсы</div>
+    </div>
 
     <div class="main-block">
       <div class="favorite-courses-enable">
@@ -78,7 +77,6 @@
         <a
           href="friends.html"
           class="tab-item"
-          onclick="navigator.vibrate(150);"
         >
           <svg
             width="28"
@@ -135,7 +133,6 @@
         <a
           href="catalog.html"
           class="tab-item"
-          onclick="navigator.vibrate(150);"
         >
           <svg
             width="29"
@@ -173,7 +170,6 @@
         <a
           href="favorite.html"
           class="tab-item tab-item-active"
-          onclick="navigator.vibrate(150);"
         >
           <svg
             width="28"
@@ -204,7 +200,6 @@
         <a
           href="profile.html"
           class="tab-item"
-          onclick="navigator.vibrate([1000])"
         >
           <svg
             width="29"
@@ -249,6 +244,14 @@
     };
 
     let tg = window.Telegram.WebApp;
+
+    document
+      .querySelectorAll(".tab-item")
+      .addEventListener("click", function () {
+        window.Telegram.WebApp.triggerHapticFeedback({
+          type: "light",
+        });
+      });
 
     tg.setHeaderColor("#1468B1");
     tg.expand();
