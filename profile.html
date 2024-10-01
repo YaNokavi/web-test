@@ -43,10 +43,9 @@
     <div id="preloader">
       <div class="preloader-animation"></div>
     </div>
-    <div class="no-select">
-      <div class="profile-header">
-        <div class="profile-title">Профиль</div>
-      </div>
+
+    <div class="profile-header">
+      <div class="profile-title">Профиль</div>
     </div>
 
     <div class="main-block">
@@ -245,7 +244,9 @@
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
       };
-      screen.lockOrientation("portrait");
+      screen.addEventListener("orientationchange", function () {
+        screen.lockOrientation("portrait");
+      });
 
       var userIdData = sessionStorage.getItem("userIdData");
       var logoName = sessionStorage.getItem("logoname");
