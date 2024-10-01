@@ -23,11 +23,6 @@
   "
 >
   <head>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-      let tg = window.Telegram.WebApp;
-      tg.setHeaderColor("#1468B1");
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -95,7 +90,7 @@
       </div>
     </div>
     <div class="no-select">
-      <div class="tab-bar" id="tab">
+      <div class="tab-bar">
         <a href="friends.html" class="tab-item">
           <svg
             width="28"
@@ -304,9 +299,6 @@
         }
       });
 
-      document.getElementById("tab").addEventListener("click", function () {
-        tg.HapticFeedback.impactOccurred("light");
-      });
     </script>
   </body>
 </html>
