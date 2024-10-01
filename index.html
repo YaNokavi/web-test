@@ -74,7 +74,7 @@
     </div>
     <div class="no-select">
       <div class="tab-bar">
-        <a href="friends.html" class="tab-item" onclick="vibro()">
+        <a href="friends.html" class="tab-item">
           <svg
             width="28"
             height="28"
@@ -127,7 +127,7 @@
           <div class="tab-label">Друзья</div>
         </a>
 
-        <a href="catalog.html" class="tab-item" onclick="vibro()">
+        <a href="catalog.html" class="tab-item">
           <svg
             width="29"
             height="28"
@@ -164,7 +164,6 @@
         <a
           href="favorite.html"
           class="tab-item tab-item-active"
-          onclick="vibro()"
         >
           <svg
             width="28"
@@ -192,7 +191,7 @@
           <div class="tab-label">Мои курсы</div>
         </a>
 
-        <a href="profile.html" class="tab-item" onclick="vibro()">
+        <a href="profile.html" class="tab-item">
           <svg
             width="29"
             height="28"
@@ -250,13 +249,16 @@
 
     tg.enableClosingConfirmation();
 
-    document
-      .querySelectorAll(".tab-item")
-      .addEventListener("click", () => vibro());
     function vibro() {
       tg.HapticFeedback({
         type: "medium",
       });
     }
+
+    document
+      .querySelectorAll(".tab-item")
+      .addEventListener("click", function () {
+        Telegram.WebApp.HapticFeedback.impactOccurred("light");
+      });
   </script>
 </html>
