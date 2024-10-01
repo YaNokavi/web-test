@@ -245,6 +245,7 @@
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
       };
+      screen.lockOrientation("portrait");
 
       var userIdData = sessionStorage.getItem("userIdData");
       var logoName = sessionStorage.getItem("logoname");
