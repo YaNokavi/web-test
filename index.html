@@ -161,7 +161,10 @@
           <div class="tab-label">Каталог</div>
         </a>
 
-        <a href="favorite.html" class="tab-item tab-item-active">
+        <a
+          href="favorite.html"
+          class="tab-item tab-item-active"
+        >
           <svg
             width="28"
             height="28"
@@ -246,20 +249,10 @@
 
     tg.enableClosingConfirmation();
 
-    // document
-    //   .getElementById("tab")
-    //   .addEventListener("click", function () {
-    //     tg.HapticFeedback.impactOccurred("light");
-    //   });
-
-    document.getElementById("tab").addEventListener("click", vibrate);
-
-    function vibrate() {
-      if (navigator.vibrate) {
-        navigator.vibrate(200);
-      } else {
-        console.log("Vibration not supported");
-      }
-    }
+    document
+      .getElementById("tab")
+      .addEventListener("click", function () {
+        tg.HapticFeedback.impactOccurred("light");
+      });
   </script>
 </html>

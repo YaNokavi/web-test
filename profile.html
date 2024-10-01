@@ -298,15 +298,11 @@
         }
       });
 
-      document.getElementById("tab").addEventListener("click", vibrate);
-
-      function vibrate() {
-        if (navigator.vibrate) {
-          navigator.vibrate(200);
-        } else {
-          console.log("Vibration not supported");
-        }
-      }
+      document
+      .getElementById("tab")
+      .addEventListener("click", function () {
+        tg.HapticFeedback.impactOccurred("light");
+      });
     </script>
   </body>
 </html>
