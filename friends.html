@@ -294,8 +294,8 @@
     document.getElementById("invite").addEventListener("click", function () {
       let a = `https://t.me/cunaedu_bot?startapp`,
         s = encodeURI(a),
-        o = encodeURI("Join");
-      return `https://t.me/share/url?url=${s}&text=${o}`
+        o = encodeURI("Соси со мной");
+        window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
     });
   </script>
 </html>
