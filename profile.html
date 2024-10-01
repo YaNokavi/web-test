@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="no-select">
-      <div class="tab-bar">
+      <div class="tab-bar" id="tab">
         <a href="friends.html" class="tab-item">
           <svg
             width="28"
@@ -297,6 +297,16 @@
           }, 200);
         }
       });
+
+      document.getElementById("tab").addEventListener("click", vibrate);
+
+      function vibrate() {
+        if (navigator.vibrate) {
+          navigator.vibrate(200);
+        } else {
+          console.log("Vibration not supported");
+        }
+      }
     </script>
   </body>
 </html>
