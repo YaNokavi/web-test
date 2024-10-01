@@ -98,7 +98,7 @@
           />
         </svg>
       </div>
-      <div class="friends-block-null-button-link">
+      <div class="friends-block-null-button-link" id="copy">
         <div class="friends-block-null-button-text">Скопировать ссылку</div>
         <svg
           class="friends-block-null-button-icon"
@@ -290,6 +290,12 @@
     window.onload = function () {
       document.getElementById("preloader").style.display = "none";
     };
+
+    document.getElementById("copy").addEventListener("click", function () {
+      let link = `https://t.me/cunaedu_bot?startapp`;
+      navigator.clipboard.writeText(link); // Копируем текст в буфер обмена
+      alert("Текст скопирован: " + link);
+    });
 
     document.getElementById("invite").addEventListener("click", function () {
       let a = `https://t.me/cunaedu_bot?startapp`,
