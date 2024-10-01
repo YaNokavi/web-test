@@ -635,7 +635,7 @@ body {
   color: #a6a6a6;
 }
 
-.friends-block-null-button-invite{
+.friends-block-null-button-invite {
   animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
@@ -688,6 +688,8 @@ body {
 
 .friends-block-null-button-icon {
   margin-right: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 /*Загрузка страницы*/
@@ -715,6 +717,28 @@ body {
 
 @keyframes rotation {
   to {
-      transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
+}
+
+.hidden {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
