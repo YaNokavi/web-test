@@ -592,10 +592,9 @@ body {
 }
 
 .friends-block-null-text {
-  position: fixed;
   width: auto;
   height: auto;
-  margin-top: 65px;
+  margin-top: 40px;
   margin-left: 15px;
   margin-right: 15px;
 
