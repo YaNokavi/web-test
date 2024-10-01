@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div class="friends-block-null-button-invite">
+      <div class="friends-block-null-button-invite" id="invite">
         <div class="friends-block-null-button-text">Пригласить друга</div>
         <svg
           class="friends-block-null-button-icon"
@@ -290,5 +290,12 @@
     window.onload = function () {
       document.getElementById("preloader").style.display = "none";
     };
+
+    document.getElementById("invite").addEventListener("click", function () {
+      let a = `https://t.me/cunaedu_bot?startapp`,
+        s = encodeURI(a),
+        o = encodeURI("Join");
+      return `https://t.me/share/url?url=${s}&text=${o}`
+    });
   </script>
 </html>
