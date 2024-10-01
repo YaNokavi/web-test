@@ -692,6 +692,29 @@ body {
   transition: opacity 0.5s ease-in-out;
 }
 
+.hidden {
+  opacity: 0;
+}
+
+/*Анимации для свг*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /*Загрузка страницы*/
 #preloader {
   position: fixed;
@@ -718,27 +741,5 @@ body {
 @keyframes rotation {
   to {
     transform: rotate(1turn);
-  }
-}
-
-.hidden {
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
   }
 }

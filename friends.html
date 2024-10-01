@@ -308,7 +308,17 @@
       document.getElementById("preloader").style.display = "none";
     };
 
+    document.getElementById("invite").addEventListener("click", function () {
+      let a = `https://t.me/cunaedu_bot?startapp`,
+        s = encodeURI(a),
+        o = encodeURI("Соси со мной");
+      window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
+    });
+
     document.getElementById("copy").addEventListener("click", function () {
+      let link = `https://t.me/cunaedu_bot?startapp`;
+      navigator.clipboard.writeText(link);
+
       var svg1 = document.getElementById("svg1");
       var svg2 = document.getElementById("svg2");
 
@@ -329,17 +339,6 @@
           }, 2000);
         }, 200);
       }
-
-      let link = `https://t.me/cunaedu_bot?startapp`;
-      navigator.clipboard.writeText(link); // Копируем текст в буфер обмена
-      // alert("Текст скопирован: " + link);
-    });
-
-    document.getElementById("invite").addEventListener("click", function () {
-      let a = `https://t.me/cunaedu_bot?startapp`,
-        s = encodeURI(a),
-        o = encodeURI("Соси со мной");
-      window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
     });
   </script>
 </html>
