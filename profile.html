@@ -240,11 +240,13 @@
         </a>
       </div>
     </div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
       };
-
+      let tg = window.Telegram.WebApp;
       var userIdData = sessionStorage.getItem("userIdData");
       var logoName = sessionStorage.getItem("logoname");
       var userName = sessionStorage.getItem("username");
@@ -298,9 +300,7 @@
         }
       });
 
-      document
-      .getElementById("tab")
-      .addEventListener("click", function () {
+      document.getElementById("tab").addEventListener("click", function () {
         tg.HapticFeedback.impactOccurred("light");
       });
     </script>
