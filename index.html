@@ -74,10 +74,7 @@
     </div>
     <div class="no-select">
       <div class="tab-bar">
-        <a
-          href="friends.html"
-          class="tab-item"
-        >
+        <a href="friends.html" class="tab-item">
           <svg
             width="28"
             height="28"
@@ -130,10 +127,7 @@
           <div class="tab-label">Друзья</div>
         </a>
 
-        <a
-          href="catalog.html"
-          class="tab-item"
-        >
+        <a href="catalog.html" class="tab-item">
           <svg
             width="29"
             height="28"
@@ -167,10 +161,7 @@
           <div class="tab-label">Каталог</div>
         </a>
 
-        <a
-          href="favorite.html"
-          class="tab-item tab-item-active"
-        >
+        <a href="favorite.html" class="tab-item tab-item-active">
           <svg
             width="28"
             height="28"
@@ -197,10 +188,7 @@
           <div class="tab-label">Мои курсы</div>
         </a>
 
-        <a
-          href="profile.html"
-          class="tab-item"
-        >
+        <a href="profile.html" class="tab-item">
           <svg
             width="29"
             height="28"
@@ -245,14 +233,6 @@
 
     let tg = window.Telegram.WebApp;
 
-    document
-      .querySelectorAll(".tab-item")
-      .addEventListener("click", function () {
-        window.Telegram.WebApp.triggerHapticFeedback({
-          type: "light",
-        });
-      });
-
     tg.setHeaderColor("#1468B1");
     tg.expand();
 
@@ -265,5 +245,13 @@
     sessionStorage.setItem("username", username);
 
     tg.enableClosingConfirmation();
+
+    document
+      .querySelectorAll(".tab-item")
+      .addEventListener("click", function () {
+        window.Telegram.WebApp.triggerHapticFeedback({
+          type: "light",
+        });
+      });
   </script>
 </html>
