@@ -447,6 +447,7 @@ body {
 }
 
 .favorite-courses-enable-button-icon {
+  display: flex;
   margin-left: 10px;
   margin-right: auto;
 }
