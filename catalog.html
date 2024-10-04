@@ -499,6 +499,9 @@
     };
 
     var referrer = document.referrer;
-    console.log(referrer);
+    var segments = referrer.split('/');
+    var lastSegment = segments.pop();
+    
+    console.log(lastSegment);
   </script>
 </html>
