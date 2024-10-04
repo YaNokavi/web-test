@@ -53,12 +53,9 @@
         user-select: none;
       "
     >
-      <a
-        href="catalog.html"
-        class="header-arrow"
-      >
+      <a href="catalog.html" class="header-arrow">
         <svg
-        shape-rendering="geometricPrecision"
+          shape-rendering="geometricPrecision"
           width="27"
           height="26"
           viewBox="0 0 27 26"
@@ -81,7 +78,7 @@
           />
         </svg>
       </a>
-      <div class="profile-title" style="animation: none;">Каталог</div>
+      <div class="profile-title" style="animation: none">Каталог</div>
     </div>
 
     <div class="main-block">
@@ -89,7 +86,7 @@
         <div class="course-block-text">
           <div class="course-block-author">Автор: @cryptuna</div>
           <div class="course-block-description">
-            <img src="./icons/logo_cuna.jpg" class="course-logo"/>
+            <img src="./icons/logo_cuna.jpg" class="course-logo" />
             <div class="course-block-name">Технический анализ</div>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem
             nibh, consectetur vel lacus in, fringilla suscipit nibh. Suspendisse
@@ -102,11 +99,12 @@
             non elementum rutrum.
           </div>
         </div>
-        <div class="course-block-button">
+        <div class="course-block-button" id="button1">
           <div class="course-block-button-text">Добавить в избранное</div>
 
           <svg
             class="course-block-button-icon"
+            id="star1"
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -116,6 +114,28 @@
             <path
               d="M6.92863 6.61238L9.26641 1.9034C9.56647 1.29888 10.4335 1.29888 10.7336 1.9034L13.0713 6.61238L18.2993 7.37216C18.9701 7.46964 19.2374 8.28947 18.7519 8.75972L14.9695 12.4226L15.8621 17.5973C15.9768 18.2618 15.2753 18.7685 14.675 18.4547L10 16.0102L5.32492 18.4547C4.72474 18.7685 4.02318 18.2618 4.13781 17.5973L5.03042 12.4226L1.24818 8.75972C0.762555 8.28947 1.0299 7.46964 1.70067 7.37216L6.92863 6.61238Z"
               stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div
+          class="course-block-button-favorite"
+          id="button2"
+          style="display: none"
+        >
+          <svg
+            id="star2"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="#1468b1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.92863 6.61238L9.26641 1.9034C9.56647 1.29888 10.4335 1.29888 10.7336 1.9034L13.0713 6.61238L18.2993 7.37216C18.9701 7.46964 19.2374 8.28947 18.7519 8.75972L14.9695 12.4226L15.8621 17.5973C15.9768 18.2618 15.2753 18.7685 14.675 18.4547L10 16.0102L5.32492 18.4547C4.72474 18.7685 4.02318 18.2618 4.13781 17.5973L5.03042 12.4226L1.24818 8.75972C0.762555 8.28947 1.0299 7.46964 1.70067 7.37216L6.92863 6.61238Z"
+              stroke="none"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -188,7 +208,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item" style="color: #ffffff;">
+      <a href="catalog.html" class="tab-item" style="color: #ffffff">
         <svg
           class="tab-icon"
           width="28"
@@ -291,6 +311,44 @@
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
       };
+
+      const button1 = document.getElementById("button1");
+      const button2 = document.getElementById("button2");
+      const text = document.querySelector(".course-block-button-text");
+      const star1 = document.getElementById("star1");
+      const star2 = document.getElementById("star2");
+      // var fill = document.createElementNS(star1, "animate");
+      //   fill.setAttribute("attributeName", "fill");
+      //   fill.setAttribute("from", "none");
+      //   fill.setAttribute("to", "#fff");
+      //   fill.setAttribute("dur", "0.4s");
+      //   fill.setAttribute("repeatCount", "100");
+      //   star1.appendChild(fill);
+
+      button1.addEventListener("click", function () {
+        button1.style.animation = "button-course 0.4s ease";
+        text.innerText = "";
+        setTimeout(() => {
+          button1.style.display = "none";
+          button2.style.display = "flex";
+          button1.style.animation = "none";
+          // star1.style.animation = "none";
+        }, 400);
+      });
+
+      button2.addEventListener("click", function () {
+        button2.style.animation = "button-favorite 0.4s ease";
+        // star2.style.animation = "svg-star1 0.4s ease";
+        // star1.setAttribute('fill', 'none');
+        // star1.setAttribute('stroke', 'white');
+        text.innerText = "Добавить в избранное";
+        setTimeout(() => {
+          button2.style.display = "none";
+          button1.style.display = "flex";
+          button2.style.animation = "none";
+          // star2.style.animation = "none";
+        }, 400);
+      });
     </script>
   </body>
 </html>
