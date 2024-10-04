@@ -347,7 +347,7 @@ body {
   width: 100%;
   flex-direction: row;
   height: 13px;
-  bottom: 0px;
+  bottom: 0;
 }
 
 .courses-block-author {
@@ -356,7 +356,7 @@ body {
 
   font: 400 11px/1 Inter, sans-serif;
   font-style: normal;
-  line-height: 11px;
+  line-height: 15px;
   letter-spacing: -0.43px;
 
   color: #a6a6a6;
