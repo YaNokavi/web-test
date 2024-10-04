@@ -406,10 +406,10 @@ body {
   height: 22px;
   margin-bottom: 8px;
 
-  font: 600 17px/1 "Inter", sans-serif;
+  font: 600 17px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 22px;
-  letter-spacing: 0.4px;
+  letter-spacing: 0px;
 
   color: #000000;
 }
@@ -480,6 +480,7 @@ body {
 /*Стили курса*/
 .header-arrow{
   animation: ani 0.4s forwards;
+  -webkit-tap-highlight-color: transparent;
   align-self: center;
   margin-bottom: 2px;
   margin-right: auto;
