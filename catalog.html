@@ -498,10 +498,8 @@
       document.getElementById("preloader").style.display = "none";
     };
 
-    var referrer = document.referrer;
-    var segments = referrer.split('/');
-    var lastSegment = segments.pop();
+    var referrer = document.referrer.split('/').pop();
     
-    console.log(lastSegment);
+    console.log(referrer);
   </script>
 </html>
