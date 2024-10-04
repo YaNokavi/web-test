@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="course-block-button" id="button1">
-          <div class="course-block-button-text">Добавить в избранное</div>
+          <div class="course-block-button-text">Поступить на курс</div>
 
           <!-- <svg
             class="course-block-button-icon"
@@ -332,22 +332,19 @@
           button1.style.display = "none";
           button2.style.display = "flex";
           button1.style.animation = "none";
-          // star1.style.animation = "none";
-        }, 400);
+          
+        }, 300);
       });
 
       button2.addEventListener("click", function () {
         button2.style.animation = "button-favorite 0.4s ease";
-        // star2.style.animation = "svg-star1 0.4s ease";
-        // star1.setAttribute('fill', 'none');
-        // star1.setAttribute('stroke', 'white');
-        text.innerText = "Добавить в избранное";
+        text.innerText = "Поступить на курс";
         setTimeout(() => {
           button2.style.display = "none";
           button1.style.display = "flex";
           button2.style.animation = "none";
-          // star2.style.animation = "none";
-        }, 400);
+          
+        }, 300);
       });
     </script>
   </body>
