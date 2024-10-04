@@ -7,6 +7,14 @@ body {
   justify-content: center;
   overflow: hidden;
 }
+
+.svg{
+  display: flex;
+}
+
+.img{
+  display: flex;
+}
 /*Заголовок страницы*/
 .profile-header {
   display: flex;
