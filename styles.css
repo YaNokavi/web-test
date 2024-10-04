@@ -327,6 +327,7 @@ body {
   /* display: flex; */
   width: 100%;
   height: auto;
+  margin-top: 1px;
   font: 400 13px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 15px;
@@ -353,7 +354,7 @@ body {
   margin-right: auto;
   height: 100%;
 
-  font: 400 10px/1 Inter, sans-serif;
+  font: 400 11px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 11px;
   letter-spacing: -0.43px;
@@ -529,7 +530,7 @@ body {
   /* height: 13px; */
   margin-top: 105px;
 
-  font: 400 10px/1 Inter, sans-serif;
+  font: 400 11px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 11px;
   letter-spacing: -0.43px;
@@ -570,6 +571,7 @@ body {
   width: 95%;
   margin-left: 10px;
   height: auto;
+  margin-top: 1px;
   font: 400 13px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 15px;
