@@ -8,11 +8,11 @@ body {
   overflow: hidden;
 }
 
-.svg{
+svg{
   display: flex;
 }
 
-.img{
+img{
   display: flex;
 }
 /*Заголовок страницы*/
