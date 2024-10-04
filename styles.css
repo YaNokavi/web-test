@@ -506,7 +506,7 @@ body {
 }
 
 .course-logo {
-  /* display: flex; */
+  display: flex;
   /* min-width: 100px; */
   height: 100px;
   margin-right: 10px;
