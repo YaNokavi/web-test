@@ -500,6 +500,11 @@
 
     var referrer = document.referrer.split('/').pop();
     
-    console.log(referrer);
+    if (referrer == "course.html") {
+      var title = document.getElementsByClassName("profile-title");
+      var catalogTab = document.getElementsByClassName("tab-item tab-item-active");
+      title.style.animation = "none";
+      catalogTab.style.color = "#ffffff";
+    }
   </script>
 </html>
