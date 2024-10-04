@@ -479,6 +479,7 @@ body {
 }
 /*Стили курса*/
 .header-arrow{
+  display: flex;
   animation: ani 0.4s forwards;
   -webkit-tap-highlight-color: transparent;
   align-self: center;
