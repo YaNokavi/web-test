@@ -53,7 +53,7 @@
         user-select: none;
       "
     >
-      <div class="profile-title">Каталог</div>
+      <div class="profile-title" id="title">Каталог</div>
     </div>
 
     <div class="main-block">
@@ -394,7 +394,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item tab-item-active">
+      <a href="catalog.html" class="tab-item tab-item-active" id="active">
         <svg
           class="tab-icon"
           width="28"
@@ -501,8 +501,8 @@
     var referrer = document.referrer.split('/').pop();
     
     if (referrer == "course.html") {
-      var title = document.getElementsByClassName("profile-title");
-      var catalogTab = document.getElementsByClassName("tab-item tab-item-active");
+      var title = document.getElementById("title");
+      var catalogTab = document.getElementById("active");
       title.style.animation = "none";
       catalogTab.style.color = "#ffffff";
     }
