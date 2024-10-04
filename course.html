@@ -23,6 +23,12 @@
   "
 >
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -38,10 +44,23 @@
       <div class="preloader-animation"></div>
     </div>
 
-    <div class="profile-header">
+    <div
+      class="profile-header"
+      style="
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      "
+    >
       <a
         href="catalog.html"
-        style="margin-right: auto; animation: ani 0.4s forwards"
+        style="
+          margin-right: auto;
+          margin-top: 7px;
+          margin-left: 10px;
+          animation: ani 0.4s forwards;
+        "
       >
         <svg
           style="margin-left: 10px"
@@ -77,6 +96,26 @@
             tincidunt. In varius pulvinar tristique. Vivamus consectetur arcu
             non elementum rutrum.
           </div>
+        </div>
+        <div class="course-block-button">
+          <div class="course-block-button-text">Добавить в избранное</div>
+
+          <svg
+            class="course-block-button-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.92863 6.61238L9.26641 1.9034C9.56647 1.29888 10.4335 1.29888 10.7336 1.9034L13.0713 6.61238L18.2993 7.37216C18.9701 7.46964 19.2374 8.28947 18.7519 8.75972L14.9695 12.4226L15.8621 17.5973C15.9768 18.2618 15.2753 18.7685 14.675 18.4547L10 16.0102L5.32492 18.4547C4.72474 18.7685 4.02318 18.2618 4.13781 17.5973L5.03042 12.4226L1.24818 8.75972C0.762555 8.28947 1.0299 7.46964 1.70067 7.37216L6.92863 6.61238Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </div>
       </div>
     </div>
@@ -144,7 +183,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item  tab-item-active">
+      <a href="catalog.html" class="tab-item tab-item-active">
         <svg
           class="tab-icon"
           width="28"
