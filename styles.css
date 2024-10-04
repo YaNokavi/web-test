@@ -478,6 +478,14 @@ body {
   }
 }
 /*Стили курса*/
+.header-arrow{
+  animation: ani 0.4s forwards;
+  align-self: center;
+  margin-bottom: 2px;
+  margin-right: auto;
+  margin-left: 20px;
+}
+
 .course-block {
   /* position: relative;
   box-sizing: border-box; */
