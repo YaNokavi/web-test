@@ -485,6 +485,8 @@ body {
   margin-bottom: 2px;
   margin-right: auto;
   margin-left: 20px;
+  position: fixed;
+  left: 0;
 }
 
 .course-block {
