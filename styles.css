@@ -7,14 +7,6 @@ body {
   justify-content: center;
   overflow: hidden;
 }
-
-svg{
-  display: flex;
-}
-
-img{
-  display: flex;
-}
 /*Заголовок страницы*/
 .profile-header {
   display: flex;
@@ -318,7 +310,8 @@ img{
   width: 100%;
   height: 15px;
   top: 0;
-  font: 700 14px/1 Inter, sans-serif;
+  margin-top: 1px;
+  font: 700 17px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 15px;
@@ -334,9 +327,9 @@ img{
   /* display: flex; */
   width: 100%;
   height: auto;
-  font: 400 12px/1 Inter, sans-serif;
+  font: 400 13px/1 Inter, sans-serif;
   font-style: normal;
-  line-height: 14px;
+  line-height: 15px;
   text-align: left;
 
   text-decoration: none;
@@ -487,7 +480,7 @@ img{
   }
 }
 /*Стили курса*/
-.header-arrow{
+.header-arrow {
   display: flex;
   animation: ani 0.4s forwards;
   -webkit-tap-highlight-color: transparent;
@@ -561,6 +554,7 @@ img{
   width: 100%;
   height: 15px;
   top: 0;
+  margin-top: 1px;
   margin-bottom: 5px;
   font: 700 17px/1 Inter, sans-serif;
   text-align: left;
@@ -606,7 +600,7 @@ img{
   height: 22px;
   margin-right: 6px;
   margin-left: auto;
-  
+
   font: 600 17px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 22px;
