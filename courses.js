@@ -2,8 +2,11 @@ var xhr = new XMLHttpRequest();
 // request.open("POST", "http://blabl/hello?userId=1");
 // request.send(`${tg.initDataUnsafe.user.id}`);
 
-xhr.open("GET", "https://cryptuna-anderm.amvera.io/course/all");
-xhr.responseType = "json";
+xhr.open("GET", "http://cunaedu-anderm.amvera.io/course/all");
+// xhr.responseType = "json";
+// console.log("Before");
+xhr.send();
+// console.log("After");
 
 xhr.onload = function () {
   if (xhr.status === 200) {
@@ -23,7 +26,7 @@ xhr.onload = function () {
           </div>
           <div class="courses-block-author-rating">
             <div class="courses-block-author">${course.author}</div>
-            <div class="courses-block-rating">${rating}/5</div>
+            <div class="courses-block-rating">${course.rating}/5</div>
             <svg
               class="courses-block-rating-star"
               width="13"
@@ -51,6 +54,30 @@ xhr.onerror = function () {
   console.error("Ошибка сети.");
 };
 
-xhr.send();
+// const fs = require('fs');
+// const path = require('path');
 
-// function showCourses(jsonObj) {}
+// courses.forEach((course, index) => {
+//   const html = `
+//     <!DOCTYPE html>
+//     <html lang="ru">
+//     <head>
+//         <meta charset="UTF-8">
+//         <title>${course.title}</title>
+//         <style>
+//             /* стили */
+//         </style>
+//     </head>
+//     <body>
+//         <h1>${course.title}</h1>
+//         <p>${course.description}</p>
+//         <img src="${course.imageUrl}" alt="${course.title}">
+//     </body>
+//     </html>
+//   `;
+
+//   // Используем индекс + 1 для создания порядкового номера файла
+//   const fileName = `${course.id}.html`;
+  
+//   fs.writeFileSync(path.join(__dirname, fileName), html);
+// });
