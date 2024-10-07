@@ -741,8 +741,8 @@ body {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 60px;
-  height: 30px;
+  width: 80px;
+  height: 35px;
   margin-right: 5px;
   margin-left: auto;
   background-color: #1468b1;
@@ -763,8 +763,8 @@ body {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 60px;
-  height: 30px;
+  width: 80px;
+  height: 35px;
   margin-right: auto;
   margin-left: 5px;
   background-color: #1468b1;
