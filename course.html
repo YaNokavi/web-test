@@ -359,12 +359,6 @@
           modal.style.display = "none";
         });
 
-        window.onclick = function (event) {
-          if (event.target == document.getElementById("modal")) {
-            document.getElementById("modal").style.display = "none";
-          }
-        };
-
         yesButton.addEventListener("click", function () {
           modal.style.display = "none";
           setTimeout(() => {
@@ -390,6 +384,13 @@
           }, 50);
         });
       });
+
+      window.onclick = function (event) {
+        if (event.target == document.getElementById("modal")) {
+          document.getElementById("modal").style.display = "none";
+        }
+      };
+      
     </script>
   </body>
 </html>
