@@ -628,24 +628,21 @@ body {
     background-color: rgba(20, 104, 177, 0.15);
     margin-right: 10px;
   }
-  /* 10% {
-    width: 100px;
-  } */
 
-  70% {
-    margin-left: 38%;
-    margin-right: 38%;
-    /* width: 200px; */
-    /* align-self: center; */
-  }
+   70% { 
+    margin-left: 55%;
+    margin-right: 55%;
+    /* width: 200px;*/
+    align-self: center; 
+  } 
 
   100% {
     width: 250px;
     border-radius: 15px;
     background-color: #1468b1;
-    margin-right: 0%;
+    margin-right: 100%;
     align-self: center;
-    margin-left: 0%;
+    margin-left: 100%;
   }
 }
 
@@ -655,7 +652,6 @@ body {
     border-radius: 15px;
     background-color: #1468b1;
     margin-right: 100%;
-
     margin-left: 100%;
   }
   30% {
