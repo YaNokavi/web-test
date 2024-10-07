@@ -102,7 +102,7 @@
         <div class="course-block-button" id="button1">
           <div class="course-block-button-text">Поступить на курс</div>
 
-          <!-- <svg
+          <svg
             class="course-block-button-icon"
             id="star1"
             width="20"
@@ -118,7 +118,7 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             />
-          </svg> -->
+          </svg>
         </div>
         <div
           class="course-block-button-favorite"
@@ -126,6 +126,8 @@
           style="display: none"
         >
           <svg
+            class="course-block-button-favorite-icon"
+            style="display: none"
             id="star2"
             width="20"
             height="20"
@@ -141,6 +143,17 @@
               stroke-linejoin="round"
             />
           </svg>
+        </div>
+      </div>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-content-text">
+            Вы уверены, что хотите покинуть курс?
+          </div>
+          <div class="modal-content-buttons">
+            <div class="modal-content-buttons-yes" id="yesButton">Да</div>
+            <div class="modal-content-buttons-no" id="noButton">Нет</div>
+          </div>
         </div>
       </div>
     </div>
@@ -317,34 +330,65 @@
       const text = document.querySelector(".course-block-button-text");
       const star1 = document.getElementById("star1");
       const star2 = document.getElementById("star2");
-      // var fill = document.createElementNS(star1, "animate");
-      //   fill.setAttribute("attributeName", "fill");
-      //   fill.setAttribute("from", "none");
-      //   fill.setAttribute("to", "#fff");
-      //   fill.setAttribute("dur", "0.4s");
-      //   fill.setAttribute("repeatCount", "100");
-      //   star1.appendChild(fill);
+
+      const modal = document.getElementById("modal");
+      const yesButton = document.getElementById("yesButton");
+      const noButton = document.getElementById("noButton");
 
       button1.addEventListener("click", function () {
-        button1.style.animation = "button-course 0.4s ease";
-        text.innerText = "";
+        text.style.animation = "fadeOut 0.1s ease";
+        star1.style.animation = "fadeOut 0.1s ease";
         setTimeout(() => {
-          button1.style.display = "none";
-          button2.style.display = "flex";
-          button1.style.animation = "none";
-          
-        }, 300);
+          button1.style.animation = "button-course 0.4s ease";
+          text.innerText = "";
+          star1.style.display = "none";
+          setTimeout(() => {
+            star2.style.display = "block";
+            star1.style.animation = "none";
+            button1.style.display = "none";
+            button1.style.animation = "none";
+            button2.style.display = "flex";
+            text.style.animation = "none";
+          }, 300);
+        }, 50);
       });
 
       button2.addEventListener("click", function () {
-        button2.style.animation = "button-favorite 0.4s ease";
-        text.innerText = "Поступить на курс";
-        setTimeout(() => {
-          button2.style.display = "none";
-          button1.style.display = "flex";
-          button2.style.animation = "none";
-          
-        }, 300);
+        modal.style.display = "block";
+        noButton.addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+
+        window.onclick = function (event) {
+          if (event.target == document.getElementById("modal")) {
+            document.getElementById("modal").style.display = "none";
+          }
+        };
+
+        yesButton.addEventListener("click", function () {
+          modal.style.display = "none";
+          setTimeout(() => {
+            star2.style.animation = "fadeOut 0.1s ease";
+            setTimeout(() => {
+              button2.style.animation = "button-favorite 0.3s ease";
+              star2.style.display = "none";
+              setTimeout(() => {
+                text.style.animation = "fadeIn 0.1s ease";
+                star1.style.animation = "fadeIn 0.1s ease";
+                text.innerText = "Поступить на курс";
+                star1.style.display = "block";
+                button2.style.display = "none";
+                button1.style.display = "flex";
+                button2.style.animation = "none";
+                setTimeout(() => {
+                  star1.style.animation = "none";
+                  star2.style.animation = "none";
+                  text.style.animation = "none";
+                }, 100);
+              }, 300);
+            }, 100);
+          }, 50);
+        });
       });
     </script>
   </body>

@@ -601,8 +601,8 @@ body {
   width: auto;
   height: 22px;
   text-align: center;
-  /* margin-right: 6px;
-  margin-left: auto; */
+  margin-right: 6px;
+  margin-left: auto;
 
   font: 600 17px/1 Inter, sans-serif;
   font-style: normal;
@@ -671,23 +671,10 @@ body {
   }
 }
 
-@keyframes svg-star1 {
-  0% {
-    fill: none;
-    stroke: white;
-  }
-  100% {
-    fill: #1468b1;
-    stroke: none;
-  }
-}
-
 .course-block-button-favorite {
   display: none;
   justify-content: center;
   align-items: center;
-  /* right: 0px; */
-  /* align-self: flex-end; */
   margin-left: auto;
   margin-right: 10px;
   -webkit-tap-highlight-color: transparent;
@@ -698,6 +685,102 @@ body {
   margin-bottom: 10px;
   background-color: rgba(20, 104, 177, 0.15);
   border-radius: 8px;
+}
+
+.course-block-button-favorite-icon {
+  align-self: center;
+  justify-self: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  align-content: center;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background-color: #fefefe;
+  padding: 20px;
+  margin-bottom: 200px;
+  
+  width: fit-content;
+  border-radius: 15px;
+}
+
+.modal-content-text {
+  width: 100%;
+  height: 15px;
+  top: 0;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  font: 500 17px/1 Inter, sans-serif;
+  text-align: center;
+  font-style: normal;
+  line-height: 15px;
+  letter-spacing: -0.43px;
+
+  color: #000000;
+}
+
+.modal-content-buttons {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.modal-content-buttons-yes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  width: 60px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: auto;
+  background-color: #1468b1;
+  border-radius: 15px;
+
+  font: 600 15px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: 0px;
+
+  color: #ffffff;
+}
+
+.modal-content-buttons-no {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  width: 60px;
+  height: 30px;
+  margin-right: auto;
+  margin-left: 5px;
+  background-color: #1468b1;
+  border-radius: 15px;
+
+  font: 600 15px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: 0px;
+
+  color: #ffffff;
 }
 
 /*Отключение отображения прокрутки*/
