@@ -91,8 +91,6 @@
           </div>
         </div>
       </a> -->
-      
-      
     </div>
 
     <div
@@ -257,13 +255,16 @@
       </a>
     </div>
   </body>
+  
+  
+
   <script>
     window.onload = function () {
       document.getElementById("preloader").style.display = "none";
     };
 
-    var referrer = document.referrer.split('/').pop();
-    
+    var referrer = document.referrer.split("/").pop();
+
     if (referrer == "course.html") {
       var title = document.getElementById("title");
       var catalogTab = document.getElementById("active");
@@ -272,6 +273,7 @@
       catalogTab.style.color = "#ffffff";
     }
   </script>
-
+  
   <script src="courses.js"></script>
+  
 </html>
