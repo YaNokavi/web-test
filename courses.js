@@ -1,6 +1,6 @@
 var referrer = document.referrer.split("/").pop();
 
-if (referrer == "course.html") {
+if (referrer == `${course.id}.html`) {
   var title = document.getElementById("title");
   var catalogTab = document.getElementById("active");
   title.style.animation = "none";
