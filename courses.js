@@ -69,15 +69,13 @@ function displayCourses() {
 fetchCourses();
 
 var refer = document.referrer.split("/").pop();
-console.log(refer);
+
 for (let id in coursesData) {
-  if (refer == `courses/${coursesData[id].id}.html`) {
-    console.log(coursesData[id].id);
+  if (refer == `${coursesData[id].id}.html`) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
     title.style.animation = "none";
     catalogTab.style.animation = "none";
     catalogTab.style.color = "#ffffff";
-    
   }
 }
