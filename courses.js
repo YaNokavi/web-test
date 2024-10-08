@@ -70,8 +70,8 @@ fetchCourses();
 
 var refer = document.referrer.split("/").pop();
 
-for (let id in coursesData) {
-  if (refer == `${coursesData[id].id}.html`) {
+for (let key in coursesData) {
+  if (refer == `${coursesData[key].id}.html`) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
     title.style.animation = "none";
