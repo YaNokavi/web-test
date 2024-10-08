@@ -69,9 +69,9 @@ function displayCourses() {
 fetchCourses();
 
 var refer = document.referrer.split("/").pop();
-
+console.log(refer);
 for (let id in coursesData) {
-  if (refer == `${coursesData[id].id}-course.html`) {
+  if (refer == `courses/${coursesData[id].id}.html`) {
     console.log(coursesData[id].id);
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
