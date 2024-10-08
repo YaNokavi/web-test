@@ -78,5 +78,6 @@ for (let id in coursesData) {
     title.style.animation = "none";
     catalogTab.style.animation = "none";
     catalogTab.style.color = "#ffffff";
+    
   }
 }
