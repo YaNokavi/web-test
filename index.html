@@ -250,6 +250,8 @@
       document.getElementById("preloader").style.display = "none";
     };
 
+    localStorage.clear();
+
     let tg = window.Telegram.WebApp;
 
     tg.setHeaderColor("#1468B1");
@@ -265,6 +267,7 @@
 
     tg.enableClosingConfirmation();
 
+    
     // document
     //   .getElementById("tab")
     //   .addEventListener("click", function () {

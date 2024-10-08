@@ -8,23 +8,42 @@ if (referrer == "course.html") {
   catalogTab.style.color = "#ffffff";
 }
 
-var xhr = new XMLHttpRequest();
-// request.open("POST", "http://blabl/hello?userId=1");
 // request.send(`${tg.initDataUnsafe.user.id}`);
 
-xhr.open("GET", "https://cryptuna-anderm.amvera.io/course/all");
+let coursesData = [];
 
-xhr.send();
+async function fetchCourses() {
+  const cachedCourses = localStorage.getItem("coursesData");
 
-xhr.onload = function () {
-  if (xhr.status === 200) {
-    const courses = JSON.parse(xhr.responseText);
-    const coursesDiv = document.getElementById("courses");
-    courses.forEach((course) => {
-      const courseElement = document.createElement("a");
-      courseElement.href = `courses/${course.id}.html`;
-      courseElement.classList.add("courses-block");
-      courseElement.innerHTML = `
+  if (cachedCourses) {
+    // Если данные есть, парсим их и сохраняем в переменной
+    coursesData = JSON.parse(cachedCourses);
+    displayCourses(); // Отображаем курсы
+  } else {
+    try {
+      const response = await fetch(
+        "https://cryptuna-anderm.amvera.io/course/all"
+      );
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+      }
+      coursesData = await response.json(); // Сохраняем данные в переменной
+      localStorage.setItem("coursesData", JSON.stringify(coursesData));
+      displayCourses(); // Вызываем функцию для отображения курсов
+    } catch (error) {
+      console.error("Ошибка при получении курсов:", error);
+    }
+  }
+}
+
+function displayCourses() {
+  const coursesDiv = document.getElementById("courses");
+  coursesDiv.innerHTML = "";
+  coursesData.forEach((course) => {
+    const courseElement = document.createElement("a");
+    courseElement.href = `courses/${course.id}.html`;
+    courseElement.classList.add("courses-block");
+    courseElement.innerHTML = `
             <div class="courses-logo"
           style="background-image: url(icons/logo_cuna.jpg)"></div>
             <div class="courses-block-text">
@@ -51,15 +70,10 @@ xhr.onload = function () {
           </div>
         </div>
         `;
-      coursesDiv.append(courseElement);
+    coursesDiv.append(courseElement);
 
-      localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
-    });
-  } else {
-    console.error("Ошибка при получении курсов:", xhr.statusText);
-  }
-};
+    localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
+  });
+}
 
-xhr.onerror = function () {
-  console.error("Ошибка сети.");
-};
+fetchCourses();

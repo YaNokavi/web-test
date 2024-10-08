@@ -37,6 +37,7 @@ button1.addEventListener("click", function () {
       text.style.animation = "none";
     }, 300);
   }, 50);
+
 });
 
 button2.addEventListener("click", function () {
