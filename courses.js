@@ -1,3 +1,13 @@
+var referrer = document.referrer.split("/").pop();
+
+if (referrer == "course.html") {
+  var title = document.getElementById("title");
+  var catalogTab = document.getElementById("active");
+  title.style.animation = "none";
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
+}
+
 var xhr = new XMLHttpRequest();
 // request.open("POST", "http://blabl/hello?userId=1");
 // request.send(`${tg.initDataUnsafe.user.id}`);
@@ -53,5 +63,3 @@ xhr.onload = function () {
 xhr.onerror = function () {
   console.error("Ошибка сети.");
 };
-
-    
