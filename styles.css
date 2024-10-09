@@ -660,8 +660,8 @@ body {
     margin-right: 60%;
   } */
   100% {
-    transform-origin: right, 0, 0;
-    transform: translate3d(calc(63vw - 100%), 0, 0);
+    /* transform-origin: right, 0, 0; */
+    transform: translate3d(45.7vw, 0, 0);
     width: 40px;
     /* margin-left: auto; */
     border-radius: 8px;
