@@ -1,23 +1,30 @@
-let coursesData = [];
+let favoriteCoursesData = [];
 
 async function fetchCourses() {
-  const cachedCourses = localStorage.getItem("coursesData");
+  const cachedCourses = localStorage.getItem("favoriteCoursesData");
 
   if (cachedCourses) {
     // Если данные есть, парсим их и сохраняем в переменной
-    coursesData = JSON.parse(cachedCourses);
+    favoriteCoursesData = JSON.parse(cachedCourses);
     displayCourses(); // Отображаем курсы
   } else {
     try {
       const response = await fetch(
-        "https://cryptuna-anderm.amvera.io/course/all"
+        "https://"
       );
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }
-      coursesData = await response.json(); // Сохраняем данные в переменной
-      localStorage.setItem("coursesData", JSON.stringify(coursesData));
-      displayCourses(); // Вызываем функцию для отображения курсов
+      favoriteCoursesData = await response.json(); // Сохраняем данные в переменной
+      if (favoriteCoursesData != null) {
+        localStorage.setItem(
+          "favoriteCoursesData",
+          JSON.stringify(favoriteCoursesData)
+        );
+        displayCourses(); // Вызываем функцию для отображения курсов
+      } else {
+        displayButton();
+      }
     } catch (error) {
       console.error("Ошибка при получении курсов:", error);
     }
@@ -25,7 +32,7 @@ async function fetchCourses() {
 }
 
 function displayCourses() {
-  const coursesDiv = document.getElementById("courses");
+  const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
   coursesData.forEach((course) => {
     const courseElement = document.createElement("a");
@@ -64,16 +71,35 @@ function displayCourses() {
   });
 }
 
-fetchCourses();
-
-var refer = document.referrer.split("/").pop();
-
-for (let key in coursesData) {
-  if (refer == `${coursesData[key].id}.html`) {
-    var title = document.getElementById("title");
-    var catalogTab = document.getElementById("active");
-    title.style.animation = "none";
-    catalogTab.style.animation = "none";
-    catalogTab.style.color = "#ffffff";
-  }
+function displayButton() {
+  const coursesDiv = document.getElementById("favorite-courses");
+  coursesDiv.innerHTML = "";
+  const courseElement = "";
+  courseElement.innerHTML = `
+            <div class="favorite-courses-enable">
+        <div class="favorite-courses-enable-title">У вас еще нет курсов</div>
+        <a href="catalog.html" class="favorite-courses-enable-button">
+          <div class="favorite-courses-enable-button-text">Добавить курс</div>
+          <svg
+            class="favorite-courses-enable-button-icon"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.9998 7V15M6.99959 11H15M21.0003 11C21.0003 16.5228 16.523 21 10.9998 21C5.47666 21 0.999268 16.5228 0.999268 11C0.999268 5.47715 5.47666 1 10.9998 1C16.523 1 21.0003 5.47715 21.0003 11Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+      </div>
+        `;
+  coursesDiv.append(courseElement);
 }
+
+fetchCourses();
