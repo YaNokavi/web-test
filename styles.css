@@ -1,11 +1,16 @@
 body {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   margin: 0;
   height: 100vh;
+  width: 100vw;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+:root {
+  --widht-index: ()
 }
 /*Заголовок страницы*/
 .profile-header {
@@ -34,9 +39,11 @@ body {
 .main-block {
   display: flex;
   position: relative;
+  box-sizing: border-box;
   margin-top: 38px;
   margin-bottom: 82px;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   flex-grow: 1;
   text-align: center;
   align-items: center;
@@ -492,16 +499,18 @@ body {
 }
 
 .course-block {
-  /* position: relative;
-  box-sizing: border-box; */
+  position: relative;
+  box-sizing: border-box;
 
   animation: ani 0.4s forwards;
   display: flex;
   flex-direction: column;
 
   margin-top: 10px;
-  width: 95%;
+  width: 95vw;
   height: auto;
+  min-height: 188px;
+  
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -583,6 +592,8 @@ body {
 
 .course-block-button {
   display: flex;
+  position: absolute;
+  bottom: 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -597,6 +608,9 @@ body {
   background-color: #1468b1;
   border-radius: 15px;
   will-change: width, transform, background-color, border-radius, margin-right;
+  /* animation: button-course 2s forwards; */
+  
+  /* transform: translate3d(calc(35.5vw), 0, 0); */
 }
 
 .course-block-button-text {
@@ -649,6 +663,7 @@ body {
 
 @keyframes button-course {
   0% {
+    transform: translate3d(0, 0, 0);
     width: 250px;
     border-radius: 15px;
     background-color: #1468b1;
@@ -659,14 +674,15 @@ body {
     margin-left: 60%;
     margin-right: 60%;
   } */
+
   100% {
-    /* transform-origin: right, 0, 0; */
-    transform: translate3d(45.7vw, 0, 0);
+    /* transform-origin: 100%; */
+    transform: translate3d(45vw, 0, 0);
     width: 40px;
     /* margin-left: auto; */
     border-radius: 8px;
     background-color: rgba(20, 104, 177, 0.15);
-    margin-right: 10px;
+    /* margin-right: 10px; */
   }
 }
 
