@@ -59,7 +59,7 @@
     <div class="main-block">
       <div class="profile-first-block">
         <div class="profile-logo profile-logo-name"></div>
-        <div class="profile-userid">User ID: </div>
+        <div class="profile-userid">User ID:</div>
         <div class="profile-nickname"></div>
         <div class="profile-balance-info-block">
           <div class="profile-balance-block">
@@ -264,32 +264,6 @@
         document.getElementById("preloader").style.display = "none";
       };
 
-      var userIdData = sessionStorage.getItem("userIdData");
-      var logoName = sessionStorage.getItem("logoname");
-      var userName = sessionStorage.getItem("username");
-
-      var userIdProfile = document.querySelector(".profile-userid");
-      var logoNameProfile = document.querySelector(
-        ".profile-logo.profile-logo-name"
-      );
-      var userNameProfile = document.querySelector(".profile-nickname");
-
-      userIdProfile.innerText += userIdData;
-      logoNameProfile.innerText = logoName;
-      if (userName.length <= 15) {
-        userNameProfile.style.fontSize = "30px";
-        userNameProfile.innerText = userName;
-      } else if (userName.length > 15 && userName.length < 19) {
-        userNameProfile.style.fontSize = "24px";
-        userNameProfile.innerText = userName;
-      } else if (userName.length >= 19) {
-        userName = userName.slice(0, -(userName.length - 17)) + "...";
-        userNameProfile.style.fontSize = "23px";
-        userNameProfile.innerText = userName;
-      }
-
-      // Сделать потом данные о количестве токенов у юзера
-
       var popup = document.querySelector(".popup");
       var popupBtn = document.getElementById("pop");
       var popupBtnSvg = document.getElementById("popu");
@@ -316,6 +290,32 @@
           }, 300);
         }
       });
+
+      var userIdData = sessionStorage.getItem("userIdData");
+      var logoName = sessionStorage.getItem("logoname");
+      var userName = sessionStorage.getItem("username");
+
+      var userIdProfile = document.querySelector(".profile-userid");
+      var logoNameProfile = document.querySelector(
+        ".profile-logo.profile-logo-name"
+      );
+      var userNameProfile = document.querySelector(".profile-nickname");
+
+      userIdProfile.innerText += userIdData;
+      logoNameProfile.innerText = logoName;
+      if (userName.length <= 15) {
+        userNameProfile.style.fontSize = "30px";
+        userNameProfile.innerText = userName;
+      } else if (userName.length > 15 && userName.length < 19) {
+        userNameProfile.style.fontSize = "24px";
+        userNameProfile.innerText = userName;
+      } else if (userName.length >= 19) {
+        userName = userName.slice(0, -(userName.length - 17)) + "...";
+        userNameProfile.style.fontSize = "23px";
+        userNameProfile.innerText = userName;
+      }
+
+      // Сделать потом данные о количестве токенов у юзера
     </script>
   </body>
 </html>

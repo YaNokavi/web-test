@@ -1,16 +1,11 @@
 body {
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
   margin: 0;
   height: 100vh;
-  width: 100vw;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-
-:root {
-  --widht-index: ()
 }
 /*Заголовок страницы*/
 .profile-header {
@@ -42,8 +37,7 @@ body {
   box-sizing: border-box;
   margin-top: 38px;
   margin-bottom: 82px;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
   flex-grow: 1;
   text-align: center;
   align-items: center;
@@ -507,10 +501,8 @@ body {
   flex-direction: column;
 
   margin-top: 10px;
-  width: 95vw;
+  width: 95%;
   height: auto;
-  min-height: 188px;
-  
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -592,8 +584,6 @@ body {
 
 .course-block-button {
   display: flex;
-  position: absolute;
-  bottom: 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -604,13 +594,9 @@ body {
   width: 250px;
   height: 40px;
   margin-bottom: 10px;
-  /* margin-right: 0px; */
   background-color: #1468b1;
   border-radius: 15px;
-  will-change: width, transform, background-color, border-radius, margin-right;
-  /* animation: button-course 2s forwards; */
-  
-  /* transform: translate3d(calc(35.5vw), 0, 0); */
+  will-change: width, background-color, border-radius;
 }
 
 .course-block-button-text {
@@ -648,7 +634,8 @@ body {
    70% { 
     margin-left: 55%;
     margin-right: 55%;
-    align-self: center; 
+    width: 250px;
+    align-self: center;
   } 
 
   100% {
@@ -656,33 +643,29 @@ body {
     border-radius: 15px;
     background-color: #1468b1;
     margin-right: 100%;
-    align-self: center;
     margin-left: 100%;
   }
 }
 
 @keyframes button-course {
   0% {
-    transform: translate3d(0, 0, 0);
     width: 250px;
     border-radius: 15px;
     background-color: #1468b1;
-    /* margin-right: 100%;
-    margin-left: 100%; */
+    align-self: center;
+    margin-right: 100%;
+    margin-left: 100%;
   }
-  /* 30% {
+  30% {
     margin-left: 60%;
     margin-right: 60%;
-  } */
-
+  }
   100% {
-    /* transform-origin: 100%; */
-    transform: translate3d(45vw, 0, 0);
     width: 40px;
-    /* margin-left: auto; */
+    margin-left: auto;
     border-radius: 8px;
     background-color: rgba(20, 104, 177, 0.15);
-    /* margin-right: 10px; */
+    margin-right: 10px;
   }
 }
 
@@ -700,7 +683,7 @@ body {
   margin-bottom: 10px;
   background-color: rgba(20, 104, 177, 0.15);
   border-radius: 8px;
-  will-change: width, transform, background-color, border-radius, margin-right;
+  will-change: width, background-color, border-radius;
 }
 
 .course-block-button-favorite-icon {

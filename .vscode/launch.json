@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/andrejbelov/Desktop/NewFolder.1/Pr1/Core/Src",
+      "program": "/Users/andrejbelov/Desktop/NewFolder.1/Pr1/Core/Src/build/Debug/outDebug"
+    }
+  ]
+}
