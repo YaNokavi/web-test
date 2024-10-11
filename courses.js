@@ -78,5 +78,3 @@ for (let key in coursesData) {
     catalogTab.style.color = "#ffffff";
   }
 }
-
-document.getElementById("preloader").style.display = "none";
