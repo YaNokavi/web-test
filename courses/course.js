@@ -139,7 +139,7 @@ button2.addEventListener("click", function () {
   yesButton.addEventListener("click", function () {
     modal.style.display = "none";
     setTimeout(() => {
-      star2.style.animation = "fadeOut 1000ms ease";
+      star2.style.animation = "fadeOut 10ms ease";
       setTimeout(() => {
         button2.style.animation =
           "button-favorite 0.6s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
@@ -158,7 +158,7 @@ button2.addEventListener("click", function () {
             text.style.animation = "none";
           }, 10);
         }, 500);
-      }, 100);
-    }, 10);
+      }, 10);
+    }, 50);
   });
 });

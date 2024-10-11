@@ -616,8 +616,8 @@ body {
 }
 
 .course-block-button-icon {
-  align-self: center;
-  justify-self: center;
+  /* align-self: center;
+  justify-self: center; */
   margin-left: 6px;
   margin-right: auto;
 }
