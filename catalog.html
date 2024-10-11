@@ -37,6 +37,14 @@
     <title>Cryptuna</title>
 
     <link rel="stylesheet" type="text/css" href="styles.css" />
+
+    <script>
+      window.onload = function () {
+        setTimeout(() => {
+          document.getElementById("preloader").style.display = "none";
+        }, 500);
+      };
+    </script>
   </head>
 
   <body>
@@ -255,13 +263,6 @@
       </a>
     </div>
   </body>
-  <script>
-    window.onload = function () {
-      setTimeout(() => {
-      document.getElementById("preloader").style.display = "none";
-      }, 500);
-    };
-  </script>
 
   <script src="courses.js"></script>
 </html>
