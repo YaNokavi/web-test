@@ -139,14 +139,14 @@ button2.addEventListener("click", function () {
   yesButton.addEventListener("click", function () {
     modal.style.display = "none";
     setTimeout(() => {
-      star2.style.animation = "fadeOut 10ms ease";
+      star2.style.animation = "fadeOut 100ms ease";
       setTimeout(() => {
         button2.style.animation =
-          "button-favorite 0.6s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
+          "button-favorite 0.5s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
         star2.style.display = "none";
         setTimeout(() => {
-          text.style.animation = "fadeIn 10ms ease";
-          star1.style.animation = "fadeIn 10ms ease";
+          text.style.animation = "fadeIn 50ms ease";
+          star1.style.animation = "fadeIn 50ms ease";
           text.innerText = "Поступить на курс";
           star1.style.display = "block";
           button2.style.display = "none";
@@ -157,8 +157,8 @@ button2.addEventListener("click", function () {
             star2.style.animation = "none";
             text.style.animation = "none";
           }, 10);
-        }, 500);
-      }, 10);
-    }, 50);
+        }, 450);
+      }, 50);
+    }, 10);
   });
 });

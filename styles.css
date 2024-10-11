@@ -631,10 +631,9 @@ body {
     margin-right: 10px;
   }
 
-   70% { 
-    margin-left: 55%;
-    margin-right: 55%;
-    width: 220px;
+   95% { 
+    margin-left: 45%;
+    margin-right: 45%;
     align-self: center;
   } 
 
@@ -644,6 +643,7 @@ body {
     background-color: #1468b1;
     margin-right: 100%;
     margin-left: 100%;
+    align-self: center;
   }
 }
 
