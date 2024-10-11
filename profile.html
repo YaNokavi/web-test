@@ -63,7 +63,7 @@
         <div class="profile-nickname"></div>
         <div class="profile-balance-info-block">
           <div class="profile-balance-block">
-            <div class="profile-balance-block-text">1000</div>
+            <div class="profile-balance-block-text" id="balance"></div>
             <div class="profile-balance-block-logo"></div>
           </div>
           <div class="profile-balance-block-info" id="pop">
@@ -260,10 +260,6 @@
     </div>
 
     <script>
-      window.onload = function () {
-        document.getElementById("preloader").style.display = "none";
-      };
-
       var popup = document.querySelector(".popup");
       var popupBtn = document.getElementById("pop");
       var popupBtnSvg = document.getElementById("popu");
@@ -294,13 +290,16 @@
       var userIdData = sessionStorage.getItem("userIdData");
       var logoName = sessionStorage.getItem("logoname");
       var userName = sessionStorage.getItem("username");
+      var balanceUser = localStorage.getItem("balance");
 
+      var balanceText = document.getElementById("balance");
       var userIdProfile = document.querySelector(".profile-userid");
       var logoNameProfile = document.querySelector(
         ".profile-logo.profile-logo-name"
       );
       var userNameProfile = document.querySelector(".profile-nickname");
 
+      balanceText.innerText = JSON.parse(balanceUser).balance;
       userIdProfile.innerText += userIdData;
       logoNameProfile.innerText = logoName;
       if (userName.length <= 15) {
@@ -316,6 +315,12 @@
       }
 
       // Сделать потом данные о количестве токенов у юзера
+    </script>
+
+    <script>
+      window.onload = function () {
+        document.getElementById("preloader").style.display = "none";
+      };
     </script>
   </body>
 </html>

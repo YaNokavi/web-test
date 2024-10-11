@@ -2,7 +2,7 @@ const number = document.location.href.split("/").pop().slice(0, -5);
 const courseInfo = JSON.parse(localStorage.getItem(`${number}-course`));
 
 var userid = sessionStorage.getItem("userIdData");
-const data = { id: userid, idCourse: number };
+const data = { userId: userid, courseId: number };
 
 const courseElement = document.getElementById("info");
 courseElement.innerHTML = `
@@ -23,9 +23,6 @@ const star2 = document.getElementById("star2");
 const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
-
-// const courseBlock = document.querySelector(".course-block");
-
 // button1.addEventListener("click", function () {
 //   text.style.animation = "fadeOut 50ms ease";
 //   star1.style.animation = "fadeOut 50ms ease";
@@ -106,23 +103,30 @@ button1.addEventListener("click", function () {
       text.style.animation = "none";
     }, 400);
   }, 10);
-  async function postData(url = "", data = {}) {
-    try {
-      const response = await fetch(url, {
+
+  postDataAdd();
+});
+
+async function postDataAdd() {
+  try {
+    const data = { userId: userid, courseId: number };
+    const response = await fetch(
+      "https://cryptuna-anderm.amvera.io/course/favorite/add",
+      {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
-      });
-      const json = await response.json();
-      console.log("Успех:", JSON.stringify(json));
-    } catch (error) {
-      console.error("Ошибка:", error);
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+  } catch (error) {
+    console.error("Ошибка:", error);
   }
-  postData("https://", data);
-});
+}
 
 button2.addEventListener("click", function () {
   modal.style.display = "block";
@@ -161,5 +165,26 @@ button2.addEventListener("click", function () {
       }, 50);
     }, 10);
   });
+  postDataDis();
 });
 
+async function postDataDis() {
+  try {
+    const data = { userId: userid, courseId: number };
+    const response = await fetch(
+      "https://cryptuna-anderm.amvera.io/course/favorite/add",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Ошибка:", error);
+  }
+}

@@ -1,26 +1,32 @@
-let favoriteCoursesData = [];
+let userInfo = [];
+// var userid = sessionStorage.getItem("userIdData");
 
 async function fetchCourses() {
-  const cachedCourses = localStorage.getItem("favoriteCoursesData");
+  const cachedCourses = localStorage.getItem("userInfo");
 
   if (cachedCourses) {
     // Если данные есть, парсим их и сохраняем в переменной
-    favoriteCoursesData = JSON.parse(cachedCourses);
+    userInfo = JSON.parse(cachedCourses);
     displayCourses(); // Отображаем курсы
   } else {
     try {
       const response = await fetch(
-        "https://"
+        `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`
       );
+      
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }
-      favoriteCoursesData = await response.json(); // Сохраняем данные в переменной
-      if (favoriteCoursesData != null) {
+      userInfo = await response.json(); // Сохраняем данные в переменной
+      console.log(userInfo);
+      if (userInfo != null) {
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        localStorage.setItem("balance", JSON.stringify(userInfo, ["balance"]));
         localStorage.setItem(
-          "favoriteCoursesData",
-          JSON.stringify(favoriteCoursesData)
+          "favoriteCourses",
+          JSON.stringify(userInfo, ["favoriteCourses"])
         );
+        // localStorage.setItem("refetall")
         displayCourses(); // Вызываем функцию для отображения курсов
       } else {
         displayButton();
@@ -34,7 +40,9 @@ async function fetchCourses() {
 function displayCourses() {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
-  coursesData.forEach((course) => {
+  const favoriteCourses = userInfo["favoriteCourses"];
+  console.log(favoriteCourses);
+  favoriteCourses.forEach((course) => {
     const courseElement = document.createElement("a");
     courseElement.href = `courses/${course.id}.html`;
     courseElement.classList.add("courses-block");

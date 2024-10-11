@@ -1,5 +1,4 @@
 let coursesData = [];
-console.log(coursesData);
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("coursesData");

@@ -56,8 +56,8 @@
       <div class="profile-title">Мои курсы</div>
     </div>
 
-    <div class="main-block">
-      <div class="favorite-courses-enable">
+    <div class="main-block" id="favorite-courses">
+      <!-- <div class="favorite-courses-enable">
         <div class="favorite-courses-enable-title">У вас еще нет курсов</div>
         <a href="catalog.html" class="favorite-courses-enable-button">
           <div class="favorite-courses-enable-button-text">Добавить курс</div>
@@ -78,7 +78,7 @@
             />
           </svg>
         </a>
-      </div>
+      </div> -->
     </div>
 
     <div
@@ -244,21 +244,19 @@
     </div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <script>
-      window.onload = function () {
-        document.getElementById("preloader").style.display = "none";
-      };
-
-      localStorage.clear();
-
       let tg = window.Telegram.WebApp;
 
       tg.setHeaderColor("#1468B1");
       tg.expand();
 
       var userIdData = `${tg.initDataUnsafe.user.id}`;
+      // var userIdData = 1;
       var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
       var username = `${tg.initDataUnsafe.user.username}`;
+      // var logoname = "`${tg.initDataUnsafe.user.username}`[0].toUpperCase()";
+      // var username = "`${tg.initDataUnsafe.user.username}`";
 
       sessionStorage.setItem("userIdData", userIdData);
       sessionStorage.setItem("logoname", logoname);
@@ -266,11 +264,24 @@
 
       tg.enableClosingConfirmation();
 
+      localStorage.clear();
+    </script>
+
+    <!-- <script>
+      
       // document
       //   .getElementById("tab")
       //   .addEventListener("click", function () {
       //     tg.HapticFeedback.impactOccurred("light");
       //   });
+    </script> -->
+
+    <script src="favorite.js"></script>
+
+    <script>
+      window.onload = function () {
+        document.getElementById("preloader").style.display = "none";
+      };
     </script>
   </body>
 </html>
