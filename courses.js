@@ -3,9 +3,13 @@ console.log(coursesData);
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("coursesData");
+  window.onload = function () {
+    document.getElementById("preloader").style.display = "none";
+  };
   if (cachedCourses) {
     // Если данные есть, парсим их и сохраняем в переменной
     coursesData = JSON.parse(cachedCourses);
+    
     displayCourses(); // Отображаем курсы
   } else {
     try {
@@ -17,17 +21,16 @@ async function fetchCourses() {
       }
       coursesData = await response.json(); // Сохраняем данные в переменной
       localStorage.setItem("coursesData", JSON.stringify(coursesData));
+      
       displayCourses(); // Вызываем функцию для отображения курсов
     } catch (error) {
       console.error("Ошибка при получении курсов:", error);
     }
   }
+
 }
 
 function displayCourses() {
-  window.onload = function () {
-    document.getElementById("preloader").style.display = "none";
-  };
   const coursesDiv = document.getElementById("courses");
   coursesDiv.innerHTML = "";
   coursesData.forEach((course) => {
