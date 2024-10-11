@@ -26,7 +26,7 @@ async function fetchCourses() {
   }
 }
 
-async function displayCourses() {
+function displayCourses() {
   const coursesDiv = document.getElementById("courses");
   coursesDiv.innerHTML = "";
   coursesData.forEach((course) => {
@@ -34,8 +34,8 @@ async function displayCourses() {
     courseElement.href = `courses/${course.id}.html`;
     courseElement.classList.add("courses-block");
     courseElement.innerHTML = `
-            <div class="courses-logo"
-          style="background-image: url(icons/logo_cuna.jpg)"></div>
+
+          <img src="/icons/logo_cuna.jpg" class="courses-logo" />
             <div class="courses-block-text">
           <div class="courses-block-name">${course.name}</div>
           <div class="courses-block-description">
