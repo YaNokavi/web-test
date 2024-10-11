@@ -1,8 +1,11 @@
 let coursesData = [];
+console.log(coursesData);
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("coursesData");
-
+  window.onload = function () {
+    document.getElementById("preloader").style.display = "none";
+  };
   if (cachedCourses) {
     // Если данные есть, парсим их и сохраняем в переменной
     coursesData = JSON.parse(cachedCourses);
@@ -77,8 +80,3 @@ for (let key in coursesData) {
     catalogTab.style.color = "#ffffff";
   }
 }
-
-
-window.onload = function () {
-  document.getElementById("preloader").style.display = "none";
-};
