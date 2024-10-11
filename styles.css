@@ -591,7 +591,7 @@ body {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 250px;
+  width: 220px;
   height: 40px;
   margin-bottom: 10px;
   background-color: #1468b1;
@@ -616,8 +616,8 @@ body {
 }
 
 .course-block-button-icon {
-  /* align-self: center;
-  justify-self: center; */
+  align-self: center;
+  justify-self: center;
   margin-left: 6px;
   margin-right: auto;
 }
@@ -634,12 +634,12 @@ body {
    70% { 
     margin-left: 55%;
     margin-right: 55%;
-    width: 250px;
+    width: 220px;
     align-self: center;
   } 
 
   100% {
-    width: 250px;
+    width: 220px;
     border-radius: 15px;
     background-color: #1468b1;
     margin-right: 100%;
@@ -649,7 +649,7 @@ body {
 
 @keyframes button-course {
   0% {
-    width: 250px;
+    width: 220px;
     border-radius: 15px;
     background-color: #1468b1;
     align-self: center;
