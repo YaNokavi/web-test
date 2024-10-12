@@ -14,7 +14,7 @@ async function fetchCourses() {
       `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`,
       {
         headers: {
-          RqUid: crypto.randomUUID,
+          "RqUid": crypto.randomUUID,
         },
       }
     );
