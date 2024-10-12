@@ -4,6 +4,19 @@ const courseInfo = JSON.parse(localStorage.getItem(`${number}-course`));
 var userid = sessionStorage.getItem("userIdData");
 const data = { userId: userid, courseId: number };
 
+var info = localStorage.getItem("userInfo");
+if (info) {
+  try {
+    var parsedInfo = JSON.parse(info);
+    var courses = parsedInfo.favoriteCourses || []; // Возвращает пустой массив, если favoriteCourses не существует
+    var idCourse = courses.map((course) => course.id);
+  } catch (error) {
+    console.error("Ошибка при парсинге JSON:", error);
+  }
+} else {
+  console.log("Данные не найдены в localStorage.");
+}
+
 const courseElement = document.getElementById("info");
 courseElement.innerHTML = `
             <div class="course-block-author">Автор: @${courseInfo.author}</div>
@@ -23,68 +36,25 @@ const star2 = document.getElementById("star2");
 const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
-// button1.addEventListener("click", function () {
-//   text.style.animation = "fadeOut 50ms ease";
-//   star1.style.animation = "fadeOut 50ms ease";
-//   document.documentElement.style.setProperty(
-//     "--course-block-width",
-//     `${courseBlock.offsetWidth}px`
-//   );
 
-//   setTimeout(() => {
-//     button1.style.animation =
-//       "button-course 1.4s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
-//     text.innerText = "";
-//     star1.style.display = "none";
-//     setTimeout(() => {
-//       star2.style.display = "block";
-//       star1.style.animation = "none";
-//       button1.style.display = "none";
-//       button1.style.animation = "none";
-//       button2.style.display = "flex";
-//       text.style.animation = "none";
-//     }, 1400);
-//   }, 50);
-// });
-
-// button2.addEventListener("click", function () {
-//   modal.style.display = "block";
-//   noButton.addEventListener("click", function () {
-//     modal.style.display = "none";
-//   });
-
-//   document.addEventListener("click", function (event) {
-//     if (event.target === modal) {
-//       modal.style.display = "none";
-//     }
-//   });
-
-//   yesButton.addEventListener("click", function () {
-//     modal.style.display = "none";
-//     setTimeout(() => {
-//       star2.style.animation = "fadeOut 0.1s ease";
-//       setTimeout(() => {
-//         button2.style.animation =
-//           "button-favorite 0.5s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
-//         star2.style.display = "none";
-//         setTimeout(() => {
-//           text.style.animation = "fadeIn 0.1s ease";
-//           star1.style.animation = "fadeIn 0.1s ease";
-//           text.innerText = "Поступить на курс";
-//           star1.style.display = "block";
-//           button2.style.display = "none";
-//           button1.style.display = "flex";
-//           button2.style.animation = "none";
-//           setTimeout(() => {
-//             star1.style.animation = "none";
-//             star2.style.animation = "none";
-//             text.style.animation = "none";
-//           }, 100);
-//         }, 500);
-//       }, 100);
-//     }, 50);
-//   });
-// });
+if (idCourse == null) {
+  button1.style.display = "flex";
+  button2.style.display = "none";
+} else if (idCourse != null) {
+  for (let key in idCourse) {
+    if (idCourse[key] == number) {
+      button1.style.display = "none";
+      star1.style.display = "none";
+      button2.style.display = "flex";
+      star2.style.display = "block";
+    } else {
+      button1.style.display = "flex";
+      star1.style.display = "block";
+      button2.style.display = "none";
+      star2.style.display = "none";
+    }
+  }
+}
 
 button1.addEventListener("click", function () {
   text.style.animation = "fadeOut 10ms ease";
@@ -103,7 +73,6 @@ button1.addEventListener("click", function () {
       text.style.animation = "none";
     }, 400);
   }, 10);
-
   postDataAdd();
 });
 
