@@ -1,6 +1,5 @@
 let userInfo = [];
 var userid = localStorage.getItem("userIdData");
-// var userIdData = 2;
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("userInfo");

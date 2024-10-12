@@ -74,6 +74,7 @@ button1.addEventListener("click", function () {
     }, 400);
   }, 10);
   postDataAdd();
+  localStorage.setItem("infoCourse", courseInfo);
 });
 
 async function postDataAdd() {
