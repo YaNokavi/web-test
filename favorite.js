@@ -1,5 +1,6 @@
 let userInfo = [];
-// var userid = sessionStorage.getItem("userIdData");
+var userid = sessionStorage.getItem("userIdData");
+var userIdData = 1;
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("userInfo");
@@ -41,7 +42,6 @@ function displayCourses() {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
   const favoriteCourses = userInfo["favoriteCourses"];
-  console.log(favoriteCourses);
   favoriteCourses.forEach((course) => {
     const courseElement = document.createElement("a");
     courseElement.href = `courses/${course.id}.html`;
@@ -111,3 +111,17 @@ function displayButton() {
 }
 
 fetchCourses();
+
+var refer = document.referrer.split("/").pop();
+console.log(refer);
+
+for (let key in favoriteCourses) {
+  console.log(favoriteCourses[key].id);
+  if (refer == `${favoriteCourses[key].id}.html`) {
+    var title = document.getElementById("title");
+    var catalogTab = document.getElementById("active");
+    title.style.animation = "none";
+    catalogTab.style.animation = "none";
+    catalogTab.style.color = "#ffffff";
+  }
+}

@@ -157,3 +157,23 @@ async function postDataDis() {
     console.error("Ошибка:", error);
   }
 }
+
+var refer = document.referrer.split("/").pop();
+console.log(refer);
+
+var title = document.getElementById("title");
+var favorTab = document.getElementById("favor");
+var catalogTab = document.getElementById("catalog");
+var link = document.getElementById("ref");
+
+if (refer == "index.html" || refer == "favorite.html") {
+  link.href = "../favorite.html";
+  title.innerText = "Мои курсы"
+  favorTab.style.animation = "none";
+  favorTab.style.color = "#ffffff";
+} else if (refer == "catalog.html") {
+  link.href = "../catalog.html";
+  title.innerText = "Каталог"
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
+}

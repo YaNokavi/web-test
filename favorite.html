@@ -53,7 +53,7 @@
         user-select: none;
       "
     >
-      <div class="profile-title">Мои курсы</div>
+      <div class="profile-title" id="title">Мои курсы</div>
     </div>
 
     <div class="main-block" id="favorite-courses">
@@ -179,7 +179,7 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html" class="tab-item tab-item-active">
+      <a href="favorite.html" class="tab-item tab-item-active" id="active">
         <svg
           class="tab-icon"
           width="28"
@@ -246,6 +246,18 @@
     <script>
       var info = localStorage.getItem("userInfo");
       var courses = JSON.parse(info).favoriteCourses;
+      
+      var refer = document.referrer.split("/").pop();
+
+      for (let key in courses) {
+        if (refer == `${courses[key].id}.html`) {
+          var title = document.getElementById("title");
+          var catalogTab = document.getElementById("active");
+          title.style.animation = "none";
+          catalogTab.style.animation = "none";
+          catalogTab.style.color = "#ffffff";
+        }
+      }
 
       if (courses != null) {
         const coursesDiv = document.getElementById("favorite-courses");
