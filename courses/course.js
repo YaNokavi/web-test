@@ -1,7 +1,7 @@
 const number = document.location.href.split("/").pop().slice(0, -5);
 const courseInfo = JSON.parse(localStorage.getItem(`${number}-course`));
 
-var userid = sessionStorage.getItem("userIdData");
+var userid = localStorage.getItem("userIdData");
 const data = { userId: userid, courseId: number };
 
 var info = localStorage.getItem("userInfo");
@@ -78,15 +78,11 @@ button1.addEventListener("click", function () {
 
 async function postDataAdd() {
   try {
-    const data = { userId: userid, courseId: number };
+    // const data = { userId: userid, courseId: number };
     const response = await fetch(
-      "https://cryptuna-anderm.amvera.io/course/favorite/add",
+      `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/add?courseId=${number}`,
       {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     );
     if (!response.ok) {
@@ -134,20 +130,16 @@ button2.addEventListener("click", function () {
       }, 50);
     }, 10);
   });
-  postDataDis();
+  postDataRemove();
 });
 
-async function postDataDis() {
+async function postDataRemove() {
   try {
-    const data = { userId: userid, courseId: number };
+    // const data = { userId: userid, courseId: number };
     const response = await fetch(
-      "https://cryptuna-anderm.amvera.io/course/favorite/add",
+      `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/remove?courseId=${number}`,
       {
         method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     );
     if (!response.ok) {
@@ -159,7 +151,6 @@ async function postDataDis() {
 }
 
 var refer = document.referrer.split("/").pop();
-console.log(refer);
 
 var title = document.getElementById("title");
 var favorTab = document.getElementById("favor");

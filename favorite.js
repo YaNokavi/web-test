@@ -1,6 +1,6 @@
 let userInfo = [];
-var userid = sessionStorage.getItem("userIdData");
-var userIdData = 1;
+var userid = localStorage.getItem("userIdData");
+// var userIdData = 2;
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("userInfo");
@@ -12,15 +12,17 @@ async function fetchCourses() {
   } else {
     try {
       const response = await fetch(
-        `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`
+        `https://cryptuna-anderm.amvera.io/user/${userid}/info`
       );
-      
+
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }
       userInfo = await response.json(); // Сохраняем данные в переменной
-      console.log(userInfo);
-      if (userInfo != null) {
+
+      console.log(userInfo["favoriteCourses"]);
+
+      if (Object.keys(userInfo["favoriteCourses"]).length !== 0) {
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         localStorage.setItem("balance", JSON.stringify(userInfo, ["balance"]));
         localStorage.setItem(
@@ -28,7 +30,7 @@ async function fetchCourses() {
           JSON.stringify(userInfo, ["favoriteCourses"])
         );
         // localStorage.setItem("refetall")
-        displayCourses(); // Вызываем функцию для отображения курсов
+        displayCourses();
       } else {
         displayButton();
       }
@@ -82,9 +84,9 @@ function displayCourses() {
 function displayButton() {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
-  const courseElement = "";
-  courseElement.innerHTML = `
-            <div class="favorite-courses-enable">
+  const courseButton = document.createElement("div");
+  courseButton.classList.add("favorite-courses-enable");
+  courseButton.innerHTML = `
         <div class="favorite-courses-enable-title">У вас еще нет курсов</div>
         <a href="catalog.html" class="favorite-courses-enable-button">
           <div class="favorite-courses-enable-button-text">Добавить курс</div>
@@ -105,18 +107,16 @@ function displayButton() {
             />
           </svg>
         </a>
-      </div>
+
         `;
-  coursesDiv.append(courseElement);
+  coursesDiv.append(courseButton);
 }
 
 fetchCourses();
 
 var refer = document.referrer.split("/").pop();
-console.log(refer);
 
 for (let key in favoriteCourses) {
-  console.log(favoriteCourses[key].id);
   if (refer == `${favoriteCourses[key].id}.html`) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
