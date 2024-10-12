@@ -10,12 +10,12 @@ async function fetchCourses() {
   // } else {
   try {
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`,
-      {
-        headers: {
-          'RqUid': crypto.randomUUID
-        }
-      }
+      `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`
+      // {
+      //   headers: {
+      //     'RqUid': crypto.randomUUID
+      //   }
+      // }
     );
 
     if (!response.ok) {
