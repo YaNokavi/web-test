@@ -9,7 +9,6 @@ async function fetchCourses() {
   //   displayCourses(); // Отображаем курсы
   // } else {
   try {
-    console.log("1");
     const response = await fetch(
       `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`,
       {
