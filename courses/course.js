@@ -90,9 +90,9 @@ async function postDataAdd() {
       `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/add?courseId=${number}`,
       {
         method: "POST",
-        headers: {
-          'RqUid': crypto.randomUUID
-        }
+        // headers: {
+        //   'RqUid': crypto.randomUUID
+        // }
       }
     );
     if (!response.ok) {
@@ -154,9 +154,9 @@ async function postDataRemove() {
       `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/remove?courseId=${number}`,
       {
         method: "POST",
-        headers: {
-          'RqUid': crypto.randomUUID
-        }
+        // headers: {
+        //   'RqUid': crypto.randomUUID
+        // }
       }
     );
     if (!response.ok) {
