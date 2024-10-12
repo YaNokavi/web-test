@@ -2,42 +2,52 @@ let userInfo = [];
 var userid = localStorage.getItem("userIdData");
 
 async function fetchCourses() {
-  const cachedCourses = localStorage.getItem("userInfo");
+  // const cachedCourses = localStorage.getItem("userInfo");
 
-  if (cachedCourses) {
-    // Если данные есть, парсим их и сохраняем в переменной
-    userInfo = JSON.parse(cachedCourses);
-    displayCourses(); // Отображаем курсы
-  } else {
-    try {
-      const response = await fetch(
-        `https://cryptuna-anderm.amvera.io/user/${userid}/info`
-      );
-
-      if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status}`);
+  // if (cachedCourses) {
+  //   // Если данные есть, парсим их и сохраняем в переменной
+  //   userInfo = JSON.parse(cachedCourses);
+  //   displayCourses(); // Отображаем курсы
+  // } else {
+  try {
+    console.log("1");
+    const response = await fetch(
+      `https://cryptuna-anderm.amvera.io/user/${userid}/info`,
+      {
+        headers: {
+          RqUid: crypto.randomUUID,
+        },
       }
-      userInfo = await response.json(); // Сохраняем данные в переменной
+    );
 
-      console.log(userInfo["favoriteCourses"]);
-
-      if (Object.keys(userInfo["favoriteCourses"]).length !== 0) {
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        localStorage.setItem("balance", JSON.stringify(userInfo, ["balance"]));
-        localStorage.setItem(
-          "favoriteCourses",
-          JSON.stringify(userInfo, ["favoriteCourses"])
-        );
-        // localStorage.setItem("refetall")
-        displayCourses();
-      } else {
-        displayButton();
-      }
-    } catch (error) {
-      console.error("Ошибка при получении курсов:", error);
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
     }
+    userInfo = await response.json(); // Сохраняем данные в переменной
+
+    // localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    localStorage.setItem("balance", JSON.stringify(userInfo, ["balance"]));
+    localStorage.setItem(
+      "infoCourse",
+      JSON.stringify(userInfo["favoriteCourses"]) // Нахуй жсон
+    );
+    // localStorage.setItem("refetall")
+
+    // localStorage.setItem(
+    //   "favoriteCourses",
+    //   JSON.stringify(userInfo, ["favoriteCourses"])
+    // );
+
+    if (Object.keys(userInfo["favoriteCourses"]).length !== 0) {
+      displayCourses();
+    } else {
+      displayButton();
+    }
+  } catch (error) {
+    console.error("Ошибка при получении курсов:", error);
   }
 }
+//}
 
 function displayCourses() {
   const coursesDiv = document.getElementById("favorite-courses");
@@ -115,8 +125,8 @@ fetchCourses();
 
 var refer = document.referrer.split("/").pop();
 
-for (let key in favoriteCourses) {
-  if (refer == `${favoriteCourses[key].id}.html`) {
+for (let key in userInfo["favoriteCourses"]) {
+  if (refer == `${userInfo["favoriteCourses"][key].id}.html`) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
     title.style.animation = "none";

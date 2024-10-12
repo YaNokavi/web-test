@@ -1,15 +1,15 @@
-const number = document.location.href.split("/").pop().slice(0, -5);
-const courseInfo = JSON.parse(localStorage.getItem(`${number}-course`));
+var number = document.location.href.split("/").pop().slice(0, -5);
+var courseInfo = JSON.parse(localStorage.getItem(`${number}-course`));
 
 var userid = localStorage.getItem("userIdData");
-const data = { userId: userid, courseId: number };
 
-var info = localStorage.getItem("userInfo");
+var info = localStorage.getItem("infoCourse");
 if (info) {
   try {
     var parsedInfo = JSON.parse(info);
-    var courses = parsedInfo.favoriteCourses || []; // Возвращает пустой массив, если favoriteCourses не существует
+    var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
+
   } catch (error) {
     console.error("Ошибка при парсинге JSON:", error);
   }
@@ -37,21 +37,22 @@ const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 
-if (idCourse == null) {
+if (Object.keys(idCourse).length === 0) {
   button1.style.display = "flex";
   button2.style.display = "none";
-} else if (idCourse != null) {
+} else if (Object.keys(idCourse).length !== 0) {
+  button1.style.display = "flex";
+  star1.style.display = "block";
+  button2.style.display = "none";
+  star2.style.display = "none";
+
   for (let key in idCourse) {
-    if (idCourse[key] == number) {
+    if (idCourse[key] == Number(number)) {
       button1.style.display = "none";
       star1.style.display = "none";
       button2.style.display = "flex";
       star2.style.display = "block";
-    } else {
-      button1.style.display = "flex";
-      star1.style.display = "block";
-      button2.style.display = "none";
-      star2.style.display = "none";
+      break;
     }
   }
 }
@@ -73,17 +74,25 @@ button1.addEventListener("click", function () {
       text.style.animation = "none";
     }, 400);
   }, 10);
+  let data = JSON.parse(localStorage.getItem("infoCourse"));
+  console.log(data);
+  data.push(courseInfo);
+  
+  localStorage.setItem("infoCourse", JSON.stringify(data));
+  
+  console.log(JSON.parse(localStorage.getItem("infoCourse")));
   postDataAdd();
-  localStorage.setItem("infoCourse", courseInfo);
 });
 
 async function postDataAdd() {
   try {
-    // const data = { userId: userid, courseId: number };
     const response = await fetch(
       `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/add?courseId=${number}`,
       {
         method: "POST",
+        headers: {
+          'RqUid': crypto.randomUUID
+        }
       }
     );
     if (!response.ok) {
@@ -130,17 +139,24 @@ button2.addEventListener("click", function () {
         }, 450);
       }, 50);
     }, 10);
+    postDataRemove();
+    let data = JSON.parse(localStorage.getItem("infoCourse"));
+    data = data.filter((item) => item.id !== Number(number));
+  
+    localStorage.setItem("infoCourse", JSON.stringify(data));
+    console.log(JSON.parse(localStorage.getItem("infoCourse")));
   });
-  postDataRemove();
 });
 
 async function postDataRemove() {
   try {
-    // const data = { userId: userid, courseId: number };
     const response = await fetch(
       `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/remove?courseId=${number}`,
       {
         method: "POST",
+        headers: {
+          'RqUid': crypto.randomUUID
+        }
       }
     );
     if (!response.ok) {
@@ -160,12 +176,12 @@ var link = document.getElementById("ref");
 
 if (refer == "index.html" || refer == "favorite.html") {
   link.href = "../favorite.html";
-  title.innerText = "Мои курсы"
+  title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 } else if (refer == "catalog.html") {
   link.href = "../catalog.html";
-  title.innerText = "Каталог"
+  title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
