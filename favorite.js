@@ -1,5 +1,4 @@
 let userInfo = [];
-var userid = localStorage.getItem("userIdData");
 
 async function fetchCourses() {
   // const cachedCourses = localStorage.getItem("userInfo");
@@ -12,7 +11,7 @@ async function fetchCourses() {
   try {
     console.log("1");
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/${userid}/info`,
+      `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`,
       {
         headers: {
           RqUid: crypto.randomUUID,
