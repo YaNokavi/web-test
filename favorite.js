@@ -51,7 +51,8 @@ function displayCourses() {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
   const favoriteCourses = userInfo["favoriteCourses"];
-  favoriteCourses.forEach((course) => {
+  favoriteCourses.forEach((course, index) => {
+    setTimeout(() => {
     const courseElement = document.createElement("a");
     courseElement.href = `courses/${course.id}.html`;
     courseElement.classList.add("courses-block");
@@ -83,7 +84,7 @@ function displayCourses() {
         </div>
         `;
     coursesDiv.append(courseElement);
-
+  }, (index + 1) * 500);
     localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
 }
