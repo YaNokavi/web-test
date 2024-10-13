@@ -84,7 +84,7 @@ function displayCourses() {
         </div>
         `;
     coursesDiv.append(courseElement);
-  }, (index + 1) * 500);
+  }, (index + 1) * 100);
     localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
 }
