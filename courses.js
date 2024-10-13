@@ -28,7 +28,8 @@ async function fetchCourses() {
 function displayCourses() {
   const coursesDiv = document.getElementById("courses");
   coursesDiv.innerHTML = "";
-  coursesData.forEach((course) => {
+  coursesData.forEach((course, index) => {
+    setTimeout(() => {
     const courseElement = document.createElement("a");
     courseElement.href = `courses/${course.id}.html`;
     courseElement.classList.add("courses-block");
@@ -58,10 +59,11 @@ function displayCourses() {
           </div>
         </div>
         `;
-    coursesDiv.append(courseElement);
-
-    localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
-  });
+          coursesDiv.append(courseElement);
+        }, (index + 1) * 100);
+          
+          localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
+        });
 }
 
 fetchCourses();
