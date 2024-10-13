@@ -290,7 +290,8 @@
         if (Object.keys(courses).length !== 0) {
         const coursesDiv = document.getElementById("favorite-courses");
         coursesDiv.innerHTML = "";
-        courses.forEach((course) => {
+        courses.forEach((course, index) => {
+          setTimeout(() => {
           const courseElement = document.createElement("a");
           courseElement.href = `courses/${course.id}.html`;
           courseElement.classList.add("courses-block");
@@ -322,7 +323,7 @@
         </div>
         `;
           coursesDiv.append(courseElement);
-
+      }, (index + 1) * 100);
           localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
         });
       }
