@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-  lang="ru"
-  nighteye="disabled"
->
+<html lang="ru" nighteye="disabled">
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,7 +14,7 @@
     />
     <title>Cryptuna</title>
 
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../styles.css" />
   </head>
 
   <body>
@@ -34,10 +31,47 @@
         user-select: none;
       "
     >
-      <div class="profile-title">Мои курсы</div>
+      <a href="courses.html" class="header-arrow" id="ref" style="animation: none;">
+        <svg
+          shape-rendering="geometricPrecision"
+          width="27"
+          height="26"
+          viewBox="0 0 27 26"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M18.3002 13H8.7002M8.7002 13L12.9002 17.2M8.7002 13L12.9002 8.8"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13.5 25C20.1274 25 25.5 19.6274 25.5 13C25.5 6.37258 20.1274 1 13.5 1C6.87258 1 1.5 6.37258 1.5 13C1.5 19.6274 6.87258 25 13.5 25Z"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+      <div class="profile-title" id="title"></div>
     </div>
 
-    <div class="main-block" id="favorite-courses">
+    <div class="main-block">
+      <div class="syllabus-block">
+        <div class="syllabus-text">Программа курса</div>
+        <div class="syllabus-modules">
+          <div class="syllabus-name">1. Общая информация о курсе</div>
+          <div class="syllabus-name">2. Азы техана</div>
+          <div class="syllabus-name">3. Уже можно и потрейдить</div>
+          <div class="syllabus-name">4. Уже можно и на завод</div>
+        </div>
+
+        </div>
+      </div>
+      
     </div>
 
     <div
@@ -103,7 +137,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="catalog.html" class="tab-item">
+      <a href="catalog.html" class="tab-item" id="catalog">
         <svg
           class="tab-icon"
           width="28"
@@ -138,7 +172,7 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html" class="tab-item tab-item-active">
+      <a href="favorite.html" class="tab-item" id="favor">
         <svg
           class="tab-icon"
           width="28"
@@ -202,42 +236,8 @@
       </a>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <script>
-      localStorage.clear();
-
-      let tg = window.Telegram.WebApp;
-
-      tg.setHeaderColor("#1468B1");
-      tg.expand();
-
-      var userIdData = `${tg.initDataUnsafe.user.id}`;
-      var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-      var username = `${tg.initDataUnsafe.user.username}`;
-      // var userIdData = 115;
-      // var logoname = "ret"
-      // var username = "rete"
-
-      localStorage.setItem("userIdData", userIdData);
-      localStorage.setItem("logoname", logoname);
-      localStorage.setItem("username", username);
-
-      tg.enableClosingConfirmation();
-
-    </script>
-
-    <!-- <script>
-      
-      // document
-      //   .getElementById("tab")
-      //   .addEventListener("click", function () {
-      //     tg.HapticFeedback.impactOccurred("light");
-      //   });
-    </script> -->
-
-    <script src="index.js"></script>
-
+    <script src="syllabus.js"></script>
     <script>
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";

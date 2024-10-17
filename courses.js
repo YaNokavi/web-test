@@ -11,7 +11,6 @@ if (info) {
     var parsedInfo = JSON.parse(info);
     var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
-    // console.log(idCourse);
   } catch (error) {
     console.error("Ошибка при парсинге JSON:", error);
   }
@@ -31,6 +30,7 @@ courseElement.innerHTML = `
 
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
+const button3 = document.getElementById("button3");
 const text = document.querySelector(".course-block-button-text");
 const star1 = document.getElementById("star1");
 const star2 = document.getElementById("star2");
@@ -42,11 +42,13 @@ const noButton = document.getElementById("noButton");
 if (Object.keys(idCourse).length === 0) {
   button1.style.display = "flex";
   button2.style.display = "none";
+  button3.style.display = "none";
 } else if (Object.keys(idCourse).length !== 0) {
   button1.style.display = "flex";
   star1.style.display = "block";
   button2.style.display = "none";
   star2.style.display = "none";
+  button3.style.display = "none";
 
   for (let key in idCourse) {
     if (idCourse[key] == paramId) {
@@ -54,6 +56,7 @@ if (Object.keys(idCourse).length === 0) {
       star1.style.display = "none";
       button2.style.display = "flex";
       star2.style.display = "block";
+      button3.style.display = "flex";
       break;
     }
   }
@@ -74,6 +77,10 @@ button1.addEventListener("click", function () {
       button1.style.animation = "none";
       button2.style.display = "flex";
       text.style.animation = "none";
+      setTimeout(() => {
+        button3.style.animation = "fadeIn 150ms ease";
+        button3.style.display = "flex";
+      }, 100);
     }, 400);
   }, 10);
   let addData = JSON.parse(localStorage.getItem("infoCourse"));
@@ -116,28 +123,32 @@ button2.addEventListener("click", function () {
 
   yesButton.addEventListener("click", function () {
     modal.style.display = "none";
+    button3.style.animation = "fadeOut 150ms ease";
     setTimeout(() => {
-      star2.style.animation = "fadeOut 100ms ease";
+      button3.style.display = "none";
       setTimeout(() => {
-        button2.style.animation =
-          "button-favorite 0.5s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
-        star2.style.display = "none";
+        star2.style.animation = "fadeOut 100ms ease";
         setTimeout(() => {
-          text.style.animation = "fadeIn 50ms ease";
-          star1.style.animation = "fadeIn 50ms ease";
-          text.innerText = "Поступить на курс";
-          star1.style.display = "block";
-          button2.style.display = "none";
-          button1.style.display = "flex";
-          button2.style.animation = "none";
+          button2.style.animation =
+            "button-favorite 0.5s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
+          star2.style.display = "none";
           setTimeout(() => {
-            star1.style.animation = "none";
-            star2.style.animation = "none";
-            text.style.animation = "none";
-          }, 10);
-        }, 450);
-      }, 50);
-    }, 10);
+            text.style.animation = "fadeIn 50ms ease";
+            star1.style.animation = "fadeIn 50ms ease";
+            text.innerText = "Поступить на курс";
+            star1.style.display = "block";
+            button2.style.display = "none";
+            button1.style.display = "flex";
+            button2.style.animation = "none";
+            setTimeout(() => {
+              star1.style.animation = "none";
+              star2.style.animation = "none";
+              text.style.animation = "none";
+            }, 10);
+          }, 450);
+        }, 50);
+      }, 10);
+    }, 100);
     let remData = JSON.parse(localStorage.getItem("infoCourse"));
     remData = remData.filter((item) => item.id !== Number(paramId));
     localStorage.setItem("infoCourse", JSON.stringify(remData));
@@ -165,6 +176,10 @@ async function postDataRemove() {
   }
 }
 
+button3.addEventListener("click", function () {
+  window.location.href = `syllabus.html?id=${paramId}`;
+});
+
 var refer = document.referrer.split("/").pop();
 
 var title = document.getElementById("title");
@@ -173,13 +188,29 @@ var catalogTab = document.getElementById("catalog");
 var link = document.getElementById("ref");
 
 if (refer == "index.html" || refer == "favorite.html") {
-  link.href = "../favorite.html";
+  localStorage.setItem("refer", refer);
+  link.href = "favorite.html";
   title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 } else if (refer == "catalog.html") {
-  link.href = "../catalog.html";
+  localStorage.setItem("refer", refer);
+  link.href = "catalog.html";
   title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
+} else if ((refer = `syllabus.html?id=${paramId}`)) {
+  refer = localStorage.getItem("refer");
+  link.style.animation = "none";
+  if (refer == "index.html" || refer == "favorite.html") {
+    link.href = "favorite.html";
+    title.innerText = "Мои курсы";
+    favorTab.style.animation = "none";
+    favorTab.style.color = "#ffffff";
+  } else if (refer == "catalog.html") {
+    link.href = "catalog.html";
+    title.innerText = "Каталог";
+    catalogTab.style.animation = "none";
+    catalogTab.style.color = "#ffffff";
+  }
 }

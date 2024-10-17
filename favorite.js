@@ -82,7 +82,7 @@ else if (Object.keys(JSON.parse(info)).length === 0) {
   });
 }
 for (let key in courses) {
-  if (refer == `${courses[key].id}.html`) {
+  if (refer == `courses.html?id=${courses[key].id}` || refer == `syllabus.html?id=${courses[key].id}`) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
     title.style.animation = "none";
