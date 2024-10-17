@@ -78,9 +78,9 @@ button1.addEventListener("click", function () {
       button2.style.display = "flex";
       text.style.animation = "none";
       button3.style.animation = "fadeIn 100ms ease";
-      setTimeout(() => {
-        button3.style.display = "flex";
-      }, 100);
+      button3.style.display = "flex";
+      // setTimeout(() => {
+      // }, 100);
     }, 400);
   }, 10);
   let addData = JSON.parse(localStorage.getItem("infoCourse"));
@@ -149,7 +149,7 @@ button2.addEventListener("click", function () {
           }, 450);
         }, 50);
       }, 10);
-    }, 130);
+    }, 150);
     let remData = JSON.parse(localStorage.getItem("infoCourse"));
     remData = remData.filter((item) => item.id !== Number(paramId));
     localStorage.setItem("infoCourse", JSON.stringify(remData));
