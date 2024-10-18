@@ -22,7 +22,7 @@ const courseElement = document.getElementById("info");
 courseElement.innerHTML = `
             <div class="course-block-author">Автор: @${courseInfo.author}</div>
           <div class="course-block-description">
-            <img src="icons/logo_cuna.jpg" class="course-logo" />
+            <img src="icons/logo_cuna_11zon.webp" class="course-logo" />
             <div class="course-block-name">${courseInfo.name}</div>
             ${courseInfo.description}
           </div>
