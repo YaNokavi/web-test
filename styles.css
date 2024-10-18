@@ -812,7 +812,7 @@ body {
   margin-top: 15px;
   margin-left: 15px;
   margin-bottom: 10px;
-  font: 600 25px/1 Inter, sans-serif;
+  font: 600 24px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 15px;
@@ -838,7 +838,7 @@ body {
   display: flex;
   flex-direction: column;
   align-self: flex-end;
-  width: 99%;
+  width: 98%;
   height: auto;
   margin-top: 5px;
   margin-right: 1.5px;
@@ -852,16 +852,19 @@ body {
 .syllabus-name-main {
   justify-self: center;
   width: auto;
-  height: 15px;
+  height: auto;
   margin-top: 20px;
   margin-left: 15px;
   margin-bottom: 20px;
-  font: 600 20px/1 Inter, sans-serif;
+  font: 500 20px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 15px;
+  line-height: 25px;
   letter-spacing: -0.43px;
   color: #000000;
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
 }
 
 .syllabus-modules-aditional {
@@ -882,14 +885,14 @@ body {
 .syllabus-name-aditional {
   justify-self: center;
   width: auto;
-  height: 15px;
-  margin-top: 20px;
+  height: auto;
+  margin-top: 10px;
   margin-left: 15px;
-  margin-bottom: 20px;
-  font: 600 18px/1 Inter, sans-serif;
+  margin-bottom: 10px;
+  font: 400 16px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 15px;
+  line-height: 25px;
   letter-spacing: -0.43px;
   color: #000000;
 }
