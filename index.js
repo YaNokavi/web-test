@@ -58,7 +58,7 @@ function displayCourses() {
     courseElement.classList.add("courses-block");
     courseElement.innerHTML = `
             <div class="courses-logo"
-          style="background-image: url(icons/logo_cuna.jpg)"></div>
+          style="background-image: url(icons/logo_cuna2.jpg)"></div>
             <div class="courses-block-text">
           <div class="courses-block-name">${course.name}</div>
           <div class="courses-block-description">

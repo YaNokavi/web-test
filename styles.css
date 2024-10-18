@@ -794,19 +794,22 @@ body {
   flex-direction: column;
 
   margin-top: 10px;
+  margin-bottom: 10px;
   width: 95%;
   height: auto;
+  overflow: hidden;
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 }
+
 .syllabus-text {
-  width: 94%;
-  height: 15px;
-  margin-top: 10px;
+  width: auto;
+  height: 20px;
+  margin-top: 15px;
   margin-left: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font: 600 25px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
@@ -814,22 +817,35 @@ body {
   letter-spacing: -0.43px;
 
   color: #000000;
+  
 }
+
 .syllabus-modules {
   display: flex;
   flex-direction: column;
+  width: 95%;
+  height: auto;
   align-self: center;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* padding: 0px; */
-  margin-bottom: 10px;
-  width: 94%;
-  height: 399px;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+.syllabus-modules-main {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  width: 99%;
+  height: auto;
+  margin-top: 5px;
+  margin-right: 1.5px;
+
 
   background: rgba(20, 104, 177, 0.1);
-  border-radius: 12px;
+  border-radius: 12px 12px 0px 12px;
+  border: 1.5px solid rgba(20, 104, 177, 0.1);
 }
-.syllabus-name {
+
+.syllabus-name-main {
   justify-self: center;
   width: auto;
   height: 15px;
@@ -837,6 +853,36 @@ body {
   margin-left: 15px;
   margin-bottom: 20px;
   font: 600 20px/1 Inter, sans-serif;
+  text-align: left;
+  font-style: normal;
+  line-height: 15px;
+  letter-spacing: -0.43px;
+  color: #000000;
+}
+
+.syllabus-modules-aditional {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  width: 89%;
+  height: auto;
+  margin-right: 1.5px;
+
+  background: rgba(20, 104, 177, 0.1);
+  border-radius: 0px 0px 12px 12px;
+  border: 1.5px solid rgba(20, 104, 177, 0.1);
+  border-top: none;
+}
+
+.syllabus-name-aditional {
+  justify-self: center;
+  width: auto;
+  height: 15px;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  font: 600 18px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 15px;
