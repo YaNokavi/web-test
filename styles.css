@@ -47,6 +47,8 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   flex-direction: column;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 /*Профиль*/
 .profile-first-block {
@@ -828,6 +830,8 @@ body {
   align-self: center;
   overflow-y: auto;
   padding-top: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .syllabus-modules-main {
@@ -891,8 +895,12 @@ body {
 }
 
 /*Отключение отображения прокрутки*/
-::-webkit-scrollbar {
-  width: 0;
+.syllabus-modules::-webkit-scrollbar {
+  display: none;
+}
+
+.main-block::-webkit-scrollbar {
+  display: none;
 }
 
 /*Вкладка отсутствия друзей*/
