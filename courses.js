@@ -2,8 +2,14 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 var courseInfo = JSON.parse(localStorage.getItem(`${paramId}-course`));
+var learningData = courseInfo.learningOutcomes;
 
 var userid = localStorage.getItem("userIdData");
+var username = localStorage.getItem("username");
+data = {
+  id: userid,
+  name: username
+}
 
 var info = localStorage.getItem("infoCourse");
 if (info) {
@@ -27,6 +33,52 @@ courseElement.innerHTML = `
             ${courseInfo.description}
           </div>
         `;
+
+//Доделать функции отображения
+function displayLearning() {
+  const elementLearning = document.getElementById("points");
+  elementLearning.innerHTML = "";
+  learningData.forEach((elem) => {
+    const pointElement = document.createElement("div");
+    pointElement.style.marginBottom = "15px";
+    pointElement.innerHTML = `•&nbsp; ${elem}`;
+    elementLearning.append(pointElement);
+  });
+}
+
+// function displayModules() {
+//   const elementModules = document.getElementById("modules");
+//   elementModules.innerHTML = "";
+// }
+//Доделать запросы
+
+// async function fetchModules() {
+//   const cachedModules = localStorage.getItem("modulesData");
+//   if (cachedModules) {
+//     // Если данные есть, парсим их и сохраняем в переменной
+//     modulesData = JSON.parse(cachedModules);
+
+//     displayModules(); // Отображаем курсы
+//   } else {
+//     try {
+//       const response = await fetch(
+//         "https://cryptuna-anderm.amvera.io/course/all"
+//       );
+//       if (!response.ok) {
+//         throw new Error(`Ошибка: ${response.status}`);
+//       }
+//       modulesData = await response.json(); // Сохраняем данные в переменной
+//       localStorage.setItem("modulesData", JSON.stringify(modulesData));
+
+//       displayModules(); // Вызываем функцию для отображения курсов
+//     } catch (error) {
+//       console.error("Ошибка при получении курсов:", error);
+//     }
+//   }
+// }
+
+//fetchModules();
+displayLearning();
 
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
@@ -93,12 +145,14 @@ button1.addEventListener("click", function () {
 async function postDataAdd() {
   try {
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/add?courseId=${paramId}`,
+      `https://cryptuna-anderm.amvera.io/user/favorite/add?courseId=${paramId}`,
       {
         method: "POST",
-        // headers: {
-        //   'RqUid': crypto.randomUUID
-        // }
+        headers: {
+          // 'RqUid': crypto.randomUUID
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       }
     );
     if (!response.ok) {
@@ -140,7 +194,7 @@ button2.addEventListener("click", function () {
             button2.style.display = "none";
             button1.style.display = "flex";
             button2.style.animation = "none";
-            button3.style.animation = "none"
+            button3.style.animation = "none";
             setTimeout(() => {
               star1.style.animation = "none";
               star2.style.animation = "none";
@@ -157,7 +211,7 @@ button2.addEventListener("click", function () {
     postDataRemove();
   });
 });
-
+//Изменить пост (отправлять дату с айди и неймом)
 async function postDataRemove() {
   try {
     const response = await fetch(

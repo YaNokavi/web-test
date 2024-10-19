@@ -30,11 +30,10 @@ function displayCourses() {
   coursesDiv.innerHTML = "";
   coursesData.forEach((course, index) => {
     setTimeout(() => {
-    const courseElement = document.createElement("a");
-    //courseElement.href = `courses/${course.id}.html`;
-    courseElement.href = `courses.html?id=${course.id}`;
-    courseElement.classList.add("courses-block");
-    courseElement.innerHTML = `
+      const courseElement = document.createElement("a");
+      courseElement.href = `courses.html?id=${course.id}`;
+      courseElement.classList.add("courses-block");
+      courseElement.innerHTML = `
           <img src="icons/logo_cuna2.jpg" class="courses-logo" />
             <div class="courses-block-text">
           <div class="courses-block-name">${course.name}</div>
@@ -60,11 +59,11 @@ function displayCourses() {
           </div>
         </div>
         `;
-          coursesDiv.append(courseElement);
-        }, (index + 1) * 100);
-          
-          localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
-        });
+      coursesDiv.append(courseElement);
+    }, (index + 1) * 100);
+
+    localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
+  });
 }
 
 fetchCourses();
@@ -72,7 +71,10 @@ fetchCourses();
 var refer = document.referrer.split("/").pop();
 
 for (let key in coursesData) {
-  if (refer == `courses.html?id=${coursesData[key].id}` || refer == `syllabus.html?id=${coursesData[key].id}`) {
+  if (
+    refer == `courses.html?id=${coursesData[key].id}` ||
+    refer == `syllabus.html?id=${coursesData[key].id}`
+  ) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
     title.style.animation = "none";

@@ -786,6 +786,21 @@ body {
   color: #ffffff;
 }
 
+.point-text {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin-top: 5px;
+  margin-left: 20px;
+  height: auto;
+  margin-bottom: 10px;
+  font: 400 16px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 15px;
+  text-align: left;
+  color: #000000;
+}
+
 /*Программа курса*/
 .syllabus-block {
   position: relative;

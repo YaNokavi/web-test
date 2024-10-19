@@ -1,42 +1,36 @@
 let userInfo = [];
+let data = {
+  id: userIdData,
+  name: username
+};
 
 async function fetchCourses() {
-  // const cachedCourses = localStorage.getItem("userInfo");
-
-  // if (cachedCourses) {
-  //   // Если данные есть, парсим их и сохраняем в переменной
-  //   userInfo = JSON.parse(cachedCourses);
-  //   displayCourses(); // Отображаем курсы
-  // } else {
   try {
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`
-      // {
-      //   headers: {
-      //     'RqUid': crypto.randomUUID
-      //   }
-      // }
+      // `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`,
+      "https://cryptuna-anderm.amvera.io/user/info",
+      {
+        method: "POST",
+        headers: {
+          // 'RqUid': crypto.randomUUID
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }
     );
 
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
     userInfo = await response.json(); // Сохраняем данные в переменной
-
-    // localStorage.setItem("userInfo", JSON.stringify(userInfo));
     localStorage.setItem("balance", JSON.stringify(userInfo, ["balance"]));
     localStorage.setItem(
       "infoCourse",
-      JSON.stringify(userInfo["favoriteCourses"]) // Нахуй жсон
+      JSON.stringify(userInfo["courses"]) // Нахуй жсон
     );
-    // localStorage.setItem("refetall")
+    // localStorage.setItem("referall")
 
-    // localStorage.setItem(
-    //   "favoriteCourses",
-    //   JSON.stringify(userInfo, ["favoriteCourses"])
-    // );
-
-    if (Object.keys(userInfo["favoriteCourses"]).length !== 0) {
+    if (Object.keys(userInfo["courses"]).length !== 0) {
       displayCourses();
     } else {
       displayButton();
@@ -45,12 +39,11 @@ async function fetchCourses() {
     console.error("Ошибка при получении курсов:", error);
   }
 }
-//}
 
 function displayCourses() {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
-  const favoriteCourses = userInfo["favoriteCourses"];
+  const favoriteCourses = userInfo["courses"];
   favoriteCourses.forEach((course, index) => {
     setTimeout(() => {
     const courseElement = document.createElement("a");

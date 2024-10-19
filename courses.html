@@ -83,9 +83,15 @@
             />
           </svg>
         </div>
-      <a class="course-block-button" id="button3" style="display: none; position: absolute; bottom: 0;">
-        <div class="course-block-button-text" style="margin-right: auto;">Приступить к изучению</div>
-      </a>
+        <a
+          class="course-block-button"
+          id="button3"
+          style="display: none; position: absolute; bottom: 0"
+        >
+          <div class="course-block-button-text" style="margin-right: auto">
+            Приступить к изучению
+          </div>
+        </a>
         <div
           class="course-block-button-favorite"
           id="button2"
@@ -111,6 +117,18 @@
           </svg>
         </div>
       </div>
+
+      <div class="course-block">
+        <div class="syllabus-text">О чем вы узнаете</div>
+       <div class="point-text" id="points"></div>
+      </div>
+
+      <div class="course-block">
+        <div class="syllabus-text">Содержание</div>
+
+        <div class="syllabus-modules" style="overflow-y: hidden;" id="modules"></div>
+      </div>
+
       <div id="modal" class="modal">
         <div class="modal-content">
           <div class="modal-content-text">
@@ -285,7 +303,6 @@
         <div class="tab-label">Профиль</div>
       </a>
     </div>
-
 
     <script src="courses.js"></script>
     <script>

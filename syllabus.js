@@ -9,7 +9,6 @@ if (info) {
     var parsedInfo = JSON.parse(info);
     var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
-    // console.log(idCourse);
   } catch (error) {
     console.error("Ошибка при парсинге JSON:", error);
   }
