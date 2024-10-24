@@ -32,7 +32,7 @@
       "
     >
       <a
-        href="courses.html"
+        href="syllabus.html"
         class="header-arrow"
         id="ref"
         style="animation: none"
@@ -65,52 +65,91 @@
     </div>
 
     <div class="main-block">
-      <div class="syllabus-block">
-        <div style="border-bottom: 1.5px solid rgba(20, 104, 177, 0.1)" >
-          <div class="syllabus-text">Программа курса</div>
+      <!-- <div
+        style="
+          position: fixed;
+          top: 38px;
+          height: 75px;
+          width: 100%;
+          background-color: #efeff4;
+          z-index: 1;
+        "
+      ></div> -->
+      <!-- <div
+        style="
+          position: fixed;
+          top: 98px;
+          height: 17px;
+          width: 95%;
+          left: 50%;
+          background-color: #fff;
+          z-index: 2;
+          transform: translateX(-50%);
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-bottom: none;
+          border-radius: 15px 15px 0 0;
+          box-sizing: border-box;
+        "
+      ></div> -->
+      <div class="step-block-switching">
+        <div class="button-back">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 13 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.03409 12.4467L0.178267 6.59091L6.03409 0.735085L7.2777 1.96662L3.55291 5.69141H12.6023V7.49041H3.55291L7.2777 11.2092L6.03409 12.4467Z"
+              fill="#1468B1"
+            />
+          </svg>
         </div>
-
-        <div class="syllabus-modules">
-          <div class="syllabus-modules-main">
-            <div class="syllabus-name-main">1. Общая информация о курсе</div>
-          </div>
-          <div class="syllabus-modules-aditional">
-            <a href="step.html" class="syllabus-name-aditional">
-              1.1 Общая информация о курсе
-            </a>
-            <div class="syllabus-name-aditional">
-              1.2 Общая информация о курсе
-            </div>
-          </div>
-
-          <div class="syllabus-modules-main">
-            <div class="syllabus-name-main">2. Азы техана</div>
-          </div>
-          <div class="syllabus-modules-aditional">
-            <div class="syllabus-name-aditional">
-              2.1 Общая информация о курсе
-            </div>
-          </div>
-
-          <div class="syllabus-modules-main">
-            <div class="syllabus-name-main">3. Уже можно и потрейдить</div>
-          </div>
-          <div class="syllabus-modules-aditional">
-            <div class="syllabus-name-aditional">3.1 Высосешь</div>
-          </div>
-
-          <div class="syllabus-modules-main">
-            <div class="syllabus-name-main">4. Уже можно и на завод</div>
-          </div>
-          <div class="syllabus-modules-aditional">
-            <div class="syllabus-name-aditional">4.1 Высосешь</div>
-          </div>
-          <div class="syllabus-modules-main">
-            <div class="syllabus-name-main">5. Уже можно и на завод</div>
-          </div>
-          <div class="syllabus-modules-aditional">
-            <div class="syllabus-name-aditional">5.1 Высосешь</div>
-          </div>
+        <div class="steps-number">1 из 4</div>
+        <div class="button-forward">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 13 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.19318 12.4467L5.94957 11.2152L9.67436 7.49041H0.625V5.69141H9.67436L5.94957 1.97266L7.19318 0.735085L13.049 6.59091L7.19318 12.4467Z"
+              fill="#1468B1"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="step-block-content">
+        <div class="step-block-content-heading">Добро пожаловать!</div>
+        <div class="step-block-content-media">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem
+            nibh, consectetur vel lacus in, fringilla suscipit nibh. Suspendisse
+            aliquet fermentum eleifend. Nulla molestie tristique tincidunt. In
+            varius pulvinar tristique. Vivamus consectetur arcu non elementum
+            rutrum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Proin lorem nibh, consectetur vel lacus in, fringilla suscipit nibh.
+            Suspendisse aliquet fermentum eleifend. Nulla molestie tristique
+            tincidunt. In varius pulvinar tristique. Vivamus consectetur arcu
+            non elementum rutrum. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
+          </p>
+          <p>
+            Proin lorem nibh, consectetur vel lacus in, fringilla suscipit nibh.
+            Suspendisse aliquet fermentum eleifend. Nulla molestie tristique
+            tincidunt. In varius pulvinar tristique. Vivamus consectetur arcu
+            non elementum rutrum. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Proin lorem nibh, consectetur vel lacus in,
+            fringilla suscipit nibh. Suspendisse aliquet fermentum eleifend.
+            Nulla molestie tristique tincidunt. In varius pulvinar tristique.
+            Vivamus consectetur arcu non elementum rutrum.
+          </p>
+        </div>
+        <div class="step-block-content-button">
+          <div class="step-block-content-button-text">Дальше</div>
         </div>
       </div>
     </div>
@@ -277,7 +316,7 @@
       </a>
     </div>
 
-    <script src="syllabus.js"></script>
+    <script src="step.js"></script>
     <script>
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
