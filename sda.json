@@ -1,0 +1,138 @@
+[{
+  "id": 1,
+  "name": "Первый модуль",
+  "submoduleList": [
+    {
+      "id": 1,
+      "name": "Первый подмодуль по первому модулю",
+      "stepList": [
+        {
+          "id": 1,
+          "textContentUrl": "ыфвыфвыф",
+          "mediaContentUrl": "ds,lksadsa"
+        },
+        {
+          "id": 2,
+          "textContentUrl": "fdsfds",
+          "mediaContentUrl": "sdflkmkldf"
+        },
+        {
+          "id": 3,
+          "textContentUrl": "sdlfmlds",
+          "mediaContentUrl": "x;lcmlsd"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Второй подмодуль по первому модулю",
+      "stepList": [
+        {
+          "id": 1,
+          "textContentUrl": "ds,lksadsa",
+          "mediaContentUrl": "ds,lksadsa"
+        },
+        {
+          "id": 2,
+          "textContentUrl": "fdsfds",
+          "mediaContentUrl": "sdflkmkldf"
+        },
+        {
+          "id": 3,
+          "textContentUrl": "sdlfmlds",
+          "mediaContentUrl": "x;lcmlsd"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Третий подмодуль по первому модулю",
+      "steps": [
+        {
+          "id": 1,
+          "textContentUrl": "ds,lksadsa",
+          "mediaContentUrl": "ds,lksadsa"
+        },
+        {
+          "id": 2,
+          "textContentUrl": "fdsfds",
+          "mediaContentUrl": "sdflkmkldf"
+        },
+        {
+          "id": 3,
+          "textContentUrl": "sdlfmlds",
+          "mediaContentUrl": "x;lcmlsd"
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": 2,
+  "name": "Второй модуль",
+  "submoduleList": [
+    {
+      "id": 1,
+      "name": "Первый подмодуль по первому модулю",
+      "stepList": [
+        {
+          "id": 1,
+          "textContentUrl": "ыфвыфвыф",
+          "mediaContentUrl": "ds,lksadsa"
+        },
+        {
+          "id": 2,
+          "textContentUrl": "fdsfds",
+          "mediaContentUrl": "sdflkmkldf"
+        },
+        {
+          "id": 3,
+          "textContentUrl": "sdlfmlds",
+          "mediaContentUrl": "x;lcmlsd"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Второй подмодуль по первому модулю",
+      "stepList": [
+        {
+          "id": 1,
+          "textContentUrl": "ds,lksadsa",
+          "mediaContentUrl": "ds,lksadsa"
+        },
+        {
+          "id": 2,
+          "textContentUrl": "fdsfds",
+          "mediaContentUrl": "sdflkmkldf"
+        },
+        {
+          "id": 3,
+          "textContentUrl": "sdlfmlds",
+          "mediaContentUrl": "x;lcmlsd"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Третий подмодуль по первому модулю",
+      "steps": [
+        {
+          "id": 1,
+          "textContentUrl": "ds,lksadsa",
+          "mediaContentUrl": "ds,lksadsa"
+        },
+        {
+          "id": 2,
+          "textContentUrl": "fdsfds",
+          "mediaContentUrl": "sdflkmkldf"
+        },
+        {
+          "id": 3,
+          "textContentUrl": "sdlfmlds",
+          "mediaContentUrl": "x;lcmlsd"
+        }
+      ]
+    }
+  ]
+}]

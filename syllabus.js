@@ -21,6 +21,39 @@ var arrow = document.getElementById("ref");
 title.innerText = courseInfo.name;
 arrow.href = `courses.html?id=${paramId}`;
 
+var modulesData = JSON.parse(localStorage.getItem("modulesData"));
+
+function displayModules() {
+  const elementModules = document.getElementById("modules");
+  elementModules.innerHTML = "";
+  modulesData.forEach((elem) => {
+    const moduleMain = document.createElement("div");
+    moduleMain.classList.add("syllabus-modules-main");
+    const moduleMainText = document.createElement("div");
+    moduleMainText.classList.add("syllabus-name-main");
+    moduleMainText.innerHTML = `${elem.id}. ${elem.name}`;
+    const moduleId = elem.id;
+    
+    moduleMain.append(moduleMainText);
+    elementModules.append(moduleMain);
+
+    const moduleAditional = document.createElement("div");
+    moduleAditional.classList.add("syllabus-modules-aditional");
+    elementModules.append(moduleAditional);
+    elem.submoduleList.forEach((elem) => {
+      const moduleAditionalText = document.createElement("a");
+      //присваивание айдишникой шагов к ссылке
+      moduleAditionalText.href = "step.html";
+      moduleAditionalText.classList.add("syllabus-name-aditional");
+      moduleAditionalText.innerHTML = `${moduleId}.${elem.id} ${elem.name}`;
+      moduleAditional.append(moduleAditionalText);
+      
+    });
+  });
+}
+
+displayModules()
+
 var refer = localStorage.getItem("refer");
 var favorTab = document.getElementById("favor");
 var catalogTab = document.getElementById("catalog");

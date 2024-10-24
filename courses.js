@@ -8,8 +8,8 @@ var userid = localStorage.getItem("userIdData");
 var username = localStorage.getItem("username");
 data = {
   id: userid,
-  name: username
-}
+  name: username,
+};
 
 var info = localStorage.getItem("infoCourse");
 if (info) {
@@ -34,7 +34,6 @@ courseElement.innerHTML = `
           </div>
         `;
 
-//Доделать функции отображения
 function displayLearning() {
   const elementLearning = document.getElementById("points");
   elementLearning.innerHTML = "";
@@ -46,38 +45,53 @@ function displayLearning() {
   });
 }
 
-// function displayModules() {
-//   const elementModules = document.getElementById("modules");
-//   elementModules.innerHTML = "";
-// }
+function displayModules() {
+  const elementModules = document.getElementById("modules");
+  elementModules.innerHTML = "";
+  modulesData.forEach((elem) => {
+    const moduleMain = document.createElement("div");
+    moduleMain.classList.add("syllabus-text-course-main");
+    moduleMain.innerHTML = `${elem.id}. ${elem.name}`;
+    const moduleId = elem.id;
+    elementModules.append(moduleMain);
+    elem.submoduleList.forEach((elem) => {
+      const moduleAditional = document.createElement("div");
+      moduleAditional.classList.add("syllabus-text-course-additional");
+      moduleAditional.innerHTML = `${moduleId}.${elem.id} ${elem.name}`;
+      elementModules.append(moduleAditional);
+    });
+  });
+} 
+
 //Доделать запросы
+async function fetchModules() {
+  const cachedModules = localStorage.getItem("modulesData");
+  if (cachedModules) {
+    // Если данные есть, парсим их и сохраняем в переменной
+    modulesData = JSON.parse(cachedModules);
 
-// async function fetchModules() {
-//   const cachedModules = localStorage.getItem("modulesData");
-//   if (cachedModules) {
-//     // Если данные есть, парсим их и сохраняем в переменной
-//     modulesData = JSON.parse(cachedModules);
+    displayModules(); // Отображаем курсы
+  } else {
+    try {
+      const response = await fetch(
+        // "https://cryptuna-anderm.amvera.io/course/all"
+        "/sda.json"
+      );
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+      }
+      modulesData = await response.json(); // Сохраняем данные в переменной
+      localStorage.setItem("modulesData", JSON.stringify(modulesData));
+      // console.log(modulesData);
 
-//     displayModules(); // Отображаем курсы
-//   } else {
-//     try {
-//       const response = await fetch(
-//         "https://cryptuna-anderm.amvera.io/course/all"
-//       );
-//       if (!response.ok) {
-//         throw new Error(`Ошибка: ${response.status}`);
-//       }
-//       modulesData = await response.json(); // Сохраняем данные в переменной
-//       localStorage.setItem("modulesData", JSON.stringify(modulesData));
+      displayModules(); // Вызываем функцию для отображения курсов
+    } catch (error) {
+      console.error("Ошибка при получении курсов:", error);
+    }
+  }
+}
 
-//       displayModules(); // Вызываем функцию для отображения курсов
-//     } catch (error) {
-//       console.error("Ошибка при получении курсов:", error);
-//     }
-//   }
-// }
-
-//fetchModules();
+fetchModules();
 displayLearning();
 
 const button1 = document.getElementById("button1");
@@ -150,9 +164,9 @@ async function postDataAdd() {
         method: "POST",
         headers: {
           // 'RqUid': crypto.randomUUID
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       }
     );
     if (!response.ok) {
