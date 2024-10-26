@@ -62,7 +62,7 @@ function displayCourses() {
       coursesDiv.append(courseElement);
     }, (index + 1) * 100);
 
-    localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
+    // localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
 }
 
@@ -82,3 +82,4 @@ for (let key in coursesData) {
     catalogTab.style.color = "#ffffff";
   }
 }
+

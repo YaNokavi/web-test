@@ -1,0 +1,28 @@
+<h1>Добро пожаловать!</h1>
+
+<!--
+<video src="https://ucarecdn.com/ed2a01ce-e5b8-4035-8908-5ddbdf1568d1/20241024201938.mp4" controls>
+</video> -->
+<img alt src="/icons/logo_cuna.jpg" style="width: 100px; height: 100px;">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem
+            nibh, consectetur vel lacus in, fringilla suscipit nibh. Suspendisse
+            aliquet fermentum eleifend. Nulla molestie tristique tincidunt. In
+            varius pulvinar tristique. Vivamus consectetur arcu non elementum
+            rutrum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Proin lorem nibh, consectetur vel lacus in, fringilla suscipit nibh.
+            Suspendisse aliquet fermentum eleifend. Nulla molestie tristique
+            tincidunt. In varius pulvinar tristique. Vivamus consectetur arcu
+            non elementum rutrum. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit.
+          </p>
+          <p>
+            Proin lorem nibh, consectetur vel lacus in, fringilla suscipit nibh.
+            Suspendisse aliquet fermentum eleifend. Nulla molestie tristique
+            tincidunt. In varius pulvinar tristique. Vivamus consectetur arcu
+            non elementum rutrum. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Proin lorem nibh, consectetur vel lacus in,
+            fringilla suscipit nibh. Suspendisse aliquet fermentum eleifend.
+            Nulla molestie tristique tincidunt. In varius pulvinar tristique.
+            Vivamus consectetur arcu non elementum rutrum.
+          </p>

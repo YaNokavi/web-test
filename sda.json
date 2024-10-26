@@ -8,7 +8,7 @@
       "stepList": [
         {
           "id": 1,
-          "textContentUrl": "ыфвыфвыф",
+          "textContentUrl": "/test.txt",
           "mediaContentUrl": "ds,lksadsa"
         },
         {
@@ -47,7 +47,7 @@
     {
       "id": 3,
       "name": "Третий подмодуль по первому модулю",
-      "steps": [
+      "stepList": [
         {
           "id": 1,
           "textContentUrl": "ds,lksadsa",
@@ -73,7 +73,7 @@
   "submoduleList": [
     {
       "id": 1,
-      "name": "Первый подмодуль по первому модулю",
+      "name": "Первый подмодуль по второму модулю",
       "stepList": [
         {
           "id": 1,
@@ -94,7 +94,7 @@
     },
     {
       "id": 2,
-      "name": "Второй подмодуль по первому модулю",
+      "name": "Второй подмодуль по второму модулю",
       "stepList": [
         {
           "id": 1,
@@ -115,8 +115,8 @@
     },
     {
       "id": 3,
-      "name": "Третий подмодуль по первому модулю",
-      "steps": [
+      "name": "Третий подмодуль по второму модулю",
+      "stepList": [
         {
           "id": 1,
           "textContentUrl": "ds,lksadsa",

@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`${paramId}-course`));
+var courseInfo = JSON.parse(localStorage.getItem(`coursesData`))[paramId-1];
 var learningData = courseInfo.learningOutcomes;
 
 var userid = localStorage.getItem("userIdData");
@@ -10,7 +10,7 @@ data = {
   id: userid,
   name: username,
 };
-
+ 
 var info = localStorage.getItem("infoCourse");
 if (info) {
   try {
@@ -67,10 +67,9 @@ function displayModules() {
 async function fetchModules() {
   const cachedModules = localStorage.getItem("modulesData");
   if (cachedModules) {
-    // Если данные есть, парсим их и сохраняем в переменной
     modulesData = JSON.parse(cachedModules);
 
-    displayModules(); // Отображаем курсы
+    displayModules();
   } else {
     try {
       const response = await fetch(
@@ -80,11 +79,10 @@ async function fetchModules() {
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }
-      modulesData = await response.json(); // Сохраняем данные в переменной
+      modulesData = await response.json();
       localStorage.setItem("modulesData", JSON.stringify(modulesData));
-      // console.log(modulesData);
 
-      displayModules(); // Вызываем функцию для отображения курсов
+      displayModules();
     } catch (error) {
       console.error("Ошибка при получении курсов:", error);
     }
@@ -283,3 +281,7 @@ if (refer == "index.html" || refer == "favorite.html") {
     catalogTab.style.color = "#ffffff";
   }
 }
+
+link.addEventListener("click", function() {
+  localStorage.removeItem("modulesData");
+})

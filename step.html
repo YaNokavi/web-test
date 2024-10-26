@@ -31,12 +31,7 @@
         user-select: none;
       "
     >
-      <a
-        href="syllabus.html"
-        class="header-arrow"
-        id="ref"
-        style="animation: none"
-      >
+      <a class="header-arrow" id="ref" style="animation: none">
         <svg
           shape-rendering="geometricPrecision"
           width="27"
@@ -91,8 +86,8 @@
           box-sizing: border-box;
         "
       ></div> -->
-      <div class="step-block-switching">
-        <div class="button-back">
+      <div class="step-block-switching" id="switc">
+        <a class="button-back" id="button-back">
           <svg
             width="14"
             height="14"
@@ -105,9 +100,9 @@
               fill="#1468B1"
             />
           </svg>
-        </div>
-        <div class="steps-number">1 из 4</div>
-        <div class="button-forward">
+        </a>
+        <div class="steps-number" id="steps-number"></div>
+        <a class="button-forward" id="button-forward">
           <svg
             width="14"
             height="14"
@@ -120,11 +115,12 @@
               fill="#1468B1"
             />
           </svg>
-        </div>
+        </a>
       </div>
       <div class="step-block-content">
-        <div class="step-block-content-heading">Добро пожаловать!</div>
-        <div class="step-block-content-media">
+        <!-- <div class="step-block-content-heading">Добро пожаловать!</div> -->
+        <div class="step-block-content-media" id="content">
+          <!-- <h1>Добро пожаловать!</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lorem
             nibh, consectetur vel lacus in, fringilla suscipit nibh. Suspendisse
@@ -146,11 +142,11 @@
             fringilla suscipit nibh. Suspendisse aliquet fermentum eleifend.
             Nulla molestie tristique tincidunt. In varius pulvinar tristique.
             Vivamus consectetur arcu non elementum rutrum.
-          </p>
+          </p> -->
         </div>
-        <div class="step-block-content-button">
+        <a class="step-block-content-button" id="button">
           <div class="step-block-content-button-text">Дальше</div>
-        </div>
+        </a>
       </div>
     </div>
 

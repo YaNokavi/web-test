@@ -1,20 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`${paramId}-course`));
-
-var info = localStorage.getItem("infoCourse");
-if (info) {
-  try {
-    var parsedInfo = JSON.parse(info);
-    var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
-    var idCourse = courses.map((course) => course.id);
-  } catch (error) {
-    console.error("Ошибка при парсинге JSON:", error);
-  }
-} else {
-  console.log("Данные не найдены в localStorage.");
-}
+var courseInfo = JSON.parse(localStorage.getItem(`coursesData`))[paramId-1];
 
 var title = document.getElementById("title");
 var arrow = document.getElementById("ref");
@@ -26,33 +13,37 @@ var modulesData = JSON.parse(localStorage.getItem("modulesData"));
 function displayModules() {
   const elementModules = document.getElementById("modules");
   elementModules.innerHTML = "";
-  modulesData.forEach((elem) => {
+  modulesData.forEach((module) => {
     const moduleMain = document.createElement("div");
     moduleMain.classList.add("syllabus-modules-main");
     const moduleMainText = document.createElement("div");
     moduleMainText.classList.add("syllabus-name-main");
-    moduleMainText.innerHTML = `${elem.id}. ${elem.name}`;
-    const moduleId = elem.id;
-    
+    moduleMainText.innerHTML = `${module.id}. ${module.name}`;
+    const moduleId = module.id;
+
     moduleMain.append(moduleMainText);
     elementModules.append(moduleMain);
 
     const moduleAditional = document.createElement("div");
     moduleAditional.classList.add("syllabus-modules-aditional");
     elementModules.append(moduleAditional);
-    elem.submoduleList.forEach((elem) => {
+    module.submoduleList.forEach((submodule, index) => {
       const moduleAditionalText = document.createElement("a");
+      const submoduleId = submodule.id;
       //присваивание айдишникой шагов к ссылке
-      moduleAditionalText.href = "step.html";
+      // submodule.stepList.forEach((step) => {
+      // console.log(submodule.stepList[index].id);
+      moduleAditionalText.href = `step.html?syllabusId=${paramId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${1}`;
+
       moduleAditionalText.classList.add("syllabus-name-aditional");
-      moduleAditionalText.innerHTML = `${moduleId}.${elem.id} ${elem.name}`;
+      moduleAditionalText.innerHTML = `${moduleId}.${submoduleId} ${submodule.name}`;
       moduleAditional.append(moduleAditionalText);
-      
+      // });
     });
   });
 }
 
-displayModules()
+displayModules();
 
 var refer = localStorage.getItem("refer");
 var favorTab = document.getElementById("favor");
@@ -64,4 +55,4 @@ if (refer == "index.html" || refer == "favorite.html") {
 } else if (refer == "catalog.html") {
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
-} 
+}
