@@ -49,3 +49,30 @@ if (userName.length <= 15) {
   userNameProfile.style.fontSize = "23px";
   userNameProfile.innerText = userName;
 }
+
+var courseInfo = JSON.parse(localStorage.getItem("infoCourse"));
+var course = document.getElementById("course-info");
+course.innerHTML = "";
+
+courseInfo.forEach((elem) => {
+  const courseName = document.createElement("div");
+  courseName.classList.add("course-info-name");
+  courseName.innerHTML = elem.name;
+  const courseBarFrame = document.createElement("div");
+  courseBarFrame.classList.add("course-info-frame-bar");
+  course.append(courseName);
+  course.append(courseBarFrame);
+  const courseBarPercent = document.createElement("div");
+  courseBarPercent.classList.add("course-info-bar");
+  courseBarFrame.append(courseBarPercent);
+  const courseBarPercentProgress = document.createElement("div");
+  courseBarPercentProgress.classList.add("course-info-bar-progress");
+  const percentage = 28;
+  // const clampedPercentage = Math.max(0, Math.min(100, percentage));
+  courseBarPercentProgress.style.width = percentage + "%";
+  courseBarPercent.append(courseBarPercentProgress);
+  const courseBarPercentText = document.createElement("div");
+  courseBarPercentText.classList.add("course-info-percent");
+  courseBarPercentText.innerHTML = `${percentage}%`;
+  courseBarFrame.append(courseBarPercentText);
+});

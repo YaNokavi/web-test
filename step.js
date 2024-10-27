@@ -5,7 +5,7 @@ const moduleId = urlParams.get("moduleId");
 const submoduleId = urlParams.get("submoduleId");
 const stepId = urlParams.get("stepId");
 const urlContent = "/test.txt";
-localStorage.removeItem("3-course");
+
 var modulesData = JSON.parse(localStorage.getItem("modulesData"));
 var submoduleInfo = modulesData[moduleId-1].submoduleList[submoduleId-1];
 var stepInfo = submoduleInfo.stepList;
