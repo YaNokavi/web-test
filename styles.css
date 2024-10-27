@@ -280,13 +280,13 @@ body {
 
 .course-info-bar-progress {
   position: absolute;
-  width: 0px;
   height: 5px;
   left: 0px;
   top: 0px;
-
+  width: 0%;
   background: #1468b1;
   border-radius: 10px;
+  
 }
 
 .course-info-percent {

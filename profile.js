@@ -67,9 +67,12 @@ courseInfo.forEach((elem) => {
   courseBarFrame.append(courseBarPercent);
   const courseBarPercentProgress = document.createElement("div");
   courseBarPercentProgress.classList.add("course-info-bar-progress");
-  const percentage = 28;
-  // const clampedPercentage = Math.max(0, Math.min(100, percentage));
-  courseBarPercentProgress.style.width = percentage + "%";
+  const percentage = 50;
+  courseBarPercentProgress.style.transition = "width 1s ease";
+  setTimeout(() => {
+    courseBarPercentProgress.style.width = percentage + "%"; // Конечное значение
+  }, 500);
+  // courseBarPercentProgress.style.width = percentage + "%";
   courseBarPercent.append(courseBarPercentProgress);
   const courseBarPercentText = document.createElement("div");
   courseBarPercentText.classList.add("course-info-percent");
