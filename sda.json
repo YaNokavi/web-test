@@ -9,7 +9,14 @@
         {
           "id": 1,
           "textContentUrl": "/test.txt",
-          "mediaContentUrl": "ds,lksadsa"
+          "mediaContentUrl": "ds,lksadsa",
+          "test": 
+            {
+                "question": "Какой язык используется для создания веб-страниц?",
+                "options": ["HTML", "CSS", "JavaScript"],
+                "answer": "HTML"
+            }
+          
         },
         {
           "id": 2,

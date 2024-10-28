@@ -2,7 +2,6 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 var courseInfo = JSON.parse(localStorage.getItem(`coursesData`))[paramId-1];
-var learningData = courseInfo.learningOutcomes;
 
 var userid = localStorage.getItem("userIdData");
 var username = localStorage.getItem("username");
@@ -37,10 +36,10 @@ courseElement.innerHTML = `
 function displayLearning() {
   const elementLearning = document.getElementById("points");
   elementLearning.innerHTML = "";
-  learningData.forEach((elem) => {
+  courseData.learningOutcomeList.forEach((elem) => {
     const pointElement = document.createElement("div");
     pointElement.style.marginBottom = "15px";
-    pointElement.innerHTML = `•&nbsp; ${elem}`;
+    pointElement.innerHTML = `•&nbsp; ${elem.content}`;
     elementLearning.append(pointElement);
   });
 }
@@ -48,7 +47,7 @@ function displayLearning() {
 function displayModules() {
   const elementModules = document.getElementById("modules");
   elementModules.innerHTML = "";
-  modulesData.forEach((elem) => {
+  courseData.courseModuleList.forEach((elem) => {
     const moduleMain = document.createElement("div");
     moduleMain.classList.add("syllabus-text-course-main");
     moduleMain.innerHTML = `${elem.id}. ${elem.name}`;
@@ -64,33 +63,34 @@ function displayModules() {
 } 
 
 //Доделать запросы
-async function fetchModules() {
-  const cachedModules = localStorage.getItem("modulesData");
-  if (cachedModules) {
-    modulesData = JSON.parse(cachedModules);
+async function fetchContent() {
+  // const cachedCourse = localStorage.getItem("courseData");
+  // if (cachedModules) {
+  //   courseData = JSON.parse(cachedCourse);
 
-    displayModules();
-  } else {
+  //   displayLearning();
+  //   displayModules();
+  // } else {
     try {
       const response = await fetch(
-        // "https://cryptuna-anderm.amvera.io/course/all"
-        "/sda.json"
+      `https://cryptuna-anderm.amvera.io/course/${paramId}/content`
+        // "/sda.json"
       );
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
       }
-      modulesData = await response.json();
-      localStorage.setItem("modulesData", JSON.stringify(modulesData));
+      courseData = await response.json();
+      localStorage.setItem("courseData", JSON.stringify(courseData));
 
+      displayLearning();
       displayModules();
     } catch (error) {
       console.error("Ошибка при получении курсов:", error);
     }
   }
-}
+//}
 
-fetchModules();
-displayLearning();
+fetchContent();
 
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");

@@ -8,7 +8,8 @@ var arrow = document.getElementById("ref");
 title.innerText = courseInfo.name;
 arrow.href = `courses.html?id=${paramId}`;
 
-var modulesData = JSON.parse(localStorage.getItem("modulesData"));
+var modulesData = JSON.parse(localStorage.getItem("courseData")).courseModuleList;
+console.log(modulesData)
 
 function displayModules() {
   const elementModules = document.getElementById("modules");

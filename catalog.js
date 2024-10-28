@@ -1,7 +1,7 @@
 let coursesData = [];
 
 async function fetchCourses() {
-  const cachedCourses = localStorage.getItem("coursesData");
+  const cachedCourses = localStorage.getItem("catalogData");
   if (cachedCourses) {
     // Если данные есть, парсим их и сохраняем в переменной
     coursesData = JSON.parse(cachedCourses);
@@ -16,7 +16,7 @@ async function fetchCourses() {
         throw new Error(`Ошибка: ${response.status}`);
       }
       coursesData = await response.json(); // Сохраняем данные в переменной
-      localStorage.setItem("coursesData", JSON.stringify(coursesData));
+      localStorage.setItem("catalogData", JSON.stringify(coursesData));
 
       displayCourses(); // Вызываем функцию для отображения курсов
     } catch (error) {
