@@ -8,7 +8,7 @@ var arrow = document.getElementById("ref");
 title.innerText = courseInfo.name;
 arrow.href = `courses.html?id=${paramId}`;
 
-var modulesData = JSON.parse(localStorage.getItem("courseData")).courseModuleList;
+var modulesData = JSON.parse(localStorage.getItem(`courseData-${paramId}`)).courseModuleList;
 console.log(modulesData)
 
 function displayModules() {
@@ -28,7 +28,7 @@ function displayModules() {
     const moduleAditional = document.createElement("div");
     moduleAditional.classList.add("syllabus-modules-aditional");
     elementModules.append(moduleAditional);
-    module.submoduleList.forEach((submodule, index) => {
+    module.submoduleList.forEach((submodule) => {
       const moduleAditionalText = document.createElement("a");
       const submoduleId = submodule.id;
       //присваивание айдишникой шагов к ссылке

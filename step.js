@@ -5,7 +5,7 @@ const moduleId = urlParams.get("moduleId");
 const submoduleId = urlParams.get("submoduleId");
 const stepId = urlParams.get("stepId");
 
-var modulesData = JSON.parse(localStorage.getItem("courseData")).courseModuleList;
+var modulesData = JSON.parse(localStorage.getItem(`courseData-${syllabusId}`)).courseModuleList;
 var submoduleInfo = modulesData[moduleId - 1].submoduleList[submoduleId - 1];
 var stepInfo = submoduleInfo.stepList;
 var urlContent = stepInfo[stepId - 1].textContentUrl;

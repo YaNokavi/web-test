@@ -11,21 +11,38 @@ data = {
 
 var info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
-if (info) {
+
+if (Object.keys(JSON.parse(info)).length != 0) {
   try {
     var parsedInfo = JSON.parse(info);
     var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
+
     for (let key in idCourse) {
-      if (idCourse[key] == paramId - 1) {
+      if (idCourse[key] == paramId) {
         courseElement.innerHTML = `
-            <div class="course-block-author">Автор: @${idCourse[key].author}</div>
+            <div class="course-block-author">Автор: @${parsedInfo[key].author}</div>
           <div class="course-block-description">
             <img src="icons/logo_cuna2.jpg" class="course-logo" />
-            <div class="course-block-name">${idCourse[key].name}</div>
-            ${idCourse[key].description}
+            <div class="course-block-name">${parsedInfo[key].name}</div>
+            ${parsedInfo[key].description}
           </div>
         `;
+        break;
+      } else {
+        var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
+          paramId - 1
+        ];
+        console.log(courseInfo);
+        courseElement.innerHTML = `
+          <div class="course-block-author">Автор: @${courseInfo.author}</div>
+        <div class="course-block-description">
+          <img src="icons/logo_cuna2.jpg" class="course-logo" />
+          <div class="course-block-name">${courseInfo.name}</div>
+          ${courseInfo.description}
+        </div>
+      `;
+        break;
       }
     }
   } catch (error) {
@@ -75,9 +92,10 @@ function displayModules() {
 
 //Доделать запросы
 async function fetchContent() {
-  const cachedCourse = localStorage.getItem("courseData");
+  const cachedCourse = localStorage.getItem(`courseData-${paramId}`);
   if (cachedCourse) {
     courseData = JSON.parse(cachedCourse);
+    console.log(courseData)
 
     displayLearning();
     displayModules();
@@ -91,12 +109,12 @@ async function fetchContent() {
         throw new Error(`Ошибка: ${response.status}`);
       }
       courseData = await response.json();
-      localStorage.setItem("courseData", JSON.stringify(courseData));
+      localStorage.setItem(`courseData-${paramId}`, JSON.stringify(courseData));
 
       displayLearning();
       displayModules();
     } catch (error) {
-      console.error("Ошибка при получении курсов:", error);
+      console.error("Ошибка при получении данных о курсе", error);
     }
   }
 }
@@ -114,7 +132,7 @@ const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 
-if (Object.keys(idCourse).length === 0) {
+if (idCourse == null) {
   button1.style.display = "flex";
   button2.style.display = "none";
   button3.style.display = "none";
@@ -293,6 +311,6 @@ if (refer == "index.html" || refer == "favorite.html") {
   }
 }
 
-link.addEventListener("click", function () {
-  localStorage.removeItem("modulesData");
-});
+// window.addEventListener("beforeunload", function () {
+//   localStorage.removeItem("courseData");
+// });
