@@ -65,7 +65,7 @@ function displayModules() {
 //Доделать запросы
 async function fetchContent() {
   const cachedCourse = localStorage.getItem("courseData");
-  if (cachedModules) {
+  if (cachedCourse) {
     courseData = JSON.parse(cachedCourse);
 
     displayLearning();
