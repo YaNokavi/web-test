@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId-1];
+var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
 
 var userid = localStorage.getItem("userIdData");
 var username = localStorage.getItem("username");
@@ -9,7 +9,7 @@ data = {
   id: userid,
   name: username,
 };
- 
+
 var info = localStorage.getItem("infoCourse");
 if (info) {
   try {
@@ -60,7 +60,7 @@ function displayModules() {
       elementModules.append(moduleAditional);
     });
   });
-} 
+}
 
 //Доделать запросы
 async function fetchContent() {
@@ -73,7 +73,7 @@ async function fetchContent() {
   } else {
     try {
       const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/course/${paramId}/content`
+        `https://cryptuna-anderm.amvera.io/course/${paramId}/content`
         // "/sda.json"
       );
       if (!response.ok) {
@@ -282,6 +282,6 @@ if (refer == "index.html" || refer == "favorite.html") {
   }
 }
 
-link.addEventListener("click", function() {
+link.addEventListener("click", function () {
   localStorage.removeItem("modulesData");
-})
+});
