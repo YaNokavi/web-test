@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`coursesData`))[paramId-1];
+var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId-1];
 
 var userid = localStorage.getItem("userIdData");
 var username = localStorage.getItem("username");
@@ -64,13 +64,13 @@ function displayModules() {
 
 //Доделать запросы
 async function fetchContent() {
-  // const cachedCourse = localStorage.getItem("courseData");
-  // if (cachedModules) {
-  //   courseData = JSON.parse(cachedCourse);
+  const cachedCourse = localStorage.getItem("courseData");
+  if (cachedModules) {
+    courseData = JSON.parse(cachedCourse);
 
-  //   displayLearning();
-  //   displayModules();
-  // } else {
+    displayLearning();
+    displayModules();
+  } else {
     try {
       const response = await fetch(
       `https://cryptuna-anderm.amvera.io/course/${paramId}/content`
@@ -88,7 +88,7 @@ async function fetchContent() {
       console.error("Ошибка при получении курсов:", error);
     }
   }
-//}
+}
 
 fetchContent();
 

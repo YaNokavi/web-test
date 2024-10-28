@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`coursesData`))[paramId-1];
+var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId-1];
 
 var title = document.getElementById("title");
 var arrow = document.getElementById("ref");
