@@ -1,7 +1,6 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
 
 var userid = localStorage.getItem("userIdData");
 var username = localStorage.getItem("username");
@@ -11,27 +10,42 @@ data = {
 };
 
 var info = localStorage.getItem("infoCourse");
+const courseElement = document.getElementById("info");
 if (info) {
   try {
     var parsedInfo = JSON.parse(info);
     var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
+    for (let key in idCourse) {
+      if (idCourse[key] == paramId) {
+        courseElement.innerHTML = `
+            <div class="course-block-author">Автор: @${idCourse[key].author}</div>
+          <div class="course-block-description">
+            <img src="icons/logo_cuna2.jpg" class="course-logo" />
+            <div class="course-block-name">${idCourse[key].name}</div>
+            ${idCourse[key].description}
+          </div>
+        `;
+      }
+    }
   } catch (error) {
+    
     console.error("Ошибка при парсинге JSON:", error);
   }
 } else {
+  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
+    paramId - 1
+  ];
+  courseElement.innerHTML = `
+          <div class="course-block-author">Автор: @${courseInfo.author}</div>
+        <div class="course-block-description">
+          <img src="icons/logo_cuna2.jpg" class="course-logo" />
+          <div class="course-block-name">${courseInfo.name}</div>
+          ${courseInfo.description}
+        </div>
+      `;
   console.log("Данные не найдены в localStorage.");
 }
-
-const courseElement = document.getElementById("info");
-courseElement.innerHTML = `
-            <div class="course-block-author">Автор: @${courseInfo.author}</div>
-          <div class="course-block-description">
-            <img src="icons/logo_cuna2.jpg" class="course-logo" />
-            <div class="course-block-name">${courseInfo.name}</div>
-            ${courseInfo.description}
-          </div>
-        `;
 
 function displayLearning() {
   const elementLearning = document.getElementById("points");
