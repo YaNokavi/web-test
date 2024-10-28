@@ -17,7 +17,7 @@ if (info) {
     var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
     for (let key in idCourse) {
-      if (idCourse[key] == paramId) {
+      if (idCourse[key] == paramId - 1) {
         courseElement.innerHTML = `
             <div class="course-block-author">Автор: @${idCourse[key].author}</div>
           <div class="course-block-description">
@@ -29,13 +29,10 @@ if (info) {
       }
     }
   } catch (error) {
-    
     console.error("Ошибка при парсинге JSON:", error);
   }
 } else {
-  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
-    paramId - 1
-  ];
+  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
   courseElement.innerHTML = `
           <div class="course-block-author">Автор: @${courseInfo.author}</div>
         <div class="course-block-description">
