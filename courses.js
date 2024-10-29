@@ -33,7 +33,6 @@ if (Object.keys(JSON.parse(info)).length != 0) {
         var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
           paramId - 1
         ];
-        console.log(courseInfo);
         courseElement.innerHTML = `
           <div class="course-block-author">Автор: @${courseInfo.author}</div>
         <div class="course-block-description">
@@ -92,10 +91,10 @@ function displayModules() {
 
 //Доделать запросы
 async function fetchContent() {
-  const cachedCourse = localStorage.getItem(`courseData-${paramId}`);
+  const cachedCourse = localStorage.getItem(`courseData`);
   if (cachedCourse) {
     courseData = JSON.parse(cachedCourse);
-    console.log(courseData)
+    console.log(courseData);
 
     displayLearning();
     displayModules();
@@ -109,7 +108,7 @@ async function fetchContent() {
         throw new Error(`Ошибка: ${response.status}`);
       }
       courseData = await response.json();
-      localStorage.setItem(`courseData-${paramId}`, JSON.stringify(courseData));
+      localStorage.setItem(`courseData`, JSON.stringify(courseData));
 
       displayLearning();
       displayModules();
@@ -311,6 +310,25 @@ if (refer == "index.html" || refer == "favorite.html") {
   }
 }
 
-// window.addEventListener("beforeunload", function () {
-//   localStorage.removeItem("courseData");
-// });
+const currentTab = sessionStorage.getItem("currentTab");
+const currentLink = sessionStorage.getItem("currentLink");
+if (currentTab == null && currentLink == null) {
+  sessionStorage.setItem("currentTab", refer);
+  sessionStorage.setItem("currentLink", window.location.href);
+} 
+
+link.addEventListener("click", function () {
+  sessionStorage.removeItem("currentTab");
+  sessionStorage.removeItem("currentLink");
+});
+if (refer == "catalog.html") {
+  catalogTab.addEventListener("click", function () {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+  });
+} else if (refer == "index.html" || refer == "favorite.html") {
+  favorTab.addEventListener("click", function () {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+  });
+}

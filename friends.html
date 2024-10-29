@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-  lang="ru"
-  nighteye="disabled"
->
+<html lang="ru" nighteye="disabled">
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -283,6 +280,13 @@
       window.onload = function () {
         document.getElementById("preloader").style.display = "none";
       };
+
+      const currentTab = sessionStorage.getItem("currentTab");
+      const currentLink = sessionStorage.getItem("currentLink");
+      
+      if (currentTab == null && currentLink == null) {
+        localStorage.removeItem("courseData");
+      }
 
       document.getElementById("invite").addEventListener("click", function () {
         let a = `https://t.me/cunaedu_bot?startapp`,

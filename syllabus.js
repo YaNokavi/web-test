@@ -1,15 +1,17 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId-1];
+var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
 
 var title = document.getElementById("title");
 var arrow = document.getElementById("ref");
 title.innerText = courseInfo.name;
 arrow.href = `courses.html?id=${paramId}`;
 
-var modulesData = JSON.parse(localStorage.getItem(`courseData-${paramId}`)).courseModuleList;
-console.log(modulesData)
+var modulesData = JSON.parse(
+  localStorage.getItem(`courseData`)
+).courseModuleList;
+console.log(modulesData);
 
 function displayModules() {
   const elementModules = document.getElementById("modules");
@@ -50,10 +52,21 @@ var refer = localStorage.getItem("refer");
 var favorTab = document.getElementById("favor");
 var catalogTab = document.getElementById("catalog");
 
+sessionStorage.setItem("currentTab", refer);
+sessionStorage.setItem("currentLink", window.location.href);
+
 if (refer == "index.html" || refer == "favorite.html") {
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
+  favorTab.addEventListener("click", function () {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+  });
 } else if (refer == "catalog.html") {
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
+  catalogTab.addEventListener("click", function () {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+  });
 }

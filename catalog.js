@@ -1,3 +1,12 @@
+const currentTab = sessionStorage.getItem("currentTab");
+const currentLink = sessionStorage.getItem("currentLink");
+
+if (currentTab === "catalog.html" && currentLink != null) {
+  window.location.href = currentLink;
+} else if (currentTab == null && currentLink == null) {
+  localStorage.removeItem("courseData");
+}
+
 let coursesData = [];
 
 async function fetchCourses() {
@@ -82,4 +91,3 @@ for (let key in coursesData) {
     catalogTab.style.color = "#ffffff";
   }
 }
-

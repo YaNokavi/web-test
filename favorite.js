@@ -1,13 +1,20 @@
+
+const currentTab = sessionStorage.getItem("currentTab");
+const currentLink = sessionStorage.getItem("currentLink");
+
+if ((currentTab === "favorite.html" || currentTab === "index.html") && currentLink != null) {
+  window.location.href = currentLink;
+} else if (currentTab == null && currentLink == null) {
+  localStorage.removeItem("courseData");
+}
+
 var info = localStorage.getItem("infoCourse");
 var courses;
-
 var refer = document.referrer.split("/").pop();
 
 if (Object.keys(JSON.parse(info)).length !== 0) {
   courses = JSON.parse(info);
-}
-
-else if (Object.keys(JSON.parse(info)).length === 0) {
+} else if (Object.keys(JSON.parse(info)).length === 0) {
   courses = JSON.parse(localStorage.getItem("infoCourse"));
   if (Object.keys(courses).length === 0) {
     const coursesDiv = document.getElementById("favorite-courses");
@@ -37,19 +44,19 @@ else if (Object.keys(JSON.parse(info)).length === 0) {
       </a>
       
       `;
-      coursesDiv.append(courseButton);
-    }
+    coursesDiv.append(courseButton);
   }
-  
-  if (Object.keys(courses).length !== 0) {
+}
+
+if (Object.keys(courses).length !== 0) {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
   courses.forEach((course, index) => {
     setTimeout(() => {
-    const courseElement = document.createElement("a");
-    courseElement.href = `courses.html?id=${course.id}`;
-    courseElement.classList.add("courses-block");
-    courseElement.innerHTML = `
+      const courseElement = document.createElement("a");
+      courseElement.href = `courses.html?id=${course.id}`;
+      courseElement.classList.add("courses-block");
+      courseElement.innerHTML = `
       <div class="courses-logo"
     style="background-image: url(icons/logo_cuna2.jpg)"></div>
       <div class="courses-block-text">
@@ -76,13 +83,16 @@ else if (Object.keys(JSON.parse(info)).length === 0) {
     </div>
   </div>
   `;
-    coursesDiv.append(courseElement);
-}, (index + 1) * 100);
+      coursesDiv.append(courseElement);
+    }, (index + 1) * 100);
     // localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
 }
 for (let key in courses) {
-  if (refer == `courses.html?id=${courses[key].id}` || refer == `syllabus.html?id=${courses[key].id}`) {
+  if (
+    refer == `courses.html?id=${courses[key].id}` ||
+    refer == `syllabus.html?id=${courses[key].id}`
+  ) {
     var title = document.getElementById("title");
     var catalogTab = document.getElementById("active");
     title.style.animation = "none";

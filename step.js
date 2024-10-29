@@ -5,7 +5,9 @@ const moduleId = urlParams.get("moduleId");
 const submoduleId = urlParams.get("submoduleId");
 const stepId = urlParams.get("stepId");
 
-var modulesData = JSON.parse(localStorage.getItem(`courseData-${syllabusId}`)).courseModuleList;
+var modulesData = JSON.parse(
+  localStorage.getItem(`courseData`)
+).courseModuleList;
 var submoduleInfo = modulesData[moduleId - 1].submoduleList[submoduleId - 1];
 var stepInfo = submoduleInfo.stepList;
 var urlContent = stepInfo[stepId - 1].textContentUrl;
@@ -89,7 +91,6 @@ function displayTest() {
             resultContainer.style.animation = "none";
           }, 200);
         }, 200);
-
 
         if (
           (stepId == Object.keys(stepInfo).length) &
@@ -238,12 +239,23 @@ var link = document.referrer.split("/").pop();
 link = link.split("&").pop();
 var switc = document.getElementById("switc");
 
+sessionStorage.setItem("currentTab", refer);
+sessionStorage.setItem("currentLink", window.location.href);
+
 if (refer == "index.html" || refer == "favorite.html") {
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
+  favorTab.addEventListener("click", function () {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+  });
 } else if (refer == "catalog.html") {
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
+  catalogTab.addEventListener("click", function () {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+  });
 }
 
 if (stepId != 1 || link == "stepId=2") {

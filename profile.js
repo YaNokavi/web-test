@@ -1,6 +1,12 @@
 var popup = document.querySelector(".popup");
 var popupBtn = document.getElementById("pop");
 var popupBtnSvg = document.getElementById("popu");
+const currentTab = sessionStorage.getItem("currentTab");
+const currentLink = sessionStorage.getItem("currentLink");
+
+if (currentTab == null && currentLink == null) {
+  localStorage.removeItem("courseData");
+}
 
 popupBtn.addEventListener("click", () => {
   popup.style.display = "flex";
