@@ -11,10 +11,15 @@ var modulesData = JSON.parse(
 var submoduleInfo = modulesData[moduleId - 1].submoduleList[submoduleId - 1];
 var stepInfo = submoduleInfo.stepList;
 var urlContent = stepInfo[stepId - 1].textContentUrl;
-// urlContent = "/test.txt"
+// var urlContent = "/test.txt"
 // urlContent = "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/2682e44dcf2b815ddf38f3bb0c5101af773a04f1/content.txt"
 // urlContent = 'https://cors-anywhere.herokuapp.com/https://docviewer.yandex.ru/view/1880030910/?*=u1HB1dTjwVM%2BENqTSME8IimEy857InVybCI6InlhLWRpc2s6Ly8vZGlzay9DdW5hRWR1L2NvdXJzZXMvdGVjaG5pY2FsIGFuYWx5c2lzL2NvbnRlbnQudHh0IiwidGl0bGUiOiJjb250ZW50LnR4dCIsIm5vaWZyYW1lIjpmYWxzZSwidWlkIjoiMTg4MDAzMDkxMCIsInRzIjoxNzMwMTM4NzM4OTMwLCJ5dSI6IjU3Mzk3MzUzODE3Mjg1MDEzNTMifQ%3D%3D'
 var testContent = stepInfo[stepId - 1].test;
+// var testContent = {
+//   question: "Какой язык используется для создания веб-страниц?",
+//   options: ["HTML", "CSS", "JavaScript"],
+//   answer: "HTML",
+// };
 
 var title = document.getElementById("title");
 var arrow = document.getElementById("ref");

@@ -3,6 +3,7 @@ let data = {
   id: userIdData,
   name: username
 };
+var flag = 0;
 
 async function fetchCourses() {
   try {
@@ -79,6 +80,7 @@ function displayCourses() {
     coursesDiv.append(courseElement);
   }, (index + 1) * 100);
   });
+  flag = 0;
 }
 
 function displayButton() {
@@ -110,6 +112,7 @@ function displayButton() {
 
         `;
   coursesDiv.append(courseButton);
+  flag = 0;
 }
 
 fetchCourses();

@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-  lang="ru"
-  nighteye="disabled"
->
+<html lang="ru" nighteye="disabled">
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -139,35 +136,35 @@
 
       <a href="catalog.html" class="tab-item tab-item-active" id="active">
         <svg
-        class="tab-icon"
-        width="28"
-        height="28"
-        viewBox="0 0 28 28"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3.875 14H24.875"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M3.875 7H24.875"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M3.875 21H24.875"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+          class="tab-icon"
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.875 14H24.875"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M3.875 7H24.875"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M3.875 21H24.875"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
 
         <div class="tab-label">Каталог</div>
       </a>
@@ -235,13 +232,14 @@
         <div class="tab-label">Профиль</div>
       </a>
     </div>
-  <script src="catalog.js"></script>
+    <script src="catalog.js"></script>
 
-  <script>
-    window.onload = function () {
-      document.getElementById("preloader").style.display = "none";
-    };
-  </script>
+    <script>
+      window.onload = function () {
+        if (flag == 0) {
+          document.getElementById("preloader").style.display = "none";
+        }
+      };
+    </script>
   </body>
-
 </html>

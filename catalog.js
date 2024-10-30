@@ -1,5 +1,6 @@
 const currentTab = sessionStorage.getItem("currentTab");
 const currentLink = sessionStorage.getItem("currentLink");
+var flag = 1;
 
 if (currentTab === "catalog.html" && currentLink != null) {
   window.location.href = currentLink;
@@ -73,6 +74,7 @@ function displayCourses() {
 
     // localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
+  flag = 0;
 }
 
 fetchCourses();
