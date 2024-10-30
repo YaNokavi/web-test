@@ -87,6 +87,7 @@ function displayModules() {
       elementModules.append(moduleAditional);
     });
   });
+  document.getElementById("preloader").style.display = "none";
 }
 
 //Доделать запросы
@@ -118,7 +119,7 @@ async function fetchContent() {
   }
 }
 
-fetchContent();
+// fetchContent();
 
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");

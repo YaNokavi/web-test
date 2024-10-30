@@ -1,7 +1,7 @@
 let userInfo = [];
 let data = {
   id: userIdData,
-  name: username
+  name: username,
 };
 var flag = 0;
 
@@ -14,9 +14,9 @@ async function fetchCourses() {
         method: "POST",
         headers: {
           // 'RqUid': crypto.randomUUID
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       }
     );
 
@@ -47,10 +47,10 @@ function displayCourses() {
   const favoriteCourses = userInfo["courses"];
   favoriteCourses.forEach((course, index) => {
     setTimeout(() => {
-    const courseElement = document.createElement("a");
-    courseElement.href = `courses.html?id=${course.id}`;
-    courseElement.classList.add("courses-block");
-    courseElement.innerHTML = `
+      const courseElement = document.createElement("a");
+      courseElement.href = `courses.html?id=${course.id}`;
+      courseElement.classList.add("courses-block");
+      courseElement.innerHTML = `
             <div class="courses-logo"
           style="background-image: url(icons/logo_cuna2.jpg)"></div>
             <div class="courses-block-text">
@@ -77,10 +77,10 @@ function displayCourses() {
           </div>
         </div>
         `;
-    coursesDiv.append(courseElement);
-  }, (index + 1) * 100);
+      coursesDiv.append(courseElement);
+    }, (index + 1) * 100);
   });
-  flag = 0;
+  document.getElementById("preloader").style.display = "none";
 }
 
 function displayButton() {
@@ -112,10 +112,10 @@ function displayButton() {
 
         `;
   coursesDiv.append(courseButton);
-  flag = 0;
+  document.getElementById("preloader").style.display = "none";
 }
 
-fetchCourses();
+// fetchCourses();
 
 var refer = document.referrer.split("/").pop();
 

@@ -74,10 +74,10 @@ function displayCourses() {
 
     // localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
-  flag = 0;
+  document.getElementById("preloader").style.display = "none";
 }
 
-fetchCourses();
+// fetchCourses();
 
 var refer = document.referrer.split("/").pop();
 

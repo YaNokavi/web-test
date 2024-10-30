@@ -43,10 +43,12 @@ async function addContent() {
     }
   } catch (error) {
     console.error("Ошибка при получении курсов:", error);
+  } finally {
+    document.getElementById("preloader").style.display = "none";
   }
 }
 
-addContent();
+// addContent();
 
 const testDiv = document.getElementById("test");
 const submitButton = document.getElementById("submit-button");
