@@ -1,87 +1,114 @@
-var popup = document.querySelector(".popup");
-var popupBtn = document.getElementById("pop");
-var popupBtnSvg = document.getElementById("popu");
-const currentTab = sessionStorage.getItem("currentTab");
-const currentLink = sessionStorage.getItem("currentLink");
+const popup = document.querySelector(".popup");
+const popupBtn = document.getElementById("pop");
+const popupBtnSvg = document.getElementById("popu");
+const balanceText = document.getElementById("balance");
+const userIdProfile = document.querySelector(".profile-userid");
+const logoNameProfile = document.querySelector(
+  ".profile-logo.profile-logo-name"
+);
+const userNameProfile = document.querySelector(".profile-nickname");
+const course = document.getElementById("course-info");
 
-if (currentTab == null && currentLink == null) {
+if (
+  !sessionStorage.getItem("currentTab") &&
+  !sessionStorage.getItem("currentLink")
+) {
   localStorage.removeItem("courseData");
 }
 
-popupBtn.addEventListener("click", () => {
+const showPopup = () => {
   popup.style.display = "flex";
-});
+};
+
+const hidePopup = () => {
+  popup.classList.add("hide-popup");
+  setTimeout(() => {
+    popup.style.display = "none";
+    popup.classList.remove("hide-popup");
+  }, 300);
+};
+
+popupBtn.addEventListener("click", showPopup);
 
 popupBtnSvg.addEventListener("click", (e) => {
   e.stopPropagation();
-  popup.style.display = "flex";
+  showPopup();
 });
 
-document.addEventListener("click", function (e) {
+document.addEventListener("click", (e) => {
   if (
     e.target !== popup &&
     !popup.contains(e.target) &&
     e.target !== popupBtn
   ) {
-    popup.classList.add("hide-popup");
-    setTimeout(() => {
-      popup.style.display = "none"; // Скрываем попап
-      popup.classList.remove("hide-popup"); // Удаляем класс для следующего открытия
-    }, 300);
+    hidePopup();
   }
 });
 
-var userIdData = localStorage.getItem("userIdData");
-var logoName = localStorage.getItem("logoname");
-var userName = localStorage.getItem("username");
-var balanceUser = localStorage.getItem("balance");
+const userIdData = localStorage.getItem("userIdData");
+const logoName = localStorage.getItem("logoname");
+const userName = localStorage.getItem("username") || "";
+let balanceUser = localStorage.getItem("balance");
 
-var balanceText = document.getElementById("balance");
-var userIdProfile = document.querySelector(".profile-userid");
-var logoNameProfile = document.querySelector(".profile-logo.profile-logo-name");
-var userNameProfile = document.querySelector(".profile-nickname");
-
-balanceText.innerText = JSON.parse(balanceUser).balance;
+balanceText.innerText = balanceUser;
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
-if (userName.length <= 15) {
-  userNameProfile.style.fontSize = "30px";
-  userNameProfile.innerText = userName;
-} else if (userName.length > 15 && userName.length < 19) {
-  userNameProfile.style.fontSize = "24px";
-  userNameProfile.innerText = userName;
-} else if (userName.length >= 19) {
-  userName = userName.slice(0, -(userName.length - 17)) + "...";
-  userNameProfile.style.fontSize = "23px";
-  userNameProfile.innerText = userName;
-}
 
-var courseInfo = JSON.parse(localStorage.getItem("infoCourse"));
-var course = document.getElementById("course-info");
+const setUserNameProfile = (name) => {
+  let fontSize;
+
+  if (name.length <= 15) {
+    fontSize = "30px";
+  } else if (name.length < 19) {
+    fontSize = "24px";
+  } else {
+    name = name.slice(0, -2) + "..."; // Обрезаем, чтобы уместить
+    fontSize = "23px";
+  }
+
+  userNameProfile.style.fontSize = fontSize;
+  userNameProfile.innerText = name;
+};
+
+setUserNameProfile(userName);
+
+let courseInfo = JSON.parse(localStorage.getItem("infoCourse"));
+document.addEventListener("DOMContentLoaded", () => {
+  courseInfo.length ? displayProgress() : displayButton();
+});
+
 course.innerHTML = "";
 
-courseInfo.forEach((elem) => {
-  const courseName = document.createElement("div");
-  courseName.classList.add("course-info-name");
-  courseName.innerHTML = elem.name;
-  const courseBarFrame = document.createElement("div");
-  courseBarFrame.classList.add("course-info-frame-bar");
-  course.append(courseName);
-  course.append(courseBarFrame);
-  const courseBarPercent = document.createElement("div");
-  courseBarPercent.classList.add("course-info-bar");
-  courseBarFrame.append(courseBarPercent);
-  const courseBarPercentProgress = document.createElement("div");
-  courseBarPercentProgress.classList.add("course-info-bar-progress");
-  const percentage = 50;
-  courseBarPercentProgress.style.transition = "width 1s ease";
-  setTimeout(() => {
-    courseBarPercentProgress.style.width = percentage + "%"; // Конечное значение
-  }, 500);
-  // courseBarPercentProgress.style.width = percentage + "%";
-  courseBarPercent.append(courseBarPercentProgress);
-  const courseBarPercentText = document.createElement("div");
-  courseBarPercentText.classList.add("course-info-percent");
-  courseBarPercentText.innerHTML = `${percentage}%`;
-  courseBarFrame.append(courseBarPercentText);
-});
+function displayProgress() {
+  const courseBarPercentProgressWidth = "50%"; // Пример процента
+  courseInfo.forEach((elem) => {
+    const courseHtml = `
+    <div class="course-info-name">${elem.name}</div>
+    <div class="course-info-frame-bar">
+      <div class="course-info-bar">
+        <div class="course-info-bar-progress" style="width: 0;"></div>
+      </div>
+      <div class="course-info-percent">${courseBarPercentProgressWidth}</div>
+    </div>
+  `;
+
+    course.innerHTML += courseHtml; // Добавление новой информации о курсе
+  });
+  let progressBarElements = course.querySelectorAll(
+    ".course-info-bar-progress"
+  );
+
+  progressBarElements.forEach((currentProgressBar, index) => {
+    // Задержка для начала анимации
+    setTimeout(() => {
+      currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
+      currentProgressBar.style.width = courseBarPercentProgressWidth; // Устанавливаем конечное значение ширины
+    }, index * 200); // Задержка для последовательной анимации
+  });
+}
+
+function displayButton() {
+  course.style.marginLeft = "0";
+  const buttonHtml = `<div class="progress-title-enable-courses">Вы еще не изучаете ни один курс</div>`;
+  course.innerHTML = buttonHtml;
+}

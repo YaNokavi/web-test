@@ -1,6 +1,5 @@
 const currentTab = sessionStorage.getItem("currentTab");
 const currentLink = sessionStorage.getItem("currentLink");
-var flag = 1;
 
 if (currentTab === "catalog.html" && currentLink != null) {
   window.location.href = currentLink;
@@ -79,15 +78,15 @@ function displayCourses() {
 
 // fetchCourses();
 
-var refer = document.referrer.split("/").pop();
+let refer = document.referrer.split("/").pop();
 
 for (let key in coursesData) {
   if (
     refer == `courses.html?id=${coursesData[key].id}` ||
     refer == `syllabus.html?id=${coursesData[key].id}`
   ) {
-    var title = document.getElementById("title");
-    var catalogTab = document.getElementById("active");
+    const title = document.getElementById("title");
+    const catalogTab = document.getElementById("active");
     title.style.animation = "none";
     catalogTab.style.animation = "none";
     catalogTab.style.color = "#ffffff";

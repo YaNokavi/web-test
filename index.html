@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" nighteye="disabled">
+<html lang="ru">
   <head>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,15 +22,7 @@
       <div class="preloader-animation"></div>
     </div>
 
-    <div
-      class="profile-header"
-      style="
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      "
-    >
+    <div class="profile-header">
       <div class="profile-title">Мои курсы</div>
     </div>
 
@@ -42,15 +34,7 @@
       />
     </div>
 
-    <div
-      class="tab-bar"
-      style="
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      "
-    >
+    <div class="tab-bar">
       <a href="friends.html" class="tab-item">
         <svg
           class="tab-icon"
@@ -206,28 +190,6 @@
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <script>
-      localStorage.clear();
-
-      let tg = window.Telegram.WebApp;
-
-      tg.setHeaderColor("#1468B1");
-      tg.expand();
-
-      var userIdData = `${tg.initDataUnsafe.user.id}`;
-      var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-      var username = `${tg.initDataUnsafe.user.username}`;
-      // var userIdData = 2;
-      // var logoname = "ret";
-      // var username = "rete";
-
-      localStorage.setItem("userIdData", userIdData);
-      localStorage.setItem("logoname", logoname);
-      localStorage.setItem("username", username);
-
-      tg.enableClosingConfirmation();
-    </script>
-
     <!-- <script>
       
       // document
@@ -241,9 +203,6 @@
 
     <script>
       window.onload = function () {
-        // if (flag == 0) {
-        //   document.getElementById("preloader").style.display = "none";
-        // }
         fetchCourses();
       };
     </script>

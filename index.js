@@ -1,14 +1,32 @@
+localStorage.clear();
+
+let tg = window.Telegram.WebApp;
+
+tg.setHeaderColor("#1468B1");
+tg.expand();
+
+// let userIdData = `${tg.initDataUnsafe.user.id}`;
+// let logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+// let username = `${tg.initDataUnsafe.user.username}`;
+let userIdData = 2;
+let logoname = "ret";
+let username = "rete";
+
+localStorage.setItem("userIdData", userIdData);
+localStorage.setItem("logoname", logoname);
+localStorage.setItem("username", username);
+
+tg.enableClosingConfirmation();
+
 let userInfo = [];
 let data = {
   id: userIdData,
   name: username,
 };
-var flag = 0;
 
 async function fetchCourses() {
   try {
     const response = await fetch(
-      // `https://cryptuna-anderm.amvera.io/user/${userIdData}/info`,
       "https://cryptuna-anderm.amvera.io/user/info",
       {
         method: "POST",
@@ -24,28 +42,28 @@ async function fetchCourses() {
       throw new Error(`Ошибка: ${response.status}`);
     }
     userInfo = await response.json(); // Сохраняем данные в переменной
-    localStorage.setItem("balance", JSON.stringify(userInfo, ["balance"]));
+    localStorage.setItem("balance", userInfo.balance);
     localStorage.setItem(
       "infoCourse",
-      JSON.stringify(userInfo["courses"]) // Нахуй жсон
+      JSON.stringify(userInfo.courses) // Нахуй жсон
     );
     // localStorage.setItem("referall")
 
-    if (Object.keys(userInfo["courses"]).length !== 0) {
-      displayCourses();
-    } else {
-      displayButton();
-    }
+    userInfo.courses.length ? displayCourses() : displayButton();
   } catch (error) {
     console.error("Ошибка при получении курсов:", error);
   }
 }
 
 function displayCourses() {
+  document.getElementById("preloader").style.display = "none";
+
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
-  const favoriteCourses = userInfo["courses"];
-  favoriteCourses.forEach((course, index) => {
+
+  const fragment = document.createDocumentFragment();
+
+  userInfo.courses.forEach((course, index) => {
     setTimeout(() => {
       const courseElement = document.createElement("a");
       courseElement.href = `courses.html?id=${course.id}`;
@@ -77,10 +95,10 @@ function displayCourses() {
           </div>
         </div>
         `;
-      coursesDiv.append(courseElement);
+      fragment.append(courseElement);
     }, (index + 1) * 100);
   });
-  document.getElementById("preloader").style.display = "none";
+  coursesDiv.append(fragment);
 }
 
 function displayButton() {
@@ -114,17 +132,20 @@ function displayButton() {
   coursesDiv.append(courseButton);
   document.getElementById("preloader").style.display = "none";
 }
+//А зачем это надо?
+let refer = document.referrer.split("/").pop();
 
-// fetchCourses();
+try {
+  if (
+    userInfo.courses.some((course) => refer === `courses.html?id=${course.id}`)
+  ) {
+    const title = document.getElementById("title");
+    const catalogTab = document.getElementById("active");
 
-var refer = document.referrer.split("/").pop();
-
-for (let key in userInfo["favoriteCourses"]) {
-  if (refer == `${userInfo["favoriteCourses"][key].id}.html`) {
-    var title = document.getElementById("title");
-    var catalogTab = document.getElementById("active");
     title.style.animation = "none";
     catalogTab.style.animation = "none";
     catalogTab.style.color = "#ffffff";
   }
+} catch {
+  console.log("No favorite courses");
 }

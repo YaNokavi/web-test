@@ -23,6 +23,11 @@ body {
   text-align: center;
   justify-content: center;
   top: 0;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .profile-title {
@@ -241,6 +246,19 @@ body {
   color: #000000;
 }
 
+.progress-title-enable-courses {
+  width: 100%;
+  height: 22px;
+  margin-bottom: 25px;
+
+  font: 600 17px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: 0px;
+
+  color: #a6a6a6;
+}
+
 .course-info {
   margin-left: 20px;
   margin-top: 10px;
@@ -311,6 +329,11 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .tab-item {
@@ -410,8 +433,6 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
 
-  /* -webkit-tap-highlight-color: transparent;
-  text-decoration: none; */
   text-decoration: none;
   color: #000000;
 }
@@ -688,7 +709,7 @@ body {
   margin-bottom: 10px;
   background-color: #1468b1;
   border-radius: 15px;
-  will-change: width, background-color, border-radius;
+  will-change: width, background-color;
 }
 
 .course-block-button-text {
@@ -718,7 +739,6 @@ body {
   0% {
     width: 40px;
     margin-left: auto;
-    border-radius: 8px;
     background-color: rgba(20, 104, 177, 0.15);
     margin-right: 10px;
   }
@@ -731,7 +751,6 @@ body {
 
   100% {
     width: 220px;
-    border-radius: 15px;
     background-color: #1468b1;
     margin-right: 100%;
     margin-left: 100%;
@@ -742,7 +761,6 @@ body {
 @keyframes button-course {
   0% {
     width: 220px;
-    border-radius: 15px;
     background-color: #1468b1;
     align-self: center;
     margin-right: 100%;
@@ -755,7 +773,6 @@ body {
   100% {
     width: 40px;
     margin-left: auto;
-    border-radius: 8px;
     background-color: rgba(20, 104, 177, 0.15);
     margin-right: 10px;
   }
@@ -774,8 +791,8 @@ body {
   height: 40px;
   margin-bottom: 10px;
   background-color: rgba(20, 104, 177, 0.15);
-  border-radius: 8px;
-  will-change: width, background-color, border-radius;
+  border-radius: 15px;
+  will-change: width, background-color;
 }
 
 .course-block-button-favorite-icon {
@@ -1216,7 +1233,6 @@ body {
   font: 600 14px/1 Inter, sans-serif;
   font-style: normal;
   letter-spacing: 0px;
-  
 
   color: #ffffff;
 }
@@ -1285,7 +1301,7 @@ body {
   font: 600 14px/1 Inter, sans-serif;
   font-style: normal;
   letter-spacing: 0px;
-  
+
   color: #ffffff;
 }
 
@@ -1312,6 +1328,10 @@ h1 {
   display: none;
 }
 
+.friends-block-not-null-list::-webkit-scrollbar {
+  display: none;
+}
+
 /*Вкладка отсутствия друзей*/
 .friends-block-null {
   animation: ani 0.4s forwards;
@@ -1324,7 +1344,7 @@ h1 {
   margin-top: 10px;
   width: 95%;
   height: 410px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -1388,7 +1408,7 @@ h1 {
   height: 60px;
   min-height: 60px;
   margin-top: auto;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   background: #1468b1;
   border-radius: 15px;
 }
@@ -1405,7 +1425,7 @@ h1 {
   width: 95%;
   height: 60px;
   min-height: 60px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 
   background: #1468b1;
   border-radius: 15px;
@@ -1432,8 +1452,232 @@ h1 {
   transition: opacity 0.5s ease-in-out;
 }
 
-.hidden {
-  opacity: 0;
+.friends-block-not-null {
+  animation: ani 0.4s forwards;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  margin-top: 10px;
+  width: 95%;
+  height: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+.friends-block-not-null-text {
+  width: 95%;
+  height: auto;
+  margin-top: 15px;
+  margin-left: 15px;
+  /* margin-right: 15px; */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+
+  display: flex;
+  text-align: left;
+  letter-spacing: 0px;
+
+  color: #000000;
+}
+
+.friends-block-not-null-text-down {
+  width: 95%;
+  height: auto;
+  margin-top: 12px;
+  /* margin-bottom: auto; */
+  margin-left: 15px;
+  /* margin-right: 15px; */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+
+  display: flex;
+  text-align: left;
+  letter-spacing: -0.4px;
+
+  color: #a6a6a6;
+}
+
+.friends-block-not-null-list {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+
+  margin: 15px;
+  width: 92%;
+  height: auto;
+  padding: 10px 0;
+  gap: 20px;
+
+  background: rgba(20, 104, 177, 0.1);
+  border-radius: 15px;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.friends-list-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+
+  width: 92%;
+  height: 50px;
+}
+
+.friends-list-user-logo {
+  background: #e04646;
+  border-radius: 12px;
+
+  width: 50px;
+  height: 50px;
+}
+
+.friends-list-user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 6px;
+
+  width: auto;
+  height: 50px;
+}
+
+.friends-list-user-info-name {
+  width: auto;
+  height: 15px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.43px;
+
+  color: #000000;
+}
+
+.friends-list-user-info-balance {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 8px;
+  justify-content: space-between;
+
+  width: fit-content;
+  height: 22px;
+
+  background: rgba(20, 104, 177, 0.15);
+  border-radius: 8px;
+}
+
+.friends-list-user-info-balance-text {
+  margin-top: 2px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 19px;
+  align-items: center;
+
+  color: #1468b1;
+}
+
+.friends-list-user-info-balance-logo {
+  width: 15px;
+  height: 15px;
+
+  margin-left: 3px;
+  background-size: cover;
+  background-image: url(icons/logo-token.png);
+  border-radius: 22px;
+}
+
+.friends-buttons {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 95%;
+  min-height: 45px;
+}
+
+.friends-block-not-null-button-invite {
+  animation: ani 0.4s forwards;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  height: 45px;
+  min-height: 45px;
+  background: #1468b1;
+  border-radius: 15px;
+}
+
+.friends-block-not-null-button-link {
+  animation: ani 0.4s forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  min-width: 45px;
+  height: 45px;
+  min-height: 45px;
+  margin-left: 15px;
+
+  background: #1468b1;
+  border-radius: 15px;
+}
+
+.friends-block-not-null-button-text {
+  width: auto;
+  height: 22px;
+  margin-right: 10px;
+  margin-left: auto;
+
+  font: 600 17px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: -0.4px;
+  text-decoration: none;
+
+  color: #ffffff;
+}
+
+.friends-block-not-null-button-icon {
+  margin-right: auto;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 /*Анимации для свг*/
