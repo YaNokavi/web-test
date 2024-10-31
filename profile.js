@@ -109,6 +109,6 @@ function displayProgress() {
 
 function displayButton() {
   course.style.marginLeft = "0";
-  const buttonHtml = `<div class="progress-title-enable-courses">Вы еще не изучаете ни один курс</div>`;
+  const buttonHtml = `<div class="progress-title-enable-courses">Вы не изучаете ни один курс</div>`;
   course.innerHTML = buttonHtml;
 }

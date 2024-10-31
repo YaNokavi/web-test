@@ -2,20 +2,20 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 
-var userid = localStorage.getItem("userIdData");
-var username = localStorage.getItem("username");
+const userid = localStorage.getItem("userIdData");
+const username = localStorage.getItem("username");
 data = {
   id: userid,
   name: username,
 };
 
-var info = localStorage.getItem("infoCourse");
+const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 
 if (Object.keys(JSON.parse(info)).length != 0) {
   try {
-    var parsedInfo = JSON.parse(info);
-    var courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
+    const parsedInfo = JSON.parse(info);
+    const courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
     var idCourse = courses.map((course) => course.id);
 
     for (let key in idCourse) {
@@ -30,7 +30,7 @@ if (Object.keys(JSON.parse(info)).length != 0) {
         `;
         break;
       } else {
-        var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
+        let courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
           paramId - 1
         ];
         courseElement.innerHTML = `
@@ -48,7 +48,7 @@ if (Object.keys(JSON.parse(info)).length != 0) {
     console.error("Ошибка при парсинге JSON:", error);
   }
 } else {
-  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+  let courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
   courseElement.innerHTML = `
           <div class="course-block-author">Автор: @${courseInfo.author}</div>
         <div class="course-block-description">
@@ -57,7 +57,6 @@ if (Object.keys(JSON.parse(info)).length != 0) {
           ${courseInfo.description}
         </div>
       `;
-  console.log("Данные не найдены в localStorage.");
 }
 
 function displayLearning() {
@@ -90,12 +89,10 @@ function displayModules() {
   document.getElementById("preloader").style.display = "none";
 }
 
-//Доделать запросы
 async function fetchContent() {
   const cachedCourse = localStorage.getItem(`courseData`);
   if (cachedCourse) {
     courseData = JSON.parse(cachedCourse);
-    console.log(courseData);
 
     displayLearning();
     displayModules();
@@ -118,8 +115,6 @@ async function fetchContent() {
     }
   }
 }
-
-// fetchContent();
 
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
@@ -276,12 +271,12 @@ button3.addEventListener("click", function () {
   window.location.href = `syllabus.html?id=${paramId}`;
 });
 
-var refer = document.referrer.split("/").pop();
+let refer = document.referrer.split("/").pop();
 
-var title = document.getElementById("title");
-var favorTab = document.getElementById("favor");
-var catalogTab = document.getElementById("catalog");
-var link = document.getElementById("ref");
+const title = document.getElementById("title");
+const favorTab = document.getElementById("favor");
+const catalogTab = document.getElementById("catalog");
+const link = document.getElementById("ref");
 
 if (refer == "index.html" || refer == "favorite.html") {
   localStorage.setItem("refer", refer);
