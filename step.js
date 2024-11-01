@@ -5,31 +5,27 @@ const moduleId = urlParams.get("moduleId");
 const submoduleId = urlParams.get("submoduleId");
 const stepId = urlParams.get("stepId");
 
-var modulesData = JSON.parse(
+const userId = localStorage.getItem("userIdData");
+
+const modulesData = JSON.parse(
   localStorage.getItem(`courseData`)
 ).courseModuleList;
-var submoduleInfo = modulesData[moduleId - 1].submoduleList[submoduleId - 1];
-var stepInfo = submoduleInfo.stepList;
-var urlContent = stepInfo[stepId - 1].textContentUrl;
-// var urlContent = "/test.txt"
-// urlContent = "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/2682e44dcf2b815ddf38f3bb0c5101af773a04f1/content.txt"
-// urlContent = 'https://cors-anywhere.herokuapp.com/https://docviewer.yandex.ru/view/1880030910/?*=u1HB1dTjwVM%2BENqTSME8IimEy857InVybCI6InlhLWRpc2s6Ly8vZGlzay9DdW5hRWR1L2NvdXJzZXMvdGVjaG5pY2FsIGFuYWx5c2lzL2NvbnRlbnQudHh0IiwidGl0bGUiOiJjb250ZW50LnR4dCIsIm5vaWZyYW1lIjpmYWxzZSwidWlkIjoiMTg4MDAzMDkxMCIsInRzIjoxNzMwMTM4NzM4OTMwLCJ5dSI6IjU3Mzk3MzUzODE3Mjg1MDEzNTMifQ%3D%3D'
-var testContent = stepInfo[stepId - 1].test;
-// var testContent = {
-//   question: "Какой язык используется для создания веб-страниц?",
-//   options: ["HTML", "CSS", "JavaScript"],
-//   answer: "HTML",
-// };
+const submoduleInfo = modulesData[moduleId - 1].submoduleList[submoduleId - 1];
+const stepInfo = submoduleInfo.stepList;
+const stepIdProgress = stepInfo[stepId - 1].id;
+const urlContent = stepInfo[stepId - 1].textContentUrl;
+const testContent = stepInfo[stepId - 1].test;
 
-var title = document.getElementById("title");
-var arrow = document.getElementById("ref");
+const title = document.getElementById("title");
+const arrow = document.getElementById("ref");
 title.innerText = modulesData[moduleId - 1].submoduleList[submoduleId - 1].name;
 arrow.href = `syllabus.html?id=${syllabusId}`;
 
-var steps = document.getElementById("steps-number");
+const steps = document.getElementById("steps-number");
 steps.innerHTML = `${stepId} из ${Object.keys(stepInfo).length}`;
 
-var mediaContent = document.getElementById("content");
+var data = JSON.parse(localStorage.getItem("completedSteps"));
+const mediaContent = document.getElementById("content");
 async function addContent() {
   try {
     const response = await fetch(urlContent);
@@ -40,6 +36,10 @@ async function addContent() {
     mediaContent.innerHTML = content;
     if (testContent != null) {
       displayTest();
+    } else {
+      data.completedSteps.push(stepId);
+      console.log(data);
+      localStorage.setItem("completedSteps", JSON.stringify(data));
     }
   } catch (error) {
     console.error("Ошибка при получении курсов:", error);
@@ -47,8 +47,6 @@ async function addContent() {
     document.getElementById("preloader").style.display = "none";
   }
 }
-
-// addContent();
 
 const testDiv = document.getElementById("test");
 const submitButton = document.getElementById("submit-button");
@@ -190,7 +188,7 @@ function displayTest() {
 // const key = "coursesData"; // Замените на ваш ключ
 // console.log(`Размер элемента '${key}': ${getItemSize(key)} KB`);
 
-var buttonBack = document.getElementById("button-back");
+const buttonBack = document.getElementById("button-back");
 if (stepId == 1) {
   buttonBack.removeAttribute("href");
 } else {
@@ -199,7 +197,7 @@ if (stepId == 1) {
   }`;
 }
 
-var buttonForward = document.getElementById("button-forward");
+const buttonForward = document.getElementById("button-forward");
 if (stepId == Object.keys(stepInfo).length) {
   buttonForward.removeAttribute("href");
 } else {
@@ -208,7 +206,7 @@ if (stepId == Object.keys(stepInfo).length) {
   }`;
 }
 
-var button = document.getElementById("button-next-step");
+const button = document.getElementById("button-next-step");
 
 if (
   (stepId == Object.keys(stepInfo).length) &
@@ -239,12 +237,12 @@ if (
   }`;
 }
 
-var refer = localStorage.getItem("refer");
-var favorTab = document.getElementById("favor");
-var catalogTab = document.getElementById("catalog");
-var link = document.referrer.split("/").pop();
+const refer = localStorage.getItem("refer");
+const favorTab = document.getElementById("favor");
+const catalogTab = document.getElementById("catalog");
+let link = document.referrer.split("/").pop();
 link = link.split("&").pop();
-var switc = document.getElementById("switc");
+const switc = document.getElementById("switc");
 
 sessionStorage.setItem("currentTab", refer);
 sessionStorage.setItem("currentLink", window.location.href);

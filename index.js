@@ -18,7 +18,7 @@ localStorage.setItem("username", username);
 
 tg.enableClosingConfirmation();
 
-let userInfo = [];
+// let userInfo = [];
 let data = {
   id: userIdData,
   name: username,
@@ -96,9 +96,11 @@ function displayCourses() {
         </div>
         `;
       fragment.append(courseElement);
+      if (index === userInfo.courses.length - 1) {
+        coursesDiv.append(fragment);
+      }
     }, (index + 1) * 100);
   });
-  coursesDiv.append(fragment);
 }
 
 function displayButton() {
@@ -137,7 +139,7 @@ let refer = document.referrer.split("/").pop();
 
 try {
   if (
-    userInfo.courses.some((course) => refer === `courses.html?id=${course.id}`)
+    userInfo.courses.some((course) => refer == `courses.html?id=${course.id}`)
   ) {
     const title = document.getElementById("title");
     const catalogTab = document.getElementById("active");

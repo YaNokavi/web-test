@@ -1,16 +1,21 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+try {
+  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+} catch {
+  console.log("Нет данных из каталога, берем из любимых");
+  courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId-1];
+}
+
+var modulesData = JSON.parse(
+  localStorage.getItem(`courseData`)
+).courseModuleList;
 
 var title = document.getElementById("title");
 var arrow = document.getElementById("ref");
 title.innerText = courseInfo.name;
 arrow.href = `courses.html?id=${paramId}`;
-
-var modulesData = JSON.parse(
-  localStorage.getItem(`courseData`)
-).courseModuleList;
 
 function createElement(tag, className, innerHTML) {
   const element = document.createElement(tag);

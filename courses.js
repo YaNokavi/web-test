@@ -2,10 +2,10 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 
-const userid = localStorage.getItem("userIdData");
+const userId = localStorage.getItem("userIdData");
 const username = localStorage.getItem("username");
 data = {
-  id: userid,
+  id: userId,
   name: username,
 };
 
@@ -30,7 +30,7 @@ if (Object.keys(JSON.parse(info)).length != 0) {
         `;
         break;
       } else {
-        let courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
+        var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
           paramId - 1
         ];
         courseElement.innerHTML = `
@@ -48,7 +48,7 @@ if (Object.keys(JSON.parse(info)).length != 0) {
     console.error("Ошибка при парсинге JSON:", error);
   }
 } else {
-  let courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
   courseElement.innerHTML = `
           <div class="course-block-author">Автор: @${courseInfo.author}</div>
         <div class="course-block-description">
@@ -87,6 +87,23 @@ function displayModules() {
     });
   });
   document.getElementById("preloader").style.display = "none";
+}
+
+var progress = {
+  userId: userId,
+  completedSteps: [],
+};
+
+try {
+  var parseProgress = JSON.parse(
+    localStorage.getItem("completedSteps")
+  ).completedSteps;
+  
+} catch {
+  console.log("Нет прогресса");
+  if (!parseProgress) {
+    localStorage.setItem("completedSteps", JSON.stringify(progress));
+  }
 }
 
 async function fetchContent() {
@@ -172,6 +189,7 @@ button1.addEventListener("click", function () {
     }, 400);
   }, 10);
   let addData = JSON.parse(localStorage.getItem("infoCourse"));
+
   addData.push(courseInfo);
   localStorage.setItem("infoCourse", JSON.stringify(addData));
 
@@ -251,7 +269,7 @@ button2.addEventListener("click", function () {
 async function postDataRemove() {
   try {
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/${userid}/favorite/remove?courseId=${paramId}`,
+      `https://cryptuna-anderm.amvera.io/user/${userId}/favorite/remove?courseId=${paramId}`,
       {
         method: "POST",
         // headers: {
@@ -311,7 +329,7 @@ const currentLink = sessionStorage.getItem("currentLink");
 if (currentTab == null && currentLink == null) {
   sessionStorage.setItem("currentTab", refer);
   sessionStorage.setItem("currentLink", window.location.href);
-} 
+}
 
 link.addEventListener("click", function () {
   sessionStorage.removeItem("currentTab");
