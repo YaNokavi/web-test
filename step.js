@@ -10,10 +10,15 @@ const userId = localStorage.getItem("userIdData");
 const modulesData = JSON.parse(
   localStorage.getItem(`courseData`)
 ).courseModuleList;
-const submoduleInfo = modulesData[moduleId - 1].submoduleList[submoduleId - 1];
-const stepInfo = submoduleInfo.stepList;
+const submoduleLength = modulesData[moduleId - 1].submoduleList;
+const stepInfo =
+  modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
 const stepIdProgress = stepInfo[stepId - 1].id;
-const urlContent = stepInfo[stepId - 1].textContentUrl;
+console.log(Object.keys(submoduleLength).length);
+// const urlContent = stepInfo[stepId - 1].textContentUrl;
+var urlContent = stepInfo[stepId - 1].textContentUrl;
+urlContent =
+  "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
 const testContent = stepInfo[stepId - 1].test;
 
 const title = document.getElementById("title");
@@ -24,8 +29,35 @@ arrow.href = `syllabus.html?id=${syllabusId}`;
 const steps = document.getElementById("steps-number");
 steps.innerHTML = `${stepId} из ${Object.keys(stepInfo).length}`;
 
-var data = JSON.parse(localStorage.getItem("completedSteps"));
+var progress = JSON.parse(localStorage.getItem("completedSteps"));
 const mediaContent = document.getElementById("content");
+
+function addStepProgress() {
+  if (progress.completedSteps.length === 0) {
+    // Если массив пустой, добавляем stepIdProgress
+    progress.completedSteps.push(stepIdProgress);
+    console.log(progress);
+    localStorage.setItem("completedSteps", JSON.stringify(progress));
+  } else {
+    let stepExists = false;
+
+    for (let key in progress.completedSteps) {
+      if (progress.completedSteps[key] === stepIdProgress) {
+        console.log("Шаг уже завершен");
+        stepExists = true; // Устанавливаем флаг, если шаг найден
+        break;
+      }
+    }
+
+    if (!stepExists) {
+      // Если шаг не найден, добавляем его
+      progress.completedSteps.push(stepIdProgress);
+      console.log(progress);
+      localStorage.setItem("completedSteps", JSON.stringify(progress));
+    }
+  }
+}
+
 async function addContent() {
   try {
     const response = await fetch(urlContent);
@@ -37,14 +69,35 @@ async function addContent() {
     if (testContent != null) {
       displayTest();
     } else {
-      data.completedSteps.push(stepId);
-      console.log(data);
-      localStorage.setItem("completedSteps", JSON.stringify(data));
+      addStepProgress();
     }
   } catch (error) {
     console.error("Ошибка при получении курсов:", error);
   } finally {
     document.getElementById("preloader").style.display = "none";
+  }
+}
+
+async function sendProgress() {
+  try {
+    const response = await fetch(
+      // "https://cryptuna-anderm.amvera.io/user/info",
+      {
+        method: "POST",
+        headers: {
+          // 'RqUid': crypto.randomUUID
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(progress),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+    // userInfo = await response.json(); // Сохраняем данные в переменной
+  } catch (error) {
+    console.error("Ошибка при отправке прогресса", error);
   }
 }
 
@@ -96,16 +149,16 @@ function displayTest() {
             resultContainer.style.animation = "none";
           }, 200);
         }, 200);
-
+        addStepProgress();
         if (
           (stepId == Object.keys(stepInfo).length) &
-          (submoduleId != Object.keys(submoduleInfo).length)
+          (submoduleId != Object.keys(submoduleLength).length)
         ) {
           nextButton.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
             Number(submoduleId) + 1
           }&stepId=${1}`;
         } else if (
-          (submoduleId == Object.keys(submoduleInfo).length) &
+          (submoduleId == Object.keys(submoduleLength).length) &
           (moduleId != Object.keys(modulesData).length)
         ) {
           nextButton.href = `step.html?syllabusId=${syllabusId}&moduleId=${
@@ -113,7 +166,7 @@ function displayTest() {
           }&submoduleId=${1}&stepId=${1}`;
         } else if (
           (moduleId == Object.keys(modulesData).length) &
-          (submoduleId == Object.keys(submoduleInfo).length) &
+          (submoduleId == Object.keys(submoduleLength).length) &
           (stepId == Object.keys(stepInfo).length)
         ) {
           nextButton.removeAttribute("href");
@@ -209,29 +262,37 @@ if (stepId == Object.keys(stepInfo).length) {
 const button = document.getElementById("button-next-step");
 
 if (
-  (stepId == Object.keys(stepInfo).length) &
-  (submoduleId != Object.keys(submoduleInfo).length)
+  stepId == Object.keys(stepInfo).length &&
+  submoduleId != Object.keys(submoduleLength).length
 ) {
+  console.log("1");
   button.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
     Number(submoduleId) + 1
   }&stepId=${1}`;
 } else if (
-  (submoduleId == Object.keys(submoduleInfo).length) &
-  (moduleId != Object.keys(modulesData).length)
+  stepId == Object.keys(stepInfo).length &&
+  submoduleId == Object.keys(submoduleLength).length &&
+  moduleId != Object.keys(modulesData).length
 ) {
+  console.log("2");
+
   button.href = `step.html?syllabusId=${syllabusId}&moduleId=${
     Number(moduleId) + 1
   }&submoduleId=${1}&stepId=${1}`;
 } else if (
-  (moduleId == Object.keys(modulesData).length) &
-  (submoduleId == Object.keys(submoduleInfo).length) &
-  (stepId == Object.keys(stepInfo).length)
+  stepId == Object.keys(stepInfo).length &&
+  moduleId == Object.keys(modulesData).length &&
+  submoduleId == Object.keys(submoduleLength).length
 ) {
+  console.log("3");
+
   button.removeAttribute("href");
   button.addEventListener("click", function () {
     alert("HUY");
   });
-} else {
+} else if (stepId != Object.keys(stepInfo).length) {
+  console.log("4");
+
   button.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
     Number(stepId) + 1
   }`;
@@ -240,7 +301,7 @@ if (
 const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
-let link = document.referrer.split("/").pop();
+var link = document.referrer.split("/").pop();
 link = link.split("&").pop();
 const switc = document.getElementById("switc");
 
@@ -267,3 +328,9 @@ if (stepId != 1 || link == "stepId=2") {
   title.style.animation = "none";
   switc.style.animation = "none";
 }
+
+window.addEventListener("beforeunload", function () {
+  if (link != `stepId=${stepId}`) {
+    sendProgress();
+  }
+});

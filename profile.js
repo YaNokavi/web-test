@@ -72,23 +72,42 @@ const setUserNameProfile = (name) => {
 
 setUserNameProfile(userName);
 
-let courseInfo = JSON.parse(localStorage.getItem("infoCourse"));
-document.addEventListener("DOMContentLoaded", () => {
-  courseInfo.length ? displayProgress() : displayButton();
-});
+// let courseInfo = JSON.parse(localStorage.getItem("infoCourse"));
 
-course.innerHTML = "";
+// document.addEventListener("DOMContentLoaded", () => {
+//   courseInfo.length ? displayProgress() : displayButton();
+// });
+
+async function getProgress() {
+  try {
+    const response = await fetch("");
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+    progress = await response.json(); // Сохраняем данные в переменной
+    document.getElementById("preloader").style.display = "none";
+    if (progress != null) {
+      displayProgress();
+    } else {
+      displayButton();
+    }
+  } catch (error) {
+    console.error("Ошибка при получении курсов:", error);
+  }
+}
 
 function displayProgress() {
-  const courseBarPercentProgressWidth = "50%"; // Пример процента
-  courseInfo.forEach((elem) => {
+  course.innerHTML = "";
+
+  // const courseBarPercentProgressWidth = "50%"; // Пример процента
+  progress.forEach((elem) => {
     const courseHtml = `
     <div class="course-info-name">${elem.name}</div>
     <div class="course-info-frame-bar">
       <div class="course-info-bar">
         <div class="course-info-bar-progress" style="width: 0;"></div>
       </div>
-      <div class="course-info-percent">${courseBarPercentProgressWidth}</div>
+      <div class="course-info-percent">${elem.percent}</div>
     </div>
   `;
 
