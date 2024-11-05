@@ -16,18 +16,22 @@ localStorage.setItem("userIdData", userIdData);
 localStorage.setItem("logoname", logoname);
 localStorage.setItem("username", username);
 
+//https://t.me/cunaedu_bot?startapp=2
+// const queryString = window.location.search;
+// const urlParams = new URLSearchParams(queryString);
+// const referallId = urlParams.get("startapp");
+
 tg.enableClosingConfirmation();
 
-// let userInfo = [];
 let data = {
-  id: userIdData,
-  name: username,
+  userId: userIdData,
+  username: username
 };
 
 async function fetchCourses() {
   try {
     const response = await fetch(
-      "https://cryptuna-anderm.amvera.io/user/info",
+      "https://cryptuna-anderm.amvera.io/v1/user/info",
       {
         method: "POST",
         headers: {
@@ -134,7 +138,7 @@ function displayButton() {
   coursesDiv.append(courseButton);
   document.getElementById("preloader").style.display = "none";
 }
-//А зачем это надо?
+
 let refer = document.referrer.split("/").pop();
 
 try {

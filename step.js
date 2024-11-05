@@ -7,54 +7,50 @@ const stepId = urlParams.get("stepId");
 
 const userId = localStorage.getItem("userIdData");
 
+const title = document.getElementById("title");
+const arrow = document.getElementById("ref");
+const steps = document.getElementById("steps-number");
+const mediaContent = document.getElementById("content");
+
 const modulesData = JSON.parse(
   localStorage.getItem(`courseData`)
 ).courseModuleList;
+// console.log(modulesData)
 const submoduleLength = modulesData[moduleId - 1].submoduleList;
 const stepInfo =
   modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
-const stepIdProgress = stepInfo[stepId - 1].id;
-console.log(Object.keys(submoduleLength).length);
+const stepProgres = stepInfo[stepId - 1];
+console.log(stepProgres);
+// const stepIdProgress = stepInfo[stepId - 1].id;
 // const urlContent = stepInfo[stepId - 1].textContentUrl;
 var urlContent = stepInfo[stepId - 1].textContentUrl;
 urlContent =
   "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
 const testContent = stepInfo[stepId - 1].test;
 
-const title = document.getElementById("title");
-const arrow = document.getElementById("ref");
 title.innerText = modulesData[moduleId - 1].submoduleList[submoduleId - 1].name;
 arrow.href = `syllabus.html?id=${syllabusId}`;
 
-const steps = document.getElementById("steps-number");
-steps.innerHTML = `${stepId} из ${Object.keys(stepInfo).length}`;
+steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
 var progress = JSON.parse(localStorage.getItem("completedSteps"));
-const mediaContent = document.getElementById("content");
-
+console.log(progress)
 function addStepProgress() {
-  if (progress.completedSteps.length === 0) {
-    // Если массив пустой, добавляем stepIdProgress
-    progress.completedSteps.push(stepIdProgress);
-    console.log(progress);
-    localStorage.setItem("completedSteps", JSON.stringify(progress));
-  } else {
-    let stepExists = false;
-
-    for (let key in progress.completedSteps) {
-      if (progress.completedSteps[key] === stepIdProgress) {
-        console.log("Шаг уже завершен");
-        stepExists = true; // Устанавливаем флаг, если шаг найден
-        break;
-      }
-    }
-
-    if (!stepExists) {
-      // Если шаг не найден, добавляем его
-      progress.completedSteps.push(stepIdProgress);
-      console.log(progress);
+  if (stepProgres.completed === false) {
+    // Если массив пустой или шаг еще не добавлен
+    if (
+      progress.completedStepList.length === 0 ||
+      !progress.completedStepList.includes(stepProgres.id)
+    ) {
+      // Добавляем stepIdProgress
+      progress.completedStepList.push(stepProgres.id);
+      console.log("Добавляем прогресс: ", progress);
       localStorage.setItem("completedSteps", JSON.stringify(progress));
+    } else {
+      console.log("Шаг уже завершен");
     }
+  } else {
+    console.log("Шаг завершен");
   }
 }
 
@@ -81,7 +77,7 @@ async function addContent() {
 async function sendProgress() {
   try {
     const response = await fetch(
-      // "https://cryptuna-anderm.amvera.io/user/info",
+      "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
       {
         method: "POST",
         headers: {
@@ -95,7 +91,6 @@ async function sendProgress() {
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
-    // userInfo = await response.json(); // Сохраняем данные в переменной
   } catch (error) {
     console.error("Ошибка при отправке прогресса", error);
   }
@@ -106,6 +101,7 @@ const submitButton = document.getElementById("submit-button");
 const resultContainer = document.getElementById("result-container");
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
+
 function displayTest() {
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
@@ -330,7 +326,7 @@ if (stepId != 1 || link == "stepId=2") {
 }
 
 window.addEventListener("beforeunload", function () {
-  if (link != `stepId=${stepId}`) {
+  if (link != `stepId=${stepId}` && progress.completedStepList.length !== 0) {
     sendProgress();
   }
 });

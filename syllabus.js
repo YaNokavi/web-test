@@ -1,16 +1,61 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
+const userId = localStorage.getItem("userIdData");
 try {
   var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
 } catch {
   console.log("Нет данных из каталога, берем из любимых");
-  courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId-1];
+  courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId - 1];
 }
 
-var modulesData = JSON.parse(
-  localStorage.getItem(`courseData`)
-).courseModuleList;
+var progress = {
+  userId: userId,
+  completedStepList: [],
+};
+
+// try {
+//   var parseProgress = JSON.parse(
+//     localStorage.getItem("completedSteps")
+//   ).completedStepList;
+// } catch {
+//   console.log("Нет прогресса");
+//   if (!parseProgress) {
+    localStorage.setItem("completedSteps", JSON.stringify(progress));
+//   }
+// }
+
+const courseData = JSON.parse(localStorage.getItem(`courseData`));
+var modulesData = courseData.courseModuleList;
+
+async function getContent() {
+  // if (!modulesData[paramId - 1].submoduleList[paramId - 1].stepList) {
+    try {
+      const response = await fetch(
+        `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
+      );
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+      }
+      contentGet = await response.json();
+
+      modulesWithSteps();
+    } catch (error) {
+      console.error("Ошибка при получении курсов:", error);
+    }
+  // } else {
+  //   console.log("Есть шаги");
+  // }
+}
+
+function modulesWithSteps() {
+  courseData.courseModuleList.forEach((submodule) => {
+    submodule.submoduleList.forEach((elem) => {
+      elem.stepList = contentGet[elem.id - 1].stepList;
+    });
+  });
+  localStorage.setItem("courseData", JSON.stringify(courseData));
+}
 
 var title = document.getElementById("title");
 var arrow = document.getElementById("ref");
@@ -33,7 +78,7 @@ function displayModules() {
     const moduleMainText = createElement(
       "div",
       "syllabus-name-main",
-      `${module.id}. ${module.name}`
+      `${module.number}. ${module.name}`
     );
     moduleMain.append(moduleMainText);
     elementModules.append(moduleMain);
@@ -45,11 +90,12 @@ function displayModules() {
       const submoduleLink = createElement(
         "a",
         "syllabus-name-aditional",
-        `${module.id}.${submodule.id} ${submodule.name}`
+        `${module.number}.${submodule.number} ${submodule.name}`
       );
-      submoduleLink.href = `step.html?syllabusId=${paramId}&moduleId=${module.id}&submoduleId=${submodule.id}&stepId=1`;
+      submoduleLink.href = `step.html?syllabusId=${paramId}&moduleId=${module.number}&submoduleId=${submodule.number}&stepId=1`;
       moduleAditional.append(submoduleLink);
     });
+    document.getElementById("preloader").style.display = "none";
   });
   // const elementModules = document.getElementById("modules");
   // elementModules.innerHTML = "";

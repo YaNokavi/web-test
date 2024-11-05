@@ -19,7 +19,7 @@ async function fetchCourses() {
   } else {
     try {
       const response = await fetch(
-        "https://cryptuna-anderm.amvera.io/course/all"
+        "https://cryptuna-anderm.amvera.io/v1/course/all"
       );
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
@@ -71,7 +71,6 @@ function displayCourses() {
       coursesDiv.append(courseElement);
     }, (index + 1) * 100);
 
-    // localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
   document.getElementById("preloader").style.display = "none";
 }

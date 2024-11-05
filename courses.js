@@ -4,15 +4,22 @@ const paramId = urlParams.get("id");
 
 const userId = localStorage.getItem("userIdData");
 const username = localStorage.getItem("username");
-data = {
-  id: userId,
-  name: username,
+
+dataAdd = {
+  userId: userId,
+  username: username,
+  courseId: paramId,
+};
+
+dataDel = {
+  userId: userId,
+  courseId: paramId,
 };
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 
-if (Object.keys(JSON.parse(info)).length != 0) {
+if (JSON.parse(info).length != 0 || JSON.parse(info)[0] != null) {
   try {
     const parsedInfo = JSON.parse(info);
     const courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
@@ -76,47 +83,30 @@ function displayModules() {
   courseData.courseModuleList.forEach((elem) => {
     const moduleMain = document.createElement("div");
     moduleMain.classList.add("syllabus-text-course-main");
-    moduleMain.innerHTML = `${elem.id}. ${elem.name}`;
-    const moduleId = elem.id;
+    moduleMain.innerHTML = `${elem.number}. ${elem.name}`;
+    const moduleId = elem.number;
     elementModules.append(moduleMain);
     elem.submoduleList.forEach((elem) => {
       const moduleAditional = document.createElement("div");
       moduleAditional.classList.add("syllabus-text-course-additional");
-      moduleAditional.innerHTML = `${moduleId}.${elem.id} ${elem.name}`;
+      moduleAditional.innerHTML = `${moduleId}.${elem.number} ${elem.name}`;
       elementModules.append(moduleAditional);
     });
   });
   document.getElementById("preloader").style.display = "none";
 }
 
-var progress = {
-  userId: userId,
-  completedSteps: [],
-};
-
-try {
-  var parseProgress = JSON.parse(
-    localStorage.getItem("completedSteps")
-  ).completedSteps;
-  
-} catch {
-  console.log("Нет прогресса");
-  if (!parseProgress) {
-    localStorage.setItem("completedSteps", JSON.stringify(progress));
-  }
-}
-
 async function fetchContent() {
   const cachedCourse = localStorage.getItem(`courseData`);
   if (cachedCourse) {
     courseData = JSON.parse(cachedCourse);
-
+    
     displayLearning();
     displayModules();
   } else {
     try {
       const response = await fetch(
-        `https://cryptuna-anderm.amvera.io/course/${paramId}/content`
+        `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/info`
         // "/sda.json"
       );
       if (!response.ok) {
@@ -199,14 +189,14 @@ button1.addEventListener("click", function () {
 async function postDataAdd() {
   try {
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/favorite/add?courseId=${paramId}`,
+      `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
       {
         method: "POST",
         headers: {
           // 'RqUid': crypto.randomUUID
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataAdd),
       }
     );
     if (!response.ok) {
@@ -265,16 +255,18 @@ button2.addEventListener("click", function () {
     postDataRemove();
   });
 });
-//Изменить пост (отправлять дату с айди и неймом)
+
 async function postDataRemove() {
   try {
     const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/user/${userId}/favorite/remove?courseId=${paramId}`,
+      `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
       {
-        method: "POST",
-        // headers: {
-        //   'RqUid': crypto.randomUUID
-        // }
+        method: "DELETE",
+        headers: {
+          // 'RqUid': crypto.randomUUID
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataDel),
       }
     );
     if (!response.ok) {
