@@ -1,4 +1,4 @@
-let tg = window.Telegram.WebApp;
+let tg = Telegram.WebApp;
 
 tg.setHeaderColor("#1468B1");
 
