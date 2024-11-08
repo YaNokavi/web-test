@@ -70,24 +70,16 @@ function displayCourses() {
         `;
       coursesDiv.append(courseElement);
     }, (index + 1) * 100);
-
   });
   document.getElementById("preloader").style.display = "none";
 }
 
-// fetchCourses();
-
 let refer = document.referrer.split("/").pop();
+const title = document.getElementById("title");
+const catalogTab = document.getElementById("active");
 
-for (let key in coursesData) {
-  if (
-    refer == `courses.html?id=${coursesData[key].id}` ||
-    refer == `syllabus.html?id=${coursesData[key].id}`
-  ) {
-    const title = document.getElementById("title");
-    const catalogTab = document.getElementById("active");
-    title.style.animation = "none";
-    catalogTab.style.animation = "none";
-    catalogTab.style.color = "#ffffff";
-  }
+if (refer.startsWith("courses.html") || refer.startsWith("syllabus.html")) {
+  title.style.animation = "none";
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
 }

@@ -6,65 +6,97 @@ const userId = localStorage.getItem("userIdData");
 const username = localStorage.getItem("username");
 
 dataAdd = {
-  userId: userId,
-  username: username,
+  userId,
+  username,
   courseId: paramId,
 };
 
 dataDel = {
-  userId: userId,
+  userId,
   courseId: paramId,
 };
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 
-if (JSON.parse(info).length != 0 || JSON.parse(info)[0] != null) {
-  try {
-    const parsedInfo = JSON.parse(info);
-    const courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
-    var idCourse = courses.map((course) => course.id);
-
-    for (let key in idCourse) {
-      if (idCourse[key] == paramId) {
-        courseElement.innerHTML = `
-            <div class="course-block-author">Автор: @${parsedInfo[key].author}</div>
-          <div class="course-block-description">
-            <img src="icons/logo_cuna2.jpg" class="course-logo" />
-            <div class="course-block-name">${parsedInfo[key].name}</div>
-            ${parsedInfo[key].description}
-          </div>
-        `;
-        break;
-      } else {
-        var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
-          paramId - 1
-        ];
-        courseElement.innerHTML = `
-          <div class="course-block-author">Автор: @${courseInfo.author}</div>
-        <div class="course-block-description">
-          <img src="icons/logo_cuna2.jpg" class="course-logo" />
-          <div class="course-block-name">${courseInfo.name}</div>
-          ${courseInfo.description}
-        </div>
-      `;
-        break;
-      }
-    }
-  } catch (error) {
-    console.error("Ошибка при парсинге JSON:", error);
-  }
-} else {
-  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+function renderCourse(course) {
   courseElement.innerHTML = `
-          <div class="course-block-author">Автор: @${courseInfo.author}</div>
-        <div class="course-block-description">
-          <img src="icons/logo_cuna2.jpg" class="course-logo" />
-          <div class="course-block-name">${courseInfo.name}</div>
-          ${courseInfo.description}
-        </div>
-      `;
+    <div class="course-block-author">Автор: @${course.author}</div>
+    <div class="course-block-description">
+      <img src="icons/logo_cuna2.jpg" class="course-logo" />
+      <div class="course-block-name">${course.name}</div>
+      ${course.description}
+    </div>
+  `;
 }
+
+function getCourseInfo() {
+  const courses = JSON.parse(info) || [];
+  return courses.find((course) => course.id == paramId) || null;
+}
+
+function loadCourse() {
+  const courseInfo = getCourseInfo();
+
+  if (courseInfo) {
+    renderCourse(courseInfo);
+  } else {
+    const catalogData = JSON.parse(localStorage.getItem("catalogData"));
+    const courseInfoFromCatalog = catalogData[paramId - 1];
+    if (courseInfoFromCatalog) {
+      renderCourse(courseInfoFromCatalog);
+    }
+  }
+}
+
+loadCourse();
+
+// if (JSON.parse(info).length != 0 || JSON.parse(info)[0] != null) {
+//   try {
+//     const parsedInfo = JSON.parse(info);
+//     const courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
+//     var idCourse = courses.map((course) => course.id);
+
+//     for (let key in idCourse) {
+//       if (idCourse[key] == paramId) {
+//         courseElement.innerHTML = `
+//             <div class="course-block-author">Автор: @${parsedInfo[key].author}</div>
+//           <div class="course-block-description">
+//             <img src="icons/logo_cuna2.jpg" class="course-logo" />
+//             <div class="course-block-name">${parsedInfo[key].name}</div>
+//             ${parsedInfo[key].description}
+//           </div>
+//         `;
+//         break;
+//       } else {
+//         var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
+//           paramId - 1
+//         ];
+//         courseElement.innerHTML = `
+//           <div class="course-block-author">Автор: @${courseInfo.author}</div>
+//         <div class="course-block-description">
+//           <img src="icons/logo_cuna2.jpg" class="course-logo" />
+//           <div class="course-block-name">${courseInfo.name}</div>
+//           ${courseInfo.description}
+//         </div>
+//       `;
+//         break;
+//       }
+//     }
+//   } catch (error) {
+//     console.error("Ошибка при парсинге JSON:", error);
+//   }
+// } else {
+//   var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+//   courseElement.innerHTML = `
+//           <div class="course-block-author">Автор: @${courseInfo.author}</div>
+//         <div class="course-block-description">
+//           <img src="icons/logo_cuna2.jpg" class="course-logo" />
+//           <div class="course-block-name">${courseInfo.name}</div>
+//           ${courseInfo.description}
+//         </div>
+//       `;
+// }
 
 function displayLearning() {
   const elementLearning = document.getElementById("points");
@@ -100,21 +132,16 @@ async function fetchContent() {
   const cachedCourse = localStorage.getItem(`courseData`);
   if (cachedCourse) {
     courseData = JSON.parse(cachedCourse);
-    
     displayLearning();
     displayModules();
   } else {
     try {
       const response = await fetch(
         `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/info`
-        // "/sda.json"
       );
-      if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
       courseData = await response.json();
       localStorage.setItem(`courseData`, JSON.stringify(courseData));
-
       displayLearning();
       displayModules();
     } catch (error) {
@@ -134,28 +161,56 @@ const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 
-if (idCourse == null) {
-  button1.style.display = "flex";
-  button2.style.display = "none";
-  button3.style.display = "none";
-} else if (Object.keys(idCourse).length !== 0) {
-  button1.style.display = "flex";
-  star1.style.display = "block";
-  button2.style.display = "none";
-  star2.style.display = "none";
-  button3.style.display = "none";
+// if (idCourse == null) {
+//   button1.style.display = "flex";
+//   button2.style.display = "none";
+//   button3.style.display = "none";
+// } else if (Object.keys(idCourse).length !== 0) {
+//   button1.style.display = "flex";
+//   star1.style.display = "block";
+//   button2.style.display = "none";
+//   star2.style.display = "none";
+//   button3.style.display = "none";
 
-  for (let key in idCourse) {
-    if (idCourse[key] == paramId) {
-      button1.style.display = "none";
-      star1.style.display = "none";
-      button2.style.display = "flex";
-      star2.style.display = "block";
-      button3.style.display = "flex";
-      break;
-    }
+//   for (let key in idCourse) {
+//     if (idCourse[key] == paramId) {
+//       button1.style.display = "none";
+//       star1.style.display = "none";
+//       button2.style.display = "flex";
+//       star2.style.display = "block";
+//       button3.style.display = "flex";
+//       break;
+//     }
+//   }
+// }
+
+function setupButtons() {
+  let buttonsConfig = [
+    { button: button1, show: true },
+    { button: star1, show: true },
+    { button: button2, show: false },
+    { button: button3, show: false },
+    { button: star2, show: false },
+  ];
+
+  const idCourse = JSON.parse(localStorage.getItem("infoCourse"))?.map(
+    (course) => course.id
+  );
+
+  if (idCourse && idCourse.includes(Number(paramId))) {
+    buttonsConfig[0].show = false; // Hide button1
+    buttonsConfig[1].show = false;
+    buttonsConfig[2].show = true; // Show button2
+    buttonsConfig[3].show = true; // Show button3
+    buttonsConfig[4].show = true;
   }
+
+  buttonsConfig.forEach(({ button, show }) => {
+    button.style.display = show ? "flex" : "none";
+  });
 }
+
+setupButtons();
 
 button1.addEventListener("click", function () {
   text.style.animation = "fadeOut 10ms ease";
@@ -281,38 +336,90 @@ button3.addEventListener("click", function () {
   window.location.href = `syllabus.html?id=${paramId}`;
 });
 
-let refer = document.referrer.split("/").pop();
-
+const refer = document.referrer.split("/").pop();
 const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 const link = document.getElementById("ref");
 
-if (refer == "index.html" || refer == "favorite.html") {
-  localStorage.setItem("refer", refer);
-  link.href = "favorite.html";
-  title.innerText = "Мои курсы";
-  favorTab.style.animation = "none";
-  favorTab.style.color = "#ffffff";
-} else if (refer == "catalog.html") {
-  localStorage.setItem("refer", refer);
+// function setupPage(refer) {
+//   const pagesConfig = {
+//     "index.html": {
+//       linkHref: "favorite.html",
+//       titleText: "Мои курсы",
+//       tab: favorTab,
+//     },
+//     "favorite.html": {
+//       linkHref: "favorite.html",
+//       titleText: "Мои курсы",
+//       tab: favorTab,
+//     },
+//     "catalog.html": {
+//       linkHref: "catalog.html",
+//       titleText: "Каталог",
+//       tab: catalogTab,
+//     },
+//     "syllabus.html": { // Добавляем обработку syllabus.html
+//       linkHref: localStorage.getItem("refer") || "index.html", // Возвращаемся на предыдущую страницу
+//       titleText: localStorage.getItem("refer") === "catalog.html" ? "Каталог" : "Мои курсы",
+//       tab: localStorage.getItem("refer") === "catalog.html" ? catalogTab : favorTab,
+//     },
+//   };
+//   if (refer.startsWith("syllabus.html")) {
+//     const previousRefer = localStorage.getItem("refer");
+//     if (previousRefer) {
+//       link.href = previousRefer; // Ссылка на предыдущую страницу
+//       title.innerText = previousRefer === "catalog.html" ? "Каталог" : "Мои курсы";
+//       // tab.style.color = previousRefer === "catalog.html" ? catalogTab : favorTab;
+//     }
+//     if (previousRefer === "catalog.html") {
+//       catalogTab.style.animation = "none";
+//       catalogTab.style.color = "#ffffff";
+//       favorTab.style.color = ""; // Сбрасываем цвет для вкладки "Мои курсы"
+//     } else {
+//       favorTab.style.animation = "none";
+//       favorTab.style.color = "#ffffff";
+//       catalogTab.style.color = ""; // Сбрасываем цвет для вкладки "Каталог"
+//     }
+//   } else {
+//     const config = pagesConfig[refer] || pagesConfig["index.html"];
+//     localStorage.setItem("refer", refer);
+//     link.href = config.linkHref;
+//     title.innerText = config.titleText;
+//     config.tab.style.animation = "none";
+//     config.tab.style.color = "#ffffff";
+//   }
+// }
+
+// setupPage(refer);
+
+function setupCatalog() {
   link.href = "catalog.html";
   title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
-} else if ((refer = `syllabus.html?id=${paramId}`)) {
-  refer = localStorage.getItem("refer");
+}
+
+function setupFavorite() {
+  link.href = "favorite.html";
+  title.innerText = "Мои курсы";
+  favorTab.style.animation = "none";
+  favorTab.style.color = "#ffffff";
+}
+
+if (refer == "index.html" || refer == "favorite.html") {
+  localStorage.setItem("refer", refer);
+  setupFavorite()
+} else if (refer == "catalog.html") {
+  localStorage.setItem("refer", refer);
+  setupCatalog()
+} else if (refer.startsWith("syllabus.html")) {
+  referSyl = localStorage.getItem("refer");
   link.style.animation = "none";
-  if (refer == "index.html" || refer == "favorite.html") {
-    link.href = "favorite.html";
-    title.innerText = "Мои курсы";
-    favorTab.style.animation = "none";
-    favorTab.style.color = "#ffffff";
-  } else if (refer == "catalog.html") {
-    link.href = "catalog.html";
-    title.innerText = "Каталог";
-    catalogTab.style.animation = "none";
-    catalogTab.style.color = "#ffffff";
+  if (referSyl == "index.html" || referSyl == "favorite.html") {
+    setupFavorite()
+  } else if (referSyl == "catalog.html") {
+    setupCatalog()
   }
 }
 
