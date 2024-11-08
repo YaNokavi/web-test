@@ -1747,3 +1747,100 @@ h1 {
     transform: rotate(1turn);
   }
 }
+
+/*** Стили плагина просмотра картинок ***/
+
+.iview-image:hover {
+  cursor: zoom-in;
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+.iview-overlay {
+  box-sizing: border-box;
+  /* подложка, закрывающая страницу при просмотре*/
+  position: fixed;
+  /* привязка к окну браузера, а не к странице */
+
+  left: 0;
+  top: 38px;
+  bottom: 82px;
+  right: 0; /* отступы от края окна */
+  z-index: 1000;
+  /* показывать над страницей */
+
+  background: rgba(0, 0, 0, 0.6);
+  /* полупрозрачная теневая заливка */
+
+  display: none;
+} /* прячем подложку и все что расположено на ней */
+
+.iview-preview {
+  /* элемент, в котором будем показывать картинку как фоновое изображение */
+  position: absolute;
+  /* привязываемся к подложке */
+  top: 30px;
+  bottom: 30px;
+  left: 50px;
+  right: 50px;
+   /* отступы от края окна (поля) */
+  background-size: contain;
+  /* пропорционально масштабируем фоновую картинку до размера элемента */
+  background-position: center center;
+  /* помещаем ее в центр элемента по горизонтали и вертикали  */
+
+  background-repeat: no-repeat;
+} /* показываем одну картинку, а не заливаем весь фон повторяющейся картинкой */
+
+/* самой фоновой картинки еще нет, будем вставлять прямо при просмотре*/
+
+.iview-caption {
+  /* подпись под картинкой */
+  position: absolute;
+  /* привязываемся к подложке и размещаем надпись под картинкой*/
+
+  left: 30px;
+  right: 30px;
+  bottom: 0px;
+  height: 30px;
+  line-height: 30px;
+  /*  отступы от краев окна, строка */
+
+  text-align: center;
+  /* посередине полей */
+
+  overflow: hidden;
+  /*прячем тект, которые не влазит */
+
+  white-space: nowrap;
+  /* запрещаем перенос строк */
+  font-family: Helvetica, Arial, sans-serif;
+  color: #eee;
+}
+/* шрифт и цвет надписи */
+/* крестик для закрытия картинки */
+.iview-closer {
+  position: absolute;
+  /*привязываемся к подложке */
+
+  top: 20px;
+  right: 20px;
+  /* отступ от правого верхнего угла подложки */
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  /* размер кликабельной области */
+
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  /* шрифт для крестика пожирнее */
+  color: rgba(255, 255, 255, 0.5);
+  /* белый полупрозрачный */
+  cursor: pointer;
+}
+/* курсор как у ссылки */
+.iview-closer:hover {
+  color: rgba(255, 255, 255, 1);
+} /* при наведении мыши делаем крестик ярче, белый непрозарчный */
