@@ -1,3 +1,7 @@
+let tg = window.Telegram.WebApp;
+
+tg.setHeaderColor("#1468B1");
+
 const currentTab = sessionStorage.getItem("currentTab");
 const currentLink = sessionStorage.getItem("currentLink");
 
