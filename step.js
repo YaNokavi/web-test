@@ -220,7 +220,6 @@ function setButtonHref(button, href) {
   if (href) button.href = href;
   else button.removeAttribute("href");
 }
-
 // Обработка кнопки "Назад"
 setButtonHref(
   buttonBack,
@@ -230,7 +229,6 @@ setButtonHref(
         stepId - 1
       }`
 );
-
 // Обработка кнопки "Вперед"
 setButtonHref(
   buttonForward,
@@ -301,6 +299,25 @@ if (stepId != 1 || link == "stepId=2") {
   title.style.animation = "none";
   switc.style.animation = "none";
 }
+
+let startX;
+const swipeDistance = 100; // Минимальное расстояние для свайпа
+
+document.addEventListener("touchstart", function (e) {
+  // Сохраняем начальную позицию касания
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchmove", function (e) {
+  const moveX = e.touches[0].clientX;
+
+  // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
+  if (startX <= 15 && moveX - startX > swipeDistance) {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+    window.location.href = `syllabus.html?id=${syllabusId}`; // Переход по ссылке
+  }
+});
 
 async function sendProgress() {
   try {

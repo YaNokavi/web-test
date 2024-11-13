@@ -151,3 +151,22 @@ if (refer == "index.html" || refer == "favorite.html") {
 } else if (refer == "catalog.html") {
   setupTab(catalogTab);
 }
+
+let startX;
+const swipeDistance = 100; // Минимальное расстояние для свайпа
+
+document.addEventListener("touchstart", function (e) {
+  // Сохраняем начальную позицию касания
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchmove", function (e) {
+  const moveX = e.touches[0].clientX;
+
+  // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
+  if (startX <= 15 && moveX - startX > swipeDistance) {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+    window.location.href = `courses.html?id=${paramId}`; // Переход по ссылке
+  }
+});
