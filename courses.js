@@ -35,21 +35,16 @@ function getCourseInfo() {
   return courses.find((course) => course.id == paramId) || null;
 }
 
-function loadCourse() {
-  const courseInfo = getCourseInfo();
-
+var courseInfo = getCourseInfo();
+if (courseInfo) {
+  renderCourse(courseInfo);
+} else {
+  const catalogData = JSON.parse(localStorage.getItem("catalogData"));
+  var courseInfo = catalogData[paramId - 1];
   if (courseInfo) {
     renderCourse(courseInfo);
-  } else {
-    const catalogData = JSON.parse(localStorage.getItem("catalogData"));
-    const courseInfoFromCatalog = catalogData[paramId - 1];
-    if (courseInfoFromCatalog) {
-      renderCourse(courseInfoFromCatalog);
-    }
   }
 }
-
-loadCourse();
 
 // if (JSON.parse(info).length != 0 || JSON.parse(info)[0] != null) {
 //   try {
@@ -229,8 +224,6 @@ button1.addEventListener("click", function () {
       text.style.animation = "none";
       button3.style.animation = "fadeIn 100ms ease";
       button3.style.display = "flex";
-      // setTimeout(() => {
-      // }, 100);
     }, 400);
   }, 10);
   let addData = JSON.parse(localStorage.getItem("infoCourse"));
@@ -411,17 +404,17 @@ function setupFavorite() {
 
 if (refer == "index.html" || refer == "favorite.html") {
   localStorage.setItem("refer", refer);
-  setupFavorite()
+  setupFavorite();
 } else if (refer == "catalog.html") {
   localStorage.setItem("refer", refer);
-  setupCatalog()
+  setupCatalog();
 } else if (refer.startsWith("syllabus.html")) {
   referSyl = localStorage.getItem("refer");
   link.style.animation = "none";
   if (referSyl == "index.html" || referSyl == "favorite.html") {
-    setupFavorite()
+    setupFavorite();
   } else if (referSyl == "catalog.html") {
-    setupCatalog()
+    setupCatalog();
   }
 }
 
@@ -448,16 +441,19 @@ if (refer == "catalog.html") {
   });
 }
 
-
 let startX;
 
-document.addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX;
+document.addEventListener("touchstart", function (e) {
+  startX = e.touches[0].clientX;
 });
 
-document.addEventListener('touchmove', function(e) {
+document.addEventListener("touchmove", function (e) {
+  e.preventDefault(); // предотвращает стандартное поведение
+  if (e.touches.length > 0) {
     const moveX = e.touches[0].clientX;
-    if (moveX - startX > 100) { // условие для определения свайпа
-        window.location.href = swipeLink; // возврат на предыдущую страницу
+    if (moveX - startX < -100) {
+      // условие для определения свайпа вправо
+      window.location.href = swipeLink; // переход по ссылке
     }
+  }
 });

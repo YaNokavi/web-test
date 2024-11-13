@@ -38,7 +38,7 @@ async function getContent() {
         throw new Error(`Ошибка: ${response.status}`);
       }
       contentGet = await response.json();
-
+      console.log(contentGet)
       modulesWithSteps();
     } catch (error) {
       console.error("Ошибка при получении курсов:", error);
@@ -50,10 +50,13 @@ async function getContent() {
 
 function modulesWithSteps() {
   courseData.courseModuleList.forEach((submodule) => {
+     
     submodule.submoduleList.forEach((elem) => {
-      elem.stepList = contentGet[elem.id - 1].stepList;
+      const stepListObj = contentGet.find(step => step.submoduleId === elem.id);
+      elem.stepList = stepListObj ? stepListObj.stepList : [];
     });
   });
+
   localStorage.setItem("courseData", JSON.stringify(courseData));
 }
 
