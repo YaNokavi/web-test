@@ -445,3 +445,17 @@ if (refer == "catalog.html") {
     sessionStorage.removeItem("currentLink");
   });
 }
+
+
+let startX;
+
+document.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+});
+
+document.addEventListener('touchmove', function(e) {
+    const moveX = e.touches[0].clientX;
+    if (startX - moveX > 50) { // условие для определения свайпа
+        window.history.back(); // возврат на предыдущую страницу
+    }
+});
