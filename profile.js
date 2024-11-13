@@ -79,13 +79,14 @@ setUserNameProfile(userName);
 // });
 
 async function getProgress() {
+  document.getElementById("preloader").style.display = "none";
   try {
     const response = await fetch("");
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
     progress = await response.json(); // Сохраняем данные в переменной
-    document.getElementById("preloader").style.display = "none";
+    // document.getElementById("preloader").style.display = "none";
     if (progress != null) {
       displayProgress();
     } else {
