@@ -451,7 +451,7 @@ document.addEventListener("touchmove", function (e) {
   e.preventDefault(); // предотвращает стандартное поведение
   if (e.touches.length > 0) {
     const moveX = e.touches[0].clientX;
-    if (moveX - startX < -100) {
+    if (moveX - startX > -100) {
       // условие для определения свайпа вправо
       window.location.href = swipeLink; // переход по ссылке
     }
