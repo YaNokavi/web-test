@@ -403,7 +403,7 @@ function setupFavorite() {
   favorTab.style.color = "#ffffff";
 }
 
-if (refer == "index.html" || refer == "favorite.html") {
+if (refer == "index.html" || refer == "favorite.html" || refer == '') {
   localStorage.setItem("refer", refer);
   setupFavorite();
 } else if (refer == "catalog.html") {
@@ -444,6 +444,7 @@ if (refer == "catalog.html") {
 
 let startX;
 const swipeDistance = 100; // Минимальное расстояние для свайпа
+console.log(swipeLink)
 
 document.addEventListener("touchstart", function (e) {
   // Сохраняем начальную позицию касания
