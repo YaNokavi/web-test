@@ -443,20 +443,20 @@ if (refer == "catalog.html") {
 }
 
 let startX;
+const swipeDistance = 100; // Минимальное расстояние для свайпа
 
 document.addEventListener("touchstart", function (e) {
+  // Сохраняем начальную позицию касания
   startX = e.touches[0].clientX;
 });
 
 document.addEventListener("touchmove", function (e) {
-  e.preventDefault(); // предотвращает стандартное поведение
-  if (e.touches.length > 0) {
-    const moveX = e.touches[0].clientX;
-    if (moveX - startX > 100) {
-      sessionStorage.removeItem("currentTab");
-      sessionStorage.removeItem("currentLink");
-      // условие для определения свайпа вправо
-      window.location.href = swipeLink; // переход по ссылке
-    }
+  const moveX = e.touches[0].clientX;
+
+  // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
+  if (startX <= 15 && moveX - startX > swipeDistance) {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+    window.location.href = swipeLink; // Переход по ссылке
   }
 });
