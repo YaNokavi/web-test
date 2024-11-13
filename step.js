@@ -81,28 +81,6 @@ async function addContent() {
   }
 }
 
-async function sendProgress() {
-  try {
-    const response = await fetch(
-      "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
-      {
-        method: "POST",
-        headers: {
-          // 'RqUid': crypto.randomUUID
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(progress),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Ошибка при отправке прогресса", error);
-  }
-}
-
 const testDiv = document.getElementById("test");
 const submitButton = document.getElementById("submit-button");
 const resultContainer = document.getElementById("result-container");
@@ -324,9 +302,35 @@ if (stepId != 1 || link == "stepId=2") {
   switc.style.animation = "none";
 }
 
+async function sendProgress() {
+  try {
+    const response = await fetch(
+      "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
+      {
+        method: "POST",
+        headers: {
+          // 'RqUid': crypto.randomUUID
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(progress),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Ошибка при отправке прогресса", error);
+  }
+}
+
 window.addEventListener("beforeunload", function () {
   if (link != `stepId=${stepId}` && progress.completedStepList.length !== 0) {
     sendProgress();
+    // navigator.sendBeacon(
+    //   "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
+    //   JSON.stringify(progress)
+    // );
   }
 });
 
