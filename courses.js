@@ -334,6 +334,7 @@ const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 const link = document.getElementById("ref");
+var swipeLink;
 
 // function setupPage(refer) {
 //   const pagesConfig = {
@@ -387,7 +388,7 @@ const link = document.getElementById("ref");
 // setupPage(refer);
 
 function setupCatalog() {
-  const swipeLink = "catalog.html";
+  swipeLink = "catalog.html";
   link.href = "catalog.html";
   title.innerText = "Каталог";
   catalogTab.style.animation = "none";
@@ -395,7 +396,7 @@ function setupCatalog() {
 }
 
 function setupFavorite() {
-  const swipeLink = "favorite.html";
+  swipeLink = "favorite.html";
   link.href = "favorite.html";
   title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
@@ -451,7 +452,9 @@ document.addEventListener("touchmove", function (e) {
   e.preventDefault(); // предотвращает стандартное поведение
   if (e.touches.length > 0) {
     const moveX = e.touches[0].clientX;
-    if (moveX - startX > -100) {
+    if (moveX - startX > 100) {
+      sessionStorage.removeItem("currentTab");
+      sessionStorage.removeItem("currentLink");
       // условие для определения свайпа вправо
       window.location.href = swipeLink; // переход по ссылке
     }
