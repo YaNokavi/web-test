@@ -394,6 +394,7 @@ const link = document.getElementById("ref");
 // setupPage(refer);
 
 function setupCatalog() {
+  const swipeLink = "catalog.html";
   link.href = "catalog.html";
   title.innerText = "Каталог";
   catalogTab.style.animation = "none";
@@ -401,6 +402,7 @@ function setupCatalog() {
 }
 
 function setupFavorite() {
+  const swipeLink = "favorite.html";
   link.href = "favorite.html";
   title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
@@ -455,7 +457,7 @@ document.addEventListener('touchstart', function(e) {
 
 document.addEventListener('touchmove', function(e) {
     const moveX = e.touches[0].clientX;
-    if (startX - moveX > 50) { // условие для определения свайпа
-        window.history.back(); // возврат на предыдущую страницу
+    if (moveX - startX > 100) { // условие для определения свайпа
+        window.location.href = swipeLink; // возврат на предыдущую страницу
     }
 });

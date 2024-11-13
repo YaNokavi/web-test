@@ -9,12 +9,12 @@ tg.expand();
 // localStorage.setItem("Back", JSON.stringify(BackButton));
 // BackButton.show();
 
-// let userIdData = `${tg.initDataUnsafe.user.id}`;
-// let logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-// let username = `${tg.initDataUnsafe.user.username}`;
-let userIdData = 2;
-let logoname = "ret";
-let username = "rete";
+let userIdData = `${tg.initDataUnsafe.user.id}`;
+let logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+let username = `${tg.initDataUnsafe.user.username}`;
+// let userIdData = 2;
+// let logoname = "ret";
+// let username = "rete";
 
 localStorage.setItem("userIdData", userIdData);
 localStorage.setItem("logoname", logoname);
