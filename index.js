@@ -7,7 +7,7 @@ tg.expand();
 
 let BackButton = tg.BackButton;
 localStorage.setItem("Back", JSON.stringify(BackButton));
-BackButton.show();
+// BackButton.show();
 // let userIdData = `${tg.initDataUnsafe.user.id}`;
 // let logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
 // let username = `${tg.initDataUnsafe.user.username}`;

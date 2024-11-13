@@ -2,7 +2,8 @@ let referall = localStorage.getItem("referall");
 referall = [];
 
 let BackButton = JSON.parse(localStorage.getItem("Back"));
-BackButton.show();
+BackButton.isVisible = true;
+console.log(BackButton.isVisible)
 
 referall.length ? displayFriendsNotNull() : displayFriendsNull();
 
