@@ -329,7 +329,8 @@ button3.addEventListener("click", function () {
   window.location.href = `syllabus.html?id=${paramId}`;
 });
 
-const refer = document.referrer.split("/").pop();
+var refer = document.referrer.split("/").pop();
+if (refer == "") refer = "index.html";
 const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
@@ -403,7 +404,7 @@ function setupFavorite() {
   favorTab.style.color = "#ffffff";
 }
 
-if (refer == "index.html" || refer == "favorite.html" || refer == '') {
+if (refer == "index.html" || refer == "favorite.html") {
   localStorage.setItem("refer", refer);
   setupFavorite();
 } else if (refer == "catalog.html") {
@@ -444,7 +445,6 @@ if (refer == "catalog.html") {
 
 let startX;
 const swipeDistance = 100; // Минимальное расстояние для свайпа
-console.log(swipeLink)
 
 document.addEventListener("touchstart", function (e) {
   // Сохраняем начальную позицию касания

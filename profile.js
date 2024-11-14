@@ -72,21 +72,17 @@ const setUserNameProfile = (name) => {
 
 setUserNameProfile(userName);
 
-// let courseInfo = JSON.parse(localStorage.getItem("infoCourse"));
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   courseInfo.length ? displayProgress() : displayButton();
-// });
-
 async function getProgress() {
-  document.getElementById("preloader").style.display = "none";
   try {
-    const response = await fetch("");
+    const response = await fetch(
+      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/courses-progress`
+    );
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
     progress = await response.json(); // Сохраняем данные в переменной
-    // document.getElementById("preloader").style.display = "none";
+    console.log(progress);
+    document.getElementById("preloader").style.display = "none";
     if (progress != null) {
       displayProgress();
     } else {
@@ -98,32 +94,36 @@ async function getProgress() {
 }
 
 function displayProgress() {
+  let listProgress = [];
   course.innerHTML = "";
-
-  // const courseBarPercentProgressWidth = "50%"; // Пример процента
-  progress.forEach((elem) => {
+  console.log(course);
+  progress.userCourseProgressDtoList.forEach((elem) => {
     const courseHtml = `
-    <div class="course-info-name">${elem.name}</div>
+    <div class="course-info-name">${elem.courseName}</div>
     <div class="course-info-frame-bar">
       <div class="course-info-bar">
-        <div class="course-info-bar-progress" style="width: 0;"></div>
+        <div class="course-info-bar-progress" style="width: 0; transition: none;"></div>
       </div>
-      <div class="course-info-percent">${elem.percent}</div>
+      <div class="course-info-percent">${elem.progress}%</div>
     </div>
   `;
-
+    listProgress.push(elem.progress);
     course.innerHTML += courseHtml; // Добавление новой информации о курсе
+    //console.log(course)
   });
   let progressBarElements = course.querySelectorAll(
     ".course-info-bar-progress"
   );
-
-  progressBarElements.forEach((currentProgressBar, index) => {
-    // Задержка для начала анимации
-    setTimeout(() => {
-      currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
-      currentProgressBar.style.width = courseBarPercentProgressWidth; // Устанавливаем конечное значение ширины
-    }, index * 200); // Задержка для последовательной анимации
+  requestAnimationFrame(() => {
+    progressBarElements.forEach((currentProgressBar, index) => {
+      console.log(listProgress[index]);
+      // Задержка для начала анимации
+      console.log(currentProgressBar);
+      setTimeout(() => {
+        currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
+        currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
+      }, index * 300); // Задержка для последовательной анимации
+    });
   });
 }
 
