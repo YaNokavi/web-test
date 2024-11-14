@@ -47,7 +47,7 @@ document.addEventListener("click", (e) => {
 
 const userIdData = localStorage.getItem("userIdData");
 const logoName = localStorage.getItem("logoname");
-const userName = localStorage.getItem("username") || "";
+const userName = localStorage.getItem("username");
 let balanceUser = localStorage.getItem("balance");
 
 balanceText.innerText = balanceUser;
@@ -81,9 +81,9 @@ async function getProgress() {
       throw new Error(`Ошибка: ${response.status}`);
     }
     progress = await response.json(); // Сохраняем данные в переменной
-    console.log(progress);
     document.getElementById("preloader").style.display = "none";
-    if (progress != null) {
+
+    if (progress.userCourseProgressDtoList.length != 0) {
       displayProgress();
     } else {
       displayButton();
@@ -96,7 +96,7 @@ async function getProgress() {
 function displayProgress() {
   let listProgress = [];
   course.innerHTML = "";
-  console.log(course);
+
   progress.userCourseProgressDtoList.forEach((elem) => {
     const courseHtml = `
     <div class="course-info-name">${elem.courseName}</div>
@@ -116,9 +116,7 @@ function displayProgress() {
   );
   requestAnimationFrame(() => {
     progressBarElements.forEach((currentProgressBar, index) => {
-      console.log(listProgress[index]);
       // Задержка для начала анимации
-      console.log(currentProgressBar);
       setTimeout(() => {
         currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
         currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
