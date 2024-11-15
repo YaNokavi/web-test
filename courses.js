@@ -241,7 +241,6 @@ async function postDataAdd() {
       {
         method: "POST",
         headers: {
-          // 'RqUid': crypto.randomUUID
           "Content-Type": "application/json",
         },
         body: JSON.stringify(dataAdd),

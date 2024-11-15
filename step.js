@@ -322,11 +322,10 @@ document.addEventListener("touchmove", function (e) {
 async function sendProgress() {
   try {
     const response = await fetch(
-      "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
+      'https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps',
       {
         method: "POST",
         headers: {
-          // 'RqUid': crypto.randomUUID
           "Content-Type": "application/json",
         },
         body: JSON.stringify(progress),
