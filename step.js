@@ -277,16 +277,16 @@ var link = document.referrer.split("/").pop();
 link = link.split("&").pop();
 const switc = document.getElementById("switc");
 
-sessionStorage.setItem("currentTab", refer);
-sessionStorage.setItem("currentLink", window.location.href);
+// sessionStorage.setItem("currentTab", refer);
+// sessionStorage.setItem("currentLink", window.location.href);
 
 function setupTab(tab) {
   tab.style.animation = "none";
   tab.style.color = "#ffffff";
-  tab.addEventListener("click", function () {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
-  });
+  // tab.addEventListener("click", function () {
+  //   sessionStorage.removeItem("currentTab");
+  //   sessionStorage.removeItem("currentLink");
+  // });
 }
 
 if (refer == "index.html" || refer == "favorite.html") {
@@ -313,8 +313,8 @@ document.addEventListener("touchmove", function (e) {
 
   // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
   if (startX <= 15 && moveX - startX > swipeDistance) {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
+    // sessionStorage.removeItem("currentTab");
+    // sessionStorage.removeItem("currentLink");
     window.location.href = `syllabus.html?id=${syllabusId}`; // Переход по ссылке
   }
 });
