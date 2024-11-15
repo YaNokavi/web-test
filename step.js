@@ -344,7 +344,7 @@ document.addEventListener("visibilitychange", async function () {
   if (document.visibilityState === "hidden") {
       // Если страница скрыта, отправляем прогресс
       if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-          await sendProgress(); // Ждем завершения асинхронной функции
+          sendProgress(); // Ждем завершения асинхронной функции
       }
   }
 });
