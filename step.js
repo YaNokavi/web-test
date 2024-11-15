@@ -43,7 +43,7 @@ arrow.href = `syllabus.html?id=${syllabusId}`;
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
 var progress = JSON.parse(localStorage.getItem("completedSteps"));
-console.log(progress, JSON.stringify(progress))
+// console.log(progress, JSON.stringify(progress))
 
 function addStepProgress() {
   if (stepProgres.completed === false) {
@@ -55,7 +55,7 @@ function addStepProgress() {
       // Добавляем stepIdProgress
       progress.completedStepList.push(stepProgres.id);
       console.log("Добавляем прогресс: ", progress);
-      localStorage.setItem("completedSteps", JSON.stringify(progress));
+      //localStorage.setItem("completedSteps", JSON.stringify(progress));
       sendProgress();
     } else {
       console.log("Шаг уже завершен");
