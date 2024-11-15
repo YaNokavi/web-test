@@ -348,8 +348,10 @@ async function sendProgress() {
 //       }
 //   }
 // });
-
-sendProgress();
+// if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
+if (progress.completedStepList.length !== 0) {
+  sendProgress();
+}
 
 window.onload = function () {
   addContent();
