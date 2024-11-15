@@ -56,6 +56,7 @@ function addStepProgress() {
       progress.completedStepList.push(stepProgres.id);
       console.log("Добавляем прогресс: ", progress);
       localStorage.setItem("completedSteps", JSON.stringify(progress));
+      sendProgress();
     } else {
       console.log("Шаг уже завершен");
     }
@@ -349,9 +350,9 @@ async function sendProgress() {
 //   }
 // });
 // if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-if (progress.completedStepList.length !== 0) {
-  sendProgress();
-}
+// if (progress.completedStepList.length !== 0) {
+//   sendProgress();
+// }
 
 window.onload = function () {
   addContent();
