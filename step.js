@@ -341,13 +341,18 @@ async function sendProgress() {
   }
 }
 
-window.addEventListener("beforeunload", function () {
-  if (link != `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-    sendProgress();
-    // navigator.sendBeacon(
-    //   "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
-    //   JSON.stringify(progress)
-    // );
+// window.addEventListener("beforeunload", function () {
+//   if (link != `stepId=${stepId}` && progress.completedStepList.length !== 0) {
+//     sendProgress();
+//   }
+// });
+
+document.addEventListener("visibilitychange", async function () {
+  if (document.visibilityState === "hidden") {
+      // Если страница скрыта, отправляем прогресс
+      if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
+          await sendProgress(); // Ждем завершения асинхронной функции
+      }
   }
 });
 
