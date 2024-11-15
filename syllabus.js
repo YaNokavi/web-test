@@ -2,13 +2,28 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 const userId = localStorage.getItem("userIdData");
-try {
-  var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
-  alert(courseInfo)
-} catch {
-  console.log("Нет данных из каталога, берем из любимых");
-  var courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId - 1];
-  console.log(courseInfo)
+const title = document.getElementById("title");
+const arrow = document.getElementById("ref");
+arrow.href = `courses.html?id=${paramId}`;
+
+function renderCourse(course) {
+  title.innerText = course.name;
+}
+
+function getCourseInfo() {
+  const courses = JSON.parse(localStorage.getItem(`infoCourse`)) || [];
+  return courses.find((course) => course.id == paramId) || null;
+}
+
+var courseInfo = getCourseInfo();
+if (courseInfo) {
+  renderCourse(courseInfo);
+} else {
+  const catalogData = JSON.parse(localStorage.getItem("catalogData"));
+  var courseInfo = catalogData[paramId - 1];
+  if (courseInfo) {
+    renderCourse(courseInfo);
+  }
 }
 
 var progress = {
@@ -16,16 +31,7 @@ var progress = {
   completedStepList: [],
 };
 
-// try {
-//   var parseProgress = JSON.parse(
-//     localStorage.getItem("completedSteps")
-//   ).completedStepList;
-// } catch {
-//   console.log("Нет прогресса");
-//   if (!parseProgress) {
-    localStorage.setItem("completedSteps", JSON.stringify(progress));
-//   }
-// }
+localStorage.setItem("completedSteps", JSON.stringify(progress));
 
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;
@@ -61,11 +67,6 @@ function modulesWithSteps() {
 
   localStorage.setItem("courseData", JSON.stringify(courseData));
 }
-
-var title = document.getElementById("title");
-var arrow = document.getElementById("ref");
-title.innerText = courseInfo.name;
-arrow.href = `courses.html?id=${paramId}`;
 
 function createElement(tag, className, innerHTML) {
   const element = document.createElement(tag);

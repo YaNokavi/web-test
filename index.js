@@ -50,6 +50,7 @@ async function fetchCourses() {
       throw new Error(`Ошибка: ${response.status}`);
     }
     userInfo = await response.json(); // Сохраняем данные в переменной
+    console.log(userInfo.courses)
     localStorage.setItem("balance", userInfo.balance);
     localStorage.setItem(
       "infoCourse",
