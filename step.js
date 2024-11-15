@@ -43,6 +43,7 @@ arrow.href = `syllabus.html?id=${syllabusId}`;
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
 var progress = JSON.parse(localStorage.getItem("completedSteps"));
+console.log(progress, JSON.stringify(progress))
 
 function addStepProgress() {
   if (stepProgres.completed === false) {

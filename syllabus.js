@@ -29,7 +29,7 @@ if (courseInfo) {
 }
 
 var progress = {
-  userId: userId,
+  userId: Number(userId),
   completedStepList: [],
 };
 
