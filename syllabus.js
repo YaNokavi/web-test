@@ -8,7 +8,7 @@ try {
 } catch {
   console.log("Нет данных из каталога, берем из любимых");
   var courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId - 1];
-  alert("courseInfo", courseInfo)
+  console.log(courseInfo)
 }
 
 var progress = {
