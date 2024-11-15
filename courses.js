@@ -421,28 +421,28 @@ if (refer == "index.html" || refer == "favorite.html") {
   }
 }
 
-const currentTab = sessionStorage.getItem("currentTab");
-const currentLink = sessionStorage.getItem("currentLink");
-if (currentTab == null && currentLink == null) {
-  sessionStorage.setItem("currentTab", refer);
-  sessionStorage.setItem("currentLink", window.location.href);
-}
+// const currentTab = sessionStorage.getItem("currentTab");
+// const currentLink = sessionStorage.getItem("currentLink");
+// if (currentTab == null && currentLink == null) {
+//   sessionStorage.setItem("currentTab", refer);
+//   sessionStorage.setItem("currentLink", window.location.href);
+// }
 
-link.addEventListener("click", function () {
-  sessionStorage.removeItem("currentTab");
-  sessionStorage.removeItem("currentLink");
-});
-if (refer == "catalog.html") {
-  catalogTab.addEventListener("click", function () {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
-  });
-} else if (refer == "index.html" || refer == "favorite.html") {
-  favorTab.addEventListener("click", function () {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
-  });
-}
+// link.addEventListener("click", function () {
+//   sessionStorage.removeItem("currentTab");
+//   sessionStorage.removeItem("currentLink");
+// });
+// if (refer == "catalog.html") {
+//   catalogTab.addEventListener("click", function () {
+//     sessionStorage.removeItem("currentTab");
+//     sessionStorage.removeItem("currentLink");
+//   });
+// } else if (refer == "index.html" || refer == "favorite.html") {
+//   favorTab.addEventListener("click", function () {
+//     sessionStorage.removeItem("currentTab");
+//     sessionStorage.removeItem("currentLink");
+//   });
+// }
 
 let startX;
 const swipeDistance = 100; // Минимальное расстояние для свайпа

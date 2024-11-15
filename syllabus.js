@@ -4,7 +4,7 @@ const paramId = urlParams.get("id");
 const userId = localStorage.getItem("userIdData");
 try {
   var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
-  console.log(courseInfo)
+  alert(courseInfo)
 } catch {
   console.log("Нет данных из каталога, берем из любимых");
   courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId - 1];
@@ -135,19 +135,19 @@ const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 
-sessionStorage.setItem("currentTab", refer);
-sessionStorage.setItem("currentLink", window.location.href);
+// sessionStorage.setItem("currentTab", refer);
+// sessionStorage.setItem("currentLink", window.location.href);
 
 function setupTab(tab) {
   tab.style.animation = "none";
   tab.style.color = "#ffffff";
-  tab.addEventListener("click", function () {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
-  });
+  // tab.addEventListener("click", function () {
+  //   sessionStorage.removeItem("currentTab");
+  //   sessionStorage.removeItem("currentLink");
+  // });
 }
 
-if (refer == "index.html" || refer == "favorite.html") {
+if (refer == "index.html" || refer == "favorite.html" || refer == "") {
   setupTab(favorTab);
 } else if (refer == "catalog.html") {
   setupTab(catalogTab);
@@ -166,8 +166,8 @@ document.addEventListener("touchmove", function (e) {
 
   // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
   if (startX <= 15 && moveX - startX > swipeDistance) {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
+    // sessionStorage.removeItem("currentTab");
+    // sessionStorage.removeItem("currentLink");
     window.location.href = `courses.html?id=${paramId}`; // Переход по ссылке
   }
 });
