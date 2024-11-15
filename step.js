@@ -340,14 +340,16 @@ async function sendProgress() {
 //   }
 // });
 
-document.addEventListener("visibilitychange", async function () {
-  if (document.visibilityState === "hidden") {
-      // Если страница скрыта, отправляем прогресс
-      if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-          sendProgress(); // Ждем завершения асинхронной функции
-      }
-  }
-});
+// document.addEventListener("visibilitychange", async function () {
+//   if (document.visibilityState === "hidden") {
+//       // Если страница скрыта, отправляем прогресс
+//       if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
+//           sendProgress(); // Ждем завершения асинхронной функции
+//       }
+//   }
+// });
+
+sendProgress();
 
 window.onload = function () {
   addContent();
