@@ -1,3 +1,5 @@
+import fetchData from "./fetch.js";
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const syllabusId = urlParams.get("syllabusId");
@@ -67,8 +69,9 @@ async function addContent() {
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
-    content = await response.text(); // Сохраняем данные в переменной
+    const content = await response.text(); // Сохраняем данные в переменной
     mediaContent.innerHTML = content;
+    //document.getElementById("preloader").style.display = "none";
     if (testContent != null) {
       displayTest();
     } else {
@@ -320,24 +323,14 @@ document.addEventListener("touchmove", function (e) {
 });
 
 async function sendProgress() {
-  try {
-    const response = await fetch(
-      'https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps',
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(progress),
-      }
-    );
+  const response = await fetchData('https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps',
+    //userId
+    "POST",
+    progress,
+    false
+  )
 
-    if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Ошибка при отправке прогресса", error);
-  }
+  console.log(response)
 }
 
 // window.addEventListener("beforeunload", function () {
@@ -354,6 +347,10 @@ document.addEventListener("visibilitychange", async function () {
       }
   }
 });
+
+window.onload = function () {
+  addContent();
+};
 
 // function getLocalStorageSize() {
 //   let total = 0;

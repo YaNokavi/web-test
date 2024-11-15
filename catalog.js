@@ -1,5 +1,8 @@
+import fetchData from "./fetch.js";
+
 const currentTab = sessionStorage.getItem("currentTab");
 const currentLink = sessionStorage.getItem("currentLink");
+const userId = localStorage.getItem("userIdData");
 
 if (currentTab === "catalog.html" && currentLink != null) {
   window.location.href = currentLink;
@@ -9,6 +12,31 @@ if (currentTab === "catalog.html" && currentLink != null) {
 
 let coursesData = [];
 
+// async function fetchCourses() {
+//   const cachedCourses = localStorage.getItem("catalogData");
+//   if (cachedCourses) {
+//     // Если данные есть, парсим их и сохраняем в переменной
+//     coursesData = JSON.parse(cachedCourses);
+
+//     displayCourses(); // Отображаем курсы
+//   } else {
+//     try {
+//       const response = await fetch(
+//         "https://cryptuna-anderm.amvera.io/v1/course/all"
+//       );
+//       if (!response.ok) {
+//         throw new Error(`Ошибка: ${response.status}`);
+//       }
+//       coursesData = await response.json(); // Сохраняем данные в переменной
+//       localStorage.setItem("catalogData", JSON.stringify(coursesData));
+
+//       displayCourses(); // Вызываем функцию для отображения курсов
+//     } catch (error) {
+//       console.error("Ошибка при получении курсов:", error);
+//     }
+//   }
+// }
+
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("catalogData");
   if (cachedCourses) {
@@ -17,24 +45,18 @@ async function fetchCourses() {
 
     displayCourses(); // Отображаем курсы
   } else {
-    try {
-      const response = await fetch(
-        "https://cryptuna-anderm.amvera.io/v1/course/all"
-      );
-      if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status}`);
-      }
-      coursesData = await response.json(); // Сохраняем данные в переменной
-      localStorage.setItem("catalogData", JSON.stringify(coursesData));
-
-      displayCourses(); // Вызываем функцию для отображения курсов
-    } catch (error) {
-      console.error("Ошибка при получении курсов:", error);
-    }
+    coursesData = await fetchData(
+      "https://cryptuna-anderm.amvera.io/v1/course/all",
+      //userId
+    );
+    console.log(coursesData)
+    localStorage.setItem("catalogData", JSON.stringify(coursesData));
+    displayCourses();
   }
 }
 
 function displayCourses() {
+  document.getElementById("preloader").style.display = "none";
   const coursesDiv = document.getElementById("courses");
   coursesDiv.innerHTML = "";
   coursesData.forEach((course, index) => {
@@ -71,7 +93,6 @@ function displayCourses() {
       coursesDiv.append(courseElement);
     }, (index + 1) * 100);
   });
-  document.getElementById("preloader").style.display = "none";
 }
 
 let refer = document.referrer.split("/").pop();
@@ -83,3 +104,7 @@ if (refer.startsWith("courses.html") || refer.startsWith("syllabus.html")) {
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
+
+window.onload = function () {
+  fetchCourses();
+};

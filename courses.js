@@ -1,3 +1,5 @@
+import fetchData from "./fetch.js";
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
@@ -5,13 +7,13 @@ const paramId = urlParams.get("id");
 const userId = localStorage.getItem("userIdData");
 const username = localStorage.getItem("username");
 
-dataAdd = {
+let dataAdd = {
   userId,
   username,
   courseId: paramId,
 };
 
-dataDel = {
+let dataDel = {
   userId,
   courseId: paramId,
 };
@@ -46,54 +48,7 @@ if (courseInfo) {
   }
 }
 
-// if (JSON.parse(info).length != 0 || JSON.parse(info)[0] != null) {
-//   try {
-//     const parsedInfo = JSON.parse(info);
-//     const courses = parsedInfo || []; // Возвращает пустой массив, если favoriteCourses не существует
-//     var idCourse = courses.map((course) => course.id);
-
-//     for (let key in idCourse) {
-//       if (idCourse[key] == paramId) {
-//         courseElement.innerHTML = `
-//             <div class="course-block-author">Автор: @${parsedInfo[key].author}</div>
-//           <div class="course-block-description">
-//             <img src="icons/logo_cuna2.jpg" class="course-logo" />
-//             <div class="course-block-name">${parsedInfo[key].name}</div>
-//             ${parsedInfo[key].description}
-//           </div>
-//         `;
-//         break;
-//       } else {
-//         var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[
-//           paramId - 1
-//         ];
-//         courseElement.innerHTML = `
-//           <div class="course-block-author">Автор: @${courseInfo.author}</div>
-//         <div class="course-block-description">
-//           <img src="icons/logo_cuna2.jpg" class="course-logo" />
-//           <div class="course-block-name">${courseInfo.name}</div>
-//           ${courseInfo.description}
-//         </div>
-//       `;
-//         break;
-//       }
-//     }
-//   } catch (error) {
-//     console.error("Ошибка при парсинге JSON:", error);
-//   }
-// } else {
-//   var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
-//   courseElement.innerHTML = `
-//           <div class="course-block-author">Автор: @${courseInfo.author}</div>
-//         <div class="course-block-description">
-//           <img src="icons/logo_cuna2.jpg" class="course-logo" />
-//           <div class="course-block-name">${courseInfo.name}</div>
-//           ${courseInfo.description}
-//         </div>
-//       `;
-// }
-
-function displayLearning() {
+function displayLearning(courseData) {
   const elementLearning = document.getElementById("points");
   elementLearning.innerHTML = "";
   courseData.learningOutcomeList.forEach((elem) => {
@@ -104,7 +59,7 @@ function displayLearning() {
   });
 }
 
-function displayModules() {
+function displayModules(courseData) {
   const elementModules = document.getElementById("modules");
   elementModules.innerHTML = "";
   courseData.courseModuleList.forEach((elem) => {
@@ -126,22 +81,17 @@ function displayModules() {
 async function fetchContent() {
   const cachedCourse = localStorage.getItem(`courseData`);
   if (cachedCourse) {
-    courseData = JSON.parse(cachedCourse);
-    displayLearning();
-    displayModules();
+    const courseData = JSON.parse(cachedCourse);
+    displayLearning(courseData);
+    displayModules(courseData);
   } else {
-    try {
-      const response = await fetch(
-        `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/info`
-      );
-      if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
-      courseData = await response.json();
-      localStorage.setItem(`courseData`, JSON.stringify(courseData));
-      displayLearning();
-      displayModules();
-    } catch (error) {
-      console.error("Ошибка при получении данных о курсе", error);
-    }
+    const courseData = await fetchData(
+      `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/info`
+    );
+
+    localStorage.setItem(`courseData`, JSON.stringify(courseData));
+    displayLearning(courseData);
+    displayModules(courseData);
   }
 }
 
@@ -155,29 +105,6 @@ const star2 = document.getElementById("star2");
 const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
-
-// if (idCourse == null) {
-//   button1.style.display = "flex";
-//   button2.style.display = "none";
-//   button3.style.display = "none";
-// } else if (Object.keys(idCourse).length !== 0) {
-//   button1.style.display = "flex";
-//   star1.style.display = "block";
-//   button2.style.display = "none";
-//   star2.style.display = "none";
-//   button3.style.display = "none";
-
-//   for (let key in idCourse) {
-//     if (idCourse[key] == paramId) {
-//       button1.style.display = "none";
-//       star1.style.display = "none";
-//       button2.style.display = "flex";
-//       star2.style.display = "block";
-//       button3.style.display = "flex";
-//       break;
-//     }
-//   }
-// }
 
 function setupButtons() {
   let buttonsConfig = [
@@ -235,23 +162,14 @@ button1.addEventListener("click", function () {
 });
 
 async function postDataAdd() {
-  try {
-    const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataAdd),
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Ошибка:", error);
-  }
+  const response = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
+    //userId,
+    "POST",
+    dataAdd,
+    false
+  );
+  console.log(response);
 }
 
 button2.addEventListener("click", function () {
@@ -304,24 +222,13 @@ button2.addEventListener("click", function () {
 });
 
 async function postDataRemove() {
-  try {
-    const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
-      {
-        method: "DELETE",
-        headers: {
-          // 'RqUid': crypto.randomUUID
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataDel),
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("Ошибка:", error);
-  }
+  const response = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
+    "DELETE",
+    dataDel,
+    false
+  );
+  console.log(response);
 }
 
 button3.addEventListener("click", function () {
@@ -335,57 +242,6 @@ const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 const link = document.getElementById("ref");
 var swipeLink;
-
-// function setupPage(refer) {
-//   const pagesConfig = {
-//     "index.html": {
-//       linkHref: "favorite.html",
-//       titleText: "Мои курсы",
-//       tab: favorTab,
-//     },
-//     "favorite.html": {
-//       linkHref: "favorite.html",
-//       titleText: "Мои курсы",
-//       tab: favorTab,
-//     },
-//     "catalog.html": {
-//       linkHref: "catalog.html",
-//       titleText: "Каталог",
-//       tab: catalogTab,
-//     },
-//     "syllabus.html": { // Добавляем обработку syllabus.html
-//       linkHref: localStorage.getItem("refer") || "index.html", // Возвращаемся на предыдущую страницу
-//       titleText: localStorage.getItem("refer") === "catalog.html" ? "Каталог" : "Мои курсы",
-//       tab: localStorage.getItem("refer") === "catalog.html" ? catalogTab : favorTab,
-//     },
-//   };
-//   if (refer.startsWith("syllabus.html")) {
-//     const previousRefer = localStorage.getItem("refer");
-//     if (previousRefer) {
-//       link.href = previousRefer; // Ссылка на предыдущую страницу
-//       title.innerText = previousRefer === "catalog.html" ? "Каталог" : "Мои курсы";
-//       // tab.style.color = previousRefer === "catalog.html" ? catalogTab : favorTab;
-//     }
-//     if (previousRefer === "catalog.html") {
-//       catalogTab.style.animation = "none";
-//       catalogTab.style.color = "#ffffff";
-//       favorTab.style.color = ""; // Сбрасываем цвет для вкладки "Мои курсы"
-//     } else {
-//       favorTab.style.animation = "none";
-//       favorTab.style.color = "#ffffff";
-//       catalogTab.style.color = ""; // Сбрасываем цвет для вкладки "Каталог"
-//     }
-//   } else {
-//     const config = pagesConfig[refer] || pagesConfig["index.html"];
-//     localStorage.setItem("refer", refer);
-//     link.href = config.linkHref;
-//     title.innerText = config.titleText;
-//     config.tab.style.animation = "none";
-//     config.tab.style.color = "#ffffff";
-//   }
-// }
-
-// setupPage(refer);
 
 function setupCatalog() {
   swipeLink = "catalog.html";
@@ -404,7 +260,7 @@ function setupFavorite() {
 }
 
 if (refer == "index.html" || refer == "favorite.html") {
-  console.log(refer)
+  console.log(refer);
   localStorage.setItem("refer", refer);
   setupFavorite();
 } else if (refer == "catalog.html") {
@@ -461,3 +317,7 @@ document.addEventListener("touchmove", function (e) {
     window.location.href = swipeLink; // Переход по ссылке
   }
 });
+
+window.onload = function () {
+  fetchContent();
+};

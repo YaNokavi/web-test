@@ -1,3 +1,5 @@
+import fetchData from "./fetch.js";
+
 const popup = document.querySelector(".popup");
 const popupBtn = document.getElementById("pop");
 const popupBtnSvg = document.getElementById("popu");
@@ -73,27 +75,20 @@ const setUserNameProfile = (name) => {
 setUserNameProfile(userName);
 
 async function getProgress() {
-  try {
-    const response = await fetch(
-      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/courses-progress`
+    const progress = await fetchData(
+      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/courses-progress`,
+      //userId
     );
-    if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status}`);
-    }
-    progress = await response.json(); // Сохраняем данные в переменной
     document.getElementById("preloader").style.display = "none";
 
     if (progress.userCourseProgressDtoList.length != 0) {
-      displayProgress();
+      displayProgress(progress);
     } else {
       displayButton();
     }
-  } catch (error) {
-    console.error("Ошибка при получении курсов:", error);
-  }
 }
 
-function displayProgress() {
+function displayProgress(progress) {
   let listProgress = [];
   course.innerHTML = "";
 
@@ -114,7 +109,7 @@ function displayProgress() {
   let progressBarElements = course.querySelectorAll(
     ".course-info-bar-progress"
   );
-  // requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
     progressBarElements.forEach((currentProgressBar, index) => {
       // Задержка для начала анимации
       setTimeout(() => {
@@ -122,7 +117,7 @@ function displayProgress() {
         currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
       }, index * 300); // Задержка для последовательной анимации
     });
-  //});
+  });
 }
 
 function displayButton() {
@@ -130,3 +125,7 @@ function displayButton() {
   const buttonHtml = `<div class="progress-title-enable-courses">Вы не изучаете ни один курс</div>`;
   course.innerHTML = buttonHtml;
 }
+
+window.onload = function () {
+  getProgress()
+};

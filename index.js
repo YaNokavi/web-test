@@ -27,44 +27,29 @@ localStorage.setItem("username", username);
 
 tg.enableClosingConfirmation();
 
+import fetchData from "./fetch.js";
+
 let data = {
   userId: userIdData,
-  username: username
+  username: username,
 };
 
 async function fetchCourses() {
-  try {
-    const response = await fetch(
-      "https://cryptuna-anderm.amvera.io/v1/user/info",
-      {
-        method: "POST",
-        headers: {
-          // 'RqUid': crypto.randomUUID
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+  const userInfo = await fetchData(
+    "https://cryptuna-anderm.amvera.io/v1/user/info",
+    //userId
+    "POST",
+    data
+  );
+  console.log(userInfo.courses);
+  localStorage.setItem("balance", userInfo.balance);
+  localStorage.setItem("infoCourse", JSON.stringify(userInfo.courses));
+  // localStorage.setItem("referall")
 
-    if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status}`);
-    }
-    userInfo = await response.json(); // Сохраняем данные в переменной
-    console.log(userInfo.courses)
-    localStorage.setItem("balance", userInfo.balance);
-    localStorage.setItem(
-      "infoCourse",
-      JSON.stringify(userInfo.courses) // Нахуй жсон
-    );
-    // localStorage.setItem("referall")
-
-    userInfo.courses.length ? displayCourses() : displayButton();
-  } catch (error) {
-    console.error("Ошибка при получении курсов:", error);
-  }
+  userInfo.courses.length ? displayCourses(userInfo) : displayButton();
 }
 
-function displayCourses() {
+function displayCourses(userInfo) {
   document.getElementById("preloader").style.display = "none";
 
   const coursesDiv = document.getElementById("favorite-courses");
@@ -160,3 +145,7 @@ try {
 } catch {
   console.log("No favorite courses");
 }
+
+window.onload = function () {
+  fetchCourses();
+};

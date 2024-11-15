@@ -1,3 +1,5 @@
+import fetchData from "./fetch.js";
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
@@ -37,30 +39,19 @@ const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;
 
 async function getContent() {
-  // if (!modulesData[paramId - 1].submoduleList[paramId - 1].stepList) {
-    try {
-      const response = await fetch(
-        `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
-      );
-      if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status}`);
-      }
-      contentGet = await response.json();
-      console.log(contentGet)
-      modulesWithSteps();
-    } catch (error) {
-      console.error("Ошибка при получении курсов:", error);
-    }
-  // } else {
-  //   console.log("Есть шаги");
-  // }
+  const contentGet = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
+  );
+  console.log(contentGet);
+  modulesWithSteps(contentGet);
 }
 
-function modulesWithSteps() {
+function modulesWithSteps(contentGet) {
   courseData.courseModuleList.forEach((submodule) => {
-     
     submodule.submoduleList.forEach((elem) => {
-      const stepListObj = contentGet.find(step => step.submoduleId === elem.id);
+      const stepListObj = contentGet.find(
+        (step) => step.submoduleId === elem.id
+      );
       elem.stepList = stepListObj ? stepListObj.stepList : [];
     });
   });
@@ -173,3 +164,7 @@ document.addEventListener("touchmove", function (e) {
     window.location.href = `courses.html?id=${paramId}`; // Переход по ссылке
   }
 });
+
+window.onload = function () {
+  getContent();
+};
