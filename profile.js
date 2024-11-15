@@ -114,7 +114,7 @@ function displayProgress() {
   let progressBarElements = course.querySelectorAll(
     ".course-info-bar-progress"
   );
-  requestAnimationFrame(() => {
+  // requestAnimationFrame(() => {
     progressBarElements.forEach((currentProgressBar, index) => {
       // Задержка для начала анимации
       setTimeout(() => {
@@ -122,7 +122,7 @@ function displayProgress() {
         currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
       }, index * 300); // Задержка для последовательной анимации
     });
-  });
+  //});
 }
 
 function displayButton() {
