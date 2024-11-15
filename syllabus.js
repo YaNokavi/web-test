@@ -4,6 +4,7 @@ const paramId = urlParams.get("id");
 const userId = localStorage.getItem("userIdData");
 try {
   var courseInfo = JSON.parse(localStorage.getItem(`catalogData`))[paramId - 1];
+  console.log(courseInfo)
 } catch {
   console.log("Нет данных из каталога, берем из любимых");
   courseInfo = JSON.parse(localStorage.getItem(`infoCourse`))[paramId - 1];
