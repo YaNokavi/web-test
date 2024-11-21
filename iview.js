@@ -72,6 +72,81 @@
 		preview.css('background-image', url ? 'url('+url+')' : '')
 		caption.text(text)
 	}
+
+  var scale = 1; // начальный масштаб
+    var isDragging = false; // флаг для отслеживания перетаскивания
+    var startX, startY; // начальные координаты мыши/касания
+    var offsetX = 0, offsetY = 0; // смещение изображения
+
+    // функция для установки предварительного просмотра
+    function setPreview(url, text){
+        preview.css({
+            'background-image': url ? 'url('+url+')' : '',
+            'transform': 'scale(' + scale + ')',
+            'background-position': offsetX + 'px ' + offsetY + 'px'
+        });
+        caption.text(text);
+    }
+
+    // обработка событий колесика мыши для увеличения/уменьшения
+    $(document).on('wheel', '.iview-preview', function(e){
+        e.preventDefault();
+        if (e.originalEvent.deltaY < 0) {
+            scale *= 1.1; // увеличение
+        } else {
+            scale /= 1.1; // уменьшение
+        }
+        setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
+    });
+
+    // обработка событий мыши для перетаскивания
+    $(document).on('mousedown touchstart', '.iview-preview', function(e){
+        isDragging = true;
+        startX = (e.pageX || e.originalEvent.touches[0].pageX) - offsetX;
+        startY = (e.pageY || e.originalEvent.touches[0].pageY) - offsetY;
+        $(this).css('cursor', 'grabbing');
+    });
+
+    $(document).on('mousemove touchmove', '.iview-preview', function(e){
+        if (isDragging) {
+            offsetX = (e.pageX || e.originalEvent.touches[0].pageX) - startX;
+            offsetY = (e.pageY || e.originalEvent.touches[0].pageY) - startY;
+            setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
+        }
+    });
+
+    $(document).on('mouseup touchend', function(){
+        isDragging = false;
+        $('.iview-preview').css('cursor', 'grab');
+    });
+
+    $(document).on('mouseleave touchcancel', function(){
+        isDragging = false;
+        $('.iview-preview').css('cursor', 'grab');
+    });
+
+    // Обработка жеста "щипок" для увеличения/уменьшения
+    let initialDistance = null;
+
+    $(document).on('touchmove', '.iview-preview', function(e){
+        if (e.originalEvent.touches.length === 2) {
+            const dx = e.originalEvent.touches[0].pageX - e.originalEvent.touches[1].pageX;
+            const dy = e.originalEvent.touches[0].pageY - e.originalEvent.touches[1].pageY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (initialDistance === null) {
+                initialDistance = distance;
+            } else {
+                scale *= distance / initialDistance; // изменяем масштаб в зависимости от изменения расстояния
+                initialDistance = distance; // обновляем начальное расстояние
+                setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
+            }
+        }
+    });
+
+    $(document).on('touchend', function(){
+        initialDistance = null; // сбрасываем начальное расстояние при завершении касания
+    });
 	// при клике в просмотр закрывыаем его 
 	$(document).on('click', '.iview-overlay', function(e){
 		e.preventDefault();
