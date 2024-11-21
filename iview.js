@@ -110,23 +110,9 @@
 
     $(document).on('mousemove touchmove', '.iview-preview', function(e){
       if (isDragging) {
-          e.preventDefault();
-          
-          // Вычисляем новые смещения
+          e.preventDefault(); // Предотвращаем стандартное поведение
           offsetX = (e.pageX || e.originalEvent.touches[0].pageX) - startX;
           offsetY = (e.pageY || e.originalEvent.touches[0].pageY) - startY;
-  
-          // Получаем размеры изображения
-          const imgWidth = preview.width() * scale; // Учитываем масштаб
-          const imgHeight = preview.height() * scale;
-  
-          // Ограничиваем смещения
-          const maxOffsetX = Math.min(0, preview.width() - imgWidth);
-          const maxOffsetY = Math.min(0, preview.height() - imgHeight);
-  
-          offsetX = Math.max(maxOffsetX, Math.min(0, offsetX));
-          offsetY = Math.max(maxOffsetY, Math.min(0, offsetY));
-  
           setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
       }
   });
