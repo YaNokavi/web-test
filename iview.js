@@ -90,14 +90,14 @@
 
     // обработка событий колесика мыши для увеличения/уменьшения
     $(document).on('wheel', '.iview-preview', function(e){
-        e.preventDefault();
-        if (e.originalEvent.deltaY < 0) {
-            scale *= 1.1; // увеличение
-        } else {
-            scale /= 1.1; // уменьшение
-        }
-        setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
-    });
+      e.preventDefault(); // Предотвращаем стандартное поведение
+      if (e.originalEvent.deltaY < 0) {
+          scale *= 1.1; // увеличение
+      } else {
+          scale /= 1.1; // уменьшение
+      }
+      setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
+  });
 
     // обработка событий мыши для перетаскивания
     $(document).on('mousedown touchstart', '.iview-preview', function(e){
@@ -108,12 +108,13 @@
     });
 
     $(document).on('mousemove touchmove', '.iview-preview', function(e){
-        if (isDragging) {
-            offsetX = (e.pageX || e.originalEvent.touches[0].pageX) - startX;
-            offsetY = (e.pageY || e.originalEvent.touches[0].pageY) - startY;
-            setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
-        }
-    });
+      if (isDragging) {
+          e.preventDefault(); // Предотвращаем стандартное поведение
+          offsetX = (e.pageX || e.originalEvent.touches[0].pageX) - startX;
+          offsetY = (e.pageY || e.originalEvent.touches[0].pageY) - startY;
+          setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
+      }
+  });
 
     $(document).on('mouseup touchend', function(){
         isDragging = false;
@@ -129,20 +130,21 @@
     let initialDistance = null;
 
     $(document).on('touchmove', '.iview-preview', function(e){
-        if (e.originalEvent.touches.length === 2) {
-            const dx = e.originalEvent.touches[0].pageX - e.originalEvent.touches[1].pageX;
-            const dy = e.originalEvent.touches[0].pageY - e.originalEvent.touches[1].pageY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (initialDistance === null) {
-                initialDistance = distance;
-            } else {
-                scale *= distance / initialDistance; // изменяем масштаб в зависимости от изменения расстояния
-                initialDistance = distance; // обновляем начальное расстояние
-                setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
-            }
-        }
-    });
+      e.preventDefault(); // Предотвращаем стандартное поведение
+      if (e.originalEvent.touches.length === 2) {
+          const dx = e.originalEvent.touches[0].pageX - e.originalEvent.touches[1].pageX;
+          const dy = e.originalEvent.touches[0].pageY - e.originalEvent.touches[1].pageY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+  
+          if (initialDistance === null) {
+              initialDistance = distance;
+          } else {
+              scale *= distance / initialDistance; // изменяем масштаб в зависимости от изменения расстояния
+              initialDistance = distance; // обновляем начальное расстояние
+              setPreview(preview.css('background-image').replace(/url\((['"]?)(.*?)\1\)/, '$2'), caption.text());
+          }
+      }
+  });
 
     $(document).on('touchend', function(){
         initialDistance = null; // сбрасываем начальное расстояние при завершении касания
