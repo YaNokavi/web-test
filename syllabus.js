@@ -57,6 +57,7 @@ function modulesWithSteps(contentGet) {
   });
 
   localStorage.setItem("courseData", JSON.stringify(courseData));
+  displayModules();
 }
 
 function createElement(tag, className, innerHTML) {
@@ -90,39 +91,25 @@ function displayModules() {
         `${module.number}.${submodule.number} ${submodule.name}`
       );
       submoduleLink.href = `step.html?syllabusId=${paramId}&moduleId=${module.number}&submoduleId=${submodule.number}&stepId=1`;
+
+      let steps = [];
+      submodule.stepList.forEach((step) => {
+        if (step.completed) {
+          steps.push("1");
+        }
+      });
+
+      const stepProgress = createElement(
+        "div",
+        "syllabus-step-pogress",
+        `${steps.length}/${Object.keys(submodule.stepList).length}`
+      );
+      submoduleLink.append(stepProgress);
       moduleAditional.append(submoduleLink);
     });
     document.getElementById("preloader").style.display = "none";
   });
-  // const elementModules = document.getElementById("modules");
-  // elementModules.innerHTML = "";
-  // modulesData.forEach((module) => {
-  //   const moduleMain = document.createElement("div");
-  //   moduleMain.classList.add("syllabus-modules-main");
-  //   const moduleMainText = document.createElement("div");
-  //   moduleMainText.classList.add("syllabus-name-main");
-  //   moduleMainText.innerHTML = `${module.id}. ${module.name}`;
-  //   const moduleId = module.id;
-
-  //   moduleMain.append(moduleMainText);
-  //   elementModules.append(moduleMain);
-
-  //   const moduleAditional = document.createElement("div");
-  //   moduleAditional.classList.add("syllabus-modules-aditional");
-  //   elementModules.append(moduleAditional);
-  //   module.submoduleList.forEach((submodule) => {
-  //     const moduleAditionalText = document.createElement("a");
-  //     const submoduleId = submodule.id;
-  //     moduleAditionalText.href = `step.html?syllabusId=${paramId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${1}`;
-
-  //     moduleAditionalText.classList.add("syllabus-name-aditional");
-  //     moduleAditionalText.innerHTML = `${moduleId}.${submoduleId} ${submodule.name}`;
-  //     moduleAditional.append(moduleAditionalText);
-  //   });
-  // });
 }
-
-displayModules();
 
 const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
