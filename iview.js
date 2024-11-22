@@ -200,13 +200,14 @@
 
     // Рассчитываем смещение от центра
     var offsetFromCenterX = x - centerX;
-    var offsetFromCenterY = y - centerY + 120;
-
+    var offsetFromCenterY = y - centerY + 100;
+// console.log(offsetFromCenterX, offsetFromCenterY)
     // Увеличиваем или сбрасываем масштаб
     if (scale === 1) {
       scale *= 2; // Увеличиваем в 2 раза
       offsetX = (offsetX - offsetFromCenterX * scale)/3.5;
-      offsetY = (offsetY - offsetFromCenterY * scale)/2.8;
+      // offsetY = (offsetY - offsetFromCenterY * scale)/25.5;
+      offsetY = 0
 
       console.log(offsetX, offsetY);
     } else {
