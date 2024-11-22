@@ -206,8 +206,8 @@
     if (scale === 1) {
       scale *= 2; // Увеличиваем в 2 раза
       offsetX = (offsetX - offsetFromCenterX * scale)/3.5;
-      // offsetY = (offsetY - offsetFromCenterY * scale)/25.5;
-      offsetY = 0
+      offsetY = Math.abs((offsetY - offsetFromCenterY * scale)/8.5);
+      //offsetY = 0
 
       console.log(offsetX, offsetY);
     } else {
