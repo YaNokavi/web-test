@@ -68,11 +68,13 @@
   //   caption.text(text);
   // }
 
+  // обработка событий колесика мыши для увеличения/уменьшения
   var scale = 1; // начальный масштаб
   var isDragging = false; // флаг для отслеживания перетаскивания
   var startX, startY; // начальные координаты мыши/касания
   var offsetX = 0,
     offsetY = 0; // смещение изображения
+  var clickTimer;
 
   // функция для установки предварительного просмотра
   function setPreview(url, text) {
@@ -83,53 +85,32 @@
     });
     caption.text(text);
   }
+  // var isDoubleClick = false;
 
   // обработка событий колесика мыши для увеличения/уменьшения
-  $(document).on("wheel", ".iview-overlay", function (e) {
-    e.preventDefault(); // Предотвращает стандартное поведение прокрутки
-        const deltaY = e.originalEvent.deltaY; // Получаем значение вертикальной прокрутки
-        const deltaX = e.originalEvent.deltaX; // Получаем значение горизонтальной прокрутки
-
-        offsetY += deltaY; // Изменяем вертикальное смещение фона
-        offsetX += deltaX; // Изменяем горизонтальное смещение фона
-
-        // Устанавливаем ограничения для вертикального смещения
-        const minOffsetY = -((preview.height() * scale) - $(this).height());
-        const maxOffsetY = 0;
-
-        // if (offsetY < minOffsetY) {
-        //     offsetY = minOffsetY;
-        // } else if (offsetY > maxOffsetY) {
-        //     offsetY = maxOffsetY;
-        // }
-
-        // Устанавливаем ограничения для горизонтального смещения
-        // const minOffsetX = -((preview.width() * scale) - $(this).width());
-        // const maxOffsetX = 0;
-
-        // if (offsetX < minOffsetX) {
-        //     offsetX = minOffsetX;
-        // } else if (offsetX > maxOffsetX) {
-        //     offsetX = maxOffsetX;
-        // }
-    setPreview(
-      preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"),
-      caption.text()
-    );
-  });
+  // $(document).on("wheel", ".iview-preview", function (e) {
+  //   e.preventDefault();
+  //   if (e.originalEvent.deltaY < 0) {
+  //     scale *= 1.1; // увеличение
+  //   } else {
+  //     scale /= 1.1; // уменьшение
+  //   }
+  //   setPreview(
+  //     preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"),
+  //     caption.text()
+  //   );
+  // });
 
   // обработка событий мыши для перетаскивания
-  // $(document).on("mousedown touchstart", ".iview-preview", function (e) {
-  //   e.preventDefault();
-  //   isDragging = true;
-  //   startX = (e.pageX || e.originalEvent.touches[0].pageX) - offsetX;
-  //   startY = (e.pageY || e.originalEvent.touches[0].pageY) - offsetY;
-  //   $(this).css("cursor", "grabbing");
-  // });
+  $(document).on("mousedown touchstart", ".iview-preview", function (e) {
+    isDragging = true;
+    startX = (e.pageX || e.originalEvent.touches[0].pageX) - offsetX;
+    startY = (e.pageY || e.originalEvent.touches[0].pageY) - offsetY;
+    $(this).css("cursor", "grabbing");
+  });
 
   // $(document).on("mousemove touchmove", ".iview-preview", function (e) {
   //   if (isDragging) {
-  //     e.preventDefault(); // Предотвращаем стандартное поведение
   //     offsetX = (e.pageX || e.originalEvent.touches[0].pageX) - startX;
   //     offsetY = (e.pageY || e.originalEvent.touches[0].pageY) - startY;
   //     setPreview(
@@ -150,10 +131,9 @@
   // });
 
   // Обработка жеста "щипок" для увеличения/уменьшения
-  // let initialDistance = null;
+  let initialDistance = null;
 
   // $(document).on("touchmove", ".iview-preview", function (e) {
-  //   e.preventDefault(); // Предотвращаем стандартное поведение
   //   if (e.originalEvent.touches.length === 2) {
   //     const dx =
   //       e.originalEvent.touches[0].pageX - e.originalEvent.touches[1].pageX;
@@ -176,14 +156,87 @@
   //   }
   // });
 
-  // $(document).on("touchend", function () {
-  //   initialDistance = null; // сбрасываем начальное расстояние при завершении касания
-  // });
+  $(document).on("touchend", function () {
+    initialDistance = null; // сбрасываем начальное расстояние при завершении касания
+  });
+
   // при клике в просмотр закрывыаем его
   $(document).on("click", ".iview-overlay", function (e) {
-    e.preventDefault();
-    setPreview("", "");
-    overlay.fadeOut();
+    // e.preventDefault();
+    clearTimeout(clickTimer);
+    clickTimer = setTimeout(function () {
+      // Логика для скрытия элемента
+      // Сбрасываем масштаб и позицию
+      scale = 1; // сброс масштаба
+      offsetX = 0; // сброс смещения по X
+      offsetY = 0; // сброс смещения по Y
+
+      setPreview("", "");
+      overlay.fadeOut();
+    }, 200);
+    // if (!isDoubleClick) {
+
+    // }
+    // isDoubleClick = false;
+
+    // overlay.fadeOut();
+  });
+
+  $(document).on("dblclick", ".iview-preview", function (e) {
+    clearTimeout(clickTimer);
+    e.stopPropagation();
+    // isDoubleClick = true;
+    // Увеличиваем или уменьшаем масштаб
+    var offset = $(this).offset();
+    var x = e.pageX - offset.left; // Координата X клика
+    var y = e.pageY - offset.top; // Координата Y клика
+
+    var width = $(this).width();
+    var height = $(this).height();
+
+    // Вычисляем центр элемента
+    var centerX = width / 2;
+    var centerY = height / 2;
+
+    // Рассчитываем смещение от центра
+    var offsetFromCenterX = x - centerX;
+    var offsetFromCenterY = y - centerY + 120;
+
+    // Увеличиваем или сбрасываем масштаб
+    if (scale === 1) {
+      scale *= 2; // Увеличиваем в 2 раза
+      offsetX = (offsetX - offsetFromCenterX * scale)/3.5;
+      offsetY = (offsetY - offsetFromCenterY * scale)/2.8;
+
+      console.log(offsetX, offsetY);
+    } else {
+      offsetX = 0;
+      offsetY = 0;
+      scale = 1; // Сбрасываем масштаб
+    }
+
+    // Рассчитываем новое положение фона
+    // if (x <= preview.width() / 4) {
+    //   offsetX = (x - x * scale) * (-5);
+    //   // offsetY = (y - y * scale) ;
+    //   console.log(offsetX, offsetY);
+    // }
+    // Ограничиваем новые позиции, чтобы они не выходили за пределы видимости
+    var maxWidth = preview.width() * scale - preview.width();
+    var maxHeight = preview.height() * scale - preview.height();
+
+    // offsetX = Math.min(0, Math.max(offsetX, -maxWidth));
+    // offsetY = Math.min(0, Math.max(offsetY, -maxHeight));
+
+    // console.log(offsetX, offsetY);
+    // offsetX = Math.min(0, Math.max(offsetX, -maxWidth));
+    // offsetY = Math.min(0, Math.max(offsetY, -maxHeight));
+    // console.log(offsetX);
+    // Обновляем изображение с новым масштабом и позицией
+    setPreview(
+      preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"),
+      caption.text()
+    );
   });
   // при клике в картинку страницы открываем просмотр
   $(document).on("click", ".iview-image", function (e) {
