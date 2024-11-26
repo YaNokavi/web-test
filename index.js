@@ -1,9 +1,12 @@
 localStorage.clear();
 
 let tg = window.Telegram.WebApp;
+let version = tg.version;
 
 tg.setHeaderColor("#1468B1");
-tg.requestFullscreen();
+if (version != "7.10") {
+  tg.requestFullscreen();
+}
 tg.lockOrientation();
 tg.SafeAreaInset.top = 20;
 tg.expand();
