@@ -6,7 +6,7 @@ let platform = tg.platform;
 console.log(platform);
 
 tg.setHeaderColor("#1468B1");
-if (version != "7.10" || platform == "web") {
+if (version != "7.10" || platform != "web") {
   tg.requestFullscreen();
   const topInset = tg.SafeAreaInset.top;
   document.body.style.paddingTop = `${topInset}px`;
