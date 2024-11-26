@@ -8,10 +8,10 @@ console.log(platform);
 tg.setHeaderColor("#1468B1");
 if (version != "7.10") {
   tg.requestFullscreen();
+  const topInset = tg.SafeAreaInset.top;
+  document.body.style.paddingTop = `${topInset}px`;
 }
 tg.lockOrientation();
-const topInset = tg.SafeAreaInset.top;
-document.body.style.paddingTop = `${topInset}px`;
 tg.expand();
 
 // let BackButton = tg.BackButton;
