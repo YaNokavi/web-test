@@ -1,12 +1,10 @@
 localStorage.clear();
 
 let tg = window.Telegram.WebApp;
-let version = tg.version;
 let platform = tg.platform;
-console.log(platform);
 
 tg.setHeaderColor("#1468B1");
-if (version != "7.10" || platform == "mobile") {
+if (platform == "mobile") {
   tg.requestFullscreen();
   // const topInset = tg.SafeAreaInset.top;
   document.body.style.paddingTop = `${32}px`;
