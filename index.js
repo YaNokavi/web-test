@@ -2,13 +2,16 @@ localStorage.clear();
 
 let tg = window.Telegram.WebApp;
 let version = tg.version;
+let platform = tg.platform;
+console.log(platform);
 
 tg.setHeaderColor("#1468B1");
 if (version != "7.10") {
   tg.requestFullscreen();
 }
 tg.lockOrientation();
-tg.SafeAreaInset.top = 20;
+const topInset = tg.SafeAreaInset.top;
+document.body.style.paddingTop = `${topInset}px`;
 tg.expand();
 
 // let BackButton = tg.BackButton;
