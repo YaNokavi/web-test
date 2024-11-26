@@ -2,7 +2,8 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  height: 100vh;
+  /* height: 100vh; */
+  height: calc(100vh - var(--safe-area-inset-bottom));
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -18,6 +19,8 @@ body {
   height: 38px;
   width: 100%;
   /* padding: 5px; */
+  padding-top: calc(var(--InsetTop) + 20px);
+
   font: 600 22px/1 Inter, sans-serif;
   letter-spacing: 0.07px;
   text-align: center;
