@@ -638,7 +638,7 @@ body {
 }
 
 .course-block-author {
-  /* display: flex; */
+  display: block;
   position: absolute;
   width: 120px;
   /* height: 13px; */
@@ -648,6 +648,7 @@ body {
   font-style: normal;
   line-height: 11px;
   letter-spacing: -0.43px;
+  text-decoration: none;
 
   color: #a6a6a6;
 }
