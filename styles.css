@@ -2,8 +2,8 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  /* height: 100vh; */
-  height: calc(100vh - var(--safe-area-inset-bottom));
+  height: 100vh;
+  /* height: calc(100vh - var(--safe-area-inset-bottom)); */
   align-items: center;
   justify-content: center;
   overflow: hidden;
