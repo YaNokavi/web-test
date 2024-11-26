@@ -6,6 +6,7 @@ let platform = tg.platform;
 tg.setHeaderColor("#1468B1");
 if (platform == "mobile") {
   tg.requestFullscreen();
+  alert("GH")
   // document.documentElement.style.setProperty('--InsetTop', `${tg.SafeAreaInset.top}px`);
   // document.documentElement.style.setProperty('--safe-area-inset-bottom', `${tg.SafeAreaInset.bottom}px`);
 }
