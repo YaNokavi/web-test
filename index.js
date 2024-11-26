@@ -7,7 +7,7 @@ tg.setHeaderColor("#1468B1");
 if (platform == "mobile") {
   tg.requestFullscreen();
   // const topInset = tg.SafeAreaInset.top;
-  document.body.style.paddingTop = `${32}px`;
+  document.body.style.marginTop = `${32}px`;
 }
 tg.lockOrientation();
 tg.expand();
