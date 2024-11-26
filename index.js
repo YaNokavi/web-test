@@ -3,6 +3,8 @@ localStorage.clear();
 let tg = window.Telegram.WebApp;
 
 tg.setHeaderColor("#1468B1");
+tg.requestFullscreen();
+tg.lockOrientation();
 tg.expand();
 
 // let BackButton = tg.BackButton;
