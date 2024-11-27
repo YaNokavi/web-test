@@ -4,9 +4,11 @@ let tg = window.Telegram.WebApp;
 let platform = tg.platform;
 
 tg.setHeaderColor("#1468B1");
-if (platform === 'mobile') {
+alert(platform);
+if (platform === "mobile") {
   tg.requestFullscreen();
-  document.documentElement.style.setProperty('--InsetTop', `${60}px`);
+
+  document.documentElement.style.setProperty("--InsetTop", `${60}px`);
 }
 tg.lockOrientation();
 tg.expand();
