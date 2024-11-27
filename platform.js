@@ -52,7 +52,7 @@ if (
   console.log("Из содержания в курс");
 } else if (currentUrl.endsWith("step.html")) {
   link = `syllabus.html?id=${idCourse}`;
-  console.log("Из шага в содержание");
+  alert("Из шага в содержание");
 }
 
 // alert(link);
