@@ -159,9 +159,9 @@ function displayFriendsNotNull() {
 const currentTab = sessionStorage.getItem("currentTab");
 const currentLink = sessionStorage.getItem("currentLink");
 
-if (currentTab == null && currentLink == null) {
+//if (currentTab == null && currentLink == null) {
   localStorage.removeItem("courseData");
-}
+//}
 
 const userId = localStorage.getItem("userIdData");
 

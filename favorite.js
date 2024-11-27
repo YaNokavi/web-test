@@ -4,7 +4,7 @@
 // if ((currentTab === "favorite.html" || currentTab === "index.html") && currentLink != null) {
 //   window.location.href = currentLink;
 // } else if (currentTab == null && currentLink == null) {
-//   localStorage.removeItem("courseData");
+  localStorage.removeItem("courseData");
 // }
 
 const info = localStorage.getItem("infoCourse");

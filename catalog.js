@@ -7,7 +7,7 @@ import fetchData from "./fetch.js";
 // if (currentTab === "catalog.html" && currentLink != null) {
 //   window.location.href = currentLink;
 // } else if (currentTab == null && currentLink == null) {
-//   localStorage.removeItem("courseData");
+   localStorage.removeItem("courseData");
 // }
 
 let coursesData = [];
