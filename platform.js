@@ -7,7 +7,6 @@ let platform = tg.platform;
 if (platform === "ios" || platform === "android") {
   tg.requestFullscreen();
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
-  document.documentElement.style.setProperty("--InsetBottom", `${60}px`);
 }
 tg.lockOrientation();
 tg.expand();
