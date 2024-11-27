@@ -4,7 +4,7 @@ let tg = window.Telegram.WebApp;
 let platform = tg.platform;
 
 tg.setHeaderColor("#1468B1");
-if (platform === "mobile") {
+if (platform === 'mobile') {
   tg.requestFullscreen();
   document.documentElement.style.setProperty('--InsetTop', `${60}px`);
 }
