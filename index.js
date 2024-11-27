@@ -1,23 +1,15 @@
 localStorage.clear();
 
-let tg = window.Telegram.WebApp;
-// let platform = tg.platform;
+const tg = window.Telegram.WebApp;
 
-// tg.setHeaderColor("#1468B1");
-
-// if (platform === "ios" || platform === "android") {
-//   tg.requestFullscreen();
-
-//   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
-// }
-// tg.lockOrientation();
-// tg.expand();
-// tg.enableClosingConfirmation();
-
-
-let userIdData = `${tg.initDataUnsafe.user.id}`;
-let logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-let username = `${tg.initDataUnsafe.user.username}`;
+const userIdData = `${tg.initDataUnsafe.user.id}`;
+if (tg.initDataUnsafe.user.username) {
+  var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  var username = `${tg.initDataUnsafe.user.username}`;
+} else {
+  logoname = "U";
+  username = "User"
+}
 // let userIdData = 2;
 // let logoname = "ret";
 // let username = "rete";
@@ -30,8 +22,6 @@ localStorage.setItem("username", username);
 // const queryString = window.location.search;
 // const urlParams = new URLSearchParams(queryString);
 // const referallId = urlParams.get("startapp");
-
-
 
 import fetchData from "./fetch.js";
 
@@ -135,22 +125,22 @@ function displayButton() {
   document.getElementById("preloader").style.display = "none";
 }
 
-let refer = document.referrer.split("/").pop();
+// let refer = document.referrer.split("/").pop();
 
-try {
-  if (
-    userInfo.courses.some((course) => refer == `courses.html?id=${course.id}`)
-  ) {
-    const title = document.getElementById("title");
-    const catalogTab = document.getElementById("active");
+// try {
+//   if (
+//     userInfo.courses.some((course) => refer == `courses.html?id=${course.id}`)
+//   ) {
+//     const title = document.getElementById("title");
+//     const catalogTab = document.getElementById("active");
 
-    title.style.animation = "none";
-    catalogTab.style.animation = "none";
-    catalogTab.style.color = "#ffffff";
-  }
-} catch {
-  console.log("No favorite courses");
-}
+//     title.style.animation = "none";
+//     catalogTab.style.animation = "none";
+//     catalogTab.style.color = "#ffffff";
+//   }
+// } catch {
+//   console.log("No favorite courses");
+// }
 
 window.onload = function () {
   fetchCourses();

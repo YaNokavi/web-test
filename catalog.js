@@ -1,41 +1,16 @@
 import fetchData from "./fetch.js";
 
-const currentTab = sessionStorage.getItem("currentTab");
-const currentLink = sessionStorage.getItem("currentLink");
-const userId = localStorage.getItem("userIdData");
+// const currentTab = sessionStorage.getItem("currentTab");
+// const currentLink = sessionStorage.getItem("currentLink");
+// const userId = localStorage.getItem("userIdData");
 
-if (currentTab === "catalog.html" && currentLink != null) {
-  window.location.href = currentLink;
-} else if (currentTab == null && currentLink == null) {
-  localStorage.removeItem("courseData");
-}
+// if (currentTab === "catalog.html" && currentLink != null) {
+//   window.location.href = currentLink;
+// } else if (currentTab == null && currentLink == null) {
+//   localStorage.removeItem("courseData");
+// }
 
 let coursesData = [];
-
-// async function fetchCourses() {
-//   const cachedCourses = localStorage.getItem("catalogData");
-//   if (cachedCourses) {
-//     // Если данные есть, парсим их и сохраняем в переменной
-//     coursesData = JSON.parse(cachedCourses);
-
-//     displayCourses(); // Отображаем курсы
-//   } else {
-//     try {
-//       const response = await fetch(
-//         "https://cryptuna-anderm.amvera.io/v1/course/all"
-//       );
-//       if (!response.ok) {
-//         throw new Error(`Ошибка: ${response.status}`);
-//       }
-//       coursesData = await response.json(); // Сохраняем данные в переменной
-//       localStorage.setItem("catalogData", JSON.stringify(coursesData));
-
-//       displayCourses(); // Вызываем функцию для отображения курсов
-//     } catch (error) {
-//       console.error("Ошибка при получении курсов:", error);
-//     }
-//   }
-// }
 
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("catalogData");
@@ -100,9 +75,9 @@ const title = document.getElementById("title");
 const catalogTab = document.getElementById("active");
 
 if (
-  refer.endsWith("courses.html") ||
-  refer.endsWith("syllabus.html") ||
-  refer.endsWith("step.html")
+  refer.startsWith("courses.html") ||
+  refer.startsWith("syllabus.html") ||
+  refer.startsWith("step.html")
 ) {
   title.style.animation = "none";
   catalogTab.style.animation = "none";

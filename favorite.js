@@ -1,16 +1,14 @@
+// const currentTab = sessionStorage.getItem("currentTab");
+// const currentLink = sessionStorage.getItem("currentLink");
 
-const currentTab = sessionStorage.getItem("currentTab");
-const currentLink = sessionStorage.getItem("currentLink");
+// if ((currentTab === "favorite.html" || currentTab === "index.html") && currentLink != null) {
+//   window.location.href = currentLink;
+// } else if (currentTab == null && currentLink == null) {
+//   localStorage.removeItem("courseData");
+// }
 
-if ((currentTab === "favorite.html" || currentTab === "index.html") && currentLink != null) {
-  window.location.href = currentLink;
-} else if (currentTab == null && currentLink == null) {
-  localStorage.removeItem("courseData");
-}
-
-var info = localStorage.getItem("infoCourse");
+const info = localStorage.getItem("infoCourse");
 var courses;
-var refer = document.referrer.split("/").pop();
 
 if (Object.keys(JSON.parse(info)).length !== 0) {
   courses = JSON.parse(info);
@@ -85,18 +83,17 @@ if (Object.keys(courses).length !== 0) {
   `;
       coursesDiv.append(courseElement);
     }, (index + 1) * 100);
-    // localStorage.setItem(`${course.id}-course`, JSON.stringify(course));
   });
 }
-for (let key in courses) {
-  if (
-    refer == `courses.html?id=${courses[key].id}` ||
-    refer == `syllabus.html?id=${courses[key].id}`
-  ) {
-    var title = document.getElementById("title");
-    var catalogTab = document.getElementById("active");
-    title.style.animation = "none";
-    catalogTab.style.animation = "none";
-    catalogTab.style.color = "#ffffff";
-  }
+
+const refer = document.referrer.split("/").pop();
+
+if (
+  refer.startsWith("courses.html") || refer.startsWith("syllabus.html") || refer.startsWith("step.html")
+) {
+  var title = document.getElementById("title");
+  var catalogTab = document.getElementById("active");
+  title.style.animation = "none";
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
 }
