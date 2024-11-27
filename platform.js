@@ -27,11 +27,18 @@ if (
 let link = document.referrer.split("/").pop()
 if (link == "") link = "favorite.html";
 
-// if (link == "favorite.html" || link == "catalog.html") {
-//   localStorage.setItem("refer", refer);
-// } else if (refer.endsWith("syllabus.html")) {
-//   let referSyl = localStorage.getItem("refer");
+if (currentUrl.endsWith("courses.html") && (link == "favorite.html" || link == "catalog.html")) {
+  localStorage.setItem("link", link);
+  console.log("Из курса идем в каталог или в мои курсы");
+} else if (currentUrl.endsWith("courses.html") && link.endsWith("syllabus.html")) {
+  link = localStorage.getItem("link");
+}
+// else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
+//   link = "course.html"
+// } else if(currentUrl.endsWith("step.html")) {
+//   link = "syllabus.html"
 // }
+
 
 // alert(link);
 
