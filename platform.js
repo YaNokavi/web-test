@@ -25,6 +25,15 @@ if (
 }
 
 let link = document.referrer.split("/").pop()
+if (link == "") link = "favorite.html";
+
+// if (link == "favorite.html" || link == "catalog.html") {
+//   localStorage.setItem("refer", refer);
+// } else if (refer.endsWith("syllabus.html")) {
+//   let referSyl = localStorage.getItem("refer");
+// }
+
+// alert(link);
 
 tg.onEvent('backButtonClicked', function() {
   if (link) {
