@@ -24,14 +24,23 @@ if (
   BackButton.hide();
 }
 
-let link = document.referrer.split("/").pop()
+let link = document.referrer.split("/").pop();
 if (link == "") link = "favorite.html";
 
-if (currentUrl.endsWith("courses.html") && (link == "favorite.html" || link == "catalog.html")) {
+if (
+  currentUrl.endsWith("courses.html") &&
+  (link == "favorite.html" || link == "catalog.html")
+) {
   localStorage.setItem("link", link);
+  alert("Пришли из каталога или моих курсов");
   console.log("Из курса идем в каталог или в мои курсы");
-} else if (currentUrl.endsWith("courses.html") && link.endsWith("syllabus.html")) {
+} else if (
+  currentUrl.endsWith("courses.html") &&
+  link.endsWith("syllabus.html")
+) {
   link = localStorage.getItem("link");
+  alert("Пришли из содержания");
+  console.log("Из курса идем в каталог или в мои курсы");
 }
 // else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
 //   link = "course.html"
@@ -39,13 +48,12 @@ if (currentUrl.endsWith("courses.html") && (link == "favorite.html" || link == "
 //   link = "syllabus.html"
 // }
 
-
 // alert(link);
 
-tg.onEvent('backButtonClicked', function() {
+tg.onEvent("backButtonClicked", function () {
   if (link) {
     window.location.href = link;
   } else {
     console.log("Нет предыдущей страницы для перехода.");
   }
-})
+});
