@@ -27,15 +27,17 @@ if (
 let link = document.referrer.split("/").pop();
 if (!link) link = "favorite.html";
 let idCourse;
-const queryString = location.search;
+const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 
-if (link.startsWith("syllabus.html")) {
+if (currentUrl.endsWith("syllabus.html")) {
   idCourse = params.get("id");
-} else if (currentUrl.startsWith("step.html")) {
+  // console.log("1")
+} else if (currentUrl.endsWith("step.html")) {
   idCourse = params.get("syllabusId");
+  // console.log("2")
 }
-console.log(currentUrl, link, idCourse)
+// console.log(currentUrl, link, idCourse)
 if (
   currentUrl.endsWith("courses.html") &&
   (link == "favorite.html" || link == "catalog.html")
@@ -52,7 +54,7 @@ if (
   console.log("Из содержания в курс");
 } else if (currentUrl.endsWith("step.html")) {
   link = `syllabus.html?id=${idCourse}`;
-  alert("Из шага в содержание");
+  console.log("Из шага в содержание");
 }
 
 // alert(link);
