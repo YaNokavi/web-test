@@ -26,7 +26,7 @@ if (
 
 let link = document.referrer.split("/").pop();
 if (!link) link = "favorite.html";
-
+alert(link)
 if (
   currentUrl.endsWith("courses.html") &&
   (link == "favorite.html" || link == "catalog.html")
