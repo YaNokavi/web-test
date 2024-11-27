@@ -2,17 +2,17 @@ localStorage.clear();
 
 const tg = window.Telegram.WebApp;
 
-const userIdData = `${tg.initDataUnsafe.user.id}`;
-if (tg.initDataUnsafe.user.username) {
-  var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  var username = `${tg.initDataUnsafe.user.username}`;
-} else {
-  logoname = "U";
-  username = "User"
-}
-// let userIdData = 2;
-// let logoname = "ret";
-// let username = "rete";
+// const userIdData = `${tg.initDataUnsafe.user.id}`;
+// if (tg.initDataUnsafe.user.username) {
+//   var logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+//   var username = `${tg.initDataUnsafe.user.username}`;
+// } else {
+//   logoname = "U";
+//   username = "User";
+// }
+let userIdData = 2;
+let logoname = "ret";
+let username = "rete";
 
 localStorage.setItem("userIdData", userIdData);
 localStorage.setItem("logoname", logoname);

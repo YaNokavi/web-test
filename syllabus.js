@@ -5,8 +5,8 @@ const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 const userId = localStorage.getItem("userIdData");
 const title = document.getElementById("title");
-const arrow = document.getElementById("ref");
-arrow.href = `courses.html?id=${paramId}`;
+// const arrow = document.getElementById("ref");
+// arrow.href = `courses.html?id=${paramId}`;
 
 // function renderCourse(course) {
 //   title.innerText = course.name;

@@ -37,8 +37,8 @@ const testContent = stepInfo[stepId - 1].test;
 //   answer: "HTML",
 // };
 
-title.innerText = modulesData[moduleId - 1].submoduleList[submoduleId - 1].name;
-arrow.href = `syllabus.html?id=${syllabusId}`;
+// title.innerText = modulesData[moduleId - 1].submoduleList[submoduleId - 1].name;
+// arrow.href = `syllabus.html?id=${syllabusId}`;
 
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
@@ -294,9 +294,11 @@ function setupTab(tab) {
   // });
 }
 
-if (refer == "index.html" || refer == "favorite.html") {
+if (refer == "favorite.html") {
+  title.innerText = "Мои курсы"
   setupTab(favorTab);
 } else if (refer == "catalog.html") {
+  title.innerText = "Каталог"
   setupTab(catalogTab);
 }
 
@@ -334,25 +336,6 @@ async function sendProgress() {
 
   console.log(response)
 }
-
-// window.addEventListener("beforeunload", function () {
-//   if (link != `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-//     sendProgress();
-//   }
-// });
-
-// document.addEventListener("visibilitychange", async function () {
-//   if (document.visibilityState === "hidden") {
-//       // Если страница скрыта, отправляем прогресс
-//       if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-//           sendProgress(); // Ждем завершения асинхронной функции
-//       }
-//   }
-// });
-// if (link !== `stepId=${stepId}` && progress.completedStepList.length !== 0) {
-// if (progress.completedStepList.length !== 0) {
-//   sendProgress();
-// }
 
 window.onload = function () {
   addContent();

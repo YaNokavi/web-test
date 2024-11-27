@@ -11,12 +11,12 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
-if (
-  !sessionStorage.getItem("currentTab") &&
-  !sessionStorage.getItem("currentLink")
-) {
-  localStorage.removeItem("courseData");
-}
+// if (
+//   !sessionStorage.getItem("currentTab") &&
+//   !sessionStorage.getItem("currentLink")
+// ) {
+//   localStorage.removeItem("courseData");
+// }
 
 const showPopup = () => {
   popup.style.display = "flex";
