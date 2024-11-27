@@ -26,20 +26,20 @@ if (
 
 let link = document.referrer.split("/").pop();
 if (!link) link = "favorite.html";
-alert(link)
+// alert(link)
 if (
   currentUrl.endsWith("courses.html") &&
   (link == "favorite.html" || link == "catalog.html")
 ) {
   localStorage.setItem("link", link);
-  alert("Пришли из каталога или моих курсов");
+  // alert("Пришли из каталога или моих курсов");
   console.log("Из курса идем в каталог или в мои курсы");
 } else if (
   currentUrl.endsWith("courses.html") &&
   link.startsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
-  alert("Пришли из содержания");
+  // alert("Пришли из содержания");
   console.log("Из курса идем в каталог или в мои курсы");
 }
 // else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
