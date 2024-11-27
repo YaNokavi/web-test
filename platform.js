@@ -46,11 +46,16 @@ if (
 ) {
   localStorage.setItem("link", link);
   console.log("Из курса идем в каталог или в мои курсы");
-} else if (currentUrl.endsWith("courses.html") && link.startsWith("syllabus.html")
+} else if (
+  currentUrl.endsWith("courses.html") &&
+  link.startsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
   console.log("Из курса идем в каталог или в мои курсы");
-} else if (currentUrl.endsWith("syllabus.html") && link.startsWith("step.html")) {
+} else if (
+  currentUrl.endsWith("syllabus.html") &&
+  link.startsWith("step.html")
+) {
   link = `courses.html?id=${idCourse}`;
   console.log("Из содержания в курс");
 } else if (currentUrl.endsWith("step.html")) {
