@@ -7,7 +7,7 @@ body {
   flex-direction: column;
   margin: 0;
   height: 100vh;
-  padding-top: calc(var(--InsetTop) + 20px);
+  padding-top: calc(var(--InsetTop));
   /* height: calc(100vh - var(--InsetTop)); */
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@ body {
   height: 38px;
   width: 100%;
   /* padding-top: 5px; */
-  padding-top: calc(var(--InsetTop) + 20px);
+  padding-top: calc(var(--InsetTop));
 
   font: 600 22px/1 Inter, sans-serif;
   letter-spacing: 0.07px;
