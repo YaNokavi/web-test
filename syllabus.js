@@ -8,25 +8,25 @@ const title = document.getElementById("title");
 const arrow = document.getElementById("ref");
 arrow.href = `courses.html?id=${paramId}`;
 
-function renderCourse(course) {
-  title.innerText = course.name;
-}
+// function renderCourse(course) {
+//   title.innerText = course.name;
+// }
 
-function getCourseInfo() {
-  const courses = JSON.parse(localStorage.getItem(`infoCourse`)) || [];
-  return courses.find((course) => course.id == paramId) || null;
-}
+// function getCourseInfo() {
+//   const courses = JSON.parse(localStorage.getItem(`infoCourse`)) || [];
+//   return courses.find((course) => course.id == paramId) || null;
+// }
 
-var courseInfo = getCourseInfo();
-if (courseInfo) {
-  renderCourse(courseInfo);
-} else {
-  const catalogData = JSON.parse(localStorage.getItem("catalogData"));
-  var courseInfo = catalogData[paramId - 1];
-  if (courseInfo) {
-    renderCourse(courseInfo);
-  }
-}
+// var courseInfo = getCourseInfo();
+// if (courseInfo) {
+//   renderCourse(courseInfo);
+// } else {
+//   const catalogData = JSON.parse(localStorage.getItem("catalogData"));
+//   var courseInfo = catalogData[paramId - 1];
+//   if (courseInfo) {
+//     renderCourse(courseInfo);
+//   }
+// }
 
 var progress = {
   userId: Number(userId),
@@ -118,19 +118,31 @@ const catalogTab = document.getElementById("catalog");
 // sessionStorage.setItem("currentTab", refer);
 // sessionStorage.setItem("currentLink", window.location.href);
 
-function setupTab(tab) {
-  tab.style.animation = "none";
-  tab.style.color = "#ffffff";
+// function setupTab(tab) {
+//   tab.style.animation = "none";
+//   tab.style.color = "#ffffff";
   // tab.addEventListener("click", function () {
   //   sessionStorage.removeItem("currentTab");
   //   sessionStorage.removeItem("currentLink");
   // });
+// }
+
+function setupCatalog() {
+  title.innerText = "Каталог";
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
 }
 
-if (refer == "index.html" || refer == "favorite.html" || refer == "") {
-  setupTab(favorTab);
+function setupFavorite() {
+  title.innerText = "Мои курсы";
+  favorTab.style.animation = "none";
+  favorTab.style.color = "#ffffff";
+}
+
+if (refer == "favorite.html") {
+  setupFavorite();
 } else if (refer == "catalog.html") {
-  setupTab(catalogTab);
+  setupCatalog();
 }
 
 let startX;

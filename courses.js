@@ -236,7 +236,7 @@ button3.addEventListener("click", function () {
 });
 
 var refer = document.referrer.split("/").pop();
-if (refer == "") refer = "index.html";
+if (!refer) refer = "favorite.html";
 const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
@@ -259,7 +259,7 @@ function setupFavorite() {
   favorTab.style.color = "#ffffff";
 }
 
-if (refer == "index.html" || refer == "favorite.html") {
+if (refer == "favorite.html") {
   console.log(refer);
   localStorage.setItem("refer", refer);
   setupFavorite();
@@ -269,7 +269,7 @@ if (refer == "index.html" || refer == "favorite.html") {
 } else if (refer.endsWith("syllabus.html")) {
   let referSyl = localStorage.getItem("refer");
   link.style.animation = "none";
-  if (referSyl == "index.html" || referSyl == "favorite.html") {
+  if (referSyl == "favorite.html") {
     setupFavorite();
   } else if (referSyl == "catalog.html") {
     setupCatalog();
