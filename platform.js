@@ -25,28 +25,32 @@ if (
 }
 
 let link = document.referrer.split("/").pop();
+try {
+  const params = new URLSearchParams(link);
+  alert(params)
+  // const idCourse = params.get("id");
+} catch {
+  console.log("No params");
+}
 if (!link) link = "favorite.html";
-// alert(link)
+
 if (
   currentUrl.endsWith("courses.html") &&
   (link == "favorite.html" || link == "catalog.html")
 ) {
   localStorage.setItem("link", link);
-  // alert("Пришли из каталога или моих курсов");
   console.log("Из курса идем в каталог или в мои курсы");
 } else if (
   currentUrl.endsWith("courses.html") &&
   link.startsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
-  // alert("Пришли из содержания");
   console.log("Из курса идем в каталог или в мои курсы");
+} else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
+  link = `course.html?id=${idCourse}`;
+} else if (currentUrl.endsWith("step.html")) {
+  link = "syllabus.html";
 }
-// else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
-//   link = "course.html"
-// } else if(currentUrl.endsWith("step.html")) {
-//   link = "syllabus.html"
-// }
 
 // alert(link);
 
