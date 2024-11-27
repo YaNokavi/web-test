@@ -14,6 +14,8 @@ if (platform === "ios" || platform === "android") {
 tg.lockOrientation();
 tg.expand();
 
+
+
 // let BackButton = tg.BackButton;
 // localStorage.setItem("Back", JSON.stringify(BackButton));
 // BackButton.show();

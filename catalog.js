@@ -49,10 +49,10 @@ async function fetchCourses() {
     displayCourses(); // Отображаем курсы
   } else {
     coursesData = await fetchData(
-      "https://cryptuna-anderm.amvera.io/v1/course/all",
+      "https://cryptuna-anderm.amvera.io/v1/course/all"
       //userId
     );
-    console.log(coursesData)
+    console.log(coursesData);
     localStorage.setItem("catalogData", JSON.stringify(coursesData));
     displayCourses();
   }
