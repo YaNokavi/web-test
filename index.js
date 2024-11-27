@@ -5,7 +5,7 @@ let platform = tg.platform;
 localStorage.setItem("platform", platform);
 
 tg.setHeaderColor("#1468B1");
-alert(platform);
+
 if (platform === "ios" || platform === "android") {
   tg.requestFullscreen();
 
