@@ -2,10 +2,11 @@ localStorage.clear();
 
 let tg = window.Telegram.WebApp;
 let platform = tg.platform;
+localStorage.setItem("platform", platform);
 
 tg.setHeaderColor("#1468B1");
 alert(platform);
-if (platform === "ios" ||  platform === "android") {
+if (platform === "ios" || platform === "android") {
   tg.requestFullscreen();
 
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
