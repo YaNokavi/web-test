@@ -266,7 +266,7 @@ if (refer == "index.html" || refer == "favorite.html") {
 } else if (refer == "catalog.html") {
   localStorage.setItem("refer", refer);
   setupCatalog();
-} else if (refer.startsWith("syllabus.html")) {
+} else if (refer.endsWith("syllabus.html")) {
   let referSyl = localStorage.getItem("refer");
   link.style.animation = "none";
   if (referSyl == "index.html" || referSyl == "favorite.html") {

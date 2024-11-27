@@ -99,7 +99,11 @@ let refer = document.referrer.split("/").pop();
 const title = document.getElementById("title");
 const catalogTab = document.getElementById("active");
 
-if (refer.startsWith("courses.html") || refer.startsWith("syllabus.html")) {
+if (
+  refer.endsWith("courses.html") ||
+  refer.endsWith("syllabus.html") ||
+  refer.endsWith("step.html")
+) {
   title.style.animation = "none";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";

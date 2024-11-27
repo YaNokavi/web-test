@@ -11,3 +11,25 @@ if (platform === "ios" || platform === "android") {
 document.getElementById("tab").addEventListener("click", function () {
   tg.HapticFeedback.impactOccurred("light");
 });
+
+let currentUrl = window.location.pathname;
+const BackButton = tg.BackButton;
+if (
+  currentUrl.endsWith("courses.html") ||
+  currentUrl.endsWith("syllabus.html") ||
+  currentUrl.endsWith("step.html")
+) {
+  BackButton.show();
+} else {
+  BackButton.hide();
+}
+
+let link = document.referrer.split("/").pop()
+
+tg.onEvent('backButtonClicked', function() {
+  if (link) {
+    window.location.href = link;
+  } else {
+    console.log("Нет предыдущей страницы для перехода.");
+  }
+})
