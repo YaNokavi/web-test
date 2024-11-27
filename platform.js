@@ -36,7 +36,7 @@ if (
   console.log("Из курса идем в каталог или в мои курсы");
 } else if (
   currentUrl.endsWith("courses.html") &&
-  link.endsWith("syllabus.html")
+  link.startsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
   alert("Пришли из содержания");
