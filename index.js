@@ -1,24 +1,19 @@
 localStorage.clear();
 
 let tg = window.Telegram.WebApp;
-let platform = tg.platform;
-localStorage.setItem("platform", platform);
+// let platform = tg.platform;
 
-tg.setHeaderColor("#1468B1");
+// tg.setHeaderColor("#1468B1");
 
-if (platform === "ios" || platform === "android") {
-  tg.requestFullscreen();
+// if (platform === "ios" || platform === "android") {
+//   tg.requestFullscreen();
 
-  document.documentElement.style.setProperty("--InsetTop", `${60}px`);
-}
-tg.lockOrientation();
-tg.expand();
+//   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
+// }
+// tg.lockOrientation();
+// tg.expand();
+// tg.enableClosingConfirmation();
 
-
-
-// let BackButton = tg.BackButton;
-// localStorage.setItem("Back", JSON.stringify(BackButton));
-// BackButton.show();
 
 let userIdData = `${tg.initDataUnsafe.user.id}`;
 let logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
@@ -36,7 +31,7 @@ localStorage.setItem("username", username);
 // const urlParams = new URLSearchParams(queryString);
 // const referallId = urlParams.get("startapp");
 
-tg.enableClosingConfirmation();
+
 
 import fetchData from "./fetch.js";
 

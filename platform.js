@@ -2,14 +2,18 @@ let tg = window.Telegram.WebApp;
 
 tg.setHeaderColor("#1468B1");
 
-let platform = localStorage.getItem("platform");
+let platform = tg.platform;
 
 if (platform === "ios" || platform === "android") {
+  tg.requestFullscreen();
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
 }
+tg.lockOrientation();
+tg.expand();
+tg.enableClosingConfirmation();
 
 document.getElementById("tab").addEventListener("click", function () {
-  tg.HapticFeedback.impactOccurred("light");
+  tg.HapticFeedback.impactOccurred("medium");
 });
 
 let currentUrl = window.location.pathname;
@@ -32,12 +36,10 @@ const params = new URLSearchParams(queryString);
 
 if (currentUrl.endsWith("syllabus.html")) {
   idCourse = params.get("id");
-  // console.log("1")
 } else if (currentUrl.endsWith("step.html")) {
   idCourse = params.get("syllabusId");
-  // console.log("2")
 }
-// console.log(currentUrl, link, idCourse)
+
 if (
   currentUrl.endsWith("courses.html") &&
   (link == "favorite.html" || link == "catalog.html")
@@ -49,15 +51,12 @@ if (
   link = localStorage.getItem("link");
   console.log("Из курса идем в каталог или в мои курсы");
 } else if (currentUrl.endsWith("syllabus.html") && link.startsWith("step.html")) {
-  // console.log(currentUrl, link, idCourse)
   link = `courses.html?id=${idCourse}`;
   console.log("Из содержания в курс");
 } else if (currentUrl.endsWith("step.html")) {
   link = `syllabus.html?id=${idCourse}`;
   console.log("Из шага в содержание");
 }
-
-// alert(link);
 
 tg.onEvent("backButtonClicked", function () {
   if (link) {
