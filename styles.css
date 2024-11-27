@@ -1,5 +1,6 @@
 :root {
   --InsetTop: 0px;
+  --InsetBottom: 0px;
 }
 
 body {
@@ -8,6 +9,7 @@ body {
   margin: 0;
   height: 100vh;
   padding-top: calc(var(--InsetTop));
+  padding-bottom: calc(var(--InsetBottom));
   align-items: center;
   justify-content: center;
   overflow: hidden;
