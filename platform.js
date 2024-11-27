@@ -25,14 +25,14 @@ if (
 }
 
 let link = document.referrer.split("/").pop();
-try {
-  const params = new URLSearchParams(link);
-  alert(params)
-  // const idCourse = params.get("id");
-} catch {
-  console.log("No params");
-}
 if (!link) link = "favorite.html";
+let idCourse;
+const params = new URLSearchParams(link);
+if (link.startsWith("syllabus.html")) {
+  idCourse = params.get("id");
+} else if (link.startsWith("step.html")) {
+  idCourse = params.get("syllabusId");
+}
 
 if (
   currentUrl.endsWith("courses.html") &&
@@ -40,16 +40,14 @@ if (
 ) {
   localStorage.setItem("link", link);
   console.log("Из курса идем в каталог или в мои курсы");
-} else if (
-  currentUrl.endsWith("courses.html") &&
-  link.startsWith("syllabus.html")
+} else if (currentUrl.endsWith("courses.html") && link.startsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
   console.log("Из курса идем в каталог или в мои курсы");
 } else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
   link = `course.html?id=${idCourse}`;
 } else if (currentUrl.endsWith("step.html")) {
-  link = "syllabus.html";
+  link = `syllabus.html?id=${idCourse}`;
 }
 
 // alert(link);
