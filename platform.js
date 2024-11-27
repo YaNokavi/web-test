@@ -50,7 +50,7 @@ if (
   console.log("Из курса идем в каталог или в мои курсы");
 } else if (currentUrl.endsWith("syllabus.html") && link.startsWith("step.html")) {
   // console.log(currentUrl, link, idCourse)
-  link = `course.html?id=${idCourse}`;
+  link = `courses.html?id=${idCourse}`;
   console.log("Из содержания в курс");
 } else if (currentUrl.endsWith("step.html")) {
   link = `syllabus.html?id=${idCourse}`;
