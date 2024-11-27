@@ -5,7 +5,7 @@ let platform = tg.platform;
 
 tg.setHeaderColor("#1468B1");
 alert(platform);
-if (platform === "mobile") {
+if (platform === "ios" ||  platform === "android") {
   tg.requestFullscreen();
 
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
