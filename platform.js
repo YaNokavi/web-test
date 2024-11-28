@@ -69,4 +69,5 @@ tg.onEvent("backButtonClicked", function () {
   } else {
     console.log("Нет предыдущей страницы для перехода.");
   }
+  tg.HapticFeedback.impactOccurred("medium");
 });
