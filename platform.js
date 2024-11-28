@@ -11,7 +11,7 @@ if (platform === "ios" || platform === "android") {
 tg.lockOrientation();
 tg.expand();
 tg.enableClosingConfirmation();
-tg.enableVerticalSwipes()
+tg.disableVerticalSwipes()
 
 document.getElementById("tab").addEventListener("click", function () {
   tg.HapticFeedback.impactOccurred("medium");
