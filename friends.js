@@ -1,11 +1,22 @@
-let referall = localStorage.getItem("referall");
-referall = [];
+import fetchData from "./fetch.js";
+
+const userId = localStorage.getItem("userIdData");
+
+async function getReferrals() {
+  let referrals = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/user/${userId}/referrals`
+    //userId
+  );
+  // referrals = []
+
+  referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();
+}
 
 // let BackButton = JSON.parse(localStorage.getItem("Back"));
 // BackButton.isVisible = true;
 // console.log(BackButton.isVisible)
 
-referall.length ? displayFriendsNotNull() : displayFriendsNull();
+// referall.length ? displayFriendsNotNull(referalls) : displayFriendsNull();
 
 function displayFriendsNull() {
   const main = document.getElementById("friends");
@@ -82,15 +93,17 @@ function displayFriendsNull() {
         </svg>
       </div>
   `;
+  document.getElementById("preloader").style.display = "none";
+
 }
 
-function displayFriendsNotNull() {
+function displayFriendsNotNull(referrals) {
   const main = document.getElementById("friends");
   main.innerHTML = "";
   main.innerHTML = `
     <div class="friends-block-not-null">
         <div class="friends-block-not-null-text">Приглашенные друзья
-          <div class="friends-block-not-null-amount">15</div>
+          <div class="friends-block-not-null-amount">${referrals.length}</div>
         </div>
         <div class="friends-block-not-null-text-down">
           За каждого приглашенного друга по твоей ссылке ты получишь 5 токенов
@@ -153,17 +166,36 @@ function displayFriendsNotNull() {
         </div>
       </div>
   `;
+  
   const listFriends = document.getElementById("list");
+  referrals.forEach((item) => {
+      const list = document.createElement("div");
+      list.classList.add("friends-list-user");
+      list.innerHTML = `
+    
+            <div class="friends-list-user-logo">${item.name[0].toUpperCase()}</div>
+            <div class="friends-list-user-info">
+              <div class="friends-list-user-info-name">${item.name}</div>
+              <div class="friends-list-user-info-balance">
+                <div class="friends-list-user-info-balance-text">${
+                  item.balance
+                }</div>
+                <div class="friends-list-user-info-balance-logo"></div>
+              </div>
+            </div>
+   `;
+      console.log(list);
+      listFriends.append(list);
+  });
+  document.getElementById("preloader").style.display = "none";
 }
 
-const currentTab = sessionStorage.getItem("currentTab");
-const currentLink = sessionStorage.getItem("currentLink");
+// const currentTab = sessionStorage.getItem("currentTab");
+// const currentLink = sessionStorage.getItem("currentLink");
 
 //if (currentTab == null && currentLink == null) {
-  localStorage.removeItem("courseData");
+localStorage.removeItem("courseData");
 //}
-
-const userId = localStorage.getItem("userIdData");
 
 document.getElementById("invite").addEventListener("click", function () {
   let a = `https://t.me/cunaedu_bot?startapp=${userId}`,
@@ -197,3 +229,7 @@ document.getElementById("copy").addEventListener("click", function () {
     }, 200);
   }
 });
+
+window.onload = function () {
+  getReferrals();
+};
