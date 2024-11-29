@@ -94,7 +94,6 @@ function displayFriendsNull() {
       </div>
   `;
   document.getElementById("preloader").style.display = "none";
-
 }
 
 function displayFriendsNotNull(referrals) {
@@ -166,12 +165,12 @@ function displayFriendsNotNull(referrals) {
         </div>
       </div>
   `;
-  
+
   const listFriends = document.getElementById("list");
   referrals.forEach((item) => {
-      const list = document.createElement("div");
-      list.classList.add("friends-list-user");
-      list.innerHTML = `
+    const list = document.createElement("div");
+    list.classList.add("friends-list-user");
+    list.innerHTML = `
     
             <div class="friends-list-user-logo">${item.name[0].toUpperCase()}</div>
             <div class="friends-list-user-info">
@@ -184,10 +183,45 @@ function displayFriendsNotNull(referrals) {
               </div>
             </div>
    `;
-      console.log(list);
-      listFriends.append(list);
+    console.log(list);
+    listFriends.append(list);
   });
   document.getElementById("preloader").style.display = "none";
+
+  const buttonInvite = document.getElementById("invite");
+
+  buttonInvite.addEventListener("click", function () {
+    let a = `https://t.me/cunaedu_bot?startapp=${userId}`,
+      s = encodeURI(a),
+      o = encodeURI("Узнавай новое вместе со мной (@cryptuna)");
+    window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    let link = `https://t.me/cunaedu_bot?startapp=${userId}`;
+    navigator.clipboard.writeText(link);
+
+    var svg1 = document.getElementById("svg1");
+    var svg2 = document.getElementById("svg2");
+
+    if (svg1.style.display !== "none") {
+      svg1.style.animation = "fadeOut 0.2s forwards";
+      setTimeout(function () {
+        svg1.style.display = "none";
+        svg2.style.display = "block";
+        svg2.style.animation = "fadeIn 0.2s forwards";
+
+        setTimeout(function () {
+          svg2.style.animation = "fadeOut 0.2s forwards";
+          setTimeout(function () {
+            svg2.style.display = "none";
+            svg1.style.display = "block";
+            svg1.style.animation = "fadeIn 0.2s forwards";
+          }, 200);
+        }, 2000);
+      }, 200);
+    }
+  });
 }
 
 // const currentTab = sessionStorage.getItem("currentTab");
@@ -197,39 +231,6 @@ function displayFriendsNotNull(referrals) {
 localStorage.removeItem("courseData");
 //}
 
-document.getElementById("invite").addEventListener("click", function () {
-  let a = `https://t.me/cunaedu_bot?startapp=${userId}`,
-    s = encodeURI(a),
-    o = encodeURI("Узнавай новое вместе со мной (@cryptuna)");
-  window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
-});
-
-document.getElementById("copy").addEventListener("click", function () {
-  let link = `https://t.me/cunaedu_bot?startapp=${userId}`;
-  navigator.clipboard.writeText(link);
-
-  var svg1 = document.getElementById("svg1");
-  var svg2 = document.getElementById("svg2");
-
-  if (svg1.style.display !== "none") {
-    svg1.style.animation = "fadeOut 0.2s forwards";
-    setTimeout(function () {
-      svg1.style.display = "none";
-      svg2.style.display = "block";
-      svg2.style.animation = "fadeIn 0.2s forwards";
-
-      setTimeout(function () {
-        svg2.style.animation = "fadeOut 0.2s forwards";
-        setTimeout(function () {
-          svg2.style.display = "none";
-          svg1.style.display = "block";
-          svg1.style.animation = "fadeIn 0.2s forwards";
-        }, 200);
-      }, 2000);
-    }, 200);
-  }
-});
-
-window.onload = function () {
+// window.onload = function () {
   getReferrals();
-};
+// };
