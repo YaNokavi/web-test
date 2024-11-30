@@ -19,16 +19,25 @@ localStorage.setItem("logoname", logoname);
 localStorage.setItem("username", username);
 
 //https://t.me/cunaedu_bot?startapp=2
-// const queryString = window.location.search;
-// const urlParams = new URLSearchParams(queryString);
-// const referallId = urlParams.get("startapp");
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const referallId = urlParams.get("startapp");
+alert(referallId)
 
 import fetchData from "./fetch.js";
 
-let data = {
-  userId: userIdData,
-  username: username,
-};
+if (!referallId) {
+  data = {
+    userId: userIdData,
+    username: username,
+  };
+} else {
+  data = {
+    userId: userIdData,
+    username: username,
+    referrerId: referallId,
+  };
+}
 
 async function fetchCourses() {
   const userInfo = await fetchData(
