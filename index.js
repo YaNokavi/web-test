@@ -22,16 +22,17 @@ localStorage.setItem("username", username);
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const referallId = urlParams.get("tgWebAppStartParam");
-alert(referallId)
 
 import fetchData from "./fetch.js";
 
 if (!referallId || referallId === userIdData) {
+  
   var data = {
     userId: userIdData,
     username: username,
   };
 } else {
+  alert(referallId)
   var data = {
     userId: userIdData,
     username: username,
