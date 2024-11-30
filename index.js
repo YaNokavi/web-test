@@ -32,7 +32,6 @@ if (!referallId || referallId === userIdData) {
     username: username,
   };
 } else {
-  alert(referallId)
   var data = {
     userId: userIdData,
     username: username,
