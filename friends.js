@@ -7,7 +7,6 @@ async function getReferrals() {
     `https://cryptuna-anderm.amvera.io/v1/user/${userId}/referrals`
     //userId
   );
-  // referrals = []
 
   referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();
 }
@@ -94,6 +93,7 @@ function displayFriendsNull() {
       </div>
   `;
   document.getElementById("preloader").style.display = "none";
+  buttons()
 }
 
 function displayFriendsNotNull(referrals) {
@@ -187,7 +187,10 @@ function displayFriendsNotNull(referrals) {
     listFriends.append(list);
   });
   document.getElementById("preloader").style.display = "none";
+  buttons()
+}
 
+function buttons() {
   const buttonInvite = document.getElementById("invite");
 
   buttonInvite.addEventListener("click", function () {
@@ -232,5 +235,5 @@ localStorage.removeItem("courseData");
 //}
 
 // window.onload = function () {
-  getReferrals();
+getReferrals();
 // };
