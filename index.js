@@ -27,12 +27,12 @@ alert(referallId)
 import fetchData from "./fetch.js";
 
 if (!referallId) {
-  data = {
+  var data = {
     userId: userIdData,
     username: username,
   };
 } else {
-  data = {
+  var data = {
     userId: userIdData,
     username: username,
     referrerId: referallId,
