@@ -18,7 +18,6 @@ localStorage.setItem("userIdData", userIdData);
 localStorage.setItem("logoname", logoname);
 localStorage.setItem("username", username);
 
-//https://t.me/cunaedu_bot?startapp=2
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const referallId = urlParams.get("tgWebAppStartParam");
@@ -49,10 +48,11 @@ async function fetchCourses() {
   console.log(userInfo.courses);
   localStorage.setItem("balance", userInfo.balance);
   localStorage.setItem("infoCourse", JSON.stringify(userInfo.courses));
-  // localStorage.setItem("referall")
 
   userInfo.courses.length ? displayCourses(userInfo) : displayButton();
 }
+
+fetchCourses();
 
 function displayCourses(userInfo) {
   document.getElementById("preloader").style.display = "none";
@@ -151,6 +151,5 @@ function displayButton() {
 //   console.log("No favorite courses");
 // }
 
-window.onload = function () {
-  fetchCourses();
-};
+
+
