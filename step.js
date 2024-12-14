@@ -16,14 +16,14 @@ const userId = localStorage.getItem("userIdData");
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
-let stepProgres
+let stepProgres;
 
 async function getContent() {
   const contentGet = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/course/${syllabusId}/content?userId=${userId}`
   );
   stepProgres = contentGet[submoduleId - 1].stepList[stepId - 1];
-  return stepProgres
+  return stepProgres;
   // console.log(contentGet[submoduleId - 1].stepList[stepId - 1]);
   // modulesWithSteps(contentGet);
 }
@@ -101,6 +101,7 @@ async function addContent() {
 const testDiv = document.getElementById("test");
 const submitButton = document.getElementById("submit-button");
 const resultContainer = document.getElementById("result-container");
+const resultSvg = document.getElementById("result-svg")
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
 let testArray;
@@ -127,49 +128,88 @@ async function getTest() {
   }
 }
 
-function displayTest() {
+async function displayTest() {
+  const stepProgres = await getContent();
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
   resultContainer.style.display = "flex";
   testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${testArray.question}</h2>
   <p style="margin-bottom: 5px">Выберите один вариант ответа</p>`;
 
-  testArray.options.forEach((option) => {
+  testArray.options.forEach((option, index) => {
     const label = document.createElement("label");
+    // label.style.width = "200px"
     label.innerHTML = `
-        <input type="radio" name="question" value="${option}">
+        <input type="radio" name="question" id="optionTest${
+          index + 1
+        }" value="${option}">
         ${option}
     `;
+
+    // Установите checked для правильного ответа, если тест уже пройден
+    if (stepProgres.completed === true) {
+      if (option === testArray.answer) {
+        label.querySelector('input').checked = true;
+        // label.classList.add('correct-answer'); // Добавляем класс для правильного ответа
+      } else {
+        label.querySelector('input').disabled = true; // Отключаем неправильные ответы
+      }
+    } 
+
     testDiv.append(label);
   });
 
   resultContainer.innerText = "";
+  resultSvg.style.display = "none"
   retryButton.style.display = "none";
+
+  // Отключите кнопку отправки по умолчанию
   submitButton.classList.add("disabled");
 
   const inputs = document.querySelectorAll('input[name="question"]');
-  inputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      submitButton.classList.remove("disabled");
-      submitButton.disabled = false; // Разблокировать кнопку после выбора ответа
-    });
-  });
 
-  submitButton.addEventListener("click", () => {
-    const selectedOption = document.querySelector(
-      `input[name="question"]:checked`
-    );
-    if (selectedOption) {
-      handleAnswer(selectedOption.value);
-    } else {
-      submitButton.disabled = true;
-    }
-  });
+  // Если тест пройден, отключите радиокнопки
+  if (stepProgres.completed === true) {
+    submitButton.style.display = "none";
+    // submitButton.style.animation = "none";
+    nextButton.style.display = "flex";
+    // retryButton.style.display = "flex"
+    updateNextButtonHref();
+    resultContainer.innerText = "Правильно!";
+    resultSvg.style.display = "flex"
+    // nextButton.style.animation = "fadeIn 0.2s ease";
+    inputs.forEach((input) => {
+      input.disabled = true; // Отключить радиокнопки
+    });
+
+    // Отобразите правильный ответ
+    // resultContainer.innerText = `Правильный ответ: ${testArray.answer}`;
+  } else {
+    inputs.forEach((input) => {
+      input.addEventListener("change", () => {
+        submitButton.classList.remove("disabled");
+        submitButton.disabled = false; // Разблокировать кнопку после выбора ответа
+      });
+    });
+
+    submitButton.addEventListener("click", () => {
+      const selectedOption = document.querySelector(
+        `input[name="question"]:checked`
+      );
+      if (selectedOption) {
+        handleAnswer(selectedOption.value);
+      } else {
+        submitButton.disabled = true;
+      }
+    });
+  }
 
   retryButton.addEventListener("click", () => {
     displayTest();
     submitButton.style.display = "flex";
     submitButton.disabled = false; // Разблокировать кнопку после повторной
+
+    // Здесь можно добавить логику для сброса состояния теста
 
     // if (selectedOption && selectedOption.value === testContent.answer) {
     //   score++;
@@ -197,11 +237,14 @@ function handleCorrectAnswer() {
     nextButton.style.animation = "fadeIn 0.2s ease";
 
     resultContainer.innerText = "Правильно!";
+    resultSvg.style.display = "flex"
     resultContainer.style.animation = "fadeIn 0.2s ease";
+    resultSvg.style.animation = "fadeIn 0.2s ease";
 
     setTimeout(() => {
       nextButton.style.animation = "none";
       resultContainer.style.animation = "none";
+      resultSvg.style.animation = "none";
     }, 200);
   }, 200);
 

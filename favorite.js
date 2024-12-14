@@ -111,7 +111,7 @@ if (tg.initDataUnsafe.user.username) {
   logoname = "U";
   username = "User";
 }
-// let userIdData = 2;
+// let userIdData = 4;
 // logoname = "ret";
 // username = "rete";
 let referallId = localStorage.getItem("referallId")
