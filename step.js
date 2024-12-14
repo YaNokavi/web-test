@@ -101,7 +101,8 @@ async function addContent() {
 const testDiv = document.getElementById("test");
 const submitButton = document.getElementById("submit-button");
 const resultContainer = document.getElementById("result-container");
-const resultSvg = document.getElementById("result-svg")
+const resultSvgCorrect = document.getElementById("result-svg-correct");
+const resultSvgIncorrect = document.getElementById("result-svg-incorrect");
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
 let testArray;
@@ -149,18 +150,19 @@ async function displayTest() {
     // Установите checked для правильного ответа, если тест уже пройден
     if (stepProgres.completed === true) {
       if (option === testArray.answer) {
-        label.querySelector('input').checked = true;
+        label.querySelector("input").checked = true;
         // label.classList.add('correct-answer'); // Добавляем класс для правильного ответа
       } else {
-        label.querySelector('input').disabled = true; // Отключаем неправильные ответы
+        label.querySelector("input").disabled = true; // Отключаем неправильные ответы
       }
-    } 
+    }
 
     testDiv.append(label);
   });
 
   resultContainer.innerText = "";
-  resultSvg.style.display = "none"
+  resultSvgCorrect.style.display = "none";
+  resultSvgIncorrect.style.display = "none";
   retryButton.style.display = "none";
 
   // Отключите кнопку отправки по умолчанию
@@ -176,7 +178,7 @@ async function displayTest() {
     // retryButton.style.display = "flex"
     updateNextButtonHref();
     resultContainer.innerText = "Правильно!";
-    resultSvg.style.display = "flex"
+    resultSvgCorrect.style.display = "flex";
     // nextButton.style.animation = "fadeIn 0.2s ease";
     inputs.forEach((input) => {
       input.disabled = true; // Отключить радиокнопки
@@ -237,14 +239,14 @@ function handleCorrectAnswer() {
     nextButton.style.animation = "fadeIn 0.2s ease";
 
     resultContainer.innerText = "Правильно!";
-    resultSvg.style.display = "flex"
+    resultSvgCorrect.style.display = "flex";
     resultContainer.style.animation = "fadeIn 0.2s ease";
-    resultSvg.style.animation = "fadeIn 0.2s ease";
+    resultSvgCorrect.style.animation = "fadeIn 0.2s ease";
 
     setTimeout(() => {
       nextButton.style.animation = "none";
       resultContainer.style.animation = "none";
-      resultSvg.style.animation = "none";
+      resultSvgCorrect.style.animation = "none";
     }, 200);
   }, 200);
 
@@ -262,11 +264,14 @@ function handleIncorrectAnswer() {
     retryButton.style.animation = "fadeIn 0.2s ease";
 
     resultContainer.innerText = "Неправильно!";
-    resultContainer.style.animation = "fadeIn 0.2s ease";
+    resultSvgIncorrect.style.display = "flex";
+    resultSvgCorrect.style.animation = "fadeIn 0.2s ease";
+    resultSvgIncorrect.style.animation = "fadeIn 0.2s ease";
 
     setTimeout(() => {
       resultContainer.style.animation = "none";
       retryButton.style.animation = "none";
+      resultSvgIncorrect.style.animation = "none";
     }, 200);
   }, 200);
 }
