@@ -79,12 +79,7 @@ function displayModules(courseData) {
 }
 
 async function fetchContent() {
-  const cachedCourse = localStorage.getItem(`courseData`);
-  if (cachedCourse) {
-    const courseData = JSON.parse(cachedCourse);
-    displayLearning(courseData);
-    displayModules(courseData);
-  } else {
+  
     const courseData = await fetchData(
       `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/info`
     );
@@ -92,7 +87,6 @@ async function fetchContent() {
     localStorage.setItem(`courseData`, JSON.stringify(courseData));
     displayLearning(courseData);
     displayModules(courseData);
-  }
 }
 
 const button1 = document.getElementById("button1");

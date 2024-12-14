@@ -28,12 +28,7 @@ const title = document.getElementById("title");
 //   }
 // }
 
-var progress = {
-  userId: Number(userId),
-  completedStepList: [],
-};
-
-localStorage.setItem("completedSteps", JSON.stringify(progress));
+// localStorage.setItem("completedSteps", JSON.stringify(progress));
 
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;

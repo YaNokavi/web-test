@@ -14,9 +14,20 @@ const button = document.getElementById("button-next-step");
 const userId = localStorage.getItem("userIdData");
 
 const title = document.getElementById("title");
-const arrow = document.getElementById("ref");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
+let stepProgres
+
+async function getContent() {
+  const contentGet = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/course/${syllabusId}/content?userId=${userId}`
+  );
+  stepProgres = contentGet[submoduleId - 1].stepList[stepId - 1];
+  return stepProgres
+  // console.log(contentGet[submoduleId - 1].stepList[stepId - 1]);
+  // modulesWithSteps(contentGet);
+}
+getContent();
 
 const modulesData = JSON.parse(
   localStorage.getItem(`courseData`)
@@ -24,28 +35,34 @@ const modulesData = JSON.parse(
 const submoduleLength = modulesData[moduleId - 1].submoduleList;
 const stepInfo =
   modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
-const stepProgres = stepInfo[stepId - 1];
-// const urlContent = stepInfo[stepId - 1].textContentUrl;
+// const stepProgres = stepInfo[stepId - 1];
+// console.log(stepProgres)
 var urlContent = stepInfo[stepId - 1].textContentUrl;
-urlContent =
-  "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
-// urlContent = "test.txt"
-const testContent = stepInfo[stepId - 1].test;
-// const testContent = {
-//   question: "Какой язык используется для создания веб-страниц?",
-//   options: ["HTML", "CSS", "JavaScript"],
-//   answer: "HTML",
-// };
+var testContent = stepInfo[stepId - 1].testUrl;
+// console.log(urlContent, testContent)
+if (urlContent && !urlContent.includes("http") && !testContent) {
+  urlContent =
+    "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
+}
+// console.log(urlContent)
+// let urlContent;
 
-// title.innerText = modulesData[moduleId - 1].submoduleList[submoduleId - 1].name;
-// arrow.href = `syllabus.html?id=${syllabusId}`;
+// const testContent = stepInfo[stepId - 1].test;
+// let testContent =
+//   "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/test";
 
+urlContent ? addContent() : getTest();
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
-var progress = JSON.parse(localStorage.getItem("completedSteps"));
+let progress = {
+  userId: Number(userId),
+  completedStepList: [],
+};
+// var progress = JSON.parse(localStorage.getItem("completedSteps"));
 // console.log(progress, JSON.stringify(progress))
 
-function addStepProgress() {
+async function addStepProgress() {
+  const stepProgres = await getContent();
   if (stepProgres.completed === false) {
     // Если массив пустой или шаг еще не добавлен
     if (
@@ -73,12 +90,7 @@ async function addContent() {
     }
     const content = await response.text(); // Сохраняем данные в переменной
     mediaContent.innerHTML = content;
-    //document.getElementById("preloader").style.display = "none";
-    if (testContent != null) {
-      displayTest();
-    } else {
-      addStepProgress();
-    }
+    addStepProgress();
   } catch (error) {
     console.error("Ошибка при получении курсов:", error);
   } finally {
@@ -91,14 +103,38 @@ const submitButton = document.getElementById("submit-button");
 const resultContainer = document.getElementById("result-container");
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
+let testArray;
+async function getTest() {
+  try {
+    const response = await fetch(testContent);
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+
+    const text = await response.text();
+
+    const jsonObject = JSON.parse(text);
+
+    testArray = {
+      question: jsonObject.question,
+      options: jsonObject.options,
+      answer: jsonObject.answer,
+    };
+    document.getElementById("preloader").style.display = "none";
+    displayTest();
+  } catch (error) {
+    console.error("Произошла ошибка:", error);
+  }
+}
 
 function displayTest() {
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
   resultContainer.style.display = "flex";
-  testDiv.innerHTML = `<p style="margin-bottom: 10px">${testContent.question}</p>`;
+  testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${testArray.question}</h2>
+  <p style="margin-bottom: 5px">Выберите один вариант ответа</p>`;
 
-  testContent.options.forEach((option) => {
+  testArray.options.forEach((option) => {
     const label = document.createElement("label");
     label.innerHTML = `
         <input type="radio" name="question" value="${option}">
@@ -143,7 +179,7 @@ function displayTest() {
 }
 
 function handleAnswer(selectedValue) {
-  if (selectedValue === testContent.answer) {
+  if (selectedValue === testArray.answer) {
     handleCorrectAnswer();
   } else {
     handleIncorrectAnswer();
@@ -151,6 +187,7 @@ function handleAnswer(selectedValue) {
 }
 
 function handleCorrectAnswer() {
+  addStepProgress();
   submitButton.style.animation = "fadeOut 0.2s ease";
 
   setTimeout(() => {
@@ -167,7 +204,6 @@ function handleCorrectAnswer() {
       resultContainer.style.animation = "none";
     }, 200);
   }, 200);
-  addStepProgress();
 
   updateNextButtonHref();
 }
@@ -295,10 +331,10 @@ function setupTab(tab) {
 }
 
 if (refer == "favorite.html") {
-  title.innerText = "Мои курсы"
+  title.innerText = "Мои курсы";
   setupTab(favorTab);
 } else if (refer == "catalog.html") {
-  title.innerText = "Каталог"
+  title.innerText = "Каталог";
   setupTab(catalogTab);
 }
 
@@ -327,19 +363,20 @@ document.addEventListener("touchmove", function (e) {
 });
 
 async function sendProgress() {
-  const response = await fetchData('https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps',
+  const response = await fetchData(
+    "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
     //userId
     "POST",
     progress,
     false
-  )
+  );
 
-  console.log(response)
+  // console.log(response);
 }
 
-window.onload = function () {
-  addContent();
-};
+// window.onload = function () {
+
+// };
 
 // function getLocalStorageSize() {
 //   let total = 0;
