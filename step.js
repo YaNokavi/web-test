@@ -37,13 +37,14 @@ const stepInfo =
   modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
 // const stepProgres = stepInfo[stepId - 1];
 // console.log(stepProgres)
-var urlContent = stepInfo[stepId - 1].textContentUrl;
-var testContent = stepInfo[stepId - 1].testUrl;
+var urlContent = stepInfo[stepId - 1].contentUrl;
+var isTest = stepInfo[stepId - 1].test;
+// var testContent = stepInfo[stepId - 1].testUrl;
 // console.log(urlContent, testContent)
-if (urlContent && !urlContent.includes("http") && !testContent) {
-  urlContent =
-    "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
-}
+// if (urlContent && !urlContent.includes("http") && !testContent) {
+//   urlContent =
+//     "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
+// }
 // console.log(urlContent)
 // let urlContent;
 
@@ -51,50 +52,55 @@ if (urlContent && !urlContent.includes("http") && !testContent) {
 // let testContent =
 //   "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/test";
 
-urlContent ? addContent() : getTest();
+// isTest ? getTest() : addContent();
+getCourseContent();
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
 let progress = {
   userId: Number(userId),
-  completedStepList: [],
+  completedStepId: 0,
 };
-// var progress = JSON.parse(localStorage.getItem("completedSteps"));
-// console.log(progress, JSON.stringify(progress))
 
 async function addStepProgress() {
   const stepProgres = await getContent();
   if (stepProgres.completed === false) {
-    // Если массив пустой или шаг еще не добавлен
-    if (
-      progress.completedStepList.length === 0 ||
-      !progress.completedStepList.includes(stepProgres.id)
-    ) {
-      // Добавляем stepIdProgress
-      progress.completedStepList.push(stepProgres.id);
-      console.log("Добавляем прогресс: ", progress);
-      //localStorage.setItem("completedSteps", JSON.stringify(progress));
-      sendProgress();
-    } else {
-      console.log("Шаг уже завершен");
-    }
+    progress.completedStepId = stepProgres.id;
+    console.log("Добавляем прогресс: ", progress);
+    sendProgress();
   } else {
     console.log("Шаг завершен");
   }
 }
 
-async function addContent() {
+async function getCourseContent() {
   try {
     const response = await fetch(urlContent);
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
     const content = await response.text(); // Сохраняем данные в переменной
-    mediaContent.innerHTML = content;
-    addStepProgress();
+    displayContent(content);
   } catch (error) {
-    console.error("Ошибка при получении курсов:", error);
-  } finally {
+    console.error("Ошибка при получении контента:", error);
+  }
+}
+
+let testArray;
+
+function displayContent(content) {
+  if (isTest === false) {
+    mediaContent.innerHTML = content;
     document.getElementById("preloader").style.display = "none";
+    addStepProgress();
+  } else {
+    const jsonObject = JSON.parse(content);
+
+    testArray = {
+      question: jsonObject.question,
+      options: jsonObject.options,
+      answer: jsonObject.answer,
+    };
+    displayTest();
   }
 }
 
@@ -105,32 +111,10 @@ const resultSvgCorrect = document.getElementById("result-svg-correct");
 const resultSvgIncorrect = document.getElementById("result-svg-incorrect");
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
-let testArray;
-async function getTest() {
-  try {
-    const response = await fetch(testContent);
-    if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status}`);
-    }
-
-    const text = await response.text();
-
-    const jsonObject = JSON.parse(text);
-
-    testArray = {
-      question: jsonObject.question,
-      options: jsonObject.options,
-      answer: jsonObject.answer,
-    };
-    document.getElementById("preloader").style.display = "none";
-    displayTest();
-  } catch (error) {
-    console.error("Произошла ошибка:", error);
-  }
-}
 
 async function displayTest() {
   const stepProgres = await getContent();
+  retryButton.style.display = "none";
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
   resultContainer.style.display = "flex";
@@ -210,6 +194,7 @@ async function displayTest() {
     displayTest();
     submitButton.style.display = "flex";
     submitButton.disabled = false; // Разблокировать кнопку после повторной
+    retryButton.style.display = "none"
 
     // Здесь можно добавить логику для сброса состояния теста
 
@@ -218,6 +203,7 @@ async function displayTest() {
     // }
     // resultContainer.innerText = `Вы набрали ${score} баллов.`;
   });
+  document.getElementById("preloader").style.display = "none";
 }
 
 function handleAnswer(selectedValue) {

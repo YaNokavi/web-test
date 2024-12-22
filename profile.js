@@ -74,25 +74,57 @@ const setUserNameProfile = (name) => {
 
 setUserNameProfile(userName);
 
-async function getProgress() {
-    const progress = await fetchData(
-      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/courses-progress`,
-      //userId
-    );
-    document.getElementById("preloader").style.display = "none";
+// async function getProgress() {
+//   const progress = await fetchData(
+//     `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/courses-progress`
+//     //userId
+//   );
+//   document.getElementById("preloader").style.display = "none";
 
-    if (progress.userCourseProgressDtoList.length != 0) {
-      displayProgress(progress);
-    } else {
-      displayButton();
-    }
+//   if (progress.userCourseProgressDtoList.length != 0) {
+//     displayProgress(progress);
+//   } else {
+//     displayButton();
+//   }
+// }
+
+let referallId = localStorage.getItem("referallId");
+let data;
+if (!referallId || referallId === userIdData) {
+  data = {
+    userId: userIdData,
+    username: userName,
+  };
+} else {
+  data = {
+    userId: userIdData,
+    username: userName,
+    referrerId: referallId,
+  };
+}
+async function getUserInfo() {
+  const userInfo = await fetchData(
+    "https://cryptuna-anderm.amvera.io/v1/user/info",
+    "POST",
+    data
+  );
+
+  document.getElementById("preloader").style.display = "none";
+
+  if (userInfo.coursesProgress.length != 0) {
+    displayProgress(userInfo);
+  } else {
+    displayButton();
+  }
 }
 
-function displayProgress(progress) {
+getUserInfo();
+
+function displayProgress(userInfo) {
   let listProgress = [];
   course.innerHTML = "";
 
-  progress.userCourseProgressDtoList.forEach((elem) => {
+  userInfo.coursesProgress.forEach((elem) => {
     const courseHtml = `
     <div class="course-info-name">${elem.courseName}</div>
     <div class="course-info-frame-bar">
@@ -126,6 +158,6 @@ function displayButton() {
   course.innerHTML = buttonHtml;
 }
 
-window.onload = function () {
-  getProgress()
-};
+// window.onload = function () {
+//   getProgress();
+// };
