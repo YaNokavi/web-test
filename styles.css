@@ -1854,7 +1854,7 @@ h1 {
 .iview-overlay {
   box-sizing: border-box;
   /* подложка, закрывающая страницу при просмотре*/
-  position: absolute;
+  position: fixed;
   /* привязка к окну браузера, а не к странице */
   left: 0;
   top: 38px;
@@ -1872,12 +1872,19 @@ h1 {
 
 .iview-preview {
   /* элемент, в котором будем показывать картинку как фоновое изображение */
-  position: fixed;
+  position: absolute;
+  top: 35%; /* Центрируем по вертикали */
+  left: 5%; /* Центрируем по горизонтали */
+  /* transform-origin: center center; */
+  transform: translate(-50%, -50%);
+
+  max-width: calc(90vw);
+  max-height: calc(90vh);
   /* привязываемся к подложке */
-  top: 35%;
+  /* top: 35%;
   bottom: 50px;
   left: 50px;
-  right: 50px;
+  right: 50px; */
 
   /* отступы от края окна (поля) */
   background-size: contain;
@@ -1890,9 +1897,9 @@ h1 {
 
 /* самой фоновой картинки еще нет, будем вставлять прямо при просмотре*/
 
-/* .iview-preview:active {
-  cursor: grabbing; 
-} */
+.iview-preview:active {
+  cursor: grabbing;
+}
 
 .iview-caption {
   /* подпись под картинкой */
@@ -1935,7 +1942,7 @@ h1 {
   font-size: 30px;
   font-weight: 700;
   /* шрифт для крестика пожирнее */
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 1);
   /* белый полупрозрачный */
   cursor: pointer;
 }
