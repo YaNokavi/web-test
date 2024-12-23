@@ -68,6 +68,9 @@ async function addStepProgress() {
     console.log("Добавляем прогресс: ", progress);
     sendProgress();
   } else {
+    document.getElementById("preloader").style.display = "none";
+    
+
     console.log("Шаг завершен");
   }
 }
@@ -90,7 +93,10 @@ let testArray;
 function displayContent(content) {
   if (isTest === false) {
     mediaContent.innerHTML = content;
-    document.getElementById("preloader").style.display = "none";
+    const stepComplete = document.createElement("div");
+    stepComplete.classList.add("step-complete");
+    stepComplete.innerText = "Шаг пройден!";
+    document.getElementById("blockContent").append(stepComplete);
     addStepProgress();
   } else {
     const jsonObject = JSON.parse(content);
@@ -156,6 +162,10 @@ async function displayTest() {
 
   // Если тест пройден, отключите радиокнопки
   if (stepProgres.completed === true) {
+    const stepComplete = document.createElement("div");
+    stepComplete.classList.add("step-complete");
+    stepComplete.innerText = "Шаг пройден!";
+    document.getElementById("blockContent").append(stepComplete);
     submitButton.style.display = "none";
     // submitButton.style.animation = "none";
     nextButton.style.display = "flex";
@@ -191,10 +201,18 @@ async function displayTest() {
   }
 
   retryButton.addEventListener("click", () => {
-    displayTest();
     submitButton.style.display = "flex";
-    submitButton.disabled = false; // Разблокировать кнопку после повторной
-    retryButton.style.display = "none"
+    submitButton.classList.add("disabled");
+    submitButton.disabled = true;
+    retryButton.style.display = "none";
+    resultContainer.innerText = "";
+    resultSvgCorrect.style.display = "none";
+    resultSvgIncorrect.style.display = "none";
+    testArray.options.forEach((option, index) => {
+      const label = document.querySelector("label");
+      label.querySelector("input").disabled = true;
+    });
+    displayTest();
 
     // Здесь можно добавить логику для сброса состояния теста
 

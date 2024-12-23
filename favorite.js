@@ -22,7 +22,7 @@ if (tg.initDataUnsafe.user.username) {
   logoname = "U";
   username = "User";
 }
-// let userIdData = 5;
+// let userIdData = 6;
 // logoname = "ret";
 // username = "rete";
 let referallId = localStorage.getItem("referallId");
