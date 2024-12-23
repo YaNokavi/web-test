@@ -63,14 +63,16 @@ let progress = {
 
 async function addStepProgress() {
   const stepProgres = await getContent();
+  document.getElementById("preloader").style.display = "none";
   if (stepProgres.completed === false) {
     progress.completedStepId = stepProgres.id;
     console.log("Добавляем прогресс: ", progress);
     sendProgress();
   } else {
-    document.getElementById("preloader").style.display = "none";
-    
-
+    const stepComplete = document.createElement("div");
+    stepComplete.classList.add("step-complete");
+    stepComplete.innerText = "Шаг пройден!";
+    document.getElementById("blockContent").append(stepComplete);
     console.log("Шаг завершен");
   }
 }
@@ -93,10 +95,6 @@ let testArray;
 function displayContent(content) {
   if (isTest === false) {
     mediaContent.innerHTML = content;
-    const stepComplete = document.createElement("div");
-    stepComplete.classList.add("step-complete");
-    stepComplete.innerText = "Шаг пройден!";
-    document.getElementById("blockContent").append(stepComplete);
     addStepProgress();
   } else {
     const jsonObject = JSON.parse(content);
