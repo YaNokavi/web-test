@@ -50,9 +50,7 @@ document.addEventListener("click", (e) => {
 const userIdData = localStorage.getItem("userIdData");
 const logoName = localStorage.getItem("logoname");
 const userName = localStorage.getItem("username");
-let balanceUser = localStorage.getItem("balance");
 
-balanceText.innerText = balanceUser;
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
 
@@ -74,19 +72,6 @@ const setUserNameProfile = (name) => {
 
 setUserNameProfile(userName);
 
-// async function getProgress() {
-//   const progress = await fetchData(
-//     `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/courses-progress`
-//     //userId
-//   );
-//   document.getElementById("preloader").style.display = "none";
-
-//   if (progress.userCourseProgressDtoList.length != 0) {
-//     displayProgress(progress);
-//   } else {
-//     displayButton();
-//   }
-// }
 
 let referallId = localStorage.getItem("referallId");
 let data;
@@ -109,6 +94,7 @@ async function getUserInfo() {
     data
   );
 
+  balanceText.innerText = userInfo.balance;
   document.getElementById("preloader").style.display = "none";
 
   if (userInfo.coursesProgress.length != 0) {
