@@ -81,7 +81,7 @@ function displayModules(courseData) {
 async function fetchContent() {
   
     const courseData = await fetchData(
-      `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/info`
+      `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
     );
 
     localStorage.setItem(`courseData`, JSON.stringify(courseData));

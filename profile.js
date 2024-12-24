@@ -93,7 +93,7 @@ async function getUserInfo() {
     "POST",
     data
   );
-
+console.log(userInfo)
   balanceText.innerText = userInfo.balance;
   document.getElementById("preloader").style.display = "none";
 

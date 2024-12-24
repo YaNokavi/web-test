@@ -38,7 +38,9 @@ async function getContent() {
     `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
   );
   console.log(contentGet);
-  modulesWithSteps(contentGet);
+  displayModules();
+  localStorage.setItem("courseData", JSON.stringify(courseData));
+  // modulesWithSteps(contentGet);
 }
 
 function modulesWithSteps(contentGet) {
@@ -51,7 +53,7 @@ function modulesWithSteps(contentGet) {
     });
   });
 
-  localStorage.setItem("courseData", JSON.stringify(courseData));
+  
   displayModules();
 }
 

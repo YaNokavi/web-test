@@ -16,44 +16,17 @@ const userId = localStorage.getItem("userIdData");
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
-let stepProgres;
-
-async function getContent() {
-  const contentGet = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/course/${syllabusId}/content?userId=${userId}`
-  );
-  stepProgres = contentGet[submoduleId - 1].stepList[stepId - 1];
-  return stepProgres;
-  // console.log(contentGet[submoduleId - 1].stepList[stepId - 1]);
-  // modulesWithSteps(contentGet);
-}
-getContent();
-
 const modulesData = JSON.parse(
   localStorage.getItem(`courseData`)
 ).courseModuleList;
 const submoduleLength = modulesData[moduleId - 1].submoduleList;
 const stepInfo =
   modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
-// const stepProgres = stepInfo[stepId - 1];
-// console.log(stepProgres)
+const stepProgres = stepInfo[stepId - 1];
+
 var urlContent = stepInfo[stepId - 1].contentUrl;
 var isTest = stepInfo[stepId - 1].test;
-// var testContent = stepInfo[stepId - 1].testUrl;
-// console.log(urlContent, testContent)
-// if (urlContent && !urlContent.includes("http") && !testContent) {
-//   urlContent =
-//     "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/courses/technicalAnalysis/content.txt";
-// }
-// console.log(urlContent)
-// let urlContent;
 
-// const testContent = stepInfo[stepId - 1].test;
-// let testContent =
-//   "https://raw.githubusercontent.com/AndreyErmol/CunaEduFiles/refs/heads/main/test";
-
-// isTest ? getTest() : addContent();
-getCourseContent();
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
 let progress = {
@@ -61,8 +34,7 @@ let progress = {
   completedStepId: 0,
 };
 
-async function addStepProgress() {
-  const stepProgres = await getContent();
+function addStepProgress() {
   document.getElementById("preloader").style.display = "none";
   if (stepProgres.completed === false) {
     progress.completedStepId = stepProgres.id;
@@ -89,6 +61,7 @@ async function getCourseContent() {
     console.error("Ошибка при получении контента:", error);
   }
 }
+getCourseContent();
 
 let testArray;
 
@@ -116,37 +89,41 @@ const resultSvgIncorrect = document.getElementById("result-svg-incorrect");
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
 
-async function displayTest() {
-  const stepProgres = await getContent();
+function displayTest() {
   retryButton.style.display = "none";
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
   resultContainer.style.display = "flex";
-  testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${testArray.question}</h2>
-  <p style="margin-bottom: 5px">Выберите один вариант ответа</p>`;
+
+  const isMultipleChoice = testArray.answer.length > 1;
+
+  testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${
+    testArray.question
+  }</h2>
+    <p style="margin-bottom: 5px">Выберите ${
+      isMultipleChoice ? "один или несколько" : "один"
+    } вариант${isMultipleChoice ? "ов" : ""} ответа</p>`;
 
   testArray.options.forEach((option, index) => {
     const label = document.createElement("label");
-    // label.style.width = "200px"
     label.innerHTML = `
-        <input type="radio" name="question" id="optionTest${
-          index + 1
-        }" value="${option}">
-        ${option}
-    `;
+          <input type="${
+            isMultipleChoice ? "checkbox" : "radio"
+          }" name="question" id="optionTest${index + 1}" value="${option}">
+          ${option}
+      `;
 
     // Установите checked для правильного ответа, если тест уже пройден
     if (stepProgres.completed === true) {
-      if (option === testArray.answer) {
-        label.querySelector("input").checked = true;
-        // label.classList.add('correct-answer'); // Добавляем класс для правильного ответа
+      if (testArray.answer.includes(option)) {
+          label.querySelector("input").checked = true;
       } else {
-        label.querySelector("input").disabled = true; // Отключаем неправильные ответы
+          label.querySelector("input").disabled = true; // Отключаем неправильные ответы
       }
-    }
+  }
 
-    testDiv.append(label);
-  });
+  testDiv.append(label);
+});
 
   resultContainer.innerText = "";
   resultSvgCorrect.style.display = "none";
@@ -187,29 +164,30 @@ async function displayTest() {
     });
 
     submitButton.addEventListener("click", () => {
-      const selectedOption = document.querySelector(
-        `input[name="question"]:checked`
-      );
-      if (selectedOption) {
-        handleAnswer(selectedOption.value);
-      } else {
-        submitButton.disabled = true;
-      }
-    });
+    //   const selectedOption = document.querySelector(
+    //     `input[name="question"]:checked`
+    //   );
+    //   if (selectedOption) {
+    //     handleAnswer(selectedOption.value);
+    //   } else {
+    //     submitButton.disabled = true;
+    //   }
+    // });
+    let selectedOptions;
+            if (isMultipleChoice) {
+                selectedOptions = Array.from(inputs)
+                    .filter(input => input.checked)
+                    .map(input => input.value);
+            } else {
+                const selectedOption = document.querySelector(`input[name="question"]:checked`);
+                selectedOptions = selectedOption ? [selectedOption.value] : [];
+            }
+
+            handleAnswer(selectedOptions);
+        });
   }
 
   retryButton.addEventListener("click", () => {
-    submitButton.style.display = "flex";
-    submitButton.classList.add("disabled");
-    submitButton.disabled = true;
-    retryButton.style.display = "none";
-    resultContainer.innerText = "";
-    resultSvgCorrect.style.display = "none";
-    resultSvgIncorrect.style.display = "none";
-    testArray.options.forEach((option, index) => {
-      const label = document.querySelector("label");
-      label.querySelector("input").disabled = true;
-    });
     displayTest();
 
     // Здесь можно добавить логику для сброса состояния теста
@@ -415,18 +393,13 @@ document.addEventListener("touchmove", function (e) {
 async function sendProgress() {
   const response = await fetchData(
     "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
-    //userId
     "POST",
     progress,
     false
   );
 
-  // console.log(response);
+  console.log(response);
 }
-
-// window.onload = function () {
-
-// };
 
 // function getLocalStorageSize() {
 //   let total = 0;
