@@ -22,7 +22,7 @@ if (tg.initDataUnsafe.user.username) {
   logoname = "U";
   username = "User";
 }
-// let userIdData = 6;
+// let userIdData = 7;
 // logoname = "ret";
 // username = "rete";
 let referallId = localStorage.getItem("referallId");
@@ -52,6 +52,7 @@ async function sendUserInfo() {
     "POST",
     data
   );
+  getFavoriteCourses();
 }
 
 sendUserInfo();
@@ -65,8 +66,6 @@ async function getFavoriteCourses() {
 
   courseInfo.length ? displayCourses(courseInfo) : displayButton();
 }
-
-getFavoriteCourses();
 
 function displayCourses(courseInfo) {
   document.getElementById("preloader").style.display = "none";

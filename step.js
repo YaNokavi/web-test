@@ -16,13 +16,13 @@ const userId = localStorage.getItem("userIdData");
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
-const modulesData = JSON.parse(
-  localStorage.getItem(`courseData`)
-).courseModuleList;
+
+const courseData = JSON.parse(localStorage.getItem(`courseData`))
+const modulesData = courseData.courseModuleList;
 const submoduleLength = modulesData[moduleId - 1].submoduleList;
 const stepInfo =
   modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
-const stepProgres = stepInfo[stepId - 1];
+let stepProgres = stepInfo[stepId - 1];
 
 var urlContent = stepInfo[stepId - 1].contentUrl;
 var isTest = stepInfo[stepId - 1].test;
@@ -40,6 +40,8 @@ function addStepProgress() {
     progress.completedStepId = stepProgres.id;
     console.log("Добавляем прогресс: ", progress);
     sendProgress();
+    stepProgres.completed = true;
+    localStorage.setItem("courseData", JSON.stringify(courseData));
   } else {
     const stepComplete = document.createElement("div");
     stepComplete.classList.add("step-complete");
@@ -112,18 +114,18 @@ function displayTest() {
           }" name="question" id="optionTest${index + 1}" value="${option}">
           ${option}
       `;
-
+    // console.log(testArray.answer.includes(option))
     // Установите checked для правильного ответа, если тест уже пройден
     if (stepProgres.completed === true) {
       if (testArray.answer.includes(option)) {
-          label.querySelector("input").checked = true;
+        label.querySelector("input").checked = true;
       } else {
-          label.querySelector("input").disabled = true; // Отключаем неправильные ответы
+        label.querySelector("input").disabled = true; // Отключаем неправильные ответы
       }
-  }
+    }
 
-  testDiv.append(label);
-});
+    testDiv.append(label);
+  });
 
   resultContainer.innerText = "";
   resultSvgCorrect.style.display = "none";
@@ -164,27 +166,29 @@ function displayTest() {
     });
 
     submitButton.addEventListener("click", () => {
-    //   const selectedOption = document.querySelector(
-    //     `input[name="question"]:checked`
-    //   );
-    //   if (selectedOption) {
-    //     handleAnswer(selectedOption.value);
-    //   } else {
-    //     submitButton.disabled = true;
-    //   }
-    // });
-    let selectedOptions;
-            if (isMultipleChoice) {
-                selectedOptions = Array.from(inputs)
-                    .filter(input => input.checked)
-                    .map(input => input.value);
-            } else {
-                const selectedOption = document.querySelector(`input[name="question"]:checked`);
-                selectedOptions = selectedOption ? [selectedOption.value] : [];
-            }
+      //   const selectedOption = document.querySelector(
+      //     `input[name="question"]:checked`
+      //   );
+      //   if (selectedOption) {
+      //     handleAnswer(selectedOption.value);
+      //   } else {
+      //     submitButton.disabled = true;
+      //   }
+      // });
+      let selectedOptions;
+      if (isMultipleChoice) {
+        selectedOptions = Array.from(inputs)
+          .filter((input) => input.checked)
+          .map((input) => input.value);
+      } else {
+        const selectedOption = document.querySelector(
+          `input[name="question"]:checked`
+        );
+        selectedOptions = selectedOption ? [selectedOption.value] : [];
+      }
 
-            handleAnswer(selectedOptions);
-        });
+      handleAnswer(selectedOptions, isMultipleChoice);
+    });
   }
 
   retryButton.addEventListener("click", () => {
@@ -200,11 +204,19 @@ function displayTest() {
   document.getElementById("preloader").style.display = "none";
 }
 
-function handleAnswer(selectedValue) {
-  if (selectedValue === testArray.answer) {
-    handleCorrectAnswer();
+function handleAnswer(selectedValue, isMultipleChoice) {
+  if (!isMultipleChoice) {
+    if (selectedValue == testArray.answer[0]) {
+      handleCorrectAnswer();
+    } else {
+      handleIncorrectAnswer();
+    }
   } else {
-    handleIncorrectAnswer();
+    if (selectedValue == testArray.answer) {
+      handleCorrectAnswer();
+    } else {
+      handleIncorrectAnswer();
+    }
   }
 }
 
