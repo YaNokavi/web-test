@@ -459,7 +459,7 @@ body {
   height: 15px;
   top: 0;
   margin-top: 1px;
-  font: 700 17px/1 Inter, sans-serif;
+  font: 700 16px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 15px;
@@ -705,7 +705,7 @@ body {
   top: 0;
   margin-top: 0px;
   margin-bottom: 5px;
-  font: 700 16px/1 Inter, sans-serif;
+  font: 700 17px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 15px;
