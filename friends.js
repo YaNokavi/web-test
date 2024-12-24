@@ -31,7 +31,7 @@ function displayFriendsNull() {
           Приглашай друзей и получай больше Cuna-токенов
         </div>
         <div class="friends-block-null-text-down">
-          За каждого приглашенного друга по твоей ссылке ты получишь 5 токенов
+          За каждого приглашенного друга по твоей ссылке ты получишь 5% от его заработанных токенов
           CUNA
         </div>
       </div>
@@ -105,7 +105,7 @@ function displayFriendsNotNull(referrals) {
           <div class="friends-block-not-null-amount">${referrals.length}</div>
         </div>
         <div class="friends-block-not-null-text-down">
-          За каждого приглашенного друга по твоей ссылке ты получишь 5 токенов
+          За каждого приглашенного друга по твоей ссылке ты получишь 5% от его заработанных токенов
           CUNA
         </div>
         <div class="friends-block-not-null-list" id="list">
