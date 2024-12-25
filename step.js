@@ -368,10 +368,10 @@ function setupTab(tab) {
 }
 
 if (refer == "favorite.html") {
-  title.innerText = "Мои курсы";
+  // title.innerText = "Мои курсы";
   setupTab(favorTab);
 } else if (refer == "catalog.html") {
-  title.innerText = "Каталог";
+  // title.innerText = "Каталог";
   setupTab(catalogTab);
 }
 

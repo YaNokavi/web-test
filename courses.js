@@ -231,7 +231,7 @@ button3.addEventListener("click", function () {
 
 var refer = document.referrer.split("/").pop();
 if (!refer || refer === "index.html") refer = "favorite.html";
-const title = document.getElementById("title");
+// const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 // const link = document.getElementById("ref");
@@ -240,7 +240,7 @@ var swipeLink;
 function setupCatalog() {
   swipeLink = "catalog.html";
   // link.href = "catalog.html";
-  title.innerText = "Каталог";
+  // title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
@@ -248,7 +248,7 @@ function setupCatalog() {
 function setupFavorite() {
   swipeLink = "favorite.html";
   // link.href = "favorite.html";
-  title.innerText = "Мои курсы";
+  // title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 }

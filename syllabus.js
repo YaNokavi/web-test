@@ -4,7 +4,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 const userId = localStorage.getItem("userIdData");
-const title = document.getElementById("title");
+// const title = document.getElementById("title");
 // const arrow = document.getElementById("ref");
 // arrow.href = `courses.html?id=${paramId}`;
 
@@ -43,19 +43,19 @@ async function getContent() {
   // modulesWithSteps(contentGet);
 }
 
-function modulesWithSteps(contentGet) {
-  courseData.courseModuleList.forEach((submodule) => {
-    submodule.submoduleList.forEach((elem) => {
-      const stepListObj = contentGet.find(
-        (step) => step.submoduleId === elem.id
-      );
-      elem.stepList = stepListObj ? stepListObj.stepList : [];
-    });
-  });
+// function modulesWithSteps(contentGet) {
+//   courseData.courseModuleList.forEach((submodule) => {
+//     submodule.submoduleList.forEach((elem) => {
+//       const stepListObj = contentGet.find(
+//         (step) => step.submoduleId === elem.id
+//       );
+//       elem.stepList = stepListObj ? stepListObj.stepList : [];
+//     });
+//   });
 
   
-  displayModules();
-}
+//   displayModules();
+// }
 
 function createElement(tag, className, innerHTML) {
   const element = document.createElement(tag);
@@ -125,13 +125,13 @@ const catalogTab = document.getElementById("catalog");
 // }
 
 function setupCatalog() {
-  title.innerText = "Каталог";
+  // title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
 
 function setupFavorite() {
-  title.innerText = "Мои курсы";
+  // title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 }
