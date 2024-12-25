@@ -17,7 +17,7 @@ const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
 
-const courseData = JSON.parse(localStorage.getItem(`courseData`))
+const courseData = JSON.parse(localStorage.getItem(`courseData`));
 const modulesData = courseData.courseModuleList;
 const submoduleLength = modulesData[moduleId - 1].submoduleList;
 const stepInfo =
@@ -91,10 +91,44 @@ const resultSvgIncorrect = document.getElementById("result-svg-incorrect");
 const retryButton = document.getElementById("retry-button");
 const nextButton = document.getElementById("next-button");
 
+const handleSubmit = () => {
+  const inputs = document.querySelectorAll('input[name="question"]');
+  inputs.forEach((input) => {
+    input.disabled = true; // Отключаем каждый элемент ввода
+  });
+  let selectedOptions;
+  const isMultipleChoice = testArray.answer.length > 1;
+  if (isMultipleChoice) {
+    selectedOptions = Array.from(inputs)
+      .filter((input) => input.checked)
+      .map((input) => input.value);
+  } else {
+    const selectedOption = document.querySelector(
+      `input[name="question"]:checked`
+    );
+    selectedOptions = selectedOption ? [selectedOption.value] : [];
+  }
+
+  handleAnswer(selectedOptions, isMultipleChoice);
+};
+
+const handleRetry = () => {
+  displayTest();
+};
+
+submitButton.addEventListener("click", handleSubmit);
+retryButton.addEventListener("click", handleRetry);
+
+// if (selectedOption && selectedOption.value === testContent.answer) {
+//   score++;
+// }
+// resultContainer.innerText = `Вы набрали ${score} баллов.`;
+
 function displayTest() {
   retryButton.style.display = "none";
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
+  submitButton.disabled = "true";
   resultContainer.style.display = "flex";
 
   const isMultipleChoice = testArray.answer.length > 1;
@@ -154,65 +188,28 @@ function displayTest() {
     inputs.forEach((input) => {
       input.disabled = true; // Отключить радиокнопки
     });
-
-    // Отобразите правильный ответ
-    // resultContainer.innerText = `Правильный ответ: ${testArray.answer}`;
   } else {
     inputs.forEach((input) => {
       input.addEventListener("change", () => {
         submitButton.classList.remove("disabled");
-        submitButton.disabled = false; // Разблокировать кнопку после выбора ответа
+        submitButton.disabled = false;
       });
     });
-
-    submitButton.addEventListener("click", () => {
-      //   const selectedOption = document.querySelector(
-      //     `input[name="question"]:checked`
-      //   );
-      //   if (selectedOption) {
-      //     handleAnswer(selectedOption.value);
-      //   } else {
-      //     submitButton.disabled = true;
-      //   }
-      // });
-      let selectedOptions;
-      if (isMultipleChoice) {
-        selectedOptions = Array.from(inputs)
-          .filter((input) => input.checked)
-          .map((input) => input.value);
-      } else {
-        const selectedOption = document.querySelector(
-          `input[name="question"]:checked`
-        );
-        selectedOptions = selectedOption ? [selectedOption.value] : [];
-      }
-
-      handleAnswer(selectedOptions, isMultipleChoice);
-    });
   }
-
-  retryButton.addEventListener("click", () => {
-    displayTest();
-
-    // Здесь можно добавить логику для сброса состояния теста
-
-    // if (selectedOption && selectedOption.value === testContent.answer) {
-    //   score++;
-    // }
-    // resultContainer.innerText = `Вы набрали ${score} баллов.`;
-  });
   document.getElementById("preloader").style.display = "none";
 }
 
 function handleAnswer(selectedValue, isMultipleChoice) {
   if (!isMultipleChoice) {
-    if (selectedValue == testArray.answer[0]) {
+    if (selectedValue === testArray.answer[0]) {
       handleCorrectAnswer();
     } else {
       handleIncorrectAnswer();
     }
-  } else {
-    if (selectedValue == testArray.answer) {
+  } else if (isMultipleChoice) {
+    const answersAsString = JSON.stringify(testArray.answer);
+    const selectedValueAsString = JSON.stringify(selectedValue); // Оборачиваем в массив для сравнения
+    if (answersAsString.includes(selectedValueAsString)) {
       handleCorrectAnswer();
     } else {
       handleIncorrectAnswer();
