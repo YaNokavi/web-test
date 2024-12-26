@@ -1567,8 +1567,8 @@ h1 {
   width: auto;
   height: auto;
   /* margin-top: 40px; */
-  /* margin-left: 15px;
-  margin-right: 15px; */
+  margin-left: 15px;
+  margin-right: 15px;
 
   font-family: "Inter";
   font-style: normal;
@@ -1589,9 +1589,9 @@ h1 {
   height: auto;
   /* bottom: 0;
   margin-top: auto;
-  margin-bottom: 50px;
+  margin-bottom: 50px; */
   margin-left: 15px;
-  margin-right: 15px; */
+  margin-right: 15px;
 
   font-family: "Inter";
   font-style: normal;
@@ -1625,8 +1625,8 @@ h1 {
   cursor: pointer;
   text-decoration: none;
   width: 95%;
-  height: 60px;
-  min-height: 60px;
+  height: 50px;
+  min-height: 50px;
   /* margin-top: auto; */
   margin-bottom: 20px;
   background: #1468b1;
@@ -1643,8 +1643,8 @@ h1 {
   cursor: pointer;
   text-decoration: none;
   width: 95%;
-  height: 60px;
-  min-height: 60px;
+  height: 50px;
+  min-height: 50px;
   margin-bottom: 20px;
 
   background: #1468b1;
