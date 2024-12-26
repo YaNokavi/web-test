@@ -35,7 +35,7 @@ function displayFriendsNull() {
           CUNA
         </div>
       </div>
-
+<div class="friends-block-null-button-container">
       <div class="friends-block-null-button-invite" id="invite">
         <div class="friends-block-null-button-text">Пригласить друга</div>
         <svg
@@ -90,10 +90,11 @@ function displayFriendsNull() {
             stroke="white"
           />
         </svg>
+        </div>
       </div>
   `;
   document.getElementById("preloader").style.display = "none";
-  buttons()
+  buttons();
 }
 
 function displayFriendsNotNull(referrals) {
@@ -187,7 +188,7 @@ function displayFriendsNotNull(referrals) {
     listFriends.append(list);
   });
   document.getElementById("preloader").style.display = "none";
-  buttons()
+  buttons();
 }
 
 function buttons() {
