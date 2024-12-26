@@ -14,17 +14,17 @@ const tg = window.Telegram.WebApp;
 let logoname;
 let username;
 
-const userIdData = `${tg.initDataUnsafe.user.id}`;
-if (tg.initDataUnsafe.user.username) {
-  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  username = `${tg.initDataUnsafe.user.username}`;
-} else {
-  logoname = "U";
-  username = "User";
-}
-// let userIdData = 7;
-// logoname = "ret";
-// username = "rete";
+// const userIdData = `${tg.initDataUnsafe.user.id}`;
+// if (tg.initDataUnsafe.user.username) {
+//   logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+//   username = `${tg.initDataUnsafe.user.username}`;
+// } else {
+//   logoname = "U";
+//   username = "User";
+// }
+let userIdData = 7;
+logoname = "ret";
+username = "rete";
 let referallId = localStorage.getItem("referallId");
 
 localStorage.setItem("userIdData", userIdData);
