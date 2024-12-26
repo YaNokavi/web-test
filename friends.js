@@ -25,7 +25,7 @@ function displayFriendsNull() {
   <div class="friends-block-null">
         <img
           src="gif/octopus(miidle).gif"
-          style="height: 140px; width: 140px; margin-top: 25px"
+          style="height: 140px; width: 140px;"
         />
         <div class="friends-block-null-text">
           Приглашай друзей и получай больше Cuna-токенов
