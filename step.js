@@ -201,7 +201,7 @@ function displayTest() {
 
 function handleAnswer(selectedValue, isMultipleChoice) {
   if (!isMultipleChoice) {
-    if (selectedValue === testArray.answer[0]) {
+    if (selectedValue[0] === testArray.answer[0]) {
       handleCorrectAnswer();
     } else {
       handleIncorrectAnswer();
