@@ -10,7 +10,7 @@ if (platform === "ios" || platform === "android") {
 }
 tg.lockOrientation();
 tg.expand();
-tg.enableClosingConfirmation();
+// tg.enableClosingConfirmation();
 tg.disableVerticalSwipes()
 
 document.getElementById("tab").addEventListener("click", function () {
