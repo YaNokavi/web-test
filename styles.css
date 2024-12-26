@@ -1,5 +1,6 @@
 :root {
   --InsetTop: 0px;
+  --tabBarHeight: 0px;
 }
 
 body {
@@ -454,7 +455,8 @@ body {
 .tab-bar {
   display: flex;
   position: fixed;
-  height: 70px;
+  /* height: 70px; */
+  height: var(--tabBarHeight);
   flex-direction: row;
   justify-content: center;
   padding-top: 12px;
