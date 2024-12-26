@@ -8,8 +8,10 @@ if (platform === "ios" || platform === "android") {
   tg.requestFullscreen();
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
   document.documentElement.style.setProperty("--tabBarHeight", `${70}px`);
+  document.documentElement.style.setProperty("--tabBarPadding", `${12}px`);
 } else {
   document.documentElement.style.setProperty("--tabBarHeight", `${55}px`);
+  document.documentElement.style.setProperty("--tabBarPadding", `${9}px`);
 }
 tg.lockOrientation();
 tg.expand();

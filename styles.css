@@ -1,6 +1,7 @@
 :root {
   --InsetTop: 0px;
   --tabBarHeight: 0px;
+  --tabBarPadding: 0px;
 }
 
 body {
@@ -459,7 +460,7 @@ body {
   height: var(--tabBarHeight);
   flex-direction: row;
   justify-content: center;
-  padding-top: 12px;
+  padding-top: var(--tabBarPadding);
 
   background-color: #1468b1;
   align-items: flex-start;
