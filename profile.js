@@ -11,6 +11,13 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
+const userIdData = localStorage.getItem("userIdData");
+const logoName = localStorage.getItem("logoname");
+const userName = localStorage.getItem("username");
+
+userIdProfile.innerText += userIdData;
+logoNameProfile.innerText = logoName;
+
 // if (
 //   !sessionStorage.getItem("currentTab") &&
 //   !sessionStorage.getItem("currentLink")
@@ -78,13 +85,6 @@ document.addEventListener("click", (e) => {
     hidePopup();
   }
 });
-
-const userIdData = localStorage.getItem("userIdData");
-const logoName = localStorage.getItem("logoname");
-const userName = localStorage.getItem("username");
-
-userIdProfile.innerText += userIdData;
-logoNameProfile.innerText = logoName;
 
 const setUserNameProfile = (name) => {
   let fontSize;
