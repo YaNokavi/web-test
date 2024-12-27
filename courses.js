@@ -79,15 +79,17 @@ function displayModules(courseData) {
 }
 
 async function fetchContent() {
-  
-    const courseData = await fetchData(
-      `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
-    );
+  const courseData = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
+  );
 
-    localStorage.setItem(`courseData`, JSON.stringify(courseData));
-    displayLearning(courseData);
-    displayModules(courseData);
+  localStorage.setItem(`courseData`, JSON.stringify(courseData));
+  displayLearning(courseData);
+  displayModules(courseData);
+  document.getElementById("preloader").style.display = "none";
 }
+
+fetchContent();
 
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
@@ -312,6 +314,3 @@ if (refer == "favorite.html") {
 //   }
 // });
 
-// window.onload = function () {
-//   fetchContent();
-// };

@@ -148,13 +148,11 @@ function displayTest() {
           }" name="question" id="optionTest${index + 1}" value="${option}">
           ${option}
       `;
-    // console.log(testArray.answer.includes(option))
-    // Установите checked для правильного ответа, если тест уже пройден
     if (stepProgres.completed === true) {
       if (testArray.answer.includes(option)) {
         label.querySelector("input").checked = true;
       } else {
-        label.querySelector("input").disabled = true; // Отключаем неправильные ответы
+        label.querySelector("input").disabled = true;
       }
     }
 

@@ -90,8 +90,8 @@ document.addEventListener("touchmove", function (e) {
 
   // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
   if (startX <= 15 && moveX - startX > swipeDistance) {
-    sessionStorage.removeItem("currentTab");
-    sessionStorage.removeItem("currentLink");
+    // sessionStorage.removeItem("currentTab");
+    // sessionStorage.removeItem("currentLink");
     window.location.href = link; // Переход по ссылке
   }
 });
