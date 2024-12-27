@@ -77,3 +77,21 @@ tg.onEvent("backButtonClicked", function () {
   }
   tg.HapticFeedback.impactOccurred("medium");
 });
+
+let startX;
+const swipeDistance = 100; // Минимальное расстояние для свайпа
+
+document.addEventListener("touchstart", function (e) {
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchmove", function (e) {
+  const moveX = e.touches[0].clientX;
+
+  // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
+  if (startX <= 15 && moveX - startX > swipeDistance) {
+    sessionStorage.removeItem("currentTab");
+    sessionStorage.removeItem("currentLink");
+    window.location.href = link; // Переход по ссылке
+  }
+});
