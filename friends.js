@@ -11,11 +11,7 @@ async function getReferrals() {
   referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();
 }
 
-// let BackButton = JSON.parse(localStorage.getItem("Back"));
-// BackButton.isVisible = true;
-// console.log(BackButton.isVisible)
-
-// referall.length ? displayFriendsNotNull(referalls) : displayFriendsNull();
+getReferrals();
 
 function displayFriendsNull() {
   const main = document.getElementById("friends");
@@ -234,7 +230,3 @@ function buttons() {
 //if (currentTab == null && currentLink == null) {
 localStorage.removeItem("courseData");
 //}
-
-// window.onload = function () {
-getReferrals();
-// };

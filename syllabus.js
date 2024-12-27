@@ -8,28 +8,6 @@ const userId = localStorage.getItem("userIdData");
 // const arrow = document.getElementById("ref");
 // arrow.href = `courses.html?id=${paramId}`;
 
-// function renderCourse(course) {
-//   title.innerText = course.name;
-// }
-
-// function getCourseInfo() {
-//   const courses = JSON.parse(localStorage.getItem(`infoCourse`)) || [];
-//   return courses.find((course) => course.id == paramId) || null;
-// }
-
-// var courseInfo = getCourseInfo();
-// if (courseInfo) {
-//   renderCourse(courseInfo);
-// } else {
-//   const catalogData = JSON.parse(localStorage.getItem("catalogData"));
-//   var courseInfo = catalogData[paramId - 1];
-//   if (courseInfo) {
-//     renderCourse(courseInfo);
-//   }
-// }
-
-// localStorage.setItem("completedSteps", JSON.stringify(progress));
-
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;
 
@@ -43,19 +21,7 @@ async function getContent() {
   // modulesWithSteps(contentGet);
 }
 
-// function modulesWithSteps(contentGet) {
-//   courseData.courseModuleList.forEach((submodule) => {
-//     submodule.submoduleList.forEach((elem) => {
-//       const stepListObj = contentGet.find(
-//         (step) => step.submoduleId === elem.id
-//       );
-//       elem.stepList = stepListObj ? stepListObj.stepList : [];
-//     });
-//   });
-
-  
-//   displayModules();
-// }
+getContent();
 
 function createElement(tag, className, innerHTML) {
   const element = document.createElement(tag);
@@ -141,24 +107,3 @@ if (refer == "favorite.html") {
 } else if (refer == "catalog.html") {
   setupCatalog();
 }
-
-// let startX;
-// const swipeDistance = 100; // Минимальное расстояние для свайпа
-
-// document.addEventListener("touchstart", function (e) {
-//   // Сохраняем начальную позицию касания
-//   startX = e.touches[0].clientX;
-// });
-
-// document.addEventListener("touchmove", function (e) {
-//   const moveX = e.touches[0].clientX;
-
-//   // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
-//   if (startX <= 15 && moveX - startX > swipeDistance) {
-//     // sessionStorage.removeItem("currentTab");
-//     // sessionStorage.removeItem("currentLink");
-//     window.location.href = `courses.html?id=${paramId}`; // Переход по ссылке
-//   }
-// });
-
-getContent();

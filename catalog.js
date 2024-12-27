@@ -30,6 +30,8 @@ async function fetchCourses() {
   }
 }
 
+fetchCourses();
+
 function setupFavoriteCourse(courseData) {
   const addMark = document.getElementById(`favoriteMark${courseData.id}`);
   const idCourse = JSON.parse(localStorage.getItem("infoCourse"))?.map(
@@ -100,20 +102,16 @@ function displayCourses() {
   });
 }
 
-let refer = document.referrer.split("/").pop();
-const title = document.getElementById("title");
-const catalogTab = document.getElementById("active");
+// let refer = document.referrer.split("/").pop();
+// const title = document.getElementById("title");
+// const catalogTab = document.getElementById("active");
 
-if (
-  refer.startsWith("courses.html") ||
-  refer.startsWith("syllabus.html") ||
-  refer.startsWith("step.html")
-) {
-  title.style.animation = "none";
-  catalogTab.style.animation = "none";
-  catalogTab.style.color = "#ffffff";
-}
-
-window.onload = function () {
-  fetchCourses();
-};
+// if (
+//   refer.startsWith("courses.html") ||
+//   refer.startsWith("syllabus.html") ||
+//   refer.startsWith("step.html")
+// ) {
+//   title.style.animation = "none";
+//   catalogTab.style.animation = "none";
+//   catalogTab.style.color = "#ffffff";
+// }

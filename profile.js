@@ -11,12 +11,44 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
-if (
-  !sessionStorage.getItem("currentTab") &&
-  !sessionStorage.getItem("currentLink")
-) {
-  localStorage.removeItem("courseData");
+// if (
+//   !sessionStorage.getItem("currentTab") &&
+//   !sessionStorage.getItem("currentLink")
+// ) {
+localStorage.removeItem("courseData");
+// }
+
+let referallId = localStorage.getItem("referallId");
+let data;
+if (!referallId || referallId === userIdData) {
+  data = {
+    userId: userIdData,
+    username: userName,
+  };
+} else {
+  data = {
+    userId: userIdData,
+    username: userName,
+    referrerId: referallId,
+  };
 }
+async function getUserInfo() {
+  const userInfo = await fetchData(
+    "https://cryptuna-anderm.amvera.io/v1/user/info",
+    "POST",
+    data
+  );
+  balanceText.innerText = userInfo.balance;
+  document.getElementById("preloader").style.display = "none";
+
+  if (userInfo.coursesProgress.length != 0) {
+    displayProgress(userInfo);
+  } else {
+    displayButton();
+  }
+}
+
+getUserInfo();
 
 const showPopup = () => {
   popup.style.display = "flex";
@@ -72,40 +104,6 @@ const setUserNameProfile = (name) => {
 
 setUserNameProfile(userName);
 
-
-let referallId = localStorage.getItem("referallId");
-let data;
-if (!referallId || referallId === userIdData) {
-  data = {
-    userId: userIdData,
-    username: userName,
-  };
-} else {
-  data = {
-    userId: userIdData,
-    username: userName,
-    referrerId: referallId,
-  };
-}
-async function getUserInfo() {
-  const userInfo = await fetchData(
-    "https://cryptuna-anderm.amvera.io/v1/user/info",
-    "POST",
-    data
-  );
-console.log(userInfo)
-  balanceText.innerText = userInfo.balance;
-  document.getElementById("preloader").style.display = "none";
-
-  if (userInfo.coursesProgress.length != 0) {
-    displayProgress(userInfo);
-  } else {
-    displayButton();
-  }
-}
-
-getUserInfo();
-
 function displayProgress(userInfo) {
   let listProgress = [];
   course.innerHTML = "";
@@ -143,7 +141,3 @@ function displayButton() {
   const buttonHtml = `<div class="progress-title-enable-courses">Вы не изучаете ни один курс</div>`;
   course.innerHTML = buttonHtml;
 }
-
-// window.onload = function () {
-//   getProgress();
-// };
