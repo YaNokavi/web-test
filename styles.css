@@ -69,7 +69,7 @@ body {
 }
 /*Профиль*/
 .profile-first-block {
-  position: relative;
+  /* position: relative; */
   box-sizing: border-box;
   overflow: hidden;
 
@@ -82,6 +82,7 @@ body {
   width: 95%;
   /* min-width: 370px; */
   height: 144px;
+  min-height: 144px;
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -90,9 +91,9 @@ body {
 
 .profile-logo {
   display: flex;
-  position: fixed;
   width: 100px;
   height: 100px;
+  min-width: 100px;
   margin: 10px;
   background-color: #df3f40;
   border-radius: 15px;
@@ -121,8 +122,9 @@ body {
 }
 
 .profile-nickname {
+  display: flex;
   text-align: left;
-
+  position: absolute;
   width: 100%;
   height: auto;
   margin-top: 28px;
@@ -334,6 +336,7 @@ body {
 
   top: 0;
   margin-top: 10px;
+  margin-bottom: 10px;
   width: 95%;
   height: auto;
 
