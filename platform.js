@@ -5,7 +5,7 @@ tg.setHeaderColor("#1468B1");
 let platform = tg.platform;
 
 if (platform === "ios" || platform === "android") {
-  // tg.requestFullscreen();
+  tg.requestFullscreen();
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
   document.documentElement.style.setProperty("--tabBarHeight", `${70}px`);
   document.documentElement.style.setProperty("--tabBarPadding", `${12}px`);
