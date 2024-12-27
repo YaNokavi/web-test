@@ -455,7 +455,7 @@ body {
 /*Кнопки снизу*/
 .tab-bar {
   display: flex;
-  /* position: fixed; */
+  position: fixed;
   /* height: 70px; */
   height: var(--tabBarHeight);
   flex-direction: row;

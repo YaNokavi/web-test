@@ -236,43 +236,38 @@ if (!refer || refer === "index.html") refer = "favorite.html";
 // const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
-catalogTab.style.animation = "none";
-catalogTab.style.color = "#ffffff";
-favorTab.style.animation = "none";
-favorTab.style.color = "#ffffff";
 // const link = document.getElementById("ref");
-// var swipeLink;
 
-// function setupCatalog() {
-//   swipeLink = "catalog.html";
-// link.href = "catalog.html";
-// title.innerText = "Каталог";
+function setupCatalog() {
+  // link.href = "catalog.html";
+  // title.innerText = "Каталог";
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
+}
 
-// }
+function setupFavorite() {
+  // link.href = "favorite.html";
+  // title.innerText = "Мои курсы";
+  favorTab.style.animation = "none";
+  favorTab.style.color = "#ffffff";
+}
 
-// function setupFavorite() {
-//   swipeLink = "favorite.html";
-// link.href = "favorite.html";
-// title.innerText = "Мои курсы";
-
-// }
-
-// if (refer == "favorite.html") {
-//   console.log(refer);
-//   localStorage.setItem("refer", refer);
-//   setupFavorite();
-// } else if (refer == "catalog.html") {
-//   localStorage.setItem("refer", refer);
-//   setupCatalog();
-// } else if (refer.startsWith("syllabus.html")) {
-//   let referSyl = localStorage.getItem("refer");
-//   // link.style.animation = "none";
-//   if (referSyl == "favorite.html") {
-//     setupFavorite();
-//   } else if (referSyl == "catalog.html") {
-//     setupCatalog();
-//   }
-// }
+if (refer == "favorite.html") {
+  console.log(refer);
+  localStorage.setItem("refer", refer);
+  setupFavorite();
+} else if (refer == "catalog.html") {
+  localStorage.setItem("refer", refer);
+  setupCatalog();
+} else if (refer.startsWith("syllabus.html")) {
+  let referSyl = localStorage.getItem("refer");
+  // link.style.animation = "none";
+  if (referSyl == "favorite.html") {
+    setupFavorite();
+  } else if (referSyl == "catalog.html") {
+    setupCatalog();
+  }
+}
 
 // const currentTab = sessionStorage.getItem("currentTab");
 // const currentLink = sessionStorage.getItem("currentLink");
@@ -297,21 +292,4 @@ favorTab.style.color = "#ffffff";
 //   });
 // }
 
-// let startX;
-// const swipeDistance = 100; // Минимальное расстояние для свайпа
 
-// document.addEventListener("touchstart", function (e) {
-//   // Сохраняем начальную позицию касания
-//   startX = e.touches[0].clientX;
-// });
-
-// document.addEventListener("touchmove", function (e) {
-//   const moveX = e.touches[0].clientX;
-
-//   // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
-//   if (startX <= 15 && moveX - startX > swipeDistance) {
-//     sessionStorage.removeItem("currentTab");
-//     sessionStorage.removeItem("currentLink");
-//     window.location.href = swipeLink; // Переход по ссылке
-//   }
-// });

@@ -16,7 +16,7 @@ if (platform === "ios" || platform === "android") {
 tg.lockOrientation();
 tg.expand();
 // tg.enableClosingConfirmation();
-tg.disableVerticalSwipes()
+tg.disableVerticalSwipes();
 
 document.getElementById("tab").addEventListener("click", function () {
   tg.HapticFeedback.impactOccurred("medium");
@@ -79,7 +79,7 @@ tg.onEvent("backButtonClicked", function () {
 });
 
 let startX;
-const swipeDistance = 100; // Минимальное расстояние для свайпа
+const swipeDistance = 100;
 
 document.addEventListener("touchstart", function (e) {
   startX = e.touches[0].clientX;
@@ -87,11 +87,9 @@ document.addEventListener("touchstart", function (e) {
 
 document.addEventListener("touchmove", function (e) {
   const moveX = e.touches[0].clientX;
-
-  // Проверяем, что свайп начался с левой части экрана и расстояние превышает заданное
   if (startX <= 15 && moveX - startX > swipeDistance) {
     // sessionStorage.removeItem("currentTab");
     // sessionStorage.removeItem("currentLink");
-    window.location.href = link; // Переход по ссылке
+    window.location.href = link;
   }
 });
