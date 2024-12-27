@@ -30,6 +30,7 @@ if (
   currentUrl.endsWith("step.html")
 ) {
   BackButton.show();
+  swipeAllow();
 } else {
   BackButton.hide();
 }
@@ -78,18 +79,20 @@ tg.onEvent("backButtonClicked", function () {
   tg.HapticFeedback.impactOccurred("medium");
 });
 
-let startX;
-const swipeDistance = 100;
+function swipeAllow() {
+  let startX;
+  const swipeDistance = 100;
 
-document.addEventListener("touchstart", function (e) {
-  startX = e.touches[0].clientX;
-});
+  document.addEventListener("touchstart", function (e) {
+    startX = e.touches[0].clientX;
+  });
 
-document.addEventListener("touchmove", function (e) {
-  const moveX = e.touches[0].clientX;
-  if (startX <= 15 && moveX - startX > swipeDistance) {
-    // sessionStorage.removeItem("currentTab");
-    // sessionStorage.removeItem("currentLink");
-    window.location.href = link;
-  }
-});
+  document.addEventListener("touchmove", function (e) {
+    const moveX = e.touches[0].clientX;
+    if (startX <= 15 && moveX - startX > swipeDistance) {
+      // sessionStorage.removeItem("currentTab");
+      // sessionStorage.removeItem("currentLink");
+      window.location.href = link;
+    }
+  });
+}
