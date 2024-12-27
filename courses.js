@@ -75,7 +75,7 @@ function displayModules(courseData) {
       elementModules.append(moduleAditional);
     });
   });
-  document.getElementById("preloader").style.display = "none";
+  // document.getElementById("preloader").style.display = "none";
 }
 
 async function fetchContent() {
