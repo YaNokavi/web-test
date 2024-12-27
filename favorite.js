@@ -13,18 +13,22 @@ localStorage.removeItem("courseData");
 const tg = window.Telegram.WebApp;
 let logoname;
 let username;
+let userIdData
 
-const userIdData = `${tg.initDataUnsafe.user.id}`;
-if (tg.initDataUnsafe.user.username) {
-  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  username = `${tg.initDataUnsafe.user.username}`;
-} else {
-  logoname = "U";
-  username = "User";
+try {
+  userIdData = `${tg.initDataUnsafe.user.id}`;
+  if (tg.initDataUnsafe.user.username) {
+    logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+    username = `${tg.initDataUnsafe.user.username}`;
+  } else {
+    logoname = "U";
+    username = "User";
+  }
+} catch {
+  userIdData = 0;
+  logoname = "R";
+  username = "rete";
 }
-// let userIdData = 7;
-// logoname = "ret";
-// username = "rete";
 let referallId = localStorage.getItem("referallId");
 
 localStorage.setItem("userIdData", userIdData);
