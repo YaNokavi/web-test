@@ -391,6 +391,7 @@ body {
   width: 35px;
   height: 35px;
   /* margin: 10px; */
+  background-size: cover;
   background-color: #df3f40;
   border-radius: 5px;
   text-align: center;

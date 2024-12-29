@@ -57,6 +57,33 @@ async function getUserInfo() {
 
 getUserInfo();
 
+async function getTasks() {
+  await getUserInfo();
+  const tasksInfo = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/task/all?userId=${userIdData}`,
+    "GET"
+  );
+
+  displayTasks(tasksInfo);
+}
+
+getTasks()
+
+const tasksList = document.getElementById("tasks-list");
+function displayTasks(tasksInfo) {
+  tasksInfo.forEach((task, index) => {
+    // console.log(task.iconUrl)
+    const taskItem = document.createElement("div");
+    taskItem.classList.add("task-item");
+    taskItem.innerHTML = `<div class="task-item-logo" style="background-image: url('${task.iconUrl}');"></div>
+            <div class="task-item-name">${task.header}
+              <div class="task-item-description">+ ${task.reward} CUNA</div>
+            </div>
+            <div class="task-item-button" id="buttonTask${index+1}">Выполнить</div>`;
+    tasksList.append(taskItem);
+  });
+}
+
 const showPopup = () => {
   popup.style.display = "flex";
 };
