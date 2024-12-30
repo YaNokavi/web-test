@@ -180,7 +180,7 @@ function displayNotification() {
     notification.classList.add("show"); // Добавляем класс для анимации появления
     setTimeout(() => {
       tg.HapticFeedback.notificationOccurred("success");
-    }, 700);
+    }, 350);
     // Убираем уведомление через пару секунд
     setTimeout(() => {
       notification.classList.remove("show"); // Убираем класс для анимации исчезновения
