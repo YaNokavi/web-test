@@ -1951,7 +1951,8 @@ h1 {
   z-index: 10;
 
   border-radius: 15px;
-  background-color: rgba(20, 104, 177, 0.15);
+  /* background-color: rgba(20, 104, 177, 0.15); */
+  background-color: #DCE8F3;
   opacity: 0;
   transition-property: top, opacity;
   transition-duration: 0.7s;
@@ -1981,8 +1982,8 @@ h1 {
 }
 
 .show {
-  /* top: calc(var(--InsetTop) + 30px); */
-  top: 100px;
+  top: calc(var(--InsetTop) + 30px);
+  /* top: 100px; */
   opacity: 1;
 }
 
