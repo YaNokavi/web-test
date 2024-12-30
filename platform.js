@@ -22,6 +22,10 @@ document.getElementById("tab").addEventListener("click", function () {
   tg.HapticFeedback.impactOccurred("medium");
 });
 
+// try {
+//   const notification = document.getElementById("")
+// }
+
 let currentUrl = window.location.pathname;
 const BackButton = tg.BackButton;
 if (

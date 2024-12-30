@@ -1936,6 +1936,55 @@ h1 {
   transition: opacity 0.5s ease-in-out;
 }
 
+/*Всплювающее уводемление баланса*/
+.notification-block {
+  display: flex;
+  position: absolute;
+  top: -60px;
+  width: fit-content;
+  padding: 0px 10px;
+  height: 30px;
+  flex-direction: row;
+  align-items: center;
+  /* justify-items: center; */
+  justify-content: space-evenly;
+  z-index: 10;
+
+  border-radius: 15px;
+  background-color: rgba(20, 104, 177, 0.15);
+  opacity: 0;
+  transition-property: top, opacity;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(0.46, 0.005, 0.275, 1.035);
+}
+
+.notification-balance {
+  display: flex;
+  /* margin-top: 2px; */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  /* line-height: 19px; */
+  /* align-items: center; */
+  color: #1468b1;
+}
+
+.notification-logo {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+  background-size: cover;
+  background-image: url(icons/logo-token.png);
+  border-radius: 22px;
+}
+
+.show {
+  top: 30px;
+  opacity: 1;
+}
+
 /*Анимации для свг*/
 @keyframes fadeIn {
   from {

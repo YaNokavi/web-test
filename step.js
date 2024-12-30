@@ -378,6 +378,17 @@ if (stepId != 1 || link == "stepId=2") {
   switc.style.animation = "none";
 }
 
+function displayNotification() {
+  const notification = document.getElementById("notification");
+  setTimeout(() => {
+    notification.classList.add("show"); // Добавляем класс для анимации появления
+    tg.HapticFeedback.notificationOccurred("success");
+    // Убираем уведомление через пару секунд
+    setTimeout(() => {
+      notification.classList.remove("show"); // Убираем класс для анимации исчезновения
+    }, 2000); // Уведомление будет видимо в течение 3 секунд
+  }, 1000);
+}
 
 async function sendProgress() {
   const response = await fetchData(
@@ -388,6 +399,7 @@ async function sendProgress() {
   );
 
   console.log(response);
+  displayNotification();
 }
 
 // function getLocalStorageSize() {

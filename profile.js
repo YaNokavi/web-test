@@ -67,7 +67,7 @@ async function getTasks() {
   displayTasks(tasksInfo);
 }
 
-getTasks()
+getTasks();
 
 const tasksList = document.getElementById("tasks-list");
 function displayTasks(tasksInfo) {
@@ -75,11 +75,15 @@ function displayTasks(tasksInfo) {
     // console.log(task.iconUrl)
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
-    taskItem.innerHTML = `<div class="task-item-logo" style="background-image: url('${task.iconUrl}');"></div>
+    taskItem.innerHTML = `<div class="task-item-logo" style="background-image: url('${
+      task.iconUrl
+    }');"></div>
             <div class="task-item-name">${task.header}
               <div class="task-item-description">+ ${task.reward} CUNA</div>
             </div>
-            <div class="task-item-button" id="buttonTask${index+1}">Выполнить</div>`;
+            <div class="task-item-button" id="buttonTask${
+              index + 1
+            }">Выполнить</div>`;
     tasksList.append(taskItem);
   });
 }
@@ -168,3 +172,18 @@ function displayButton() {
   const buttonHtml = `<div class="progress-title-enable-courses">Вы не изучаете ни один курс</div>`;
   course.innerHTML = buttonHtml;
 }
+
+// Функция для показа уведомления
+function displayNotification() {
+  const notification = document.getElementById("notification");
+  setTimeout(() => {
+    notification.classList.add("show"); // Добавляем класс для анимации появления
+    tg.HapticFeedback.notificationOccurred("success");
+    // Убираем уведомление через пару секунд
+    setTimeout(() => {
+      notification.classList.remove("show"); // Убираем класс для анимации исчезновения
+    }, 2000); // Уведомление будет видимо в течение 3 секунд
+  }, 1000);
+}
+displayNotification();
+// Показать уведомление при загрузке страницы (или вызовите эту функцию по событию)
