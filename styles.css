@@ -1981,7 +1981,7 @@ h1 {
 }
 
 .show {
-  top: 30px;
+  top: calc(var(--InsetTop) + 30px);
   opacity: 1;
 }
 
