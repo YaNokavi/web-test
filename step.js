@@ -382,7 +382,9 @@ function displayNotification() {
   const notification = document.getElementById("notification");
   setTimeout(() => {
     notification.classList.add("show"); // Добавляем класс для анимации появления
-    tg.HapticFeedback.notificationOccurred("success");
+    setTimeout(() => {
+      tg.HapticFeedback.notificationOccurred("success");
+    }, 700);
     // Убираем уведомление через пару секунд
     setTimeout(() => {
       notification.classList.remove("show"); // Убираем класс для анимации исчезновения
