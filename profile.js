@@ -39,6 +39,7 @@ if (!referallId || referallId === userIdData) {
     referrerId: referallId,
   };
 }
+
 async function getUserInfo() {
   const userInfo = await fetchData(
     "https://cryptuna-anderm.amvera.io/v1/user/info",
@@ -69,21 +70,53 @@ async function getTasks() {
 
 getTasks();
 
+async function checkTask(taskId) {
+  const taskCheckInfo = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/task/${taskId}/completed?userId=${userIdData}`,
+    "POST"
+  );
+
+  // console.log(taskCheckInfo)
+  if (taskCheckInfo) {
+    displayNotification(taskCheckInfo.reward);
+    balanceText.innerText = taskCheckInfo.newBalance;
+  } else {
+    displayNotification();
+  }
+}
+
+function taskButtonProcessing(task) {
+  const buttonTask = document.getElementById(`task${task.taskId}`);
+  if (buttonTask.textContent === "Проверить") {
+    checkTask(task.taskId);
+  } else if (buttonTask.textContent === "Выполнить") {
+    console.log("Обработка задачи:", task);
+    if (task.taskUrl) {
+      window.location.href = task.taskUrl;
+    }
+    buttonTask.textContent = "Проверить";
+  }
+}
+
 const tasksList = document.getElementById("tasks-list");
 function displayTasks(tasksInfo) {
-  tasksInfo.forEach((task, index) => {
-    // console.log(task.iconUrl)
+  tasksInfo.forEach((task) => {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
-    taskItem.innerHTML = `<div class="task-item-logo" style="background-image: url('${
-      task.iconUrl
-    }');"></div>
-            <div class="task-item-name">${task.header}
+
+    const button = document.createElement("div");
+    button.classList.add("task-item-button");
+    button.id = `task${task.taskId}`;
+    button.textContent = "Выполнить";
+    button.addEventListener("click", () => taskButtonProcessing(task));
+
+    taskItem.innerHTML = `
+          <div class="task-item-logo" style="background-image: url('${task.iconUrl}');"></div>
+          <div class="task-item-name">${task.header}
               <div class="task-item-description">+ ${task.reward} CUNA</div>
-            </div>
-            <div class="task-item-button" id="buttonTask${
-              index + 1
-            }">Выполнить</div>`;
+          </div>`;
+
+    taskItem.append(button);
     tasksList.append(taskItem);
   });
 }
@@ -173,19 +206,38 @@ function displayButton() {
   course.innerHTML = buttonHtml;
 }
 
-// Функция для показа уведомления
-function displayNotification() {
-  const notification = document.getElementById("notification");
-  setTimeout(() => {
-    notification.classList.add("show"); // Добавляем класс для анимации появления
+function displayNotification(reward) {
+  if (reward) {
+    const notification = document.getElementById("notification");
+    const notificationBalance = document.getElementById("notification-balance");
+    notificationBalance.innerText = `+${reward}`;
+    const notificationLogo = document.querySelector(".notification-logo");
+    if (!notificationLogo) {
+      notification.innerHTML += '<div class="notification-logo"></div>';
+    }
+    notification.classList.add("show");
     setTimeout(() => {
       tg.HapticFeedback.notificationOccurred("success");
     }, 350);
-    // Убираем уведомление через пару секунд
+
     setTimeout(() => {
-      notification.classList.remove("show"); // Убираем класс для анимации исчезновения
-    }, 2000); // Уведомление будет видимо в течение 3 секунд
-  }, 1000);
+      notification.classList.remove("show");
+    }, 2000);
+  } else {
+    const notification = document.getElementById("notification");
+    const notificationBalance = document.getElementById("notification-balance");
+    notificationBalance.innerText = `Задание еще не выполнено`;
+    const notificationLogo = document.querySelector(".notification-logo");
+    if (notificationLogo) {
+      notificationLogo.remove();
+    }
+    notification.classList.add("show");
+    setTimeout(() => {
+      tg.HapticFeedback.notificationOccurred("error");
+    }, 350);
+
+    setTimeout(() => {
+      notification.classList.remove("show");
+    }, 2000);
+  }
 }
-displayNotification();
-// Показать уведомление при загрузке страницы (или вызовите эту функцию по событию)

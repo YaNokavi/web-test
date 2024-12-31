@@ -378,30 +378,28 @@ if (stepId != 1 || link == "stepId=2") {
   switc.style.animation = "none";
 }
 
-function displayNotification() {
+function displayNotification(numberBalance) {
   const notification = document.getElementById("notification");
+  const notificationBalance = document.getElementById("notification-balance");
+  notificationBalance.innerText = `+${numberBalance}`
+  notification.classList.add("show");
   setTimeout(() => {
-    notification.classList.add("show"); // Добавляем класс для анимации появления
-    setTimeout(() => {
-      tg.HapticFeedback.notificationOccurred("success");
-    }, 350);
-    // Убираем уведомление через пару секунд
-    setTimeout(() => {
-      notification.classList.remove("show"); // Убираем класс для анимации исчезновения
-    }, 2000); // Уведомление будет видимо в течение 3 секунд
-  }, 1000);
+    tg.HapticFeedback.notificationOccurred("success");
+  }, 350);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 2000);
 }
 
 async function sendProgress() {
   const response = await fetchData(
     "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
     "POST",
-    progress,
-    false
+    progress
   );
 
-  console.log(response);
-  displayNotification();
+  displayNotification(response);
 }
 
 // function getLocalStorageSize() {
