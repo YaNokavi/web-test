@@ -1,6 +1,6 @@
 localStorage.clear();
 
-alert(tg.initDataUnsafe.receiver.is_bot)
+alert(tg.initData)
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
