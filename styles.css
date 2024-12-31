@@ -438,7 +438,8 @@ body {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 80px;
+  width: fit-content;
+  padding: 0px 8px;
   height: 30px;
   /* margin-bottom: 10px; */
   background-color: #1468b1;
@@ -454,6 +455,13 @@ body {
 
   color: #ffffff;
   /* will-change: width, background-color; */
+}
+
+.complete-task {
+  background-color: #DCE8F3;
+  pointer-events: none;
+  cursor: none;
+  padding: 0px 7px;
 }
 
 /*Кнопки снизу*/
