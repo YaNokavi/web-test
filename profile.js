@@ -107,6 +107,7 @@ function taskButtonProcessing(task) {
 
 const tasksList = document.getElementById("tasks-list");
 function displayTasks(tasksInfo) {
+  const imageLoadPromises = [];
   tasksInfo.forEach((task) => {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
@@ -128,11 +129,43 @@ function displayTasks(tasksInfo) {
               <div class="task-item-description">+ ${task.reward} CUNA</div>
           </div>`;
 
-    taskItem.append(buttonBlock)
+    taskItem.append(buttonBlock);
     buttonBlock.append(button);
     tasksList.append(taskItem);
+    const imageUrl = task.iconUrl; // Получаем URL изображения
+
+    const imgLoadPromise = new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = imageUrl;
+
+      img.onload = () => {
+        console.log(`Изображение загружено: ${imageUrl}`);
+        resolve(imageUrl);
+      };
+
+      img.onerror = () => {
+        console.error(`Ошибка загрузки изображения: ${imageUrl}`);
+        reject(imageUrl);
+      };
+    });
+
+    imageLoadPromises.push(imgLoadPromise); // Добавляем промис в массив
   });
-  document.getElementById("preloader").style.display = "none";
+
+  // После завершения всех загрузок
+  Promise.all(imageLoadPromises)
+    .then(() => {
+      console.log("Все изображения загружены успешно!");
+      document.getElementById("preloader").style.display = "none";
+      animateProgress()
+      // Здесь можно выполнить дополнительные действия после загрузки всех изображений
+    })
+    .catch((url) => {
+      console.error(
+        `Ошибка при загрузке одного или нескольких изображений: ${url}`
+      );
+      // Здесь можно обработать ошибку, если необходимо
+    });
 }
 
 const showPopup = () => {
@@ -182,8 +215,8 @@ const setUserNameProfile = (name) => {
 
 setUserNameProfile(userName);
 
+let listProgress = [];
 function displayProgress(userInfo) {
-  let listProgress = [];
   course.innerHTML = "";
 
   userInfo.coursesProgress.forEach((elem) => {
@@ -198,20 +231,25 @@ function displayProgress(userInfo) {
   `;
     listProgress.push(elem.progress);
     course.innerHTML += courseHtml; // Добавление новой информации о курсе
-    //console.log(course)
   });
+  
+}
+
+function animateProgress() {
   let progressBarElements = course.querySelectorAll(
     ".course-info-bar-progress"
   );
-  requestAnimationFrame(() => {
-    progressBarElements.forEach((currentProgressBar, index) => {
-      // Задержка для начала анимации
-      setTimeout(() => {
-        currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
-        currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
-      }, index * 300); // Задержка для последовательной анимации
+  if (document.getElementById("preloader").style.display === "none") {
+    requestAnimationFrame(() => {
+      progressBarElements.forEach((currentProgressBar, index) => {
+        // Задержка для начала анимации
+        setTimeout(() => {
+          currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
+          currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
+        }, index * 300); // Задержка для последовательной анимации
+      });
     });
-  });
+  }
 }
 
 function displayButton() {
