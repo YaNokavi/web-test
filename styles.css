@@ -458,7 +458,7 @@ body {
 }
 
 .complete-task {
-  background-color: #DCE8F3;
+  background-color: #fff;
   pointer-events: none;
   cursor: none;
   padding: 0px 7px;

@@ -381,7 +381,7 @@ if (stepId != 1 || link == "stepId=2") {
 function displayNotification(numberBalance) {
   const notification = document.getElementById("notification");
   const notificationBalance = document.getElementById("notification-balance");
-  notificationBalance.innerText = `+${numberBalance}`
+  notificationBalance.innerText = `+${numberBalance}`;
   notification.classList.add("show");
   setTimeout(() => {
     tg.HapticFeedback.notificationOccurred("success");
@@ -398,8 +398,9 @@ async function sendProgress() {
     "POST",
     progress
   );
-
-  displayNotification(response);
+  if (response) {
+    displayNotification(response);
+  }
 }
 
 // function getLocalStorageSize() {
