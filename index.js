@@ -1,6 +1,7 @@
 localStorage.clear();
 
-alert(tg.initData.user.photo_url)
+let initDataURLSP = new URLSearchParams(tg.initData);
+const url = tg.initDataURLSP.get('photo_url')
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
