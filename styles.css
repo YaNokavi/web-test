@@ -430,22 +430,28 @@ body {
   color: #a6a6a6;
 }
 
+.task-button-block {
+  display: flex;
+  width: 90px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
 .task-item-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: auto;
+  /* margin-left: auto; */
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
   width: fit-content;
   padding: 0px 8px;
   height: 30px;
-  /* margin-bottom: 10px; */
   background-color: #1468b1;
   border-radius: 15px;
   text-align: center;
-  /* margin-right: 6px; */
 
   font: 600 12px/1 Inter, sans-serif;
   font-style: normal;
@@ -454,7 +460,6 @@ body {
   text-decoration: none;
 
   color: #ffffff;
-  /* will-change: width, background-color; */
 }
 
 .complete-task {

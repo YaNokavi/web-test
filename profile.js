@@ -120,14 +120,16 @@ function displayTasks(tasksInfo) {
       button.textContent = "Проверить";
     }
     button.addEventListener("click", () => taskButtonProcessing(task));
-
+    const buttonBlock = document.createElement("div");
+    buttonBlock.classList.add("task-button-block");
     taskItem.innerHTML = `
           <div class="task-item-logo" style="background-image: url('${task.iconUrl}');"></div>
           <div class="task-item-name">${task.header}
               <div class="task-item-description">+ ${task.reward} CUNA</div>
           </div>`;
 
-    taskItem.append(button);
+    taskItem.append(buttonBlock)
+    buttonBlock.append(button);
     tasksList.append(taskItem);
   });
   document.getElementById("preloader").style.display = "none";
