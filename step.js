@@ -35,7 +35,7 @@ let progress = {
 };
 
 function addStepProgress() {
-  document.getElementById("preloader").style.display = "none";
+  // document.getElementById("preloader").style.display = "none";
   if (stepProgres.completed === false) {
     progress.completedStepId = stepProgres.id;
     console.log("Добавляем прогресс: ", progress);
@@ -49,6 +49,45 @@ function addStepProgress() {
     document.getElementById("blockContent").append(stepComplete);
     console.log("Шаг завершен");
   }
+}
+
+function trackImageLoad() {
+  const imageLoadPromises = [];
+
+  // Получаем все элементы <img> на странице
+  const imgElements = document.querySelectorAll("img");
+
+  imgElements.forEach((img) => {
+    const imgLoadPromise = new Promise((resolve, reject) => {
+      if (img.complete) {
+        // Если изображение уже загружено
+        resolve(img.src);
+      } else {
+        img.onload = () => {
+          console.log(`Изображение загружено: ${img.src}`);
+          resolve(img.src);
+        };
+        img.onerror = () => {
+          console.error(`Ошибка загрузки изображения: ${img.src}`);
+          reject(img.src);
+        };
+      }
+    });
+
+    imageLoadPromises.push(imgLoadPromise);
+  });
+
+  // После завершения всех загрузок
+  Promise.all(imageLoadPromises)
+    .then(() => {
+      console.log("Все изображения загружены успешно!");
+      document.getElementById("preloader").style.display = "none";
+    })
+    .catch((url) => {
+      console.error(
+        `Ошибка при загрузке одного или нескольких изображений: ${url}`
+      );
+    });
 }
 
 async function getCourseContent() {
@@ -70,6 +109,7 @@ let testArray;
 function displayContent(content) {
   if (isTest === false) {
     mediaContent.innerHTML = content;
+    trackImageLoad();
     addStepProgress();
   } else {
     const jsonObject = JSON.parse(content);
