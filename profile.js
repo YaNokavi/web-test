@@ -25,26 +25,25 @@ logoNameProfile.innerText = logoName;
 localStorage.removeItem("courseData");
 // }
 
-let referallId = localStorage.getItem("referallId");
-let data;
-if (!referallId || referallId === userIdData) {
-  data = {
-    userId: userIdData,
-    username: userName,
-  };
-} else {
-  data = {
-    userId: userIdData,
-    username: userName,
-    referrerId: referallId,
-  };
-}
+// let referallId = localStorage.getItem("referallId");
+// let data;
+// if (!referallId || referallId === userIdData) {
+//   data = {
+//     userId: userIdData,
+//     username: userName,
+//   };
+// } else {
+//   data = {
+//     userId: userIdData,
+//     username: userName,
+//     referrerId: referallId,
+//   };
+// }
 
 async function getUserInfo() {
   const userInfo = await fetchData(
-    "https://cryptuna-anderm.amvera.io/v1/user/info",
-    "POST",
-    data
+    `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/info?username=${userName}`,
+    "POST"
   );
   balanceText.innerText = userInfo.balance;
 
@@ -157,7 +156,7 @@ function displayTasks(tasksInfo) {
     .then(() => {
       console.log("Все изображения загружены успешно!");
       document.getElementById("preloader").style.display = "none";
-      animateProgress()
+      animateProgress();
       // Здесь можно выполнить дополнительные действия после загрузки всех изображений
     })
     .catch((url) => {
@@ -232,7 +231,6 @@ function displayProgress(userInfo) {
     listProgress.push(elem.progress);
     course.innerHTML += courseHtml; // Добавление новой информации о курсе
   });
-  
 }
 
 function animateProgress() {

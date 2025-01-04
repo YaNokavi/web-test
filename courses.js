@@ -2,21 +2,10 @@ import fetchData from "./fetch.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const paramId = urlParams.get("id");
+const courseId = Number(urlParams.get("id"));
 
 const userId = localStorage.getItem("userIdData");
 const username = localStorage.getItem("username");
-
-let dataAdd = {
-  userId,
-  username,
-  courseId: paramId,
-};
-
-let dataDel = {
-  userId,
-  courseId: paramId,
-};
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
@@ -34,7 +23,7 @@ function renderCourse(course) {
 
 function getCourseInfo() {
   const courses = JSON.parse(info) || [];
-  return courses.find((course) => course.id == paramId) || null;
+  return courses.find((course) => course.id == courseId) || null;
 }
 
 var courseInfo = getCourseInfo();
@@ -42,7 +31,7 @@ if (courseInfo) {
   renderCourse(courseInfo);
 } else {
   const catalogData = JSON.parse(localStorage.getItem("catalogData"));
-  var courseInfo = catalogData[paramId - 1];
+  var courseInfo = catalogData[courseId - 1];
   if (courseInfo) {
     renderCourse(courseInfo);
   }
@@ -80,7 +69,7 @@ function displayModules(courseData) {
 
 async function fetchContent() {
   const courseData = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
+    `https://cryptuna-anderm.amvera.io/v1/course/${courseId}/content?userId=${userId}`
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
@@ -115,7 +104,7 @@ function setupButtons() {
     (course) => course.id
   );
 
-  if (idCourse && idCourse.includes(Number(paramId))) {
+  if (idCourse && idCourse.includes(Number(courseId))) {
     buttonsConfig[0].show = false; // Hide button1
     buttonsConfig[1].show = false;
     buttonsConfig[2].show = true; // Show button2
@@ -159,13 +148,11 @@ button1.addEventListener("click", function () {
 
 async function postDataAdd() {
   const response = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
-    //userId,
+    `https://cryptuna-anderm.amvera.io/v1/user/${userId}/favorite-course?courseId=${courseId}`,
     "POST",
-    dataAdd,
+    null,
     false
   );
-  console.log(response);
 }
 
 button2.addEventListener("click", function () {
@@ -210,7 +197,7 @@ button2.addEventListener("click", function () {
       }, 10);
     }, 150);
     let remData = JSON.parse(localStorage.getItem("infoCourse"));
-    remData = remData.filter((item) => item.id !== Number(paramId));
+    remData = remData.filter((item) => item.id !== Number(courseId));
     localStorage.setItem("infoCourse", JSON.stringify(remData));
 
     postDataRemove();
@@ -219,16 +206,15 @@ button2.addEventListener("click", function () {
 
 async function postDataRemove() {
   const response = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/user/favorite-course`,
+    `https://cryptuna-anderm.amvera.io/v1/user/${userId}/favorite-course?courseId=${courseId}`,
     "DELETE",
-    dataDel,
+    null,
     false
   );
-  console.log(response);
 }
 
 button3.addEventListener("click", function () {
-  window.location.href = `syllabus.html?id=${paramId}`;
+  window.location.href = `syllabus.html?id=${courseId}`;
 });
 
 var refer = document.referrer.split("/").pop();
@@ -291,5 +277,3 @@ if (refer == "favorite.html") {
 //     sessionStorage.removeItem("currentLink");
 //   });
 // }
-
-

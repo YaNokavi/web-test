@@ -13,9 +13,9 @@ localStorage.removeItem("courseData");
 const tg = window.Telegram.WebApp;
 let logoname;
 let username;
-let userIdData
+let userIdData;
 
-try {
+// try {
   userIdData = `${tg.initDataUnsafe.user.id}`;
   if (tg.initDataUnsafe.user.username) {
     logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
@@ -24,42 +24,42 @@ try {
     logoname = "U";
     username = "User";
   }
-} catch {
-  userIdData = 0;
-  logoname = "R";
-  username = "rete";
-}
-let referallId = localStorage.getItem("referallId");
+// } catch {
+//   userIdData = 1;
+//   logoname = "R";
+//   username = "rete";
+// }
 
+const referallId = JSON.parse(localStorage.getItem("referallId"));
 localStorage.setItem("userIdData", userIdData);
 localStorage.setItem("logoname", logoname);
 localStorage.setItem("username", username);
 
-let data;
-if (!referallId || referallId === userIdData) {
-  data = {
-    userId: userIdData,
-    username: username,
-  };
-} else {
-  data = {
-    userId: userIdData,
-    username: username,
-    referrerId: referallId,
-  };
-}
-
 async function sendUserInfo() {
-  const userInfo = await fetchData(
-    "https://cryptuna-anderm.amvera.io/v1/user/info",
-    //userId
-    "POST",
-    data
-  );
+  let userInfo;
+  if (!referallId || referallId === userIdData) {
+    userInfo = await fetchData(
+      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/info?username=${username}`,
+      "POST"
+    );
+  } else {
+    userInfo = await fetchData(
+      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/info?&username=${username}&referrerId=${referallId}`,
+      "POST"
+    );
+  }
+
   getFavoriteCourses();
 }
 
-sendUserInfo();
+let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
+if (flagFirstJoin === true) {
+  sendUserInfo();
+  flagFirstJoin = false;
+  localStorage.setItem("flagFirstJoin", flagFirstJoin)
+} else {
+  getFavoriteCourses();
+}
 
 async function getFavoriteCourses() {
   const courseInfo = await fetchData(

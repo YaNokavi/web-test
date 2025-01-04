@@ -29,16 +29,9 @@ var isTest = stepInfo[stepId - 1].test;
 
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
-let progress = {
-  userId: Number(userId),
-  completedStepId: 0,
-};
-
 function addStepProgress() {
   // document.getElementById("preloader").style.display = "none";
   if (stepProgres.completed === false) {
-    progress.completedStepId = stepProgres.id;
-    console.log("Добавляем прогресс: ", progress);
     sendProgress();
     stepProgres.completed = true;
     localStorage.setItem("courseData", JSON.stringify(courseData));
@@ -434,9 +427,8 @@ function displayNotification(numberBalance) {
 
 async function sendProgress() {
   const response = await fetchData(
-    "https://cryptuna-anderm.amvera.io/v1/submodule-step/user-completed-steps",
-    "POST",
-    progress
+    `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
+    "POST"
   );
   if (response) {
     displayNotification(response);
