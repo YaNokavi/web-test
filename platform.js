@@ -1,5 +1,11 @@
 let tg = window.Telegram.WebApp;
 
+try {
+  tg.initDataUnsafe.user.id;
+} catch {
+  window.location.href = "nontg.html"
+}
+
 tg.setHeaderColor("#1468B1");
 
 let platform = tg.platform;
@@ -21,10 +27,6 @@ tg.disableVerticalSwipes();
 document.getElementById("tab").addEventListener("click", function () {
   tg.HapticFeedback.impactOccurred("medium");
 });
-
-// try {
-//   const notification = document.getElementById("")
-// }
 
 let currentUrl = window.location.pathname;
 const BackButton = tg.BackButton;
