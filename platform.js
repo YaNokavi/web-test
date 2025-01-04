@@ -9,8 +9,9 @@ try {
 tg.setHeaderColor("#1468B1");
 
 let platform = tg.platform;
+let version = Number(tg.version)
 
-if (platform === "ios" || platform === "android") {
+if ((platform === "ios" || platform === "android") && version > 6) {
   tg.requestFullscreen();
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
   document.documentElement.style.setProperty("--tabBarHeight", `${70}px`);
