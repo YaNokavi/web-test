@@ -1,11 +1,16 @@
 localStorage.clear();
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const referallId = urlParams.get("tgWebAppStartParam");
-localStorage.setItem("referallId", referallId);
+try {
+  const userId = tg.initDataUnsafe.user.id;
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const referallId = urlParams.get("tgWebAppStartParam");
+  localStorage.setItem("referallId", referallId);
 
-const flagFirstJoin = true;
-localStorage.setItem("flagFirstJoin", flagFirstJoin);
+  const flagFirstJoin = true;
+  localStorage.setItem("flagFirstJoin", flagFirstJoin);
 
-window.location.href = "favorite.html";
+  window.location.href = "favorite.html";
+} catch {
+  window.location.href = "nontg.html";
+}
