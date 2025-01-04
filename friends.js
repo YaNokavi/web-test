@@ -1,11 +1,10 @@
 import fetchData from "./fetch.js";
 
-const userId = localStorage.getItem("userIdData");
+const userId = tg.initDataUnsafe.user.id;
 
 async function getReferrals() {
-  let referrals = await fetchData(
+  const referrals = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/user/${userId}/referrals`
-    //userId
   );
 
   referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();

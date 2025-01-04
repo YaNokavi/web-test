@@ -11,9 +11,9 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
-const userIdData = localStorage.getItem("userIdData");
-const logoName = localStorage.getItem("logoname");
-const userName = localStorage.getItem("username");
+const userIdData = tg.initDataUnsafe.user.id;
+const logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+const userName = `${tg.initDataUnsafe.user.username}`;
 
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;

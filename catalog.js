@@ -10,6 +10,8 @@ import fetchData from "./fetch.js";
 localStorage.removeItem("courseData");
 // }
 
+const userId = tg.initDataUnsafe.user.id;
+
 let coursesData = [];
 
 async function fetchCourses() {

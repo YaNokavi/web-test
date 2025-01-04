@@ -16,7 +16,7 @@ let username;
 let userIdData;
 
 // try {
-  userIdData = `${tg.initDataUnsafe.user.id}`;
+  userIdData = tg.initDataUnsafe.user.id;
   if (tg.initDataUnsafe.user.username) {
     logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
     username = `${tg.initDataUnsafe.user.username}`;
@@ -31,9 +31,9 @@ let userIdData;
 // }
 
 const referallId = JSON.parse(localStorage.getItem("referallId"));
-localStorage.setItem("userIdData", userIdData);
-localStorage.setItem("logoname", logoname);
-localStorage.setItem("username", username);
+// localStorage.setItem("userIdData", userIdData);
+// localStorage.setItem("logoname", logoname);
+// localStorage.setItem("username", username);
 
 async function sendUserInfo() {
   let userInfo;

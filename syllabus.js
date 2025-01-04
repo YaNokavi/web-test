@@ -3,7 +3,7 @@ import fetchData from "./fetch.js";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-const userId = localStorage.getItem("userIdData");
+const userId = tg.initDataUnsafe.user.id;
 // const title = document.getElementById("title");
 // const arrow = document.getElementById("ref");
 // arrow.href = `courses.html?id=${paramId}`;
