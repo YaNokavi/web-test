@@ -21,9 +21,9 @@ async function fetchData(
 
     return expectResponse ? await response.json() : null;
   } catch (error) {
-    if (error == "TypeError: Load failed") {
-      alert("Сервер не отвечает");
-    }
+    // if (error == "TypeError: Load failed") {
+    //   alert("Сервер не отвечает");
+    // }
     console.error("Ошибка при выполнении запроса:", error);
     throw error; // Пробрасываем ошибку дальше
   }
