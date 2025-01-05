@@ -16,7 +16,7 @@ async function fetchData(
     const response = await fetch(url, options);
     // console.log(response.json())
       if (!response.ok) {
-        alert("Сервер не отвечает")
+        // alert("Сервер не отвечает")
         throw new Error(`Ошибка: ${response.status}`);
       }
 
