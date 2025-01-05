@@ -25,9 +25,9 @@ let userIdData;
     username = "User";
   }
 // } catch {
-//   userIdData = 1;
-//   logoname = "R";
-//   username = "rete";
+  // userIdData = 1;
+  // logoname = "R";
+  // username = "rete";
 // }
 
 const referallId = JSON.parse(localStorage.getItem("referallId"));
