@@ -97,7 +97,7 @@ async function getCourseContent() {
 getCourseContent();
 
 let testArray;
-
+let optionsAnswers;
 function displayContent(content) {
   if (isTest === false) {
     mediaContent.innerHTML = content;
@@ -111,6 +111,7 @@ function displayContent(content) {
       options: jsonObject.options,
       answer: jsonObject.answer,
     };
+    optionsAnswers = jsonObject.options.length
     displayTest();
   }
 }
@@ -272,7 +273,9 @@ function handleCorrectAnswer() {
   updateNextButtonHref();
 }
 
+let incorrectAnswers = 0;
 function handleIncorrectAnswer() {
+  incorrectAnswers++;
   submitButton.style.animation = "fadeOut 0.2s ease";
 
   setTimeout(() => {
@@ -425,6 +428,7 @@ function displayNotification(numberBalance) {
 }
 
 async function sendProgress() {
+  console.log(optionsAnswers, incorrectAnswers)
   const response = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
     "POST"
