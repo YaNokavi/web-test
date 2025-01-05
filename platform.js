@@ -2,6 +2,7 @@ let tg = window.Telegram.WebApp;
 
 try {
   tg.initDataUnsafe.user.id;
+  alert(tg.platform)
 } catch {
   window.location.href = "nontg.html"
 }

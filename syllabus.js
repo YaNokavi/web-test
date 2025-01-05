@@ -17,7 +17,6 @@ async function getContent() {
   );
   displayModules();
   localStorage.setItem("courseData", JSON.stringify(courseData));
-  // modulesWithSteps(contentGet);
 }
 
 getContent();
