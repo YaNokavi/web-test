@@ -1,10 +1,10 @@
 let tg = window.Telegram.WebApp;
 
-// try {
-//   tg.initDataUnsafe.user.id;
-// } catch {
-//   window.location.href = "nontg.html"
-// }
+try {
+  tg.initDataUnsafe.user.id;
+} catch {
+  window.location.href = "nontg.html"
+}
 
 tg.setHeaderColor("#1468B1");
 

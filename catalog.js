@@ -65,11 +65,18 @@ function setupFavoriteCourse(courseData) {
 function displayCourses() {
   document.getElementById("preloader").style.display = "none";
   const coursesDiv = document.getElementById("courses");
-  coursesDiv.innerHTML = "";
+  // coursesDiv.innerHTML = "";
   coursesData.forEach((course, index) => {
     setTimeout(() => {
       const courseElement = document.createElement("a");
-      courseElement.href = `courses.html?id=${course.id}`;
+      if (course.id !== 1) {
+        // console.log(course.id);
+        courseElement.href = `courses.html?id=${course.id}`;
+      } else {
+        courseElement.addEventListener("click", function () {
+          displayNotification(); // Call the function when the element is clicked
+        });
+      }
       courseElement.classList.add("courses-block");
       courseElement.innerHTML = `
           <img src="icons/logo_cuna2.jpg" class="courses-logo" />
@@ -102,6 +109,21 @@ function displayCourses() {
       setupFavoriteCourse(course);
     }, (index + 1) * 100);
   });
+}
+
+function displayNotification() {
+  const notification = document.getElementById("notification");
+  const notificationBalance = document.getElementById("notification-balance");
+  notificationBalance.innerText = "В разработке";
+
+  notification.classList.add("show");
+  setTimeout(() => {
+    tg.HapticFeedback.notificationOccurred("warning");
+  }, 350);
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 2000);
 }
 
 // let refer = document.referrer.split("/").pop();
