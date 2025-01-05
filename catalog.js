@@ -24,9 +24,7 @@ async function fetchCourses() {
   } else {
     coursesData = await fetchData(
       "https://cryptuna-anderm.amvera.io/v1/course/all"
-      //userId
     );
-    console.log(coursesData);
     localStorage.setItem("catalogData", JSON.stringify(coursesData));
     displayCourses();
   }
@@ -70,7 +68,6 @@ function displayCourses() {
     setTimeout(() => {
       const courseElement = document.createElement("a");
       if (course.id !== 1) {
-        // console.log(course.id);
         courseElement.href = `courses.html?id=${course.id}`;
       } else {
         courseElement.addEventListener("click", function () {

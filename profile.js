@@ -112,7 +112,6 @@ function taskButtonProcessing(task) {
     buttonTask.classList.add("load-task");
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
-    console.log("Обработка задачи:", task);
     if (task.taskUrl) {
       window.location.href = task.taskUrl;
     }
@@ -130,7 +129,6 @@ function displayTasks(tasksInfo) {
     const button = document.createElement("div");
     button.classList.add("task-item-button");
     button.id = `task${task.taskId}`;
-    console.log(task)
     if (task.needToCheck === false || task.taskUrl !== null) {
       button.textContent = "Выполнить";
     } else {
@@ -155,7 +153,7 @@ function displayTasks(tasksInfo) {
       img.src = imageUrl;
 
       img.onload = () => {
-        console.log(`Изображение загружено: ${imageUrl}`);
+        // console.log(`Изображение загружено: ${imageUrl}`);
         resolve(imageUrl);
       };
 
@@ -171,7 +169,7 @@ function displayTasks(tasksInfo) {
   // После завершения всех загрузок
   Promise.all(imageLoadPromises)
     .then(() => {
-      console.log("Все изображения загружены успешно!");
+      // console.log("Все изображения загружены успешно!");
       document.getElementById("preloader").style.display = "none";
       animateProgress();
       // Здесь можно выполнить дополнительные действия после загрузки всех изображений

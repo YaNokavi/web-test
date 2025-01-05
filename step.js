@@ -40,7 +40,6 @@ function addStepProgress() {
     stepComplete.classList.add("step-complete");
     stepComplete.innerText = "Шаг пройден!";
     document.getElementById("blockContent").append(stepComplete);
-    console.log("Шаг завершен");
   }
 }
 
@@ -57,7 +56,7 @@ function trackImageLoad() {
         resolve(img.src);
       } else {
         img.onload = () => {
-          console.log(`Изображение загружено: ${img.src}`);
+          // console.log(`Изображение загружено: ${img.src}`);
           resolve(img.src);
         };
         img.onerror = () => {
@@ -73,7 +72,7 @@ function trackImageLoad() {
   // После завершения всех загрузок
   Promise.all(imageLoadPromises)
     .then(() => {
-      console.log("Все изображения загружены успешно!");
+      // console.log("Все изображения загружены успешно!");
       document.getElementById("preloader").style.display = "none";
     })
     .catch((url) => {

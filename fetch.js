@@ -10,7 +10,7 @@ async function fetchData(
       headers: {
         "Content-Type": "application/json",
       },
-      body: body ? JSON.stringify(body) : null, // Преобразуем тело в JSON, если оно есть
+      body: body ? JSON.stringify(body) : null,
     };
 
     const response = await fetch(url, options);
@@ -25,7 +25,7 @@ async function fetchData(
     //   alert("Сервер не отвечает");
     // }
     console.error("Ошибка при выполнении запроса:", error);
-    throw error; // Пробрасываем ошибку дальше
+    throw error;
   }
 }
 

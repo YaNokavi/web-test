@@ -15,7 +15,6 @@ async function getContent() {
   const contentGet = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
   );
-  console.log(contentGet);
   displayModules();
   localStorage.setItem("courseData", JSON.stringify(courseData));
   // modulesWithSteps(contentGet);

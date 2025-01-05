@@ -179,7 +179,6 @@ function displayFriendsNotNull(referrals) {
               </div>
             </div>
    `;
-    console.log(list);
     listFriends.append(list);
   });
   document.getElementById("preloader").style.display = "none";

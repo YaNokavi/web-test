@@ -239,7 +239,6 @@ function setupFavorite() {
 }
 
 if (refer == "favorite.html") {
-  console.log(refer);
   localStorage.setItem("refer", refer);
   setupFavorite();
 } else if (refer == "catalog.html") {
