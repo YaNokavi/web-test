@@ -1,16 +1,18 @@
 let tg = window.Telegram.WebApp;
 
+let platform = tg.platform;
+let version = Number(tg.version)
+
 try {
   tg.initDataUnsafe.user.id;
-  alert(tg.platform)
+  if (platform == "web") {
+    window.location.href = "nontg.html"
+  }
 } catch {
   window.location.href = "nontg.html"
 }
 
 tg.setHeaderColor("#1468B1");
-
-let platform = tg.platform;
-let version = Number(tg.version)
 
 if ((platform === "ios" || platform === "android") && version > 6) {
   tg.requestFullscreen();
