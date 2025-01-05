@@ -15,6 +15,10 @@ const userIdData = tg.initDataUnsafe.user.id;
 const logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
 const userName = `${tg.initDataUnsafe.user.username}`;
 
+// const userIdData = 3;
+// const logoName = "r"
+// const userName = "ter";
+
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
 
@@ -68,16 +72,18 @@ async function getTasks() {
 
 getTasks();
 
-async function checkTask(taskId) {
+async function checkTask(task) {
   const taskCheckInfo = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/task/${taskId}/completed?userId=${userIdData}`,
+    `https://cryptuna-anderm.amvera.io/v1/task/${task.taskId}/completed?userId=${userIdData}`,
     "POST"
   );
 
+  const buttonTask = document.getElementById(`task${task.taskId}`);
   if (taskCheckInfo) {
+    buttonTask.classList.remove("load-task-animation");
+    buttonTask.classList.remove("load-task");
     displayNotification(taskCheckInfo.reward);
     balanceText.innerText = taskCheckInfo.newBalance;
-    const buttonTask = document.getElementById(`task${taskId}`);
     buttonTask.classList.add("complete-task");
     buttonTask.textContent = "";
     buttonTask.innerHTML = `
@@ -88,13 +94,23 @@ async function checkTask(taskId) {
 `;
   } else {
     displayNotification();
+    buttonTask.classList.remove("load-task-animation");
+    buttonTask.classList.remove("load-task");
+    if (task.needToCheck === false || task.taskUrl !== null) {
+      buttonTask.textContent = "Выполнить";
+    } else {
+      buttonTask.textContent = "Проверить";
+    }
   }
 }
 
 function taskButtonProcessing(task) {
   const buttonTask = document.getElementById(`task${task.taskId}`);
   if (buttonTask.textContent === "Проверить") {
-    checkTask(task.taskId);
+    buttonTask.textContent = "";
+    buttonTask.classList.add("load-task-animation");
+    buttonTask.classList.add("load-task");
+    checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
     console.log("Обработка задачи:", task);
     if (task.taskUrl) {
@@ -114,7 +130,8 @@ function displayTasks(tasksInfo) {
     const button = document.createElement("div");
     button.classList.add("task-item-button");
     button.id = `task${task.taskId}`;
-    if (task.needToCheck === false) {
+    console.log(task)
+    if (task.needToCheck === false || task.taskUrl !== null) {
       button.textContent = "Выполнить";
     } else {
       button.textContent = "Проверить";

@@ -461,10 +461,27 @@ body {
   color: #ffffff;
 }
 
-.complete-task {
-  background-color: #fff;
+.load-task {
+  cursor: default;
   pointer-events: none;
-  cursor: none;
+  background-color: #fff; /* Цвет фона во время загрузки */
+  z-index: 9998;
+  width: 20px;
+  height: 20px;
+  padding: 0px;
+}
+
+.load-task-animation {
+  border: 2.5px solid #ffffff; /* Основной цвет круга */
+  border-top-color: #1468b1; /* Цвет верхней части круга */
+  border-radius: 50%; /* Круглая форма */
+  animation: rotation 1s linear infinite; /* Анимация вращения */
+}
+
+.complete-task {
+  background-color: #ffffff;
+  pointer-events: none;
+  cursor:default;
   padding: 0px 7px;
 }
 
@@ -1964,7 +1981,7 @@ h1 {
 
   border-radius: 15px;
   /* background-color: rgba(20, 104, 177, 0.15); */
-  background-color: #DCE8F3;
+  background-color: #dce8f3;
   opacity: 0;
   transition-property: top, opacity;
   transition-duration: 0.7s;
