@@ -6,7 +6,7 @@ let version = Number(tg.version)
 try {
   tg.initDataUnsafe.user.id;
   if (platform == "web") {
-    window.location.href = "nontg.html"
+    window.location.href = "webversion.html"
   }
 } catch {
   window.location.href = "nontg.html"
