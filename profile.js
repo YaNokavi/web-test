@@ -12,8 +12,16 @@ const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
 const userIdData = tg.initDataUnsafe.user.id;
-const logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-const userName = `${tg.initDataUnsafe.user.username}`;
+let logoName;
+let userName;
+
+if (tg.initDataUnsafe.user.username) {
+  logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  userName = `${tg.initDataUnsafe.user.username}`;
+} else {
+  logoName = "U";
+  userName = "User";
+}
 
 // const userIdData = 3;
 // const logoName = "r"
