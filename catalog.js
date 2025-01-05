@@ -111,7 +111,7 @@ function displayCourses() {
 function displayNotification() {
   const notification = document.getElementById("notification");
   const notificationBalance = document.getElementById("notification-balance");
-  notificationBalance.innerText = "В разработке";
+  notificationBalance.innerText = "Курс в разработке";
 
   notification.classList.add("show");
   setTimeout(() => {

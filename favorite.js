@@ -16,24 +16,21 @@ let username;
 let userIdData;
 
 // try {
-  userIdData = tg.initDataUnsafe.user.id;
-  if (tg.initDataUnsafe.user.username) {
-    logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-    username = `${tg.initDataUnsafe.user.username}`;
-  } else {
-    logoname = "U";
-    username = "User";
-  }
+userIdData = tg.initDataUnsafe.user.id;
+if (tg.initDataUnsafe.user.username) {
+  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  username = `${tg.initDataUnsafe.user.username}`;
+} else {
+  logoname = "U";
+  username = "User";
+}
 // } catch {
-  // userIdData = 1;
-  // logoname = "R";
-  // username = "rete";
+//   userIdData = 1;
+//   logoname = "R";
+//   username = "rete";
 // }
 
 const referallId = JSON.parse(localStorage.getItem("referallId"));
-// localStorage.setItem("userIdData", userIdData);
-// localStorage.setItem("logoname", logoname);
-// localStorage.setItem("username", username);
 
 async function sendUserInfo() {
   let userInfo;
@@ -56,7 +53,7 @@ let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 if (flagFirstJoin === true) {
   sendUserInfo();
   flagFirstJoin = false;
-  localStorage.setItem("flagFirstJoin", flagFirstJoin)
+  localStorage.setItem("flagFirstJoin", flagFirstJoin);
 } else {
   getFavoriteCourses();
 }

@@ -1,7 +1,7 @@
 :root {
   --InsetTop: 0px;
-  --tabBarHeight: 0px;
-  --tabBarPadding: 0px;
+  --tabBarHeight: 55px;
+  --tabBarPadding: 9px;
 }
 
 body {
