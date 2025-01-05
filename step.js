@@ -366,7 +366,7 @@ if (stepId == totalSteps) {
   } else {
     setButtonHref(button, null);
     button.addEventListener("click", function () {
-      alert("HUY");
+      window.location.href = `syllabus.html?id=${syllabusId}`;
     });
   }
 } else {
