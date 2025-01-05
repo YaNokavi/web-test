@@ -481,7 +481,7 @@ body {
 .complete-task {
   background-color: #ffffff;
   pointer-events: none;
-  cursor:default;
+  cursor: default;
   padding: 0px 7px;
 }
 
@@ -825,10 +825,9 @@ body {
   margin-right: 10px;
   margin-top: 0px;
   margin-bottom: 15px;
+  margin-left: 10px;
 
   float: left;
-
-  /* background-image: url("./icons/logo_cuna.jpg"); */
   background-size: cover;
   border-radius: 15px;
 }
@@ -851,10 +850,10 @@ body {
 }
 
 .course-block-text {
-  /* display: flex; */
+  display: flex;
   /* position: relative; */
   /* flex-direction: column; */
-  gap: 5px;
+  /* gap: 5px; */
   margin-top: 10px;
   margin-right: 20px;
   margin-bottom: 10px;
@@ -864,8 +863,9 @@ body {
 }
 
 .course-block-name {
+  display: flex;
   width: 100%;
-  height: 15px;
+  height: auto;
   top: 0;
   margin-top: 0px;
   margin-bottom: 5px;
@@ -879,9 +879,10 @@ body {
 }
 
 .course-block-description {
-  /* display: flex; */
+  display: flex;
+  flex-direction: column;
   width: 95%;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   height: auto;
   margin-top: 1px;
   font: 400 13px/1 Inter, sans-serif;

@@ -13,8 +13,8 @@ const courseElement = document.getElementById("info");
 function renderCourse(course) {
   courseElement.innerHTML = `
     <a href="https://t.me/${course.author}" class="course-block-author">Автор: @${course.author}</a>
+    <img src="icons/logo_cuna2.jpg" class="course-logo" />
     <div class="course-block-description">
-      <img src="icons/logo_cuna2.jpg" class="course-logo" />
       <div class="course-block-name">${course.name}</div>
       ${course.description}
     </div>
