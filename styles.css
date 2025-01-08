@@ -2099,7 +2099,7 @@ h1 {
   position: absolute;
   top: 35%; /* Центрируем по вертикали */
   left: 5%; /* Центрируем по горизонтали */
-  /* transform-origin: center center; */
+  transform-origin: center center;
   transform: translate(-50%, -50%);
 
   max-width: calc(90vw);
