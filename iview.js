@@ -145,65 +145,72 @@
   });
 
   // Обработка событий колесика мыши для увеличения/уменьшения
-  // $(document).on("wheel", ".iview-preview", function (e) {
-  //   e.preventDefault();
-  //   if (e.originalEvent.deltaY < 0) {
-  //       scale *= 1.1; // увеличение
-  //   } else {
-  //       scale /= 1.1; // уменьшение
-  //   }
-
-  //   // Ограничиваем масштабирование
-  //   scale = Math.max(scale, 1); // минимальный масштаб
-  //   scale = Math.min(scale, 5); // максимальный масштаб
-
-  //   setPreview(preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"), caption.text());
-  // });
-
   $(document).on("wheel", ".iview-preview", function (e) {
+    // e.preventDefault();
+    // if (e.originalEvent.deltaY < 0) {
+    //     scale *= 1.1; // увеличение
+    // } else {
+    //     scale /= 1.1; // уменьшение
+    // }
+
+    // // Ограничиваем масштабирование
+    // scale = Math.max(scale, 1); // минимальный масштаб
+    // scale = Math.min(scale, 5); // максимальный масштаб
+
+    // setPreview(preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"), caption.text());
+
     e.preventDefault();
     const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
     scale *= scaleFactor;
-    const currentTransform = getCurrentTransformValues();
-    const newScale = Math.max(1, Math.min(currentTransform.scale * scaleFactor, 5));
-
-    const mouseX = e.pageX - preview.offset().left;
-    const mouseY = e.pageY - preview.offset().top;
 
     // Ограничиваем масштабирование
     scale = Math.max(scale, 1); // минимальный масштаб
     scale = Math.min(scale, 5); // максимальный масштаб
     
-    // Пересчитываем позицию
-    const imgWidth = preview.width();
-    const imgHeight = preview.height();
+    const imgWidth = $(".iview-preview").width();
+    const imgHeight = $(".iview-preview").height();
 
-    const newWidth = imgWidth * scaleFactor;
-    const newHeight = imgHeight * scaleFactor;
-
-    const offsetXCenter = (newWidth - imgWidth) / 2;
-    const offsetYCenter = (newHeight - imgHeight) / 2;
-
-    // const offsetXCenter = (mouseX - currentTransform.x) * (scale / currentTransform.scale - 1);
-    // const offsetYCenter = (mouseY - currentTransform.y) * (scale / currentTransform.scale - 1);
-
-    offsetX += offsetXCenter;
-    offsetY += offsetYCenter;
-
-    // Применяем новые размеры и трансформацию
-    preview.css({
-      width: newWidth + "px",
-      height: newHeight + "px",
-      transform: `translate(${offsetX + offsetXCenter}px, ${
-        offsetY + offsetYCenter
-      }px) scale(${scale})`,
+    $(".iview-preview").css({
+        transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
     });
-  //   preview.css({
-  //     transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
-  // });
-
-  // Обновляем текущий масштаб
   });
+
+  // $(document).on("wheel", ".iview-preview", function (e) {
+  //   e.preventDefault();
+  //   const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
+  //   scale *= scaleFactor;
+
+  //   // Ограничиваем масштабирование
+  //   scale = Math.max(scale, 1); // минимальный масштаб
+  //   scale = Math.min(scale, 5); // максимальный масштаб
+    
+  //   // Пересчитываем позицию
+  //   const imgWidth = preview.width();
+  //   const imgHeight = preview.height();
+
+  //   const newWidth = imgWidth * scaleFactor;
+  //   const newHeight = imgHeight * scaleFactor;
+
+  //   const offsetXCenter = (newWidth - imgWidth) / 2;
+  //   const offsetYCenter = (newHeight - imgHeight) / 2;
+
+  //   offsetX += offsetXCenter;
+  //   offsetY += offsetYCenter;
+
+  //   // Применяем новые размеры и трансформацию
+  //   preview.css({
+  //     width: newWidth + "px",
+  //     height: newHeight + "px",
+  //     transform: `translate(${offsetX + offsetXCenter}px, ${
+  //       offsetY + offsetYCenter
+  //     }px) scale(${scale})`,
+  //   });
+  // //   preview.css({
+  // //     transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+  // // });
+
+  // // Обновляем текущий масштаб
+  // });
 
   // Обработка событий мыши для перетаскивания
   // $(document).on("mousedown touchstart", ".iview-preview", function (e) {
