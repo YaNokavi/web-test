@@ -163,7 +163,7 @@
   $(document).on("wheel", ".iview-preview", function (e) {
     e.preventDefault();
     const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
-    // scale *= scaleFactor;
+    scale *= scaleFactor;
     const currentTransform = getCurrentTransformValues();
     const newScale = Math.max(1, Math.min(currentTransform.scale * scaleFactor, 5));
 
@@ -171,39 +171,38 @@
     const mouseY = e.pageY - preview.offset().top;
 
     // Ограничиваем масштабирование
-    // scale = Math.max(scale, 1); // минимальный масштаб
-    // scale = Math.min(scale, 5); // максимальный масштаб
+    scale = Math.max(scale, 1); // минимальный масштаб
+    scale = Math.min(scale, 5); // максимальный масштаб
     
     // Пересчитываем позицию
-    // const imgWidth = preview.width();
-    // const imgHeight = preview.height();
+    const imgWidth = preview.width();
+    const imgHeight = preview.height();
 
-    // const newWidth = imgWidth * scaleFactor;
-    // const newHeight = imgHeight * scaleFactor;
+    const newWidth = imgWidth * scaleFactor;
+    const newHeight = imgHeight * scaleFactor;
 
-    // const offsetXCenter = (newWidth - imgWidth) / 2;
-    // const offsetYCenter = (newHeight - imgHeight) / 2;
+    const offsetXCenter = (newWidth - imgWidth) / 2;
+    const offsetYCenter = (newHeight - imgHeight) / 2;
 
-    const offsetXCenter = (mouseX - currentTransform.x) * (newScale / currentTransform.scale - 1);
-    const offsetYCenter = (mouseY - currentTransform.y) * (newScale / currentTransform.scale - 1);
+    // const offsetXCenter = (mouseX - currentTransform.x) * (scale / currentTransform.scale - 1);
+    // const offsetYCenter = (mouseY - currentTransform.y) * (scale / currentTransform.scale - 1);
 
     offsetX += offsetXCenter;
     offsetY += offsetYCenter;
 
     // Применяем новые размеры и трансформацию
-    // preview.css({
-    //   width: newWidth + "px",
-    //   height: newHeight + "px",
-    //   transform: `translate(${offsetX + offsetXCenter}px, ${
-    //     offsetY + offsetYCenter
-    //   }px) scale(${scale})`,
-    // });
     preview.css({
-      transform: `translate(${offsetX}px, ${offsetY}px) scale(${newScale})`,
-  });
+      width: newWidth + "px",
+      height: newHeight + "px",
+      transform: `translate(${offsetX + offsetXCenter}px, ${
+        offsetY + offsetYCenter
+      }px) scale(${scale})`,
+    });
+  //   preview.css({
+  //     transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+  // });
 
   // Обновляем текущий масштаб
-  scale = newScale;
   });
 
   // Обработка событий мыши для перетаскивания
