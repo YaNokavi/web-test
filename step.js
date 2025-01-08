@@ -11,7 +11,8 @@ const buttonBack = document.getElementById("button-back");
 const buttonForward = document.getElementById("button-forward");
 const button = document.getElementById("button-next-step");
 
-const userId = tg.initDataUnsafe.user.id;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
 
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
@@ -428,7 +429,7 @@ function displayNotification(numberBalance) {
 }
 
 async function sendProgress() {
-  console.log(optionsAnswers, incorrectAnswers)
+  // console.log(optionsAnswers, incorrectAnswers)
   const response = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
     "POST"
