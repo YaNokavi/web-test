@@ -23,10 +23,6 @@ if (tg.initDataUnsafe.user.username) {
   userName = "User";
 }
 
-// const userIdData = 3;
-// const logoName = "r"
-// const userName = "ter";
-
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
 

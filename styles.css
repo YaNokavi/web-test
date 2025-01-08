@@ -2081,7 +2081,8 @@ h1 {
   /* привязка к окну браузера, а не к странице */
   left: 0;
   top: 38px;
-  bottom: 82px;
+  /* bottom: 82px; */
+  bottom: calc(var(--tabBarHeight) + var(--tabBarPadding));
   right: 0; /* отступы от края окна */
 
   z-index: 1000;
