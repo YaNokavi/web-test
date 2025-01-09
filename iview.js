@@ -157,21 +157,46 @@
     // scale = Math.max(scale, 1); // минимальный масштаб
     // scale = Math.min(scale, 5); // максимальный масштаб
 
-    // setPreview(preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"), caption.text());
+    // e.preventDefault();
+    // const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
+    // scale *= scaleFactor;
+
+    // // Ограничиваем масштабирование
+    // scale = Math.max(scale, 1); // минимальный масштаб
+    // scale = Math.min(scale, 5); // максимальный масштаб
+
+    // const imgWidth = $(".iview-preview").width();
+    // const imgHeight = $(".iview-preview").height();
+
+    // $(".iview-preview").css({
+    //   transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+    // });
 
     e.preventDefault();
+
     const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
+    const mouseX = e.originalEvent.clientX; // Позиция курсора по X
+    const mouseY = e.originalEvent.clientY; // Позиция курсора по Y
+
+    // Обновляем масштаб
     scale *= scaleFactor;
 
     // Ограничиваем масштабирование
     scale = Math.max(scale, 1); // минимальный масштаб
     scale = Math.min(scale, 5); // максимальный масштаб
 
-    const imgWidth = $(".iview-preview").width();
-    const imgHeight = $(".iview-preview").height();
+    // Вычисляем текущее смещение
+    const currentTransform = getCurrentTransformValues();
+    offsetX = currentTransform.x;
+    offsetY = currentTransform.y;
 
-    $(".iview-preview").css({
-      transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+    // Пересчитываем новое смещение для центрирования зума на курсоре
+    offsetX += (mouseX - offsetX) * (1 - scaleFactor);
+    offsetY += (mouseY - offsetY) * (1 - scaleFactor);
+
+    // Применяем трансформацию
+    preview.css({
+        transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
     });
   });
 
@@ -326,12 +351,6 @@
         initialDistance = distance; // обновляем начальное расстояние
         scale = Math.max(scale, 1); // минимальный масштаб
         scale = Math.min(scale, 5);
-        // setPreview(
-        //   preview
-        //     .css("background-image")
-        //     .replace(/url\((['"]?)(.*?)\1\)/, "$2"),
-        //   caption.text()
-        // );
         preview.css({
           transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
         });
