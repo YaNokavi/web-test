@@ -324,12 +324,15 @@
       } else {
         scale *= distance / initialDistance;
         initialDistance = distance; // обновляем начальное расстояние
-        setPreview(
-          preview
-            .css("background-image")
-            .replace(/url\((['"]?)(.*?)\1\)/, "$2"),
-          caption.text()
-        );
+        // setPreview(
+        //   preview
+        //     .css("background-image")
+        //     .replace(/url\((['"]?)(.*?)\1\)/, "$2"),
+        //   caption.text()
+        // );
+        preview.css({
+          transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+      });
       }
     }
   });
