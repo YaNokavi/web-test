@@ -166,12 +166,12 @@
     // Ограничиваем масштабирование
     scale = Math.max(scale, 1); // минимальный масштаб
     scale = Math.min(scale, 5); // максимальный масштаб
-    
+
     const imgWidth = $(".iview-preview").width();
     const imgHeight = $(".iview-preview").height();
 
     $(".iview-preview").css({
-        transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+      transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
     });
   });
 
@@ -183,7 +183,7 @@
   //   // Ограничиваем масштабирование
   //   scale = Math.max(scale, 1); // минимальный масштаб
   //   scale = Math.min(scale, 5); // максимальный масштаб
-    
+
   //   // Пересчитываем позицию
   //   const imgWidth = preview.width();
   //   const imgHeight = preview.height();
@@ -250,7 +250,7 @@
     return {
       x: parseFloat(values[4]), // translateX
       y: parseFloat(values[5]), // translateY
-      scale: parseFloat(values[0])
+      scale: parseFloat(values[0]),
     };
   };
 
@@ -324,6 +324,8 @@
       } else {
         scale *= distance / initialDistance;
         initialDistance = distance; // обновляем начальное расстояние
+        scale = Math.max(scale, 1); // минимальный масштаб
+        scale = Math.min(scale, 5);
         // setPreview(
         //   preview
         //     .css("background-image")
@@ -332,7 +334,7 @@
         // );
         preview.css({
           transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
-      });
+        });
       }
     }
   });
