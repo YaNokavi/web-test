@@ -11,8 +11,7 @@ const buttonBack = document.getElementById("button-back");
 const buttonForward = document.getElementById("button-forward");
 const button = document.getElementById("button-next-step");
 
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 1;
+const userId = tg.initDataUnsafe.user.id;
 
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");

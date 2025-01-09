@@ -146,37 +146,9 @@
 
   // Обработка событий колесика мыши для увеличения/уменьшения
   $(document).on("wheel", ".iview-preview", function (e) {
-    // e.preventDefault();
-    // if (e.originalEvent.deltaY < 0) {
-    //     scale *= 1.1; // увеличение
-    // } else {
-    //     scale /= 1.1; // уменьшение
-    // }
-
-    // // Ограничиваем масштабирование
-    // scale = Math.max(scale, 1); // минимальный масштаб
-    // scale = Math.min(scale, 5); // максимальный масштаб
-
-    // e.preventDefault();
-    // const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
-    // scale *= scaleFactor;
-
-    // // Ограничиваем масштабирование
-    // scale = Math.max(scale, 1); // минимальный масштаб
-    // scale = Math.min(scale, 5); // максимальный масштаб
-
-    // const imgWidth = $(".iview-preview").width();
-    // const imgHeight = $(".iview-preview").height();
-
-    // $(".iview-preview").css({
-    //   transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
-    // });
-
     e.preventDefault();
 
     const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
-    const mouseX = e.originalEvent.clientX; // Позиция курсора по X
-    const mouseY = e.originalEvent.clientY; // Позиция курсора по Y
 
     // Обновляем масштаб
     scale *= scaleFactor;
@@ -189,10 +161,6 @@
     const currentTransform = getCurrentTransformValues();
     offsetX = currentTransform.x;
     offsetY = currentTransform.y;
-
-    // Пересчитываем новое смещение для центрирования зума на курсоре
-    offsetX += (mouseX - offsetX) * (1 - scaleFactor);
-    offsetY += (mouseY - offsetY) * (1 - scaleFactor);
 
     // Применяем трансформацию
     preview.css({

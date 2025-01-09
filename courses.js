@@ -4,9 +4,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 1;
-// const username = localStorage.getItem("username");
+const userId = tg.initDataUnsafe.user.id;
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
