@@ -12,6 +12,7 @@ const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
 const userIdData = tg.initDataUnsafe.user.id;
+
 let logoName;
 let userName;
 
@@ -26,27 +27,7 @@ if (tg.initDataUnsafe.user.username) {
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
 
-// if (
-//   !sessionStorage.getItem("currentTab") &&
-//   !sessionStorage.getItem("currentLink")
-// ) {
 localStorage.removeItem("courseData");
-// }
-
-// let referallId = localStorage.getItem("referallId");
-// let data;
-// if (!referallId || referallId === userIdData) {
-//   data = {
-//     userId: userIdData,
-//     username: userName,
-//   };
-// } else {
-//   data = {
-//     userId: userIdData,
-//     username: userName,
-//     referrerId: referallId,
-//   };
-// }
 
 async function getUserInfo() {
   const userInfo = await fetchData(
@@ -100,7 +81,7 @@ async function checkTask(task) {
     displayNotification();
     buttonTask.classList.remove("load-task-animation");
     buttonTask.classList.remove("load-task");
-    if (task.needToCheck === false || task.taskUrl !== null) {
+    if (task.taskUrl !== null) {
       buttonTask.textContent = "Выполнить";
     } else {
       buttonTask.textContent = "Проверить";
@@ -133,7 +114,7 @@ function displayTasks(tasksInfo) {
     const button = document.createElement("div");
     button.classList.add("task-item-button");
     button.id = `task${task.taskId}`;
-    if (task.needToCheck === false || task.taskUrl !== null) {
+    if (task.taskUrl !== null) {
       button.textContent = "Выполнить";
     } else {
       button.textContent = "Проверить";

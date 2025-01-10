@@ -218,21 +218,15 @@ button3.addEventListener("click", function () {
 
 var refer = document.referrer.split("/").pop();
 if (!refer || refer === "index.html") refer = "favorite.html";
-// const title = document.getElementById("title");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
-// const link = document.getElementById("ref");
 
 function setupCatalog() {
-  // link.href = "catalog.html";
-  // title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
 
 function setupFavorite() {
-  // link.href = "favorite.html";
-  // title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 }
@@ -245,33 +239,9 @@ if (refer == "favorite.html") {
   setupCatalog();
 } else if (refer.startsWith("syllabus.html")) {
   let referSyl = localStorage.getItem("refer");
-  // link.style.animation = "none";
   if (referSyl == "favorite.html") {
     setupFavorite();
   } else if (referSyl == "catalog.html") {
     setupCatalog();
   }
 }
-
-// const currentTab = sessionStorage.getItem("currentTab");
-// const currentLink = sessionStorage.getItem("currentLink");
-// if (currentTab == null && currentLink == null) {
-//   sessionStorage.setItem("currentTab", refer);
-//   sessionStorage.setItem("currentLink", window.location.href);
-// }
-
-// link.addEventListener("click", function () {
-//   sessionStorage.removeItem("currentTab");
-//   sessionStorage.removeItem("currentLink");
-// });
-// if (refer == "catalog.html") {
-//   catalogTab.addEventListener("click", function () {
-//     sessionStorage.removeItem("currentTab");
-//     sessionStorage.removeItem("currentLink");
-//   });
-// } else if (refer == "index.html" || refer == "favorite.html") {
-//   favorTab.addEventListener("click", function () {
-//     sessionStorage.removeItem("currentTab");
-//     sessionStorage.removeItem("currentLink");
-//   });
-// }

@@ -32,7 +32,11 @@ steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 function addStepProgress() {
   // document.getElementById("preloader").style.display = "none";
   if (stepProgres.completed === false) {
-    sendProgress();
+    if (isTest) {
+      sendProgressTest();
+    } else {
+      sendProgress();
+    }
     stepProgres.completed = true;
     localStorage.setItem("courseData", JSON.stringify(courseData));
   } else {
@@ -111,7 +115,7 @@ function displayContent(content) {
       options: jsonObject.options,
       answer: jsonObject.answer,
     };
-    optionsAnswers = jsonObject.options.length
+    optionsAnswers = jsonObject.options.length;
     displayTest();
   }
 }
@@ -428,39 +432,26 @@ function displayNotification(numberBalance) {
 }
 
 async function sendProgress() {
-  // console.log(optionsAnswers, incorrectAnswers)
   const response = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
-    "POST"
+    "POST",
+    false
+  );
+}
+
+const sendTest = {
+  userId: userId,
+  incorrectAnswersNumber: incorrectAnswers,
+  answersNumber: optionsAnswers,
+};
+async function sendProgressTest() {
+  // console.log(optionsAnswers, incorrectAnswers)
+  const response = await fetchData(
+    `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-test`,
+    "POST",
+    sendTest
   );
   if (response) {
     displayNotification(response);
   }
 }
-
-// function getLocalStorageSize() {
-//   let total = 0;
-//   for (let key in localStorage) {
-//     if (localStorage.hasOwnProperty(key)) {
-//       total += (localStorage[key].length + key.length) * 2; // Учитываем размер в UTF-16
-//     }
-//   }
-//   return (total / 1024).toFixed(2); // Возвращаем размер в КБ
-// }
-
-// console.log(
-//   "Используемая память localStorage: " + getLocalStorageSize() + " KB"
-// );
-
-// function getItemSize(key) {
-//   const value = localStorage.getItem(key);
-//   if (value) {
-//     // Учитываем размер ключа и значения в байтах (UTF-16)
-//     const size = (key.length + value.length) * 2;
-//     return (size / 1024).toFixed(2); // Возвращаем размер в КБ
-//   }
-//   return 0; // Если элемент не найден
-// }
-
-// const key = "coursesData"; // Замените на ваш ключ
-// console.log(`Размер элемента '${key}': ${getItemSize(key)} KB`);
