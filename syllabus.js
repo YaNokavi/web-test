@@ -4,9 +4,6 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 const userId = tg.initDataUnsafe.user.id;
-// const title = document.getElementById("title");
-// const arrow = document.getElementById("ref");
-// arrow.href = `courses.html?id=${paramId}`;
 
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;
@@ -76,9 +73,6 @@ const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 
-// sessionStorage.setItem("currentTab", refer);
-// sessionStorage.setItem("currentLink", window.location.href);
-
 // function setupTab(tab) {
 //   tab.style.animation = "none";
 //   tab.style.color = "#ffffff";
@@ -89,13 +83,11 @@ const catalogTab = document.getElementById("catalog");
 // }
 
 function setupCatalog() {
-  // title.innerText = "Каталог";
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
 
 function setupFavorite() {
-  // title.innerText = "Мои курсы";
   favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 }

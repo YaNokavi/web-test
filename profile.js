@@ -1,5 +1,7 @@
 import fetchData from "./fetch.js";
 
+localStorage.removeItem("courseData");
+
 const popup = document.querySelector(".popup");
 const popupBtn = document.getElementById("pop");
 const popupBtnSvg = document.getElementById("popu");
@@ -26,8 +28,6 @@ if (tg.initDataUnsafe.user.username) {
 
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
-
-localStorage.removeItem("courseData");
 
 async function getUserInfo() {
   const userInfo = await fetchData(
@@ -204,7 +204,7 @@ const setUserNameProfile = (name) => {
   } else if (name.length < 19) {
     fontSize = "24px";
   } else {
-    name = name.slice(0, -2) + "..."; // Обрезаем, чтобы уместить
+    name = name.slice(0, -2) + "...";
     fontSize = "23px";
   }
 

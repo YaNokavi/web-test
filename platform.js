@@ -1,15 +1,15 @@
 let tg = window.Telegram.WebApp;
 
 let platform = tg.platform;
-let version = Number(tg.version)
+let version = Number(tg.version);
 
 try {
   tg.initDataUnsafe.user.id;
   if (platform == "web") {
-    window.location.href = "webversion.html"
+    window.location.href = "webversion.html";
   }
 } catch {
-  window.location.href = "nontg.html"
+  window.location.href = "nontg.html";
 }
 
 tg.setHeaderColor("#1468B1");

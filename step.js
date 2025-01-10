@@ -30,7 +30,6 @@ var isTest = stepInfo[stepId - 1].test;
 steps.innerHTML = `${stepId} из ${stepInfo.length}`;
 
 function addStepProgress() {
-  // document.getElementById("preloader").style.display = "none";
   if (stepProgres.completed === false) {
     if (isTest) {
       sendProgressTest();
@@ -392,9 +391,6 @@ var link = document.referrer.split("/").pop();
 link = link.split("&").pop();
 const switc = document.getElementById("switc");
 
-// sessionStorage.setItem("currentTab", refer);
-// sessionStorage.setItem("currentLink", window.location.href);
-
 function setupTab(tab) {
   tab.style.animation = "none";
   tab.style.color = "#ffffff";
@@ -405,10 +401,8 @@ function setupTab(tab) {
 }
 
 if (refer == "favorite.html") {
-  // title.innerText = "Мои курсы";
   setupTab(favorTab);
 } else if (refer == "catalog.html") {
-  // title.innerText = "Каталог";
   setupTab(catalogTab);
 }
 
@@ -432,20 +426,19 @@ function displayNotification(numberBalance) {
 }
 
 async function sendProgress() {
-  const response = await fetchData(
+  await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
     "POST",
     false
   );
 }
 
-const sendTest = {
-  userId: userId,
-  incorrectAnswersNumber: incorrectAnswers,
-  answersNumber: optionsAnswers,
-};
 async function sendProgressTest() {
-  // console.log(optionsAnswers, incorrectAnswers)
+  const sendTest = {
+    userId: userId,
+    incorrectAnswersNumber: incorrectAnswers,
+    answersNumber: optionsAnswers,
+  };
   const response = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-test`,
     "POST",

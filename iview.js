@@ -63,45 +63,6 @@
   var offsetX = 0,
     offsetY = 0;
 
-  // Обновление функции setPreview для корректного отображения
-  // Установка предварительного просмотра
-  // function setPreview(url, text) {
-  //   if (url) {
-  //       // Создаем временный элемент изображения для получения его размеров
-  //       var img = new Image();
-  //       img.src = url;
-
-  //       img.onload = function() {
-  //           // Устанавливаем размеры на основе загруженного изображения
-  //           var aspectRatio = img.width / img.height;
-  //           var newWidth = Math.min(window.innerWidth * 0.9, img.width);
-  //           var newHeight = newWidth / aspectRatio;
-
-  //           // Устанавливаем размеры элемента
-  //           preview.css({
-  //               "background-image": "url(" + url + ")",
-  //               transform: "scale(" + scale + ")",
-  //               "background-position": offsetX + "px " + offsetY + "px",
-  //               width: newWidth + "px",
-  //               height: newHeight + "px"
-  //           });
-  //           caption.text(text);
-  //       };
-
-  //       img.onerror = function() {
-  //           logError("Can't load image: " + url);
-  //           // В случае ошибки можно установить пустое изображение или другое действие
-  //       };
-  //   } else {
-  //       preview.css({
-  //           "background-image": "",
-  //           width: "0px",
-  //           height: "0px"
-  //       });
-  //       caption.text("");
-  //   }
-  // }
-
   function setPreview(url, text) {
     if (url) {
       var img = new Image();
@@ -164,76 +125,9 @@
 
     // Применяем трансформацию
     preview.css({
-        transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+      transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
     });
   });
-
-  // $(document).on("wheel", ".iview-preview", function (e) {
-  //   e.preventDefault();
-  //   const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
-  //   scale *= scaleFactor;
-
-  //   // Ограничиваем масштабирование
-  //   scale = Math.max(scale, 1); // минимальный масштаб
-  //   scale = Math.min(scale, 5); // максимальный масштаб
-
-  //   // Пересчитываем позицию
-  //   const imgWidth = preview.width();
-  //   const imgHeight = preview.height();
-
-  //   const newWidth = imgWidth * scaleFactor;
-  //   const newHeight = imgHeight * scaleFactor;
-
-  //   const offsetXCenter = (newWidth - imgWidth) / 2;
-  //   const offsetYCenter = (newHeight - imgHeight) / 2;
-
-  //   offsetX += offsetXCenter;
-  //   offsetY += offsetYCenter;
-
-  //   // Применяем новые размеры и трансформацию
-  //   preview.css({
-  //     width: newWidth + "px",
-  //     height: newHeight + "px",
-  //     transform: `translate(${offsetX + offsetXCenter}px, ${
-  //       offsetY + offsetYCenter
-  //     }px) scale(${scale})`,
-  //   });
-  // //   preview.css({
-  // //     transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
-  // // });
-
-  // // Обновляем текущий масштаб
-  // });
-
-  // Обработка событий мыши для перетаскивания
-  // $(document).on("mousedown touchstart", ".iview-preview", function (e) {
-  //   isDragging = true;
-  //   startX = (e.pageX || e.originalEvent.touches[0].pageX);
-  //   startY = (e.pageY || e.originalEvent.touches[0].pageY);
-  //   $(this).css("cursor", "grabbing");
-  // });
-
-  // $(document).on("mousemove touchmove", function (e) {
-  //   if (isDragging) {
-  //       // Вычисляем новое смещение
-  //       const newX = (e.pageX || e.originalEvent.touches[0].pageX);
-  //       const newY = (e.pageY || e.originalEvent.touches[0].pageY);
-
-  //       // Обновляем offsetX и offsetY
-  //       offsetX += newX - startX;
-  //       offsetY += newY - startY;
-
-  //       // Обновляем начальные координаты для следующего перемещения
-  //       startX = newX;
-  //       startY = newY;
-
-  //       // Устанавливаем новое положение фона
-  //       setPreview(
-  //           preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"),
-  //           caption.text()
-  //       );
-  //   }
-  // });
 
   const getCurrentTransformValues = () => {
     const matrix = preview.css("transform");
@@ -241,7 +135,7 @@
 
     const values = matrix.match(/matrix.*\((.+)\)/)[1].split(", ");
     return {
-      x: parseFloat(values[4]), // translateX
+      x: parseFloat(values[4]),
       y: parseFloat(values[5]), // translateY
       scale: parseFloat(values[0]),
     };
@@ -257,24 +151,6 @@
     offsetY = currentTransform.y;
     $(this).css("cursor", "grabbing");
   });
-
-  // $(document).on("mousemove touchmove", function (e) {
-  //   if (isDragging) {
-  //       const newX = (e.pageX || e.originalEvent.touches[0].pageX);
-  //       const newY = (e.pageY || e.originalEvent.touches[0].pageY);
-
-  //       offsetX += newX - startX;
-  //       offsetY += newY - startY;
-
-  //       startX = newX;
-  //       startY = newY;
-
-  //       setPreview(
-  //           preview.css("background-image").replace(/url\((['"]?)(.*?)\1\)/, "$2"),
-  //           caption.text()
-  //       );
-  //   }
-  // });
 
   $(document).on("mousemove touchmove", function (e) {
     if (isDragging) {

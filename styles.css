@@ -2075,34 +2075,25 @@ h1 {
 }
 
 .iview-overlay {
-  /* box-sizing: border-box; */
-  /* подложка, закрывающая страницу при просмотре*/
   position: fixed;
-  /* привязка к окну браузера, а не к странице */
+
   left: 0;
-  /* top: 0; */
+
   right: 0;
-  /* bottom: 0; */
+
   top: 38px;
-  /* bottom: 82px; */
+
   bottom: calc(var(--tabBarHeight) + var(--tabBarPadding));
 
   z-index: 1000;
-  /* показывать над страницей */
-  /* overflow: auto; */
+
   background: rgba(0, 0, 0, 0.6);
-  /* полупрозрачная теневая заливка */
 
   display: none;
-} /* прячем подложку и все что расположено на ней */
+}
 
 .iview-preview {
-  /* элемент, в котором будем показывать картинку как фоновое изображение */
-  /* position: absolute; */
-  /* top: 35%; Центрируем по вертикали */
-  /* left: 5%; Центрируем по горизонтали */
   transform-origin: center center;
-  /* transform: translate(-50%, -50%); */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2110,22 +2101,12 @@ h1 {
 
   max-width: calc(90vw);
   max-height: calc(90vh);
-  /* привязываемся к подложке */
-  /* top: 35%;
-  bottom: 50px;
-  left: 50px;
-  right: 50px; */
-
-  /* отступы от края окна (поля) */
   background-size: contain;
-  /* пропорционально масштабируем фоновую картинку до размера элемента */
+
   background-position: center center;
-  /* помещаем ее в центр элемента по горизонтали и вертикали  */
 
   background-repeat: no-repeat;
-} /* показываем одну картинку, а не заливаем весь фон повторяющейся картинкой */
-
-/* самой фоновой картинки еще нет, будем вставлять прямо при просмотре*/
+}
 
 .iview-preview:active {
   cursor: grabbing;
@@ -2154,8 +2135,7 @@ h1 {
   font-family: Helvetica, Arial, sans-serif;
   color: #eee;
 }
-/* шрифт и цвет надписи */
-/* крестик для закрытия картинки */
+
 .iview-closer {
   position: absolute;
   /*привязываемся к подложке */
@@ -2176,7 +2156,7 @@ h1 {
   /* белый полупрозрачный */
   cursor: pointer;
 }
-/* курсор как у ссылки */
+
 .iview-closer:hover {
   color: rgba(255, 255, 255, 1);
-} /* при наведении мыши делаем крестик ярче, белый непрозарчный */
+}

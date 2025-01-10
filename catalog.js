@@ -1,14 +1,6 @@
 import fetchData from "./fetch.js";
 
-// const currentTab = sessionStorage.getItem("currentTab");
-// const currentLink = sessionStorage.getItem("currentLink");
-// const userId = localStorage.getItem("userIdData");
-
-// if (currentTab === "catalog.html" && currentLink != null) {
-//   window.location.href = currentLink;
-// } else if (currentTab == null && currentLink == null) {
 localStorage.removeItem("courseData");
-// }
 
 const userId = tg.initDataUnsafe.user.id;
 
@@ -17,10 +9,9 @@ let coursesData = [];
 async function fetchCourses() {
   const cachedCourses = localStorage.getItem("catalogData");
   if (cachedCourses) {
-    // Если данные есть, парсим их и сохраняем в переменной
     coursesData = JSON.parse(cachedCourses);
 
-    displayCourses(); // Отображаем курсы
+    displayCourses();
   } else {
     coursesData = await fetchData(
       "https://cryptuna-anderm.amvera.io/v1/course/all"
@@ -63,7 +54,6 @@ function setupFavoriteCourse(courseData) {
 function displayCourses() {
   document.getElementById("preloader").style.display = "none";
   const coursesDiv = document.getElementById("courses");
-  // coursesDiv.innerHTML = "";
   coursesData.forEach((course, index) => {
     setTimeout(() => {
       const courseElement = document.createElement("a");
@@ -71,7 +61,7 @@ function displayCourses() {
         courseElement.href = `courses.html?id=${course.id}`;
       } else {
         courseElement.addEventListener("click", function () {
-          displayNotification(); // Call the function when the element is clicked
+          displayNotification();
         });
       }
       courseElement.classList.add("courses-block");
@@ -123,16 +113,16 @@ function displayNotification() {
   }, 2000);
 }
 
-// let refer = document.referrer.split("/").pop();
-// const title = document.getElementById("title");
-// const catalogTab = document.getElementById("active");
+let refer = document.referrer.split("/").pop();
+const title = document.getElementById("title");
+const catalogTab = document.getElementById("active");
 
-// if (
-//   refer.startsWith("courses.html") ||
-//   refer.startsWith("syllabus.html") ||
-//   refer.startsWith("step.html")
-// ) {
-//   title.style.animation = "none";
-//   catalogTab.style.animation = "none";
-//   catalogTab.style.color = "#ffffff";
-// }
+if (
+  refer.startsWith("courses.html") ||
+  refer.startsWith("syllabus.html") ||
+  refer.startsWith("step.html")
+) {
+  title.style.animation = "none";
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
+}

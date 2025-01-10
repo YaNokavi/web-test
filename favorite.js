@@ -1,11 +1,3 @@
-// const currentTab = sessionStorage.getItem("currentTab");
-// const currentLink = sessionStorage.getItem("currentLink");
-
-// if ((currentTab === "favorite.html" || currentTab === "index.html") && currentLink != null) {
-//   window.location.href = currentLink;
-// } else if (currentTab == null && currentLink == null) {
-// }
-
 import fetchData from "./fetch.js";
 
 localStorage.removeItem("courseData");
@@ -25,9 +17,9 @@ if (tg.initDataUnsafe.user.username) {
   username = "User";
 }
 // } catch {
-//   userIdData = 1;
-//   logoname = "R";
-//   username = "rete";
+// userIdData = 1;
+// logoname = "R";
+// username = "rete";
 // }
 
 const referallId = JSON.parse(localStorage.getItem("referallId"));
