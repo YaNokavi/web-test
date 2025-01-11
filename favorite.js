@@ -1,9 +1,6 @@
 import fetchData from "./fetch.js";
 
 let tabBar = document.querySelectorAll(".tab-item");
-tabBar.forEach((item) => {
-  item.style.pointerEvents = "none";
-});
 
 localStorage.removeItem("courseData");
 
@@ -23,7 +20,11 @@ username = "User";
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 if (flagFirstJoin === true) {
+  tabBar.forEach((item) => {
+    item.style.pointerEvents = "none";
+  });
   sendUserInfo();
+  disableTab();
   flagFirstJoin = false;
   localStorage.setItem("flagFirstJoin", flagFirstJoin);
 } else {
@@ -54,8 +55,6 @@ async function disableTab() {
     item.style.pointerEvents = "auto";
   });
 }
-
-disableTab();
 
 async function getFavoriteCourses() {
   const courseInfo = await fetchData(
