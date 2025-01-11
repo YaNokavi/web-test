@@ -1101,7 +1101,6 @@ body {
   margin-left: 20px;
   margin-right: 10px;
   height: auto;
-  margin-bottom: 10px;
   font: 400 16px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 22px;
@@ -1117,6 +1116,7 @@ body {
   height: auto;
   align-self: center;
   letter-spacing: 0.3px;
+  margin-bottom: 5px;
 }
 
 .syllabus-text-course-main {

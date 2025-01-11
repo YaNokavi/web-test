@@ -41,7 +41,7 @@ function displayLearning(courseData) {
   courseData.learningOutcomeList.forEach((elem) => {
     const pointElement = document.createElement("div");
     pointElement.style.display = "flex";
-    pointElement.style.marginBottom = "15px";
+    pointElement.style.marginBottom = "10px";
     pointElement.innerHTML = `•&nbsp;`;
     const pointElementText = document.createElement("div");
     pointElementText.style.display = "flex";
