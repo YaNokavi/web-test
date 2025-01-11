@@ -1,5 +1,10 @@
 import fetchData from "./fetch.js";
 
+let tabBar = document.querySelectorAll(".tab-item");
+tabBar.forEach((item) => {
+  item.style.pointerEvents = "none";
+});
+
 localStorage.removeItem("courseData");
 
 const tg = window.Telegram.WebApp;
@@ -7,25 +12,27 @@ let logoname;
 let username;
 let userIdData;
 
-// try {
 userIdData = tg.initDataUnsafe.user.id;
 if (tg.initDataUnsafe.user.username) {
   logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
   username = `${tg.initDataUnsafe.user.username}`;
 } else {
-  logoname = "U";
-  username = "User";
+logoname = "U";
+username = "User";
 }
-// } catch {
-// userIdData = 1;
-// logoname = "R";
-// username = "rete";
-// }
 
-const referallId = JSON.parse(localStorage.getItem("referallId"));
+let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
+if (flagFirstJoin === true) {
+  sendUserInfo();
+  flagFirstJoin = false;
+  localStorage.setItem("flagFirstJoin", flagFirstJoin);
+} else {
+  getFavoriteCourses();
+}
 
 async function sendUserInfo() {
   let userInfo;
+  const referallId = JSON.parse(localStorage.getItem("referallId"));
   if (!referallId || referallId === userIdData) {
     userInfo = await fetchData(
       `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/info?username=${username}`,
@@ -41,14 +48,14 @@ async function sendUserInfo() {
   getFavoriteCourses();
 }
 
-let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
-if (flagFirstJoin === true) {
-  sendUserInfo();
-  flagFirstJoin = false;
-  localStorage.setItem("flagFirstJoin", flagFirstJoin);
-} else {
-  getFavoriteCourses();
+async function disableTab() {
+  await sendUserInfo();
+  tabBar.forEach((item) => {
+    item.style.pointerEvents = "auto";
+  });
 }
+
+disableTab();
 
 async function getFavoriteCourses() {
   const courseInfo = await fetchData(
