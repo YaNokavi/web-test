@@ -12,6 +12,7 @@ try {
   window.location.href = "nontg.html";
 }
 
+
 tg.setHeaderColor("#1468B1");
 
 if ((platform == "ios" || platform == "android") && version > 6) {
