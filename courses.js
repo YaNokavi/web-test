@@ -5,7 +5,6 @@ const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
 const userId = tg.initDataUnsafe.user.id;
-
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 
@@ -41,8 +40,13 @@ function displayLearning(courseData) {
   elementLearning.innerHTML = "";
   courseData.learningOutcomeList.forEach((elem) => {
     const pointElement = document.createElement("div");
+    pointElement.style.display = "flex";
     pointElement.style.marginBottom = "15px";
-    pointElement.innerHTML = `•&nbsp; ${elem.content}`;
+    pointElement.innerHTML = `•&nbsp;`;
+    const pointElementText = document.createElement("div");
+    pointElementText.style.display = "flex";
+    pointElementText.innerHTML = `${elem.content}`;
+    pointElement.append(pointElementText);
     elementLearning.append(pointElement);
   });
 }
@@ -52,18 +56,61 @@ function displayModules(courseData) {
   elementModules.innerHTML = "";
   courseData.courseModuleList.forEach((elem) => {
     const moduleMain = document.createElement("div");
-    moduleMain.classList.add("syllabus-text-course-main");
+    moduleMain.className = "syllabus-text-course-main toggle";
     moduleMain.innerHTML = `${elem.number}. ${elem.name}`;
+
+    const svgIcon = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    svgIcon.setAttribute("width", "17");
+    svgIcon.setAttribute("height", "11");
+    svgIcon.setAttribute("viewBox", "0 0 17 11");
+    svgIcon.setAttribute("fill", "none");
+
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("fill-rule", "evenodd");
+    path.setAttribute("clip-rule", "evenodd");
+    path.setAttribute(
+      "d",
+      "M9.35907 1.30377L16.1946 8.37502L14.486 10.1425L8.50477 3.95502L2.52352 10.1425L0.814941 8.37502L7.65048 1.30377C7.87708 1.06943 8.18437 0.937784 8.50477 0.937784C8.82518 0.937784 9.13247 1.06943 9.35907 1.30377Z"
+    );
+    path.setAttribute("fill", "#A6A6A6");
+
+    svgIcon.appendChild(path);
+    svgIcon.classList.add("toggle-icon");
+
+    moduleMain.appendChild(svgIcon);
+
     const moduleId = elem.number;
     elementModules.append(moduleMain);
+
     elem.submoduleList.forEach((elem) => {
       const moduleAditional = document.createElement("div");
       moduleAditional.classList.add("syllabus-text-course-additional");
       moduleAditional.innerHTML = `${moduleId}.${elem.number} ${elem.name}`;
       elementModules.append(moduleAditional);
     });
+
+    moduleMain.addEventListener("click", () => {
+      let nextElement = moduleMain.nextElementSibling;
+
+      while (
+        nextElement &&
+        nextElement.classList.contains("syllabus-text-course-additional")
+      ) {
+        const computedStyle = window.getComputedStyle(nextElement);
+        if (computedStyle.display === "none") {
+          nextElement.style.display = "flex";
+        } else {
+          nextElement.style.display = "none";
+        }
+        nextElement = nextElement.nextElementSibling;
+      }
+
+      svgIcon.classList.toggle("rotated");
+    });
   });
-  // document.getElementById("preloader").style.display = "none";
 }
 
 async function fetchContent() {

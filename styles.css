@@ -872,8 +872,8 @@ body {
   font: 700 17px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 15px;
-  letter-spacing: -0.43px;
+  line-height: 18px;
+  letter-spacing: .3px;
 
   color: #000000;
 }
@@ -882,12 +882,13 @@ body {
   display: flex;
   flex-direction: column;
   width: 95%;
-  /* margin-left: 10px; */
+  margin-right: 10px;
   height: auto;
   margin-top: 1px;
-  font: 400 13px/1 Inter, sans-serif;
+  font: 400 14px/1 Inter, sans-serif;
   font-style: normal;
-  line-height: 15px;
+  line-height: 18px;
+  letter-spacing: .3px;
   text-align: left;
 
   overflow: hidden;
@@ -1098,11 +1099,13 @@ body {
   width: auto;
   margin-top: 5px;
   margin-left: 20px;
+  margin-right: 10px;
   height: auto;
   margin-bottom: 10px;
   font: 400 16px/1 Inter, sans-serif;
   font-style: normal;
-  line-height: 15px;
+  line-height: 22px;
+  letter-spacing: 0.3px;
   text-align: left;
   color: #000000;
 }
@@ -1113,38 +1116,53 @@ body {
   width: 100%;
   height: auto;
   align-self: center;
+  letter-spacing: 0.3px;
 }
 
 .syllabus-text-course-main {
   display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
   width: auto;
   height: auto;
   margin-top: 10px;
   margin-left: 20px;
-  margin-bottom: 10px;
-  font: 400 20px/1 Inter, sans-serif;
+  margin-bottom: 5px;
+  font: 400 18px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 25px;
-  letter-spacing: -0.43px;
   color: #000000;
+  cursor: pointer;
 }
 
 .syllabus-text-course-additional {
   display: flex;
   width: auto;
   height: auto;
-  margin-top: 10px;
-  margin-left: 40px;
-  margin-bottom: 10px;
-  font: 400 18px/1 Inter, sans-serif;
+  margin-top: 5px;
+  margin-left: 30px;
+  margin-bottom: 5px;
+  font: 400 16px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 25px;
-  letter-spacing: -0.43px;
+  line-height: 22px;
   color: #000000;
 }
 
+.toggle {
+  display: flex; /* Используем flexbox для выравнивания */
+  align-items: center; /* Центрируем по вертикали */
+}
+.toggle-icon {
+  display: inline-block;
+  transform-origin: center;
+  margin-left: 8px; /* Отступ между текстом и иконкой */
+  transition: transform 0.3s ease; /* Плавный переход для поворота */
+}
+.rotated {
+  transform: rotate(180deg); /* Поворачиваем иконку на 90 градусов */
+}
 /*Программа курса*/
 .syllabus-block {
   position: relative;
@@ -1171,7 +1189,7 @@ body {
   margin-top: 15px;
   margin-left: 15px;
   margin-bottom: 10px;
-  font: 600 24px/1 Inter, sans-serif;
+  font: 500 24px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 15px;

@@ -5,6 +5,7 @@ const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 const userId = tg.initDataUnsafe.user.id;
 
+
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;
 
