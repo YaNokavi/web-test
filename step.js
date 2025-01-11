@@ -306,27 +306,34 @@ const totalSubmodules = Object.keys(submoduleLength).length;
 const totalModules = Object.keys(modulesData).length;
 
 function updateNextButtonHref() {
-  if (stepId == totalSteps && submoduleId != totalSubmodules) {
-    nextButton.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
-      submoduleId + 1
-    }&stepId=1`;
-  } else if (submoduleId == totalSubmodules && moduleId != totalModules) {
-    nextButton.href = `step.html?syllabusId=${syllabusId}&moduleId=${
-      moduleId + 1
-    }&submoduleId=1&stepId=1`;
-  } else if (
-    moduleId == totalModules &&
-    submoduleId == totalSubmodules &&
-    stepId == totalSteps
-  ) {
-    nextButton.removeAttribute("href");
-    nextButton.addEventListener("click", function () {
-      alert("HUY");
-    });
+  if (stepId == totalSteps) {
+    if (submoduleId < totalSubmodules) {
+      setButtonHref(
+        nextButton,
+        `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
+          submoduleId + 1
+        }&stepId=1`
+      );
+    } else if (moduleId < totalModules) {
+      setButtonHref(
+        nextButton,
+        `step.html?syllabusId=${syllabusId}&moduleId=${
+          moduleId + 1
+        }&submoduleId=1&stepId=1`
+      );
+    } else {
+      setButtonHref(nextButton, null);
+      nextButton.addEventListener("click", function () {
+        window.location.href = `syllabus.html?id=${syllabusId}`;
+      });
+    }
   } else {
-    nextButton.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
-      stepId + 1
-    }`;
+    setButtonHref(
+      nextButton,
+      `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
+        stepId + 1
+      }`
+    );
   }
 }
 
@@ -353,7 +360,7 @@ setButtonHref(
       }`
 );
 
-// Обработка кнопки "Следующий шаг"
+// Обработка кнопки "дальше"
 if (stepId == totalSteps) {
   if (submoduleId < totalSubmodules) {
     setButtonHref(
@@ -363,6 +370,7 @@ if (stepId == totalSteps) {
       }&stepId=1`
     );
   } else if (moduleId < totalModules) {
+    console.log("123")
     setButtonHref(
       button,
       `step.html?syllabusId=${syllabusId}&moduleId=${
@@ -394,10 +402,6 @@ const switc = document.getElementById("switc");
 function setupTab(tab) {
   tab.style.animation = "none";
   tab.style.color = "#ffffff";
-  // tab.addEventListener("click", function () {
-  //   sessionStorage.removeItem("currentTab");
-  //   sessionStorage.removeItem("currentLink");
-  // });
 }
 
 if (refer == "favorite.html") {
