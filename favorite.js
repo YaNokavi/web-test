@@ -8,7 +8,7 @@ const tg = window.Telegram.WebApp;
 let username;
 let userIdData;
 
-userIdData = tg.initDataUnsafe.user.id;
+userIdData = tg.initDataUnsafe.user.id;;
 if (tg.initDataUnsafe.user.username) {
   username = `${tg.initDataUnsafe.user.username}`;
 } else {
@@ -42,12 +42,11 @@ async function sendUserInfo() {
       "POST"
     );
   }
-
+  disableTab()
   getFavoriteCourses();
 }
 
 async function disableTab() {
-  await sendUserInfo();
   tabBar.forEach((item) => {
     item.style.pointerEvents = "auto";
   });
