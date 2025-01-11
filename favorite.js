@@ -5,17 +5,14 @@ let tabBar = document.querySelectorAll(".tab-item");
 localStorage.removeItem("courseData");
 
 const tg = window.Telegram.WebApp;
-let logoname;
 let username;
 let userIdData;
 
 userIdData = tg.initDataUnsafe.user.id;
 if (tg.initDataUnsafe.user.username) {
-  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
   username = `${tg.initDataUnsafe.user.username}`;
 } else {
-logoname = "U";
-username = "User";
+  username = "User";
 }
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
@@ -54,6 +51,8 @@ async function disableTab() {
   tabBar.forEach((item) => {
     item.style.pointerEvents = "auto";
   });
+  const tab = document.getElementById("active");
+  tab.style.pointerEvents = "none";
 }
 
 async function getFavoriteCourses() {
