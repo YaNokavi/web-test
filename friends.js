@@ -19,7 +19,7 @@ function displayFriendsNull() {
   main.innerHTML = `
   <div class="friends-block-null">
         <img
-          src="gif/octopus(miidle).gif"
+          src="gif/octopus(miidle)_compressed.gif"
           style="height: 140px; width: 140px;"
         />
         <div class="friends-block-null-text">
