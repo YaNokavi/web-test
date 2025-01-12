@@ -1988,7 +1988,7 @@ h1 {
 .notification-block {
   display: flex;
   position: absolute;
-  top: -60px;
+  top: calc(var(--InsetTop) * (-0.1));
   width: fit-content;
   padding: 0px 10px;
   height: 30px;
@@ -2030,7 +2030,7 @@ h1 {
 }
 
 .show {
-  top: calc(var(--InsetTop) + 5px);
+  top: calc(var(--InsetTop) + 45px);
   /* top: 100px; */
   opacity: 1;
 }

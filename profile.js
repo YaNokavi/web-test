@@ -14,7 +14,6 @@ const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
 const userIdData = tg.initDataUnsafe.user.id;
-
 let logoName;
 let userName;
 
