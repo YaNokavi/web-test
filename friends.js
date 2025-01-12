@@ -189,7 +189,7 @@ function buttons() {
   const buttonInvite = document.getElementById("invite");
 
   buttonInvite.addEventListener("click", function () {
-    let a = `https://t.me/cunaedu_bot?startapp=${userId}`,
+    let a = `https://t.me/CunaEduBot?startapp=${userId}`,
       s = encodeURI(a),
       o = encodeURI("Узнавай новое вместе со мной (@cryptuna)");
     window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
