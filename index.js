@@ -14,6 +14,7 @@ const tg = window.Telegram.WebApp;
 if (!referallId || referallId === tg.initDataUnsafe.user.id) {
   alert("Вы зашли");
 } else {
+  alert("Пост");
   sendUserBot();
 }
 
