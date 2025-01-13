@@ -12,16 +12,20 @@ const tg = window.Telegram.WebApp;
 if (!referallId || referallId === userIdData) {
   alert("Вы зашли");
 } else {
+  sendUserBot();
+}
+
+async function sendUserBot() {
   data = {
     chat: {
       id: tg.initDataUnsafe.user.id,
     },
-    text: `https://t.me/CunaEduBot?startapp=${referallId}`,
+    text: `https://t.me/CunaEduBot?startapp=${tg.initDataUnsafe.user.id}`,
     from: {
-      id: referallId,
+      id: tg.initDataUnsafe.user.id,
     },
   };
-  await fetchData(
+  const response = await fetchData(
     `https://cunaedubot-test-anderm.amvera.io/webhook`,
     "POST",
     data,
