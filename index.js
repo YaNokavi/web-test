@@ -7,7 +7,7 @@ const urlParams = new URLSearchParams(queryString);
 const referallId = urlParams.get("tgWebAppStartParam");
 localStorage.setItem("referallId", referallId);
 const tg = window.Telegram.WebApp;
-alert(JSON.parse(tg.initDataUnsafe))
+alert(JSON.parse(tg.initData))
 
 // if (!referallId || referallId === userIdData) {
 
