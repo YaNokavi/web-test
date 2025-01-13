@@ -11,6 +11,7 @@ const buttonBack = document.getElementById("button-back");
 const buttonForward = document.getElementById("button-forward");
 const button = document.getElementById("button-next-step");
 
+const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
 
 const title = document.getElementById("title");
@@ -27,7 +28,69 @@ let stepProgres = stepInfo[stepId - 1];
 var urlContent = stepInfo[stepId - 1].contentUrl;
 var isTest = stepInfo[stepId - 1].test;
 
-steps.innerHTML = `${stepId} из ${stepInfo.length}`;
+steps.innerHTML = `<div class="button-navigation" id="button-navigation">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.875 14H24.875"
+                stroke="#1468b1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.875 7H24.875"
+                stroke="#1468b1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M3.875 21H24.875"
+                stroke="#1468b1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>`;
+steps.innerHTML += `${stepId} из ${stepInfo.length}`;
+
+const navigationBlock = document.getElementById("navigation");
+const navigationList = document.getElementById("navigation-list");
+const navigationButton = document.getElementById("button-navigation");
+navigationButton.addEventListener("click", function () {
+  if (navigationBlock.classList.contains("disable")) {
+    navigationBlock.classList.remove("disable");
+    
+  } else {
+    navigationBlock.classList.add("disable");
+  }
+});
+
+console.log(stepInfo);
+function createNavigationMenu() {
+  stepInfo.forEach((step) => {
+    const listStepItem = document.createElement("li");
+    if (step.completed == true) {
+      listStepItem.classList.add("complete");
+    }
+    if (step.test === true) {
+      listStepItem.innerText = "?"
+    }
+    if (step.number == stepId) {
+      listStepItem.classList.add("active")
+    }
+    navigationList.append(listStepItem)
+  });
+}
+
+createNavigationMenu()
 
 function addStepProgress() {
   if (stepProgres.completed === false) {
@@ -370,7 +433,7 @@ if (stepId == totalSteps) {
       }&stepId=1`
     );
   } else if (moduleId < totalModules) {
-    console.log("123")
+    console.log("123");
     setButtonHref(
       button,
       `step.html?syllabusId=${syllabusId}&moduleId=${

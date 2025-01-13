@@ -3,8 +3,9 @@ import fetchData from "./fetch.js";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
-const userId = tg.initDataUnsafe.user.id;
 
+const tg = window.Telegram.WebApp;
+const userId = tg.initDataUnsafe.user.id;
 
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;

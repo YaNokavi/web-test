@@ -4,6 +4,7 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
+const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");

@@ -2,6 +2,7 @@ import fetchData from "./fetch.js";
 
 localStorage.removeItem("courseData");
 
+const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
 
 let coursesData = [];
