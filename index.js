@@ -11,7 +11,7 @@ const tg = window.Telegram.WebApp;
 
 // ?tgWebAppStartParam=535799793
 
-if (!referallId) {
+if (!referallId) { 
   alert("Вы зашли");
 } else {
   alert("Пост");
