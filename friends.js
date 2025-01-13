@@ -196,7 +196,7 @@ function buttons() {
   });
 
   document.getElementById("copy").addEventListener("click", function () {
-    let link = `https://t.me/cunaedu_bot/CunaEdu?startapp=${userId}`;
+    let link = `https://t.me/CunaEduBot/CunaEdu?startapp=${userId}`;
     navigator.clipboard.writeText(link);
 
     var svg1 = document.getElementById("svg1");
