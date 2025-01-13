@@ -20,16 +20,18 @@ if (!referallId || referallId === tg.initDataUnsafe.user.id) {
 
 async function sendUserBot() {
   data = {
-    chat: {
-      id: tg.initDataUnsafe.user.id,
-      first_name: tg.initDataUnsafe.user.first_name,
-      username: tg.initDataUnsafe.user.username,
-    },
-    text: `https://t.me/CunaEduBot?startapp=${tg.initDataUnsafe.user.id}`,
-    from: {
-      id: tg.initDataUnsafe.user.id,
-      first_name: tg.initDataUnsafe.user.first_name,
-      username: tg.initDataUnsafe.user.username,
+    message: {
+      chat: {
+        id: tg.initDataUnsafe.user.id,
+        first_name: tg.initDataUnsafe.user.first_name,
+        username: tg.initDataUnsafe.user.username,
+      },
+      text: `https://t.me/CunaEduBot?startapp=${tg.initDataUnsafe.user.id}`,
+      from: {
+        id: tg.initDataUnsafe.user.id,
+        first_name: tg.initDataUnsafe.user.first_name,
+        username: tg.initDataUnsafe.user.username,
+      },
     },
   };
   const response = await fetchData(
@@ -37,7 +39,7 @@ async function sendUserBot() {
     "POST",
     data
   );
-  alert(response)
+  alert(response);
 }
 
 const flagFirstJoin = true;
