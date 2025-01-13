@@ -24,4 +24,4 @@ alert(JSON.parse(tg.initData))
 const flagFirstJoin = true;
 localStorage.setItem("flagFirstJoin", flagFirstJoin);
 
-window.location.href = "favorite.html";
+// window.location.href = "favorite.html";
