@@ -20,17 +20,31 @@ if (!referallId || referallId === tg.initDataUnsafe.user.id) {
 
 async function sendUserBot() {
   data = {
+    // message: {
+    //   chat: {
+    //     id: tg.initDataUnsafe.user.id,
+    //     first_name: tg.initDataUnsafe.user.first_name,
+    //     username: tg.initDataUnsafe.user.username,
+    //   },
+    //   text: `https://t.me/CunaEduBot?startapp=${tg.initDataUnsafe.user.id}`,
+    //   from: {
+    //     id: tg.initDataUnsafe.user.id,
+    //     first_name: tg.initDataUnsafe.user.first_name,
+    //     username: tg.initDataUnsafe.user.username,
+    //   },
+    // },
+
     message: {
       chat: {
-        id: tg.initDataUnsafe.user.id,
-        first_name: tg.initDataUnsafe.user.first_name,
-        username: tg.initDataUnsafe.user.username,
+        id: 535799793,
+        first_name: "Test",
+        username: "test_user",
       },
-      text: `https://t.me/CunaEduBot?startapp=${tg.initDataUnsafe.user.id}`,
+      text: "https://t.me/CunaEduBot?startapp=535799793",
       from: {
-        id: tg.initDataUnsafe.user.id,
-        first_name: tg.initDataUnsafe.user.first_name,
-        username: tg.initDataUnsafe.user.username,
+        id: 123456789,
+        first_name: "Test",
+        username: "test_user",
       },
     },
   };
