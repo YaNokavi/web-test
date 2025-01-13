@@ -1,4 +1,4 @@
-import fetchData from "./fetch";
+import fetchData from "./fetch.js";
 
 localStorage.clear();
 
