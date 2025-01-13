@@ -19,7 +19,7 @@ if (!referallId) {
 }
 
 async function sendUserBot() {
-  data = {
+  const data = {
     // message: {
     //   chat: {
     //     id: tg.initDataUnsafe.user.id,
