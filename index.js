@@ -9,7 +9,9 @@ localStorage.setItem("referallId", referallId);
 const tg = window.Telegram.WebApp;
 // alert(tg.initDataUnsafe.user);
 
-if (!referallId || referallId === userIdData) {
+// ?tgWebAppStartParam=535799793
+
+if (!referallId || referallId === tg.initDataUnsafe.user.id) {
   alert("Вы зашли");
 } else {
   sendUserBot();
