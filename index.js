@@ -32,9 +32,9 @@ async function sendUserBot() {
   const response = await fetchData(
     `https://cunaedubot-test-anderm.amvera.io/webhook`,
     "POST",
-    data,
-    false
+    data
   );
+  alert(response)
 }
 
 const flagFirstJoin = true;
