@@ -1,5 +1,6 @@
 :root {
   --InsetTop: 0px;
+  --InsetTopNavigation: 0px;
   --tabBarHeight: 55px;
   --tabBarPadding: 9px;
 }
@@ -1297,8 +1298,8 @@ body {
   width: 60px;
   height: auto;
   /* top: calc(1.2% + var(--InsetTop)); */
-  top: calc(50% + var(--InsetTop) + 38px); /* Перемещаем элемент к центру по вертикали */
-  transform: translateY(calc(-50% - 2 * var(--InsetTop) - 38px));
+  top: calc(50% + var(--InsetTopNavigation)); /* Перемещаем элемент к центру по вертикали */
+  transform: translateY(calc(-50% - var(--InsetTop)));
   left: 0;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);

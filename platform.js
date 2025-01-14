@@ -20,6 +20,7 @@ if ((platform == "ios" || platform == "android") && version > 6) {
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
   document.documentElement.style.setProperty("--tabBarHeight", `${70}px`);
   document.documentElement.style.setProperty("--tabBarPadding", `${12}px`);
+  document.documentElement.style.setProperty("--InsetTopNavigation", `${90}px`);
 } else {
   document.documentElement.style.setProperty("--tabBarHeight", `${55}px`);
   document.documentElement.style.setProperty("--tabBarPadding", `${9}px`);
