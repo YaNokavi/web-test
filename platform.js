@@ -1,7 +1,7 @@
-let tg = window.Telegram.WebApp;
+const tg = window.Telegram.WebApp;
 
-let platform = tg.platform;
-let version = Number(tg.version);
+const platform = tg.platform;
+const version = Number(tg.version);
 
 // try {
 //   tg.initDataUnsafe.user.id;
@@ -13,9 +13,29 @@ let version = Number(tg.version);
 // }
 
 tg.onEvent('themeChanged', function() {
-  const newThemeParams = tg.ThemeParams;
-  alert(`Новая тема: Цвет фона - ${newThemeParams.bg_color}`);
+  // const newThemeParams = tg.ThemeParams;
+  // alert(`Новая тема: Цвет фона - ${newThemeParams.bg_color}`);
+  const theme = tg.ThemeParams.color_scheme; // Получаем текущую цветовую схему
+
+    if (theme === 'light') {
+      alert(`Светлая`);
+        // document.body.classList.add('light-theme');
+        // document.body.classList.remove('dark-theme');
+    } else {
+      alert(`темная`);
+        // document.body.classList.add('dark-theme');
+        // document.body.classList.remove('light-theme');
+    }
 });
+
+const initialTheme = tg.ThemeParams.color_scheme;
+if (initialTheme === 'light') {
+  alert(`Светлая`);
+    // document.body.classList.add('light-theme');
+} else {
+  alert(`темная`);
+    // document.body.classList.add('dark-theme');
+}
 
 
 tg.setHeaderColor("#1468B1");
