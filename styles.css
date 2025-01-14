@@ -1278,6 +1278,9 @@ body {
   /* text-decoration: underline; */
   text-underline-offset: 5px;
   text-decoration-color: rgba(0, 0, 0, 0.2);
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 .syllabus-step-pogress {
@@ -1354,13 +1357,19 @@ body {
   margin-bottom: 5px;
 }
 
-.navigation-list li.complete {
+.navigation-list li.complete{
   background-color: #1468b1;
   color: #ffffff
 }
 
 .navigation-list li.active {
-  border: 2px solid rgba(211, 211, 211, 0.7);
+  outline: 2.9px solid rgba(211, 211, 211, 0.7);
+  /* outline-offset: -0.1px; */
+}
+
+.navigation-list li.complete.active{
+  outline: 3px solid #1468b1;
+  outline-offset: -0.1px;
 }
 
 
@@ -1406,6 +1415,9 @@ body {
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px;
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 .button-navigation {
@@ -1424,6 +1436,9 @@ body {
 
   background: rgba(20, 104, 177, 0.15);
   border-radius: 15px;
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 .button-back {
@@ -1439,6 +1454,9 @@ body {
 
   background: rgba(20, 104, 177, 0.15);
   border-radius: 15px;
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 .steps-number {
@@ -1472,6 +1490,9 @@ body {
 
   background: rgba(20, 104, 177, 0.15);
   border-radius: 15px;
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 .step-block-content {
