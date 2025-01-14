@@ -1298,7 +1298,7 @@ body {
   height: auto;
   /* top: calc(1.2% + var(--InsetTop)); */
   top: calc(50% + var(--InsetTop)); /* Перемещаем элемент к центру по вертикали */
-  transform: translateY(calc(-50% + var(--InsetTop)));
+  transform: translateY(calc(-50% - var(--InsetTop)));
   left: 0;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
