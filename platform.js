@@ -12,6 +12,11 @@ let version = Number(tg.version);
 //   window.location.href = "nontg.html";
 // }
 
+tg.onEvent('themeChanged', function() {
+  const newThemeParams = tg.ThemeParams;
+  alert(`Новая тема: Цвет фона - ${newThemeParams.bg_color}`);
+});
+
 
 tg.setHeaderColor("#1468B1");
 
