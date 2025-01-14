@@ -1297,7 +1297,7 @@ body {
   width: 60px;
   /* height: 95%; */
   height: auto;
-  top: 1.2%;
+  top: calc(1.2% + var(--InsetTop));
   left: 0;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
