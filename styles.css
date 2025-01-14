@@ -1289,6 +1289,8 @@ body {
 
 /*Шаг курса*/
 .navigation-block {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   display: flex;
   position: absolute;
   align-self: center;
@@ -1297,6 +1299,8 @@ body {
   justify-self: center;
   width: 60px;
   height: auto;
+  max-height: 94%;
+  overflow-y: auto;
   /* top: calc(1.2% + var(--InsetTop)); */
   top: calc(50% + var(--InsetTopNavigation)); /* Перемещаем элемент к центру по вертикали */
   transform: translateY(calc(-50% - var(--InsetTop)));
@@ -1306,6 +1310,7 @@ body {
   z-index: 10;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  
 
   transition: left .5s ease;
 }
@@ -1317,9 +1322,14 @@ body {
 .navigation-block.disable  {
   left: -70px;
 }
-.navigation-list {
+.navigation-list{
+
   list-style-type: none; 
   padding: 0; 
+  padding-inline: 0px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  height: auto;
   margin-top: 10px;
   margin-bottom: 10px;
   font: 500 22px/1 Inter, sans-serif;
@@ -1331,8 +1341,11 @@ body {
 }
 
 .navigation-list li {
+  box-sizing: border-box;
   width: 30px; 
   height: 30px; 
+  min-width: 30px; 
+  min-height: 30px; 
   background-color: rgba(211, 211, 211, 0.7);
   border-radius: 5px;
   display: flex;
@@ -1705,6 +1718,10 @@ h1 {
   display: none;
 }
 
+.navigation-block::-webkit-scrollbar {
+  display: none;
+}
+
 /*Вкладка отсутствия друзей*/
 .friends-block-null {
   animation: ani 0.4s forwards;
@@ -1929,9 +1946,6 @@ h1 {
 
   background: rgba(20, 104, 177, 0.1);
   border-radius: 15px;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
 .friends-list-user {
@@ -2283,4 +2297,16 @@ h1 {
 
 .iview-closer:hover {
   color: rgba(255, 255, 255, 1);
+}
+
+::-webkit-scrollbar {
+  display: none; /* Скрыть полосу прокрутки */
+}
+
+body {
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+  -ms-overflow-style: none; /* IE и Edge */
 }

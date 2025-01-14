@@ -65,9 +65,25 @@ const navigationBlock = document.getElementById("navigation");
 const navigationList = document.getElementById("navigation-list");
 const navigationButton = document.getElementById("button-navigation");
 navigationButton.addEventListener("click", function () {
-  navigationBlock.classList.toggle('move-right');
-  navigationBlock.classList.toggle('disable');
+  navigationBlock.classList.toggle("move-right");
+  navigationBlock.classList.toggle("disable");
+  // centerActiveItem()
 });
+
+function centerActiveItem() {
+  const activeItem = document.querySelector(".active");
+  const itemRect = activeItem.offsetHeight; // Получаем размеры и позицию активного элемента
+  const containerRect = navigationBlock.offsetHeight; // Получаем размеры и позицию контейнера
+
+  const offset =
+    itemRect.top -
+    containerRect.top +
+    itemRect.height / 2 -
+    containerRect.height / 2;
+
+  // Прокручиваем контейнер
+  navigationBlock.scrollTop += offset;
+}
 
 function createNavigationMenu() {
   stepInfo.forEach((step) => {
@@ -88,6 +104,18 @@ function createNavigationMenu() {
     }
     navigationList.append(listStepItem);
   });
+  navigationList.style.maxHeight = `${navigationBlock.offsetHeight - 30}px`;
+
+  const activeItem = document.querySelector(".active");
+  const itemRect = activeItem.getBoundingClientRect(); // Получаем размеры и позицию активного элемента
+  const containerRect = navigationBlock.getBoundingClientRect();
+  const offset =
+    itemRect.top -
+    containerRect.top +
+    itemRect.height / 2 -
+    containerRect.height / 2;
+
+  navigationBlock.scrollTop += offset;
 }
 
 createNavigationMenu();
@@ -167,6 +195,7 @@ let optionsAnswers;
 function displayContent(content) {
   if (isTest === false) {
     mediaContent.innerHTML = content;
+
     trackImageLoad();
     addStepProgress();
   } else {
