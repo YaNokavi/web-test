@@ -15,7 +15,7 @@ const version = Number(tg.version);
 tg.onEvent('themeChanged', function() {
   // const newThemeParams = tg.ThemeParams;
   // alert(`Новая тема: Цвет фона - ${newThemeParams.bg_color}`);
-  const theme = tg.ThemeParams.color_scheme; // Получаем текущую цветовую схему
+  const theme = tg.colorScheme; // Получаем текущую цветовую схему
 
     if (theme === 'light') {
       alert(`Светлая`);
@@ -28,7 +28,7 @@ tg.onEvent('themeChanged', function() {
     }
 });
 
-const initialTheme = tg.ThemeParams.color_scheme;
+const initialTheme = tg.colorScheme;
 if (initialTheme === 'light') {
   alert(`Светлая`);
     // document.body.classList.add('light-theme');
