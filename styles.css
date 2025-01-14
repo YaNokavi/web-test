@@ -1295,7 +1295,6 @@ body {
   justify-content: center;
   justify-self: center;
   width: 60px;
-  /* height: 95%; */
   height: auto;
   top: calc(1.2% + var(--InsetTop));
   left: 0;
@@ -1304,6 +1303,12 @@ body {
   z-index: 10;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+
+  transition: left .5s ease;
+}
+
+.navigation-block.move-right {
+  left: 0px;
 }
 
 .navigation-block.disable  {
@@ -1339,10 +1344,9 @@ body {
 }
 
 .navigation-list li.active {
-  /* border-color: #000000; */
-  /* border-width: 2px; */
-  border: 2px solid #706f6f9b;
+  border: 2px solid rgba(211, 211, 211, 0.7);
 }
+
 
 .step-block-nav-switch {
   display: flex;

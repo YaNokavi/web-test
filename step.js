@@ -13,7 +13,7 @@ const button = document.getElementById("button-next-step");
 
 const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
-
+// const userId = 1;
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
@@ -25,8 +25,8 @@ const stepInfo =
   modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
 let stepProgres = stepInfo[stepId - 1];
 
-var urlContent = stepInfo[stepId - 1].contentUrl;
-var isTest = stepInfo[stepId - 1].test;
+const urlContent = stepInfo[stepId - 1].contentUrl;
+const isTest = stepInfo[stepId - 1].test;
 
 steps.innerHTML = `<div class="button-navigation" id="button-navigation">
             <svg
@@ -65,32 +65,32 @@ const navigationBlock = document.getElementById("navigation");
 const navigationList = document.getElementById("navigation-list");
 const navigationButton = document.getElementById("button-navigation");
 navigationButton.addEventListener("click", function () {
-  if (navigationBlock.classList.contains("disable")) {
-    navigationBlock.classList.remove("disable");
-    
-  } else {
-    navigationBlock.classList.add("disable");
-  }
+  navigationBlock.classList.toggle('move-right');
+  navigationBlock.classList.toggle('disable');
 });
 
-console.log(stepInfo);
 function createNavigationMenu() {
   stepInfo.forEach((step) => {
     const listStepItem = document.createElement("li");
+
     if (step.completed == true) {
       listStepItem.classList.add("complete");
     }
     if (step.test === true) {
-      listStepItem.innerText = "?"
+      listStepItem.innerText = "?";
     }
     if (step.number == stepId) {
-      listStepItem.classList.add("active")
+      listStepItem.classList.add("active");
+    } else {
+      listStepItem.addEventListener("click", function () {
+        window.location.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${step.number}`;
+      });
     }
-    navigationList.append(listStepItem)
+    navigationList.append(listStepItem);
   });
 }
 
-createNavigationMenu()
+createNavigationMenu();
 
 function addStepProgress() {
   if (stepProgres.completed === false) {
