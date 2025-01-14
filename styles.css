@@ -89,7 +89,8 @@ body {
   height: 144px;
   min-height: 144px;
 
-  background: #ffffff;
+  /* background: #ffffff; */
+  background: var(--tg-theme-section-bg-color);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 }
