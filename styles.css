@@ -355,7 +355,8 @@ body {
   align-items: center;
   letter-spacing: -0.5px;
 
-  color: #1468b1;
+  /* color: #1468b1; */
+  color: var(--theme-button-icon-text-color);
 }
 
 .tasks-block {
@@ -372,8 +373,10 @@ body {
   width: 95%;
   height: auto;
 
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* background: #ffffff; */
+  background: var(--theme-block-color);
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--theme-block-border-color);
   border-radius: 15px;
 }
 
@@ -389,7 +392,8 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .tasks-list {
@@ -445,7 +449,8 @@ body {
   /* line-height: 20px; */
   letter-spacing: -0.1px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .task-item-description {
@@ -458,7 +463,8 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
   margin-top: 5px;
-  color: #a6a6a6;
+  /* color: #a6a6a6; */
+  color: var(--theme-text-hint-color)
 }
 
 .task-button-block {
@@ -480,7 +486,8 @@ body {
   width: fit-content;
   padding: 0px 8px;
   height: 30px;
-  background-color: #1468b1;
+  /* background-color: #1468b1; */
+  background-color: var(--theme-button-color);
   border-radius: 15px;
   text-align: center;
 
@@ -490,13 +497,15 @@ body {
   letter-spacing: 0px;
   text-decoration: none;
 
-  color: #ffffff;
+  /* color: #ffffff; */
+  color: var(--theme-button-icon-text-color)
 }
 
 .load-task {
   cursor: default;
   pointer-events: none;
-  background-color: #fff; /* Цвет фона во время загрузки */
+  /* background-color: #fff; Цвет фона во время загрузки */
+  background-color: var(--theme-block-color);
   z-index: 9998;
   width: 20px;
   height: 20px;
@@ -505,13 +514,16 @@ body {
 
 .load-task-animation {
   border: 2.5px solid #ffffff; /* Основной цвет круга */
+  border: 2.5px solid var(--theme-block-color);
   border-top-color: #1468b1; /* Цвет верхней части круга */
+  border-top-color: var(--theme-button-color);
   border-radius: 50%; /* Круглая форма */
   animation: rotation 1s linear infinite; /* Анимация вращения */
 }
 
 .complete-task {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background-color: var(--theme-block-color);
   pointer-events: none;
   cursor: default;
   padding: 0px 7px;
