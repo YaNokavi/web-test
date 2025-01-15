@@ -16,12 +16,12 @@ tg.onEvent('themeChanged', function() {
   const theme = tg.colorScheme;
 
     if (theme === 'light') {
-      alert(`Светлая`);
       document.documentElement.style.setProperty("--theme-bg-color", `#efeff4`);
       document.documentElement.style.setProperty("--theme-bg-hint-color", `rgba(20, 104, 177, 0.15)`);
       document.documentElement.style.setProperty("--theme-header-tab-color", `#1468b1`);
       document.documentElement.style.setProperty("--theme-tab-icon-text-color", `#9bb1c5`);
       document.documentElement.style.setProperty("--theme-block-color", `#ffffff`);
+      document.documentElement.style.setProperty("--theme-block-border-color", `rgba(0, 0, 0, 0.1)`);
       document.documentElement.style.setProperty("--theme-text-color", `#000000`);
       document.documentElement.style.setProperty("--theme-text-hint-color", `rgba(0, 0, 0, 0.41)`);
       document.documentElement.style.setProperty("--theme-icon-color", `#ffffff`);
@@ -30,7 +30,19 @@ tg.onEvent('themeChanged', function() {
       document.documentElement.style.setProperty("--theme-button-hint-color", `rgba(20, 104, 177, 0.15)`);
       document.documentElement.style.setProperty("--theme-button-hint-icon-text-color", `#1468b1`);
     } else {
-      alert(`темная`);
+      document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
+      document.documentElement.style.setProperty("--theme-bg-hint-color", `rgba(203, 202, 198, 0.1)`);
+      document.documentElement.style.setProperty("--theme-header-tab-color", `#191919`);
+      document.documentElement.style.setProperty("--theme-tab-icon-text-color", `#707070`);
+      document.documentElement.style.setProperty("--theme-block-color", `#1A1A1A`);
+      document.documentElement.style.setProperty("--theme-block-border-color", `rgba(255, 255, 255, 0.1)`);
+      document.documentElement.style.setProperty("--theme-text-color", `#CBCAC6`);
+      document.documentElement.style.setProperty("--theme-text-hint-color", `9E9E9E`);
+      document.documentElement.style.setProperty("--theme-icon-color", `#CBCAC6`);
+      document.documentElement.style.setProperty("--theme-button-color", `#CBCAC6`);
+      document.documentElement.style.setProperty("--theme-button-icon-text-color", `#000000`);
+      document.documentElement.style.setProperty("--theme-button-hint-color", `rgba(203, 202, 198, 0.1)`);
+      document.documentElement.style.setProperty("--theme-button-hint-icon-text-color", `#CBCAC6`);
         // document.body.classList.add('dark-theme');
         // document.body.classList.remove('light-theme');
     }

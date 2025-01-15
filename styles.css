@@ -9,6 +9,7 @@
   --theme-header-tab-color: ;
   --theme-tab-icon-text-color: ;
   --theme-block-color: ;
+  --theme-block-border-color: ;
   --theme-text-color: ;
   --theme-text-hint-color: ;
   --theme-icon-color: ;
@@ -86,23 +87,18 @@ body {
 }
 /*Профиль*/
 .profile-first-block {
-  /* position: relative; */
   box-sizing: border-box;
   overflow: hidden;
-
   animation: ani 0.4s forwards;
   display: flex;
   flex-direction: row;
-
   top: 0;
   margin-top: 10px;
   width: 95%;
-  /* min-width: 370px; */
   height: 144px;
   min-height: 144px;
-
-  background: #ffffff;
-  /* background: var(--tg-theme-section-bg-color); */
+  /* background: #ffffff; */
+  background: var(--theme-block-color);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 }
