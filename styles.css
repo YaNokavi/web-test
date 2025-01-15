@@ -243,7 +243,7 @@ body {
   font: 600 9px/1 Inter, sans-serif;
   font-style: normal;
   /* color: #1468b1; */
-  color: var(--theme-text-color);
+  color: var(--theme-button-color);
 }
 
 .hide-popup {
