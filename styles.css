@@ -1422,7 +1422,7 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
   font: 500 22px/1 Inter, sans-serif;
-  /* color: #9d9d9d; */
+  /* color: #b0b0b0; */
   color: var(--theme-step-text-color);
   display: flex;
   flex-direction: column;
