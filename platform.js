@@ -169,10 +169,7 @@ if (!localStorage.getItem("theme")) {
   localStorage.setItem("theme", themePrevious);
 }
 const savedTheme = localStorage.getItem("theme");
-const flagFirstJoin = localStorage.getItem("flagFirstJoin");
-if (flagFirstJoin === true) {
-  applyTheme(savedTheme);
-}
+applyTheme(savedTheme);
 
 tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;
