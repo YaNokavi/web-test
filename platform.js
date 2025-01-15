@@ -36,7 +36,7 @@ tg.onEvent("themeChanged", function () {
       "--theme-block-border-color",
       `rgba(0, 0, 0, 0.1)`
     );
-    document.documentElement.style.setProperty("--theme-text-color", `#ffffff`);
+    document.documentElement.style.setProperty("--theme-text-color", `#000000`);
     document.documentElement.style.setProperty(
       "--theme-text-hint-color",
       `#a6a6a6`
@@ -83,7 +83,7 @@ tg.onEvent("themeChanged", function () {
     document.documentElement.style.setProperty("--theme-text-color", `#CBCAC6`);
     document.documentElement.style.setProperty(
       "--theme-text-hint-color",
-      `9E9E9E`
+      `#9E9E9E`
     );
     document.documentElement.style.setProperty("--theme-icon-color", `#CBCAC6`);
     document.documentElement.style.setProperty(
@@ -102,8 +102,6 @@ tg.onEvent("themeChanged", function () {
       "--theme-button-hint-icon-text-color",
       `#CBCAC6`
     );
-    // document.body.classList.add('dark-theme');
-    // document.body.classList.remove('light-theme');
   }
 });
 
