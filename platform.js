@@ -22,7 +22,7 @@ tg.onEvent('themeChanged', function() {
       document.documentElement.style.setProperty("--theme-tab-icon-text-color", `#9bb1c5`);
       document.documentElement.style.setProperty("--theme-block-color", `#ffffff`);
       document.documentElement.style.setProperty("--theme-block-border-color", `rgba(0, 0, 0, 0.1)`);
-      document.documentElement.style.setProperty("--theme-text-color", `#000000`);
+      document.documentElement.style.setProperty("--theme-text-color", `#ffffff`);
       document.documentElement.style.setProperty("--theme-text-hint-color", `rgba(0, 0, 0, 0.41)`);
       document.documentElement.style.setProperty("--theme-icon-color", `#ffffff`);
       document.documentElement.style.setProperty("--theme-button-color", `#1468b1`);
