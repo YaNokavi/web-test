@@ -1076,7 +1076,7 @@ body {
   height: 100%;
   overflow: auto;
   align-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   /* background-color: var(--theme-bg-modals-color); */
 }
 
@@ -1412,6 +1412,7 @@ body {
 .navigation-block.disable {
   left: -70px;
 }
+
 .navigation-list {
   list-style-type: none;
   padding: 0;
@@ -2384,7 +2385,7 @@ h1 {
 
   z-index: 1000;
 
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
 
   display: none;
 }
