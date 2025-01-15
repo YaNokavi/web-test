@@ -62,6 +62,14 @@ tg.onEvent("themeChanged", function () {
       "--theme-button-hint-icon-text-color",
       `#1468b1`
     );
+    document.documentElement.style.setProperty(
+      "--theme-progress-bg-color",
+      `#efeff4`
+    );
+    document.documentElement.style.setProperty(
+      "--theme-progress-color",
+      `#1468b1`
+    );
   } else {
     document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
     document.documentElement.style.setProperty(
@@ -108,6 +116,14 @@ tg.onEvent("themeChanged", function () {
     );
     document.documentElement.style.setProperty(
       "--theme-button-hint-icon-text-color",
+      `#CBCAC6`
+    );
+    document.documentElement.style.setProperty(
+      "--theme-progress-bg-color",
+      `rgba(255, 255, 255, 0.15)`
+    );
+    document.documentElement.style.setProperty(
+      "--theme-progress-color",
       `#CBCAC6`
     );
   }

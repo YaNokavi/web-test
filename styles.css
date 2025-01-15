@@ -18,6 +18,8 @@
   --theme-button-icon-text-color: ;
   --theme-button-hint-color: ;
   --theme-button-hint-icon-text-color: ;
+  --theme-progress-bg-color: ;
+  --theme-progress-color: ;
 }
 
 body {
@@ -332,7 +334,7 @@ body {
   height: 5px;
 
   /* background: #efeff4; */
-  background: var(--theme-text-hint-color);
+  background: var(--theme-progress-bg-color);
   border-radius: 10px;
 }
 
@@ -342,7 +344,8 @@ body {
   left: 0px;
   top: 0px;
   width: 0%;
-  background: #1468b1;
+  /* background: #1468b1; */
+  background: var(--theme-progress-color);
   border-radius: 10px;
 }
 
