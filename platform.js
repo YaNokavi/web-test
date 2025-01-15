@@ -75,6 +75,10 @@ tg.onEvent("themeChanged", function () {
       "--theme-bg-notification-color",
       `#dce8f3`
     );
+    document.documentElement.style.setProperty(
+      "--theme-bg-step-color",
+      `rgba(211, 211, 211, 0.7)`
+    );
   } else {
     document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
     document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(255, 255, 255, 0.4)`);
@@ -135,6 +139,10 @@ tg.onEvent("themeChanged", function () {
     document.documentElement.style.setProperty(
       "--theme-bg-notification-color",
       `#2C2C2B`
+    );
+    document.documentElement.style.setProperty(
+      "--theme-bg-step-color",
+      `rgba(136, 136, 136, 0.7)`
     );
   }
 });
