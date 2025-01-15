@@ -12,8 +12,7 @@ const version = Number(tg.version);
 //   window.location.href = "nontg.html";
 // }
 
-tg.onEvent("themeChanged", function () {
-  const theme = tg.colorScheme;
+function applyTheme(theme) {
   if (theme === "light") {
     tg.setHeaderColor("#1468B1");
     document.documentElement.style.setProperty("--theme-bg-color", `#efeff4`);
@@ -160,6 +159,27 @@ tg.onEvent("themeChanged", function () {
       "--theme-step-text-color",
       `#b0b0b0`
     );
+  }
+}
+
+const themePrevious = tg.colorScheme;
+
+// Проверяем наличие сохраненной темы в localStorage
+if (!localStorage.getItem("theme")) {
+  localStorage.setItem("theme", themePrevious);
+} else {
+  // Применяем сохраненную тему при загрузке страницы
+  const savedTheme = localStorage.getItem("theme");
+  applyTheme(savedTheme);
+}
+
+tg.onEvent("themeChanged", function () {
+  const theme = tg.colorScheme;
+  const savedTheme = localStorage.getItem("theme");
+
+  if (theme !== savedTheme) {
+    applyTheme(theme);
+    localStorage.setItem("theme", theme);
   }
 });
 
