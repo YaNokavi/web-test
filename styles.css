@@ -539,7 +539,8 @@ body {
   justify-content: center;
   padding-top: var(--tabBarPadding);
 
-  background-color: #1468b1;
+  /* background-color: #1468b1; */
+  background-color: var(--theme-header-tab-color);
   align-items: flex-start;
   justify-content: space-between;
   z-index: 9999;
@@ -565,7 +566,8 @@ body {
   margin: 0 auto;
   gap: 5px;
 
-  color: #9bb1c5;
+  /* color: #9bb1c5; */
+  color: var(--theme-tab-icon-text-color)
 }
 
 .tab-icon {
@@ -828,10 +830,12 @@ body {
 
 @keyframes tabcolor {
   0% {
-    color: #9bb1c5;
+    /* color: #9bb1c5; */
+    color: var(--theme-tab-icon-text-color);
   }
   100% {
-    color: #fff;
+    /* color: #fff; */
+    color: var(--theme-text-color);
   }
 }
 /*Стили курса*/
