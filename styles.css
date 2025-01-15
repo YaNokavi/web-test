@@ -3,6 +3,19 @@
   --InsetTopNavigation: 0px;
   --tabBarHeight: 55px;
   --tabBarPadding: 9px;
+
+  --theme-bg-color: ;
+  --theme-bg-hint-color: ;
+  --theme-header-tab-color: ;
+  --theme-tab-icon-text-color: ;
+  --theme-block-color: ;
+  --theme-text-color: ;
+  --theme-text-hint-color: ;
+  --theme-icon-color: ;
+  --theme-button-color: ;
+  --theme-button-icon-text-color: ;
+  --theme-button-hint-color: ;
+  --theme-button-hint-icon-text-color: ;
 }
 
 body {
@@ -10,7 +23,6 @@ body {
   flex-direction: column;
   margin: 0;
   height: 100vh;
-  /* padding-top: calc(var(--InsetTop)); */
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -21,10 +33,10 @@ body {
   position: fixed;
 
   z-index: 9999;
-  background-color: #1468b1;
-  /* background-color: var(--tg-theme-header-bg-color); */
-  color: #fff;
-  /* color: var(--tg-theme-text-color); */
+  /* background-color: #1468b1; */
+  background-color: var(--theme-header-tab-color);
+  /* color: #fff; */
+  color: var(--theme-text-color);
   height: 38px;
   width: 100%;
   /* padding-top: 5px; */
@@ -62,8 +74,8 @@ body {
   justify-items: center;
   /* justify-content: center; */
   /* z-index: 9999; */
-  background-color: #efeff4;
-  /* background-color: var(--tg-theme-bg-color); */
+  /* background-color: #efeff4; */
+  background-color: var(--theme-bg-color);
 
   overflow-y: auto;
   overflow-x: hidden;

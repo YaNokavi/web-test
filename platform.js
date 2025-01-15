@@ -13,14 +13,22 @@ const version = Number(tg.version);
 // }
 
 tg.onEvent('themeChanged', function() {
-  // const newThemeParams = tg.ThemeParams;
-  // alert(`Новая тема: Цвет фона - ${newThemeParams.bg_color}`);
-  const theme = tg.colorScheme; // Получаем текущую цветовую схему
+  const theme = tg.colorScheme;
 
     if (theme === 'light') {
       alert(`Светлая`);
-        // document.body.classList.add('light-theme');
-        // document.body.classList.remove('dark-theme');
+      document.documentElement.style.setProperty("--theme-bg-color", `#efeff4`);
+      document.documentElement.style.setProperty("--theme-bg-hint-color", `rgba(20, 104, 177, 0.15)`);
+      document.documentElement.style.setProperty("--theme-header-tab-color", `#1468b1`);
+      document.documentElement.style.setProperty("--theme-tab-icon-text-color", `#9bb1c5`);
+      document.documentElement.style.setProperty("--theme-block-color", `#ffffff`);
+      document.documentElement.style.setProperty("--theme-text-color", `#000000`);
+      document.documentElement.style.setProperty("--theme-text-hint-color", `rgba(0, 0, 0, 0.41)`);
+      document.documentElement.style.setProperty("--theme-icon-color", `#ffffff`);
+      document.documentElement.style.setProperty("--theme-button-color", `#1468b1`);
+      document.documentElement.style.setProperty("--theme-button-icon-text-color", `#ffffff`);
+      document.documentElement.style.setProperty("--theme-button-hint-color", `rgba(20, 104, 177, 0.15)`);
+      document.documentElement.style.setProperty("--theme-button-hint-icon-text-color", `#1468b1`);
     } else {
       alert(`темная`);
         // document.body.classList.add('dark-theme');

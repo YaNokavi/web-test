@@ -13,17 +13,18 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
-const userIdData = tg.initDataUnsafe.user.id;
+// const userIdData = tg.initDataUnsafe.user.id;
+const userIdData = 1
 let logoName;
 let userName;
 
-if (tg.initDataUnsafe.user.username) {
-  logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  userName = `${tg.initDataUnsafe.user.username}`;
-} else {
+// if (tg.initDataUnsafe.user.username) {
+//   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+//   userName = `${tg.initDataUnsafe.user.username}`;
+// } else {
   logoName = "U";
   userName = "User";
-}
+// }
 
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
