@@ -16,6 +16,7 @@ tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;
   if (theme === "light") {
     document.documentElement.style.setProperty("--theme-bg-color", `#efeff4`);
+    document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(0, 0, 0, 0.4)`);
     document.documentElement.style.setProperty(
       "--theme-bg-hint-color",
       `rgba(20, 104, 177, 0.15)`
@@ -72,6 +73,7 @@ tg.onEvent("themeChanged", function () {
     );
   } else {
     document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
+    document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(255, 255, 255, 0.4)`);
     document.documentElement.style.setProperty(
       "--theme-bg-hint-color",
       `rgba(203, 202, 198, 0.1)`
