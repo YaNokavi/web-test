@@ -21,8 +21,8 @@ let userName;
 //   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
 //   userName = `${tg.initDataUnsafe.user.username}`;
 // } else {
-logoName = "U";
-userName = "User";
+  logoName = "U";
+  userName = "User";
 // }
 
 userIdProfile.innerText += userIdData;
@@ -96,8 +96,10 @@ function taskButtonProcessing(task) {
     buttonTask.classList.add("load-task");
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
-    
-    buttonTask.href = ""
+    if (task.taskUrl) {
+      // window.location.href = task.taskUrl;
+      window.open(task.taskUrl);
+    }
     buttonTask.textContent = "Проверить";
   }
 }
@@ -109,17 +111,14 @@ function displayTasks(tasksInfo) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
-    let button;
-    if (task.taskUrl !== null) {
-      button = document.createElement("a");
-      button.href = task.taskUrl;
-      button.textContent = "Выполнить";
-    } else {
-      button = document.createElement("div");
-      button.textContent = "Проверить";
-    }
+    const button = document.createElement("div");
     button.classList.add("task-item-button");
     button.id = `task${task.taskId}`;
+    if (task.taskUrl !== null) {
+      button.textContent = "Выполнить";
+    } else {
+      button.textContent = "Проверить";
+    }
     button.addEventListener("click", () => taskButtonProcessing(task));
     const buttonBlock = document.createElement("div");
     buttonBlock.classList.add("task-button-block");
