@@ -657,6 +657,7 @@ body {
 .courses-block-favorite-icon {
   align-self: center;
   justify-self: center;
+  color: var(--theme-button-hint-icon-text-color);
 }
 
 .courses-block-name {
