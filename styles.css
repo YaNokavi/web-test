@@ -21,6 +21,7 @@
   --theme-button-hint-icon-text-color: ;
   --theme-progress-bg-color: ;
   --theme-progress-color: ;
+  --theme-bg-notification-color: ;
 }
 
 body {
@@ -2238,8 +2239,8 @@ h1 {
   z-index: 10;
 
   border-radius: 15px;
-  /* background-color: rgba(20, 104, 177, 0.15); */
-  background-color: #dce8f3;
+  /* background-color: #dce8f3; */
+  background-color: var(--theme-bg-notification-color);
   opacity: 0;
   transition-property: top, opacity;
   transition-duration: 0.7s;
