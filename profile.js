@@ -96,11 +96,11 @@ function taskButtonProcessing(task) {
     buttonTask.classList.add("load-task");
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
+    if (task.taskUrl) {
+      location.href = task.taskUrl;
+      // window.open(task.taskUrl, '_blank');
+    }
     buttonTask.textContent = "Проверить";
-    buttonTask.addEventListener("click", (event) => {
-      event.preventDefault();
-      buttonTask.href = "#";
-    });
   }
 }
 
@@ -111,29 +111,15 @@ function displayTasks(tasksInfo) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
-    // const button = document.createElement("div");
-    // button.classList.add("task-item-button");
-    // button.id = `task${task.taskId}`;
-    // if (task.taskUrl !== null) {
-    //   button.textContent = "Выполнить";
-    // } else {
-    //   button.textContent = "Проверить";
-    // }
-    // button.addEventListener("click", () => taskButtonProcessing(task));
-    const button = document.createElement("a");
+    const button = document.createElement("div");
     button.classList.add("task-item-button");
     button.id = `task${task.taskId}`;
-    button.textContent = task.taskUrl !== null ? "Выполнить" : "Проверить";
-    button.href = task.taskUrl !== null ? task.taskUrl : "#"; // Установите href только если есть URL
-
-    button.addEventListener("click", (event) => {
-      if (task.taskUrl === null) {
-        event.preventDefault(); // Предотвращает переход, если нет URL
-        taskButtonProcessing(task);
-      } else {
-        taskButtonProcessing(task); // Вызываем обработчик для других действий
-      }
-    });
+    if (task.taskUrl !== null) {
+      button.textContent = "Выполнить";
+    } else {
+      button.textContent = "Проверить";
+    }
+    button.addEventListener("click", () => taskButtonProcessing(task));
     const buttonBlock = document.createElement("div");
     buttonBlock.classList.add("task-button-block");
     taskItem.innerHTML = `
