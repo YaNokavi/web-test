@@ -150,7 +150,7 @@ tg.onEvent("themeChanged", function () {
     );
     document.documentElement.style.setProperty(
       "--theme-step-text-color",
-      `#838383`
+      `#9d9d9d`
     );
   }
 });
