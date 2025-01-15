@@ -989,6 +989,7 @@ body {
   justify-self: center;
   margin-left: 6px;
   margin-right: auto;
+  color: var(--theme-button-icon-text-color);
 }
 
 @keyframes button-favorite {
@@ -1059,6 +1060,7 @@ body {
 .course-block-button-favorite-icon {
   align-self: center;
   justify-self: center;
+  color: var(--theme-button-hint-icon-text-color);
 }
 
 .modal {
