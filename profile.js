@@ -97,12 +97,7 @@ function taskButtonProcessing(task) {
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
     if (task.taskUrl) {
-      // location.href = task.taskUrl;
-      // window.open(task.taskUrl);
-      const telegramUrl = task.taskUrl.replace('https://', 'tg://');
-      // window.open(telegramUrl, '_blank');
-      window.location.href = telegramUrl;
-      
+      window.open(task.taskUrl, "_blank");
     }
     buttonTask.textContent = "Проверить";
   }
