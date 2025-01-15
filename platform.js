@@ -167,11 +167,9 @@ const themePrevious = tg.colorScheme;
 // Проверяем наличие сохраненной темы в localStorage
 if (!localStorage.getItem("theme")) {
   localStorage.setItem("theme", themePrevious);
-} else {
-  // Применяем сохраненную тему при загрузке страницы
-  const savedTheme = localStorage.getItem("theme");
-  applyTheme(savedTheme);
 }
+const savedTheme = localStorage.getItem("theme");
+applyTheme(savedTheme);
 
 tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;
