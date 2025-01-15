@@ -17,7 +17,10 @@ tg.onEvent("themeChanged", function () {
   if (theme === "light") {
     tg.setHeaderColor("#1468B1");
     document.documentElement.style.setProperty("--theme-bg-color", `#efeff4`);
-    document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(0, 0, 0, 0.4)`);
+    document.documentElement.style.setProperty(
+      "--theme-bg-modals-color",
+      `rgba(0, 0, 0, 0.4)`
+    );
     document.documentElement.style.setProperty(
       "--theme-bg-hint-color",
       `rgba(20, 104, 177, 0.15)`
@@ -87,7 +90,10 @@ tg.onEvent("themeChanged", function () {
   } else {
     tg.setHeaderColor("#191919");
     document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
-    document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(255, 255, 255, 0.4)`);
+    document.documentElement.style.setProperty(
+      "--theme-bg-modals-color",
+      `rgba(255, 255, 255, 0.4)`
+    );
     document.documentElement.style.setProperty(
       "--theme-bg-hint-color",
       `rgba(203, 202, 198, 0.1)`
@@ -172,13 +178,19 @@ tg.expand();
 // tg.enableClosingConfirmation();
 tg.disableVerticalSwipes();
 
-document.getElementById("tab").addEventListener("click", function () {
-  tg.HapticFeedback.impactOccurred("medium");
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("tab").addEventListener("click", function () {
+    tg.HapticFeedback.impactOccurred("medium");
+  });
 });
 
-document.getElementById("copy").addEventListener("click", function () {
-  tg.HapticFeedback.impactOccurred("medium");
-});
+try {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("copy").addEventListener("click", function () {
+      tg.HapticFeedback.impactOccurred("medium");
+    });
+  });
+} catch {}
 
 let currentUrl = window.location.pathname;
 const BackButton = tg.BackButton;
