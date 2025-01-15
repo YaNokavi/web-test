@@ -68,23 +68,16 @@ const navigationButton = document.getElementById("button-navigation");
 navigationButton.addEventListener("click", function () {
   navigationBlock.classList.toggle("move-right");
   navigationBlock.classList.toggle("disable");
-  // centerActiveItem()
 });
 
-function centerActiveItem() {
-  const activeItem = document.querySelector(".active");
-  const itemRect = activeItem.offsetHeight; // Получаем размеры и позицию активного элемента
-  const containerRect = navigationBlock.offsetHeight; // Получаем размеры и позицию контейнера
-
-  const offset =
-    itemRect.top -
-    containerRect.top +
-    itemRect.height / 2 -
-    containerRect.height / 2;
-
-  // Прокручиваем контейнер
-  navigationBlock.scrollTop += offset;
-}
+document.addEventListener("click", function (event) {
+  if (
+    !navigationBlock.contains(event.target) &&
+    !navigationBlock.classList.contains("disable")
+  ) {
+    navigationBlock.classList.add("disable");
+  }
+});
 
 function createNavigationMenu() {
   stepInfo.forEach((step) => {
