@@ -15,6 +15,7 @@ const version = Number(tg.version);
 tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;
   if (theme === "light") {
+    tg.setHeaderColor("#1468B1");
     document.documentElement.style.setProperty("--theme-bg-color", `#efeff4`);
     document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(0, 0, 0, 0.4)`);
     document.documentElement.style.setProperty(
@@ -84,6 +85,7 @@ tg.onEvent("themeChanged", function () {
       `#4f4e4e`
     );
   } else {
+    tg.setHeaderColor("#191919");
     document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
     document.documentElement.style.setProperty("--theme-bg-modals-color", `rgba(255, 255, 255, 0.4)`);
     document.documentElement.style.setProperty(
@@ -155,8 +157,6 @@ tg.onEvent("themeChanged", function () {
   }
 });
 
-tg.setHeaderColor("#1468B1");
-
 if ((platform == "ios" || platform == "android") && version > 6) {
   tg.requestFullscreen();
   document.documentElement.style.setProperty("--InsetTop", `${60}px`);
@@ -173,6 +173,10 @@ tg.expand();
 tg.disableVerticalSwipes();
 
 document.getElementById("tab").addEventListener("click", function () {
+  tg.HapticFeedback.impactOccurred("medium");
+});
+
+document.getElementById("copy").addEventListener("click", function () {
   tg.HapticFeedback.impactOccurred("medium");
 });
 
