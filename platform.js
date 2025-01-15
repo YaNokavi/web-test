@@ -131,13 +131,6 @@ tg.onEvent("themeChanged", function () {
   }
 });
 
-// const initialTheme = tg.colorScheme;
-// if (initialTheme === "light") {
-//   alert(`Светлая`);
-// } else {
-//   alert(`темная`);
-// }
-
 tg.setHeaderColor("#1468B1");
 
 if ((platform == "ios" || platform == "android") && version > 6) {
