@@ -2182,7 +2182,7 @@ h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   padding: 0px 8px;
   justify-content: space-between;
 
@@ -2200,7 +2200,7 @@ h1 {
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
-  line-height: 19px;
+  line-height: 15px;
   align-items: center;
 
   /* color: #1468b1; */
