@@ -98,7 +98,10 @@ function taskButtonProcessing(task) {
   } else if (buttonTask.textContent === "Выполнить") {
     if (task.taskUrl) {
       // location.href = task.taskUrl;
-      window.open(task.taskUrl, '_blank');
+      // window.open(task.taskUrl);
+      const telegramUrl = task.taskUrl.replace('https://', 'tg://');
+      window.open(telegramUrl, '_blank');
+      
     }
     buttonTask.textContent = "Проверить";
   }
@@ -116,6 +119,7 @@ function displayTasks(tasksInfo) {
     button.id = `task${task.taskId}`;
     if (task.taskUrl !== null) {
       button.textContent = "Выполнить";
+      // button.setAttribute('data-href', task.taskUrl);
     } else {
       button.textContent = "Проверить";
     }
