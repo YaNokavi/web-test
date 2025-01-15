@@ -127,7 +127,7 @@ function displayTasks(tasksInfo) {
     button.id = `task${task.taskId}`;
     button.textContent = task.taskUrl !== null ? "Выполнить" : "Проверить";
     button.href = task.taskUrl !== null ? task.taskUrl : "#"; // Установите href только если есть URL
-    button.target = "_blank"; // Открывает ссылку в новой вкладке
+    // button.target = "_blank"; // Открывает ссылку в новой вкладке
 
     button.addEventListener("click", (event) => {
       if (task.taskUrl === null) {
