@@ -97,8 +97,8 @@ function taskButtonProcessing(task) {
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
     if (task.taskUrl) {
-      location.href = task.taskUrl;
-      // window.open(task.taskUrl, '_blank');
+      // location.href = task.taskUrl;
+      window.open(task.taskUrl, '_blank');
     }
     buttonTask.textContent = "Проверить";
   }
