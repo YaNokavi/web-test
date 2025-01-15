@@ -1248,7 +1248,7 @@ body {
   width: 95%;
   height: auto;
   overflow: hidden;
-  color: var(--theme-text-color);
+  /* color: var(--theme-text-color); */
 
   /* background: #ffffff; */
   background: var(--theme-block-color);
@@ -1268,6 +1268,7 @@ body {
   font-style: normal;
   line-height: 15px;
   letter-spacing: -0.43px;
+  color: var(--theme-text-color);
 }
 
 .syllabus-modules {
@@ -2247,7 +2248,8 @@ h1 {
   font-size: 16px;
   /* line-height: 19px; */
   /* align-items: center; */
-  color: #1468b1;
+  /* color: #1468b1; */
+  color: var(--theme-button-hint-icon-text-color);
 }
 
 .notification-logo {
@@ -2292,7 +2294,8 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #efeff4; /* Цвет фона во время загрузки */
+  /* background-color: #efeff4; Цвет фона во время загрузки */
+  background-color: var(--theme-bg-color);
   z-index: 9998; /* Убедитесь, что прелоадер выше других элементов */
   display: flex;
   align-items: center;
@@ -2300,8 +2303,10 @@ h1 {
 }
 
 .preloader-animation {
-  border: 5px solid #ffffff; /* Основной цвет круга */
-  border-top-color: #1468b1; /* Цвет верхней части круга */
+  /* border: 5px solid #ffffff;
+  border-top-color: #1468b1; */
+  border: 5px solid var(--theme-block-color);
+  border-top-color: var(--theme-button-color);
   border-radius: 50%; /* Круглая форма */
   width: 50px; /* Ширина элемента */
   height: 50px; /* Высота элемента */
