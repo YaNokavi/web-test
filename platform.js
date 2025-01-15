@@ -146,11 +146,11 @@ tg.onEvent("themeChanged", function () {
     );
     document.documentElement.style.setProperty(
       "--theme-bg-step-color",
-      `rgba(136, 136, 136, 0.7)`
+      `rgba(114, 114, 114, 0.7)`
     );
     document.documentElement.style.setProperty(
       "--theme-step-text-color",
-      `#4f4e4e`
+      `#838383`
     );
   }
 });
