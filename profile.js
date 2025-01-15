@@ -21,8 +21,8 @@ let userName;
 //   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
 //   userName = `${tg.initDataUnsafe.user.username}`;
 // } else {
-  logoName = "U";
-  userName = "User";
+logoName = "U";
+userName = "User";
 // }
 
 userIdProfile.innerText += userIdData;
@@ -97,8 +97,10 @@ function taskButtonProcessing(task) {
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
     if (task.taskUrl) {
-      // window.location.href = task.taskUrl;
-      window.open(task.taskUrl);
+      buttonTask.addEventListener("click", (event) => {
+        event.preventDefault();
+        buttonTask.href = '#'
+      });
     }
     buttonTask.textContent = "Проверить";
   }
@@ -111,15 +113,28 @@ function displayTasks(tasksInfo) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
-    const button = document.createElement("div");
+    // const button = document.createElement("div");
+    // button.classList.add("task-item-button");
+    // button.id = `task${task.taskId}`;
+    // if (task.taskUrl !== null) {
+    //   button.textContent = "Выполнить";
+    // } else {
+    //   button.textContent = "Проверить";
+    // }
+    // button.addEventListener("click", () => taskButtonProcessing(task));
+    const button = document.createElement("a");
     button.classList.add("task-item-button");
     button.id = `task${task.taskId}`;
-    if (task.taskUrl !== null) {
-      button.textContent = "Выполнить";
-    } else {
-      button.textContent = "Проверить";
-    }
-    button.addEventListener("click", () => taskButtonProcessing(task));
+    button.textContent = task.taskUrl !== null ? "Выполнить" : "Проверить";
+    button.href = task.taskUrl !== null ? task.taskUrl : "#"; // Установите href только если есть URL
+    button.target = "_blank"; // Открывает ссылку в новой вкладке
+
+    button.addEventListener("click", (event) => {
+      if (task.taskUrl === null) {
+        event.preventDefault(); // Предотвращает переход, если нет URL
+        taskButtonProcessing(task);
+      }
+    });
     const buttonBlock = document.createElement("div");
     buttonBlock.classList.add("task-button-block");
     taskItem.innerHTML = `
