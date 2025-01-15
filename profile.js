@@ -17,13 +17,13 @@ const userIdData = 1;
 let logoName;
 let userName;
 
-if (tg.initDataUnsafe.user.username) {
-  logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  userName = `${tg.initDataUnsafe.user.username}`;
-} else {
-  logoName = "U";
-  userName = "User";
-}
+// if (tg.initDataUnsafe.user.username) {
+//   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+//   userName = `${tg.initDataUnsafe.user.username}`;
+// } else {
+logoName = "U";
+userName = "User";
+// }
 
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
@@ -110,14 +110,17 @@ function displayTasks(tasksInfo) {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
-    const button = document.createElement("div");
-    button.classList.add("task-item-button");
-    button.id = `task${task.taskId}`;
+    let button;
     if (task.taskUrl !== null) {
+      button = document.createElement("a");
+      button.href = task.taskUrl;
       button.textContent = "Выполнить";
     } else {
+      button = document.createElement("div");
       button.textContent = "Проверить";
     }
+    button.classList.add("task-item-button");
+    button.id = `task${task.taskId}`;
     button.addEventListener("click", () => taskButtonProcessing(task));
     const buttonBlock = document.createElement("div");
     buttonBlock.classList.add("task-button-block");
