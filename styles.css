@@ -835,7 +835,7 @@ body {
   }
   100% {
     /* color: #fff; */
-    color: var(--theme-text-color);
+    color: var(--theme-header-text-color);
   }
 }
 /*Стили курса*/
