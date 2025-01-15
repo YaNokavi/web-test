@@ -96,12 +96,10 @@ function taskButtonProcessing(task) {
     buttonTask.classList.add("load-task");
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
-    if (task.taskUrl) {
-      buttonTask.href = "#";
-    }
     buttonTask.textContent = "Проверить";
     buttonTask.addEventListener("click", (event) => {
       event.preventDefault();
+      buttonTask.href = "#";
     });
   }
 }
@@ -127,12 +125,13 @@ function displayTasks(tasksInfo) {
     button.id = `task${task.taskId}`;
     button.textContent = task.taskUrl !== null ? "Выполнить" : "Проверить";
     button.href = task.taskUrl !== null ? task.taskUrl : "#"; // Установите href только если есть URL
-    // button.target = "_blank"; // Открывает ссылку в новой вкладке
 
     button.addEventListener("click", (event) => {
       if (task.taskUrl === null) {
         event.preventDefault(); // Предотвращает переход, если нет URL
         taskButtonProcessing(task);
+      } else {
+        taskButtonProcessing(task); // Вызываем обработчик для других действий
       }
     });
     const buttonBlock = document.createElement("div");
