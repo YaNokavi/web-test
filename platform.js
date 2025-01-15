@@ -162,14 +162,23 @@ function applyTheme(theme) {
   }
 }
 
-const themePrevious = tg.colorScheme;
+if (!localStorage.getItem("firstVisit")) {
+  // Получаем текущую тему
+  const themePrevious = tg.colorScheme;
 
-// Проверяем наличие сохраненной темы в localStorage
-if (!localStorage.getItem("theme")) {
+  // Сохраняем текущую тему в localStorage
   localStorage.setItem("theme", themePrevious);
+
+  // Применяем текущую тему
+  applyTheme(themePrevious);
+
+  // Устанавливаем флаг первого захода
+  localStorage.setItem("firstVisit", "true");
+} else {
+  // Применяем сохраненную тему при загрузке страницы
+  const savedTheme = localStorage.getItem("theme");
+  applyTheme(savedTheme);
 }
-const savedTheme = localStorage.getItem("theme");
-applyTheme(savedTheme);
 
 tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;
