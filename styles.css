@@ -811,6 +811,7 @@ body {
   display: flex;
   margin-left: 10px;
   margin-right: auto;
+  color: var(--theme-button-icon-text-color);
 }
 /*Анимации*/
 @keyframes ani {
