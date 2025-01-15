@@ -13,7 +13,7 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
-const userIdData = tg.initDataUnsafe.user.id;
+const userIdData = 1;
 let logoName;
 let userName;
 
