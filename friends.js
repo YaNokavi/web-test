@@ -129,6 +129,7 @@ function displayFriendsNotNull(referrals) {
         </div>
         <div class="friends-block-not-null-button-link" id="copy">
           <svg
+          class="friends-block-not-null-button-icon"
             id="svg1"
             width="26"
             height="26"
@@ -144,6 +145,7 @@ function displayFriendsNotNull(referrals) {
             />
           </svg>
           <svg
+          class="friends-block-not-null-button-icon"
             id="svg2"
             style="display: none"
             width="26"
