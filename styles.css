@@ -1433,8 +1433,8 @@ body {
   height: 30px;
   min-width: 30px;
   min-height: 30px;
-  /* background-color: rgba(211, 211, 211, 0.7); */
-  background-color: var(--theme-text-hint-color);
+  background-color: rgba(211, 211, 211, 0.7);
+  /* background-color: var(--theme-text-hint-color); */
   border-radius: 5px;
   display: flex;
   justify-content: center;
