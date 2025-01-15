@@ -25,6 +25,10 @@ tg.onEvent("themeChanged", function () {
       `#1468b1`
     );
     document.documentElement.style.setProperty(
+      "--theme-header-text-color",
+      `#ffffff`
+    );
+    document.documentElement.style.setProperty(
       "--theme-tab-icon-text-color",
       `#9bb1c5`
     );
@@ -67,6 +71,10 @@ tg.onEvent("themeChanged", function () {
     document.documentElement.style.setProperty(
       "--theme-header-tab-color",
       `#191919`
+    );
+    document.documentElement.style.setProperty(
+      "--theme-header-text-color",
+      `#CBCAC6`
     );
     document.documentElement.style.setProperty(
       "--theme-tab-icon-text-color",

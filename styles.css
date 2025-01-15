@@ -7,6 +7,7 @@
   --theme-bg-color: ;
   --theme-bg-hint-color: ;
   --theme-header-tab-color: ;
+  --theme-header-text-color: ;
   --theme-tab-icon-text-color: ;
   --theme-block-color: ;
   --theme-block-border-color: ;
@@ -37,7 +38,7 @@ body {
   /* background-color: #1468b1; */
   background-color: var(--theme-header-tab-color);
   /* color: #fff; */
-  color: var(--theme-text-color);
+  color: var(--theme-header-text-color);
   height: 38px;
   width: 100%;
   /* padding-top: 5px; */
