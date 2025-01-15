@@ -1361,7 +1361,7 @@ body {
   margin-right: 15px;
 }
 
-/*Шаг курса*/
+/***Шаг курса***/
 .navigation-block {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -1830,8 +1830,10 @@ h1 {
   height: 100%;
   margin-bottom: 20px;
 
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* background: #ffffff; */
+  background: var(--theme-block-color);
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--theme-block-border-color);
   border-radius: 15px;
 }
 
@@ -1853,15 +1855,14 @@ h1 {
   text-align: center;
   letter-spacing: 0px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .friends-block-null-text-down {
   width: auto;
   height: auto;
-  /* bottom: 0;
-  margin-top: auto;
-  margin-bottom: 50px; */
+
   margin-left: 15px;
   margin-right: 15px;
 
@@ -1876,7 +1877,8 @@ h1 {
   text-align: center;
   letter-spacing: -0.4px;
 
-  color: #a6a6a6;
+  /* color: #a6a6a6; */
+  color: var(--theme-text-hint-color);
 }
 
 .friends-block-null-button-container {
@@ -1901,7 +1903,8 @@ h1 {
   min-height: 50px;
   /* margin-top: auto; */
   margin-bottom: 20px;
-  background: #1468b1;
+  /* background: #1468b1; */
+  background: var(--theme-button-color);
   border-radius: 15px;
 }
 
@@ -1919,7 +1922,8 @@ h1 {
   min-height: 50px;
   margin-bottom: 20px;
 
-  background: #1468b1;
+  /* background: #1468b1; */
+  background: var(--theme-button-color);
   border-radius: 15px;
 }
 
@@ -1935,7 +1939,8 @@ h1 {
   letter-spacing: -0.4px;
   text-decoration: none;
 
-  color: #ffffff;
+  /* color: #ffffff; */
+  color: var(--theme-button-icon-text-color)
 }
 
 .friends-block-null-button-icon {
@@ -1958,8 +1963,10 @@ h1 {
   margin-bottom: 20px;
   overflow: hidden;
 
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* background: #ffffff; */
+  background: var(--theme-block-color);
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--theme-block-border-color);
   border-radius: 15px;
 }
 
@@ -1980,7 +1987,8 @@ h1 {
   text-align: left;
   letter-spacing: 0px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .friends-block-not-null-amount {
@@ -2000,7 +2008,8 @@ h1 {
   text-align: right;
   letter-spacing: 0px;
 
-  color: #a6a6a6;
+  /* color: #a6a6a6; */
+  color: var(--theme-text-hint-color);
 }
 
 .friends-block-not-null-text-down {
@@ -2021,7 +2030,8 @@ h1 {
   text-align: left;
   letter-spacing: -0.4px;
 
-  color: #a6a6a6;
+  /* color: #a6a6a6; */
+  color: var(--theme-text-hint-color);
 }
 
 .friends-block-not-null-list {
@@ -2038,7 +2048,8 @@ h1 {
   padding: 10px 0;
   gap: 20px;
 
-  background: rgba(20, 104, 177, 0.1);
+  /* background: rgba(20, 104, 177, 0.1); */
+  background: var(--theme-bg-hint-color);
   border-radius: 15px;
 }
 
@@ -2095,6 +2106,7 @@ h1 {
   letter-spacing: -0.43px;
 
   color: #000000;
+  color: var(--theme-text-color);
 }
 
 .friends-list-user-info-balance {
@@ -2107,7 +2119,8 @@ h1 {
   width: fit-content;
   height: 22px;
 
-  background: rgba(20, 104, 177, 0.15);
+  /* background: rgba(20, 104, 177, 0.15); */
+  background: var(--theme-bg-hint-color);
   border-radius: 8px;
 }
 
@@ -2120,7 +2133,8 @@ h1 {
   line-height: 19px;
   align-items: center;
 
-  color: #1468b1;
+  /* color: #1468b1; */
+  color: var(--theme-button-color);
 }
 
 .friends-list-user-info-balance-logo {
@@ -2156,7 +2170,8 @@ h1 {
   width: 100%;
   height: 45px;
   min-height: 45px;
-  background: #1468b1;
+  /* background: #1468b1; */
+  background: var(--theme-button-color);
   border-radius: 15px;
 }
 
@@ -2173,7 +2188,8 @@ h1 {
   min-height: 45px;
   margin-left: 15px;
 
-  background: #1468b1;
+  /* background: #1468b1; */
+  background: var(--theme-button-color);
   border-radius: 15px;
 }
 
@@ -2189,7 +2205,8 @@ h1 {
   letter-spacing: -0.4px;
   text-decoration: none;
 
-  color: #ffffff;
+  /* color: #ffffff; */
+  color: var(--theme-button-icon-text-color);
 }
 
 .friends-block-not-null-button-icon {
