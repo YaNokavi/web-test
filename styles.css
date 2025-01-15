@@ -99,7 +99,8 @@ body {
   min-height: 144px;
   /* background: #ffffff; */
   background: var(--theme-block-color);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--theme-block-border-color);
   border-radius: 15px;
 }
 
@@ -132,7 +133,8 @@ body {
   align-self: flex-end;
   margin-bottom: 10px;
   margin-left: 10px;
-  color: rgba(0, 0, 0, 0.41);
+  /* color: rgba(0, 0, 0, 0.41); */
+  color: var(--theme-text-hint-color);
 }
 
 .profile-nickname {
@@ -148,7 +150,8 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .profile-balance-info-block {
@@ -172,7 +175,8 @@ body {
   width: fit-content;
   height: 32px;
 
-  background: rgba(20, 104, 177, 0.15);
+  /* background: rgba(20, 104, 177, 0.15); */
+  background: var(--theme-bg-hint-color);
   border-radius: 8px;
 }
 
@@ -185,7 +189,8 @@ body {
   line-height: 19px;
   align-items: center;
 
-  color: #1468b1;
+  /* color: #1468b1; */
+  color: var(--theme-text-color);
 }
 
 .profile-balance-block-logo {
@@ -209,7 +214,8 @@ body {
   width: 30px;
   height: 32px;
 
-  background: rgba(20, 104, 177, 0.15);
+  /* background: rgba(20, 104, 177, 0.15); */
+  background: var(--theme-button-hint-color);
   border-radius: 8px;
 }
 
@@ -223,7 +229,8 @@ body {
 
   width: fit-content;
   height: 30px;
-  background: rgba(20, 104, 177, 0.15);
+  /* background: rgba(20, 104, 177, 0.15); */
+  background: var(--theme-bg-hint-color);
   border-radius: 8px;
 }
 
@@ -232,7 +239,8 @@ body {
   width: 205px;
   font: 600 9px/1 Inter, sans-serif;
   font-style: normal;
-  color: #1468b1;
+  /* color: #1468b1; */
+  color: var(--theme-text-color);
 }
 
 .hide-popup {
@@ -252,8 +260,10 @@ body {
   width: 95%;
   height: auto;
 
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* background: #ffffff; */
+  background: var(--theme-block-color);
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--theme-block-border-color);
   border-radius: 15px;
 }
 
@@ -269,7 +279,8 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .progress-title-enable-courses {
@@ -282,7 +293,8 @@ body {
   line-height: 22px;
   letter-spacing: 0px;
 
-  color: #a6a6a6;
+  /* color: #a6a6a6; */
+  color: var(--theme-text-hint-color)
 }
 
 .course-info {
@@ -299,7 +311,8 @@ body {
   line-height: 15px;
   letter-spacing: -0.43px;
 
-  color: #000000;
+  /* color: #000000; */
+  color: var(--theme-text-color);
 }
 
 .course-info-frame-bar {
@@ -317,7 +330,8 @@ body {
   width: 200px;
   height: 5px;
 
-  background: #efeff4;
+  /* background: #efeff4; */
+  background: var(--theme-text-hint-color);
   border-radius: 10px;
 }
 
