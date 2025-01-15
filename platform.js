@@ -182,15 +182,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("tab").addEventListener("click", function () {
     tg.HapticFeedback.impactOccurred("medium");
   });
-});
-
-try {
-  document.addEventListener("DOMContentLoaded", () => {
+  try {
     document.getElementById("copy").addEventListener("click", function () {
       tg.HapticFeedback.impactOccurred("medium");
     });
-  });
-} catch {}
+  } catch {}
+});
+
+// try {
+//   document.addEventListener("DOMContentLoaded", () => {
+//     document.getElementById("copy").addEventListener("click", function () {
+//       tg.HapticFeedback.impactOccurred("medium");
+//     });
+//   });
+// } catch {}
 
 let currentUrl = window.location.pathname;
 const BackButton = tg.BackButton;
