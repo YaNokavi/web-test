@@ -978,6 +978,11 @@ body {
   background-color: var(--theme-button-color);
   border-radius: 15px;
   will-change: width, background-color;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .course-block-button-text {
@@ -1068,6 +1073,11 @@ body {
   background-color: var(--theme-button-hint-color);
   border-radius: 15px;
   will-change: width, background-color;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .course-block-button-favorite-icon {
