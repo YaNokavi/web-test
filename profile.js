@@ -97,12 +97,12 @@ function taskButtonProcessing(task) {
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
     if (task.taskUrl) {
-      buttonTask.addEventListener("click", (event) => {
-        event.preventDefault();
-        buttonTask.href = '#'
-      });
+      buttonTask.href = "#";
     }
     buttonTask.textContent = "Проверить";
+    buttonTask.addEventListener("click", (event) => {
+      event.preventDefault();
+    });
   }
 }
 
