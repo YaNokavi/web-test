@@ -193,7 +193,7 @@ body {
   align-items: center;
 
   /* color: #1468b1; */
-  color: var(--theme-text-color);
+  color: var(--theme-button-color);
 }
 
 .profile-balance-block-logo {
@@ -356,7 +356,7 @@ body {
   letter-spacing: -0.5px;
 
   /* color: #1468b1; */
-  color: var(--theme-button-icon-text-color);
+  color: var(--theme-progress-color);
 }
 
 .tasks-block {
