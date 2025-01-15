@@ -1542,6 +1542,7 @@ body {
   /* background: rgba(20, 104, 177, 0.15); */
   background: var(--theme-button-hint-color);
   border-radius: 15px;
+  color: var(--theme-button-hint-icon-text-color);
 
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
@@ -1580,6 +1581,7 @@ body {
   /* background: rgba(20, 104, 177, 0.15); */
   background: var(--theme-button-hint-color);
   border-radius: 15px;
+  color: var(--theme-button-hint-icon-text-color);
 
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
