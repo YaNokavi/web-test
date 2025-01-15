@@ -198,7 +198,6 @@ function buttons() {
   });
 
   document.getElementById("copy").addEventListener("click", function () {
-    tg.HapticFeedback.impactOccurred("success");
     let link = `https://t.me/CunaEduBot/CunaEdu?startapp=${userId}`;
     navigator.clipboard.writeText(link);
 
@@ -222,6 +221,7 @@ function buttons() {
         }, 2000);
       }, 200);
     }
+    tg.HapticFeedback.impactOccurred("success");
   });
 }
 
