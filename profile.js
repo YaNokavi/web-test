@@ -96,9 +96,8 @@ function taskButtonProcessing(task) {
     buttonTask.classList.add("load-task");
     checkTask(task);
   } else if (buttonTask.textContent === "Выполнить") {
-    // if (task.taskUrl) {
-    //   window.location.href = task.taskUrl;
-    // }
+    
+    buttonTask.href = ""
     buttonTask.textContent = "Проверить";
   }
 }
