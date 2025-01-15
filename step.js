@@ -30,6 +30,7 @@ const isTest = stepInfo[stepId - 1].test;
 
 steps.innerHTML = `<div class="button-navigation" id="button-navigation">
             <svg
+            style="color: var(--theme-button-hint-icon-text-color);"
               width="20"
               height="20"
               viewBox="0 0 28 28"
@@ -38,21 +39,21 @@ steps.innerHTML = `<div class="button-navigation" id="button-navigation">
             >
               <path
                 d="M3.875 14H24.875"
-                stroke="#1468b1"
+                stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M3.875 7H24.875"
-                stroke="#1468b1"
+                stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
               <path
                 d="M3.875 21H24.875"
-                stroke="#1468b1"
+                stroke="currentColor"
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"

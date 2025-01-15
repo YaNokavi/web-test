@@ -1521,7 +1521,7 @@ body {
   height: 30px;
 
   /* background: rgba(20, 104, 177, 0.15); */
-  background: var(--theme-button-hint-icon-text-color);
+  background: var(--theme-button-hint-color);
   border-radius: 15px;
 
   -webkit-tap-highlight-color: transparent;
@@ -1540,7 +1540,7 @@ body {
   margin-left: 10px;
 
   /* background: rgba(20, 104, 177, 0.15); */
-  background: var(--theme-button-hint-icon-text-color);
+  background: var(--theme-button-hint-color);
   border-radius: 15px;
 
   -webkit-tap-highlight-color: transparent;
@@ -1578,7 +1578,7 @@ body {
   margin-right: 10px;
 
   /* background: rgba(20, 104, 177, 0.15); */
-  background: var(--theme-button-hint-icon-text-color);
+  background: var(--theme-button-hint-color);
   border-radius: 15px;
 
   -webkit-tap-highlight-color: transparent;
