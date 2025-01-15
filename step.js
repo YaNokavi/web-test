@@ -73,7 +73,8 @@ navigationButton.addEventListener("click", function () {
 document.addEventListener("click", function (event) {
   if (
     !navigationBlock.contains(event.target) &&
-    !navigationBlock.classList.contains("disable")
+    !navigationBlock.classList.contains("disable") &&
+    !navigationButton.contains(event.target)
   ) {
     navigationBlock.classList.add("disable");
   }
