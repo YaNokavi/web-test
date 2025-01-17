@@ -58,13 +58,7 @@ function displayCourses() {
   coursesData.forEach((course, index) => {
     setTimeout(() => {
       const courseElement = document.createElement("a");
-      if (course.id !== 1) {
-        courseElement.href = `courses.html?id=${course.id}`;
-      } else {
-        courseElement.addEventListener("click", function () {
-          displayNotification();
-        });
-      }
+      courseElement.href = `courses.html?id=${course.id}`;
       courseElement.classList.add("courses-block");
       courseElement.innerHTML = `
           <img src="icons/logo_cuna2.jpg" class="courses-logo" />
