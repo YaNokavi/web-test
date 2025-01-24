@@ -10,7 +10,8 @@ let userIdData;
 
 userIdData = tg.initDataUnsafe.user.id;;
 if (tg.initDataUnsafe.user.username) {
-  username = `${tg.initDataUnsafe.user.username}`;
+  const name = `${tg.initDataUnsafe.user.username}`;
+  username = DOMPurify.sanitize(name);
 } else {
   username = "User";
 }

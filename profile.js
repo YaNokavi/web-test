@@ -21,12 +21,32 @@ if (tg.initDataUnsafe.user.username) {
   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
   userName = `${tg.initDataUnsafe.user.username}`;
 } else {
-logoName = "U";
-userName = "User";
+  logoName = "U";
+  userName = "User";
 }
 
 userIdProfile.innerText += userIdData;
 logoNameProfile.innerText = logoName;
+
+const setUserNameProfile = (name) => {
+  let fontSize;
+
+  if (name.length <= 15) {
+    fontSize = "30px";
+  } else if (name.length < 19) {
+    fontSize = "24px";
+  } else {
+    name = name.slice(0, -2) + "...";
+    fontSize = "23px";
+  }
+
+  userNameProfile.style.fontSize = fontSize;
+  const sanitizedUserName = DOMPurify.sanitize(name);
+  userNameProfile.innerText = sanitizedUserName;
+  // userNameProfile.innerText = name;
+};
+
+setUserNameProfile(userName);
 
 async function getUserInfo() {
   const userInfo = await fetchData(
@@ -195,24 +215,6 @@ document.addEventListener("click", (e) => {
     hidePopup();
   }
 });
-
-const setUserNameProfile = (name) => {
-  let fontSize;
-
-  if (name.length <= 15) {
-    fontSize = "30px";
-  } else if (name.length < 19) {
-    fontSize = "24px";
-  } else {
-    name = name.slice(0, -2) + "...";
-    fontSize = "23px";
-  }
-
-  userNameProfile.style.fontSize = fontSize;
-  userNameProfile.innerText = name;
-};
-
-setUserNameProfile(userName);
 
 let listProgress = [];
 function displayProgress(userInfo) {
