@@ -40,6 +40,10 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
+a:active {
+  color: var(--theme-text-hint-color); /* Цвет ссылки при нажатии */
+}
 /*Заголовок страницы*/
 .profile-header {
   display: flex;
@@ -969,7 +973,7 @@ body {
   justify-content: center;
   align-items: center;
   align-self: center;
-  -webkit-tap-highlight-color: initial;
+  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
   width: 220px;
