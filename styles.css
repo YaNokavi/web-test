@@ -42,7 +42,7 @@ body {
 }
 
 a:active {
-  color: var(--theme-text-hint-color); /* Цвет ссылки при нажатии */
+  color: var(--theme-block-border-color); /* Цвет ссылки при нажатии */
 }
 /*Заголовок страницы*/
 .profile-header {
@@ -1197,14 +1197,13 @@ a:active {
   width: auto;
   margin-top: 5px;
   margin-left: 20px;
-  margin-right: 10px;
+  margin-right: 20px;
   height: auto;
   font: 400 16px/1 Inter, sans-serif;
   font-style: normal;
   line-height: 22px;
   letter-spacing: 0.3px;
   text-align: left;
-  /* color: #000000; */
   color: var(--theme-text-color);
 }
 
@@ -1224,30 +1223,32 @@ a:active {
   margin-right: 20px;
   width: auto;
   height: auto;
-  margin-top: 10px;
+  padding-top: 10px;
   margin-left: 20px;
-  margin-bottom: 5px;
+  padding-bottom: 10px;
   font: 400 18px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 25px;
-  /* color: #000000; */
   color: var(--theme-text-color);
   cursor: pointer;
 }
 
+.syllabus-text-course-main:not(:first-child) {
+  border-top: 1px solid var(--theme-block-border-color)
+}
+
 .syllabus-text-course-additional {
-  display: flex;
+  /* display: flex; */
   width: auto;
   height: auto;
-  margin-top: 5px;
   margin-left: 30px;
-  margin-bottom: 5px;
+  margin-right: 20px;
+  padding-bottom: 10px;
   font: 400 16px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
   line-height: 22px;
-  /* color: #000000; */
   color: var(--theme-text-color);
 }
 
