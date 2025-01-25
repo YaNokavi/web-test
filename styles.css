@@ -969,7 +969,7 @@ body {
   justify-content: center;
   align-items: center;
   align-self: center;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: inherit;
   cursor: pointer;
   text-decoration: none;
   width: 220px;
