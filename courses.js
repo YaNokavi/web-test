@@ -90,7 +90,7 @@ function displayModules(courseData) {
     elem.submoduleList.forEach((elem) => {
       const moduleAditional = document.createElement("div");
       moduleAditional.classList.add("syllabus-text-course-additional");
-      moduleAditional.innerHTML = `${moduleId}.${elem.number} ${elem.name}`;
+      moduleAditional.innerHTML = `${moduleId}.${elem.number} &nbsp${elem.name}`;
       elementModules.append(moduleAditional);
     });
 
