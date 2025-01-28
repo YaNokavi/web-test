@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
+    <!-- <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js",
+        "ym"
+      );
+
+      ym(99328332, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+      });
+    </script>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/99328332"
+          style="position: absolute; left: -9999px"
+          alt=""
+        /></div
+    ></noscript> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,10 +75,8 @@
     </div>
     <div class="main-block">
       <div class="navigation-block disable" id="navigation">
-        <ul class="navigation-list" id="navigation-list">
-        </ul>
+        <ul class="navigation-list" id="navigation-list"></ul>
       </div>
-      <!-- <div class="step-block-nav-switch"> -->
 
       <div class="step-block-switching" id="switc">
         <a class="button-back" id="button-back">
@@ -54,43 +93,10 @@
             />
           </svg>
         </a>
-        <div class="steps-number" id="steps-number">
-          <!-- <div class="button-navigation" id="button-navigation">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 28 28"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.875 14H24.875"
-                stroke="#1468b1"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M3.875 7H24.875"
-                stroke="#1468b1"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M3.875 21H24.875"
-                stroke="#1468b1"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div> -->
-        </div>
+        <div class="steps-number" id="steps-number"></div>
 
         <a class="button-forward" id="button-forward">
           <svg
-          
             width="14"
             height="14"
             viewBox="0 0 13 13"
@@ -104,10 +110,6 @@
           </svg>
         </a>
       </div>
-      <!-- <div class="block-button-navigation">
-          
-        </div> -->
-      <!-- </div> -->
       <div class="step-block-content" id="blockContent">
         <div class="step-block-content-media" id="content"></div>
         <div
@@ -321,8 +323,6 @@
         <div class="tab-label">Профиль</div>
       </a>
     </div>
-    <!-- <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <script src="platform.js"></script> -->
 
     <script type="module" src="step.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

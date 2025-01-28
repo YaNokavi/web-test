@@ -57,8 +57,8 @@
   var caption = $('<div class="iview-caption">').appendTo(overlay);
   $('<div class="iview-closer">&times;</div>').appendTo(overlay);
 
-  var scale = 1; // начальный масштаб
-  var isDragging = false; // флаг для отслеживания перетаскивания
+  var scale = 1;
+  var isDragging = false;
   var startX, startY;
   var offsetX = 0,
     offsetY = 0;
@@ -96,34 +96,28 @@
   }
 
   $(document).on("click", ".iview-closer", function () {
-    // Сбрасываем масштаб и позицию
     scale = 1;
     offsetX = 0;
     offsetY = 0;
 
-    setPreview("", ""); // Очищаем изображение
-    overlay.fadeOut(); // Скрываем оверлей
+    setPreview("", "");
+    overlay.fadeOut();
   });
 
-  // Обработка событий колесика мыши для увеличения/уменьшения
   $(document).on("wheel", ".iview-preview", function (e) {
     e.preventDefault();
 
-    const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9; // Увеличение или уменьшение масштаба
+    const scaleFactor = e.originalEvent.deltaY < 0 ? 1.1 : 0.9;
 
-    // Обновляем масштаб
     scale *= scaleFactor;
 
-    // Ограничиваем масштабирование
-    scale = Math.max(scale, 1); // минимальный масштаб
-    scale = Math.min(scale, 5); // максимальный масштаб
+    scale = Math.max(scale, 1);
+    scale = Math.min(scale, 5);
 
-    // Вычисляем текущее смещение
     const currentTransform = getCurrentTransformValues();
     offsetX = currentTransform.x;
     offsetY = currentTransform.y;
 
-    // Применяем трансформацию
     preview.css({
       transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
     });
@@ -136,7 +130,7 @@
     const values = matrix.match(/matrix.*\((.+)\)/)[1].split(", ");
     return {
       x: parseFloat(values[4]),
-      y: parseFloat(values[5]), // translateY
+      y: parseFloat(values[5]),
       scale: parseFloat(values[0]),
     };
   };
@@ -192,8 +186,8 @@
         initialDistance = distance;
       } else {
         scale *= distance / initialDistance;
-        initialDistance = distance; // обновляем начальное расстояние
-        scale = Math.max(scale, 1); // минимальный масштаб
+        initialDistance = distance;
+        scale = Math.max(scale, 1);
         scale = Math.min(scale, 5);
         preview.css({
           transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
@@ -203,16 +197,14 @@
   });
 
   $(document).on("touchend", function () {
-    initialDistance = null; // сбрасываем начальное расстояние при завершении касания
+    initialDistance = null;
   });
 
-  // Закрытие при клике вне изображения
   $(document).on("click", ".iview-overlay", function (e) {
     if (!$(e.target).closest(".iview-preview").length) {
-      // Проверяем, не кликнули ли мы по изображению
-      scale = 1; // сброс масштаба
-      offsetX = 0; // сброс смещения по X
-      offsetY = 0; // сброс смещения по Y
+      scale = 1;
+      offsetX = 0;
+      offsetY = 0;
       setPreview("", "");
       overlay.fadeOut();
     }
@@ -220,10 +212,6 @@
 
   $(document).on("click", ".iview-image", function (e) {
     e.preventDefault();
-
-    // scale = 1;
-    // offsetX = 0;
-    // offsetY = 0;
 
     overlay.fadeIn();
 

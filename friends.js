@@ -3,7 +3,6 @@ import fetchData from "./fetch.js";
 const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
 
-
 async function getReferrals() {
   const referrals = await fetchData(
     `https://cryptuna-anderm.amvera.io/v1/user/${userId}/referrals`
@@ -192,14 +191,14 @@ function buttons() {
   const buttonInvite = document.getElementById("invite");
 
   buttonInvite.addEventListener("click", function () {
-    let a = `https://t.me/CunaEduBot/CunaEdu?startapp=${userId}`,
+    let a = `https://t.me/cunaedu_bot/CunaEdu?startapp=${userId}`,
       s = encodeURI(a),
       o = encodeURI("Узнавай новое вместе со мной (@cryptuna)");
     window.location.href = `https://t.me/share/url?url=${s}&text=${o}`;
   });
 
   document.getElementById("copy").addEventListener("click", function () {
-    let link = `https://t.me/CunaEduBot/CunaEdu?startapp=${userId}`;
+    let link = `https://t.me/cunaedu_bot/CunaEdu?startapp=${userId}`;
     navigator.clipboard.writeText(link);
 
     var svg1 = document.getElementById("svg1");

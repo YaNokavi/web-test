@@ -13,7 +13,7 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
-const userIdData = tg.initDataUnsafe.user.id;;
+const userIdData = tg.initDataUnsafe.user.id;
 let logoName;
 let userName;
 
@@ -135,7 +135,6 @@ function displayTasks(tasksInfo) {
     button.id = `task${task.taskId}`;
     if (task.taskUrl !== null) {
       button.textContent = "Выполнить";
-      // button.setAttribute('data-href', task.taskUrl);
     } else {
       button.textContent = "Проверить";
     }
@@ -151,14 +150,13 @@ function displayTasks(tasksInfo) {
     taskItem.append(buttonBlock);
     buttonBlock.append(button);
     tasksList.append(taskItem);
-    const imageUrl = task.iconUrl; // Получаем URL изображения
+    const imageUrl = task.iconUrl;
 
     const imgLoadPromise = new Promise((resolve, reject) => {
       const img = new Image();
       img.src = imageUrl;
 
       img.onload = () => {
-        // console.log(`Изображение загружено: ${imageUrl}`);
         resolve(imageUrl);
       };
 
@@ -168,22 +166,18 @@ function displayTasks(tasksInfo) {
       };
     });
 
-    imageLoadPromises.push(imgLoadPromise); // Добавляем промис в массив
+    imageLoadPromises.push(imgLoadPromise);
   });
 
-  // После завершения всех загрузок
   Promise.all(imageLoadPromises)
     .then(() => {
-      // console.log("Все изображения загружены успешно!");
       document.getElementById("preloader").style.display = "none";
       animateProgress();
-      // Здесь можно выполнить дополнительные действия после загрузки всех изображений
     })
     .catch((url) => {
       console.error(
         `Ошибка при загрузке одного или нескольких изображений: ${url}`
       );
-      // Здесь можно обработать ошибку, если необходимо
     });
 }
 
@@ -231,7 +225,7 @@ function displayProgress(userInfo) {
     </div>
   `;
     listProgress.push(elem.progress);
-    course.innerHTML += courseHtml; // Добавление новой информации о курсе
+    course.innerHTML += courseHtml;
   });
 }
 
@@ -242,11 +236,10 @@ function animateProgress() {
   if (document.getElementById("preloader").style.display === "none") {
     requestAnimationFrame(() => {
       progressBarElements.forEach((currentProgressBar, index) => {
-        // Задержка для начала анимации
         setTimeout(() => {
-          currentProgressBar.style.transition = "width 1s ease"; // Устанавливаем плавный переход
-          currentProgressBar.style.width = `${listProgress[index]}%`; // Устанавливаем конечное значение ширины
-        }, index * 300); // Задержка для последовательной анимации
+          currentProgressBar.style.transition = "width 1s ease";
+          currentProgressBar.style.width = `${listProgress[index]}%`;
+        }, index * 300);
       });
     });
   }

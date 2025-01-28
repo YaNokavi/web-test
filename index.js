@@ -1,5 +1,3 @@
-import fetchData from "./fetch.js";
-
 localStorage.clear();
 
 const queryString = window.location.search;

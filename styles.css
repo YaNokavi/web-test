@@ -1235,7 +1235,7 @@ a:active {
 }
 
 .syllabus-text-course-main:not(:first-child) {
-  border-top: 1px solid var(--theme-block-border-color)
+  border-top: 1px solid var(--theme-block-border-color);
 }
 
 .syllabus-text-course-additional {
@@ -1414,9 +1414,7 @@ a:active {
   height: auto;
   max-height: 94%;
   overflow-y: auto;
-  top: calc(
-    50% + var(--InsetTopNavigation)
-  );
+  top: calc(50% + var(--InsetTopNavigation));
   transform: translateY(calc(-50% - var(--InsetTop)));
   left: -2px;
   background: var(--theme-block-color);

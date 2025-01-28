@@ -122,7 +122,7 @@ function createNavigationMenu() {
   navigationList.style.maxHeight = `${navigationBlock.offsetHeight - 30}px`;
 
   const activeItem = document.querySelector(".active");
-  const itemRect = activeItem.getBoundingClientRect(); // Получаем размеры и позицию активного элемента
+  const itemRect = activeItem.getBoundingClientRect();
   const containerRect = navigationBlock.getBoundingClientRect();
   const offset =
     itemRect.top -
@@ -155,17 +155,14 @@ function addStepProgress() {
 function trackImageLoad() {
   const imageLoadPromises = [];
 
-  // Получаем все элементы <img> на странице
   const imgElements = document.querySelectorAll("img");
 
   imgElements.forEach((img) => {
     const imgLoadPromise = new Promise((resolve, reject) => {
       if (img.complete) {
-        // Если изображение уже загружено
         resolve(img.src);
       } else {
         img.onload = () => {
-          // console.log(`Изображение загружено: ${img.src}`);
           resolve(img.src);
         };
         img.onerror = () => {
@@ -178,10 +175,8 @@ function trackImageLoad() {
     imageLoadPromises.push(imgLoadPromise);
   });
 
-  // После завершения всех загрузок
   Promise.all(imageLoadPromises)
     .then(() => {
-      // console.log("Все изображения загружены успешно!");
       document.getElementById("preloader").style.display = "none";
     })
     .catch((url) => {
@@ -197,7 +192,7 @@ async function getCourseContent() {
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }
-    const content = await response.text(); // Сохраняем данные в переменной
+    const content = await response.text();
     displayContent(content);
   } catch (error) {
     console.error("Ошибка при получении контента:", error);
@@ -237,7 +232,7 @@ const nextButton = document.getElementById("next-button");
 const handleSubmit = () => {
   const inputs = document.querySelectorAll('input[name="question"]');
   inputs.forEach((input) => {
-    input.disabled = true; // Отключаем каждый элемент ввода
+    input.disabled = true;
   });
   let selectedOptions;
   const isMultipleChoice = testArray.answer.length > 1;
@@ -261,11 +256,6 @@ const handleRetry = () => {
 
 submitButton.addEventListener("click", handleSubmit);
 retryButton.addEventListener("click", handleRetry);
-
-// if (selectedOption && selectedOption.value === testContent.answer) {
-//   score++;
-// }
-// resultContainer.innerText = `Вы набрали ${score} баллов.`;
 
 function displayTest() {
   retryButton.style.display = "none";
@@ -307,27 +297,25 @@ function displayTest() {
   resultSvgIncorrect.style.display = "none";
   retryButton.style.display = "none";
 
-  // Отключите кнопку отправки по умолчанию
   submitButton.classList.add("disabled");
 
   const inputs = document.querySelectorAll('input[name="question"]');
 
-  // Если тест пройден, отключите радиокнопки
   if (stepProgres.completed === true) {
     const stepComplete = document.createElement("div");
     stepComplete.classList.add("step-complete");
     stepComplete.innerText = "Шаг пройден!";
     document.getElementById("blockContent").append(stepComplete);
     submitButton.style.display = "none";
-    // submitButton.style.animation = "none";
+
     nextButton.style.display = "flex";
-    // retryButton.style.display = "flex"
+
     updateNextButtonHref();
     resultContainer.innerText = "Правильно!";
     resultSvgCorrect.style.display = "flex";
-    // nextButton.style.animation = "fadeIn 0.2s ease";
+
     inputs.forEach((input) => {
-      input.disabled = true; // Отключить радиокнопки
+      input.disabled = true;
     });
   } else {
     inputs.forEach((input) => {
@@ -349,7 +337,7 @@ function handleAnswer(selectedValue, isMultipleChoice) {
     }
   } else if (isMultipleChoice) {
     const answersAsString = JSON.stringify(testArray.answer);
-    const selectedValueAsString = JSON.stringify(selectedValue); // Оборачиваем в массив для сравнения
+    const selectedValueAsString = JSON.stringify(selectedValue);
     if (answersAsString.includes(selectedValueAsString)) {
       handleCorrectAnswer();
     } else {
@@ -448,7 +436,7 @@ function setButtonHref(button, href) {
   if (href) button.href = href;
   else button.removeAttribute("href");
 }
-// Обработка кнопки "Назад"
+
 setButtonHref(
   buttonBack,
   stepId == 1
@@ -457,7 +445,7 @@ setButtonHref(
         stepId - 1
       }`
 );
-// Обработка кнопки "Вперед"
+
 setButtonHref(
   buttonForward,
   stepId == totalSteps
@@ -467,7 +455,6 @@ setButtonHref(
       }`
 );
 
-// Обработка кнопки "дальше"
 if (stepId == totalSteps) {
   if (submoduleId < totalSubmodules) {
     setButtonHref(

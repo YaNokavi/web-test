@@ -75,15 +75,6 @@ const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 
-// function setupTab(tab) {
-//   tab.style.animation = "none";
-//   tab.style.color = "#ffffff";
-// tab.addEventListener("click", function () {
-//   sessionStorage.removeItem("currentTab");
-//   sessionStorage.removeItem("currentLink");
-// });
-// }
-
 function setupCatalog() {
   catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";

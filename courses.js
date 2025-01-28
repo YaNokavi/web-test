@@ -84,10 +84,10 @@ function displayModules(courseData) {
 
     moduleMain.appendChild(svgIcon);
     elementModules.append(moduleMain);
-    
+
     const moduleAditional = document.createElement("ol");
-    moduleAditional.style.margin = 0
-    moduleAditional.style.paddingLeft = '20px'
+    moduleAditional.style.margin = 0;
+    moduleAditional.style.paddingLeft = "20px";
 
     elem.submoduleList.forEach((subElem) => {
       const subText = document.createElement("li");
@@ -100,9 +100,9 @@ function displayModules(courseData) {
     moduleMain.addEventListener("click", () => {
       const computedStyle = window.getComputedStyle(moduleAditional);
       if (computedStyle.display === "none") {
-        moduleAditional.style.display = "block"; // Показываем список
+        moduleAditional.style.display = "block";
       } else {
-        moduleAditional.style.display = "none"; // Скрываем список
+        moduleAditional.style.display = "none";
       }
 
       svgIcon.classList.toggle("rotated");
@@ -148,10 +148,10 @@ function setupButtons() {
   );
 
   if (idCourse && idCourse.includes(Number(courseId))) {
-    buttonsConfig[0].show = false; // Hide button1
+    buttonsConfig[0].show = false;
     buttonsConfig[1].show = false;
-    buttonsConfig[2].show = true; // Show button2
-    buttonsConfig[3].show = true; // Show button3
+    buttonsConfig[2].show = true;
+    buttonsConfig[3].show = true;
     buttonsConfig[4].show = true;
   }
 

@@ -43,7 +43,7 @@ async function sendUserInfo() {
       "POST"
     );
   }
-  disableTab()
+  disableTab();
   getFavoriteCourses();
 }
 

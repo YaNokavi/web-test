@@ -3,7 +3,7 @@ import fetchData from "./fetch.js";
 localStorage.removeItem("courseData");
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
+const userId = tg.initDataUnsafe.user.id;
 
 let coursesData = [];
 
@@ -93,20 +93,20 @@ function displayCourses() {
   });
 }
 
-function displayNotification() {
-  const notification = document.getElementById("notification");
-  const notificationBalance = document.getElementById("notification-balance");
-  notificationBalance.innerText = "Курс в разработке";
+// function displayNotification() {
+//   const notification = document.getElementById("notification");
+//   const notificationBalance = document.getElementById("notification-balance");
+//   notificationBalance.innerText = "Курс в разработке";
 
-  notification.classList.add("show");
-  setTimeout(() => {
-    tg.HapticFeedback.notificationOccurred("warning");
-  }, 350);
+//   notification.classList.add("show");
+//   setTimeout(() => {
+//     tg.HapticFeedback.notificationOccurred("warning");
+//   }, 350);
 
-  setTimeout(() => {
-    notification.classList.remove("show");
-  }, 2000);
-}
+//   setTimeout(() => {
+//     notification.classList.remove("show");
+//   }, 2000);
+// }
 
 let refer = document.referrer.split("/").pop();
 const title = document.getElementById("title");
