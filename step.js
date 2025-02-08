@@ -210,6 +210,7 @@ function displayContent(content) {
     addStepProgress();
   } else {
     const jsonObject = JSON.parse(content);
+    alert(jsonObject.image)
 
     testArray = {
       question: jsonObject.question,
