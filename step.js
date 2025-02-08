@@ -267,7 +267,7 @@ function displayTest() {
 
   const isMultipleChoice = testArray.answer.length > 1;
 
-  testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${testArray.question}</h2>`;
+  testDiv.innerHTML = `<h2 style="margin-bottom: 10px; line-height: 15px;">${testArray.question}</h2>`;
 
   if (testArray.image && testArray.image.url) {
     testDiv.innerHTML += `
