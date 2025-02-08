@@ -267,15 +267,19 @@ function displayTest() {
 
   const isMultipleChoice = testArray.answer.length > 1;
 
-  testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${
-    testArray.question
-  }</h2>
-  <img src="${jsonObject.image.url}" height="${
-    jsonObject.image.height
-  }" width="${jsonObject.image.width}" style="align-self: center">
+  testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${testArray.question}</h2>`;
+
+  if (jsonObject.image && jsonObject.image.url) {
+    testDiv.innerHTML += `
+      <img src="${jsonObject.image.url}" height="${jsonObject.image.height}" width="${jsonObject.image.width}" style="align-self: center">
+    `;
+  }
+
+  testDiv.innerHTML += `
     <p style="margin-bottom: 5px">Выберите ${
       isMultipleChoice ? "один или несколько" : "один"
-    } вариант${isMultipleChoice ? "ов" : ""} ответа</p>`;
+    } вариант${isMultipleChoice ? "ов" : ""} ответа</p>
+  `;
 
   testArray.options.forEach((option, index) => {
     const label = document.createElement("label");
