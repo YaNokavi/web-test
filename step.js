@@ -269,9 +269,9 @@ function displayTest() {
 
   testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${testArray.question}</h2>`;
 
-  if (jsonObject.image && jsonObject.image.url) {
+  if (testArray.image && testArray.image.url) {
     testDiv.innerHTML += `
-      <img src="${jsonObject.image.url}" height="${jsonObject.image.height}" width="${jsonObject.image.width}" style="align-self: center">
+      <img src="${testArray.image.url}" height="${testArray.image.height}" width="${testArray.image.width}" style="align-self: center">
     `;
   }
 
