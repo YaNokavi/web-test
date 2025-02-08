@@ -213,6 +213,7 @@ function displayContent(content) {
 
     testArray = {
       question: jsonObject.question,
+      image: jsonObject.image,
       options: jsonObject.options,
       answer: jsonObject.answer,
     };
