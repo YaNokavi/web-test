@@ -13,13 +13,15 @@ const logoNameProfile = document.querySelector(
 const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
+const tg = window.Telegram.WebApp;
 const userIdData = tg.initDataUnsafe.user.id;
 let logoName;
 let userName;
 
 if (tg.initDataUnsafe.user.username) {
   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  userName = `${tg.initDataUnsafe.user.username}`;
+  const name = `${tg.initDataUnsafe.user.username}`;
+  userName = DOMPurify.sanitize(name);
 } else {
   logoName = "U";
   userName = "User";

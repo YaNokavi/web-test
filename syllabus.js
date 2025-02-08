@@ -6,7 +6,7 @@ const paramId = urlParams.get("id");
 
 const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
-// const userId = 1
+
 const courseData = JSON.parse(localStorage.getItem(`courseData`));
 var modulesData = courseData.courseModuleList;
 

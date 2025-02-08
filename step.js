@@ -13,7 +13,7 @@ const button = document.getElementById("button-next-step");
 
 const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
-// const userId = 1;
+
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
