@@ -210,7 +210,6 @@ function displayContent(content) {
     addStepProgress();
   } else {
     const jsonObject = JSON.parse(content);
-    alert(jsonObject.image)
 
     testArray = {
       question: jsonObject.question,
@@ -271,6 +270,9 @@ function displayTest() {
   testDiv.innerHTML = `<h2 style="margin-bottom: 10px">${
     testArray.question
   }</h2>
+  <img src="${jsonObject.image.url}" height="${
+    jsonObject.image.height
+  }" width="${jsonObject.image.width}" style="align-self: center">
     <p style="margin-bottom: 5px">Выберите ${
       isMultipleChoice ? "один или несколько" : "один"
     } вариант${isMultipleChoice ? "ов" : ""} ответа</p>`;
