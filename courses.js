@@ -31,7 +31,7 @@ if (courseInfo) {
   renderCourse(courseInfo);
 } else {
   const catalogData = JSON.parse(localStorage.getItem("catalogData"));
-  var courseInfo = catalogData[courseId - 1];
+  var courseInfo = catalogData.find((course) => course.id == courseId) || null;
   if (courseInfo) {
     renderCourse(courseInfo);
   }
