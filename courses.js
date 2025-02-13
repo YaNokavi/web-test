@@ -11,6 +11,8 @@ const userId = tg.initDataUnsafe.user.id;
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 
+const lastStep = localStorage.getItem("lastStep");
+
 function renderCourse(course) {
   courseElement.innerHTML = `
     <a href="https://t.me/${course.author}" class="course-block-author">Автор: @${course.author}</a>
@@ -38,12 +40,14 @@ if (courseInfo) {
   }
 }
 
-function displayLastStep(courseData) {
-  const lastStep = document.getElementById("last-step");
-  const modules = courseData.courseModuleList[courseId - 1].submoduleList;
-  const sub = modules.find((sub) => sub.id == courseId) || null;
-  console.log(sub.stepList);
-  lastStep.innerHTML = `${sub.name} - ${sub.stepList[courseId - 1].number} из ${sub.stepList.length}`;
+function displayLastStep(lastStep, courseData) {
+  const lastStepBlock = document.getElementById("last-step");
+  const courses = courseData.find((course) => course.id == lastStep.courseId);
+  const modules = courseData.find((module) => module.id == lastStep.moduleId);
+  const sub = modules.find((sub) => sub.id == lastStep.courseId) || null;
+  const step = modules.find((step) => step.id == lastStep.stepId) || null;
+  // console.log(sub.stepList);
+  lastStepBlock.innerHTML = `${sub.name} - ${step.number} шаг`;
 }
 
 function displayLearning(courseData) {
@@ -125,7 +129,9 @@ async function fetchContent() {
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
-  displayLastStep(courseData);
+  if (lastStep) {
+    displayLastStep(lastStep, courseData);
+  }
   displayLearning(courseData);
   displayModules(courseData);
   document.getElementById("preloader").style.display = "none";

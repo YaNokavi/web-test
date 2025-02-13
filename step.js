@@ -28,6 +28,15 @@ let stepProgres = stepInfo[stepId - 1];
 const urlContent = stepInfo[stepId - 1].contentUrl;
 const isTest = stepInfo[stepId - 1].test;
 
+const lastStep = {
+  courseId: syllabusId,
+  moduleId: moduleId,
+  submoduleId: submoduleId,
+  stepId: stepId,
+};
+
+localStorage.setItem("lastStep", lastStep);
+
 steps.innerHTML = `<div class="button-navigation" id="button-navigation">
             <svg
             style="color: var(--theme-button-hint-icon-text-color);"
