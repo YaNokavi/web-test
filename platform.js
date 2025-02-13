@@ -3,14 +3,14 @@ const tg = window.Telegram.WebApp;
 const platform = tg.platform;
 const version = Number(tg.version);
 
-try {
-  tg.initDataUnsafe.user.id;
-  if (platform == "web") {
-    window.location.href = "webversion.html";
-  }
-} catch {
-  window.location.href = "nontg.html";
-}
+// try {
+//   tg.initDataUnsafe.user.id;
+//   if (platform == "web") {
+//     window.location.href = "webversion.html";
+//   }
+// } catch {
+//   window.location.href = "nontg.html";
+// }
 
 function applyTheme(theme) {
   if (theme === "light") {

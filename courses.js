@@ -6,6 +6,7 @@ const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
+// const userId = 1;
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
@@ -35,6 +36,14 @@ if (courseInfo) {
   if (courseInfo) {
     renderCourse(courseInfo);
   }
+}
+
+function displayLastStep(courseData) {
+  const lastStep = document.getElementById("last-step");
+  const modules = courseData.courseModuleList[courseId - 1].submoduleList;
+  const sub = modules.find((sub) => sub.id == courseId) || null;
+  console.log(sub.stepList);
+  lastStep.innerHTML = `${sub.name} - ${sub.stepList[courseId - 1].number} из ${sub.stepList.length}`;
 }
 
 function displayLearning(courseData) {
@@ -116,6 +125,7 @@ async function fetchContent() {
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
+  displayLastStep(courseData);
   displayLearning(courseData);
   displayModules(courseData);
   document.getElementById("preloader").style.display = "none";
