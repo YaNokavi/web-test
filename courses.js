@@ -41,11 +41,12 @@ if (courseInfo) {
 }
 
 function displayLastStep(lastStep, courseData) {
+  console.log(lastStep)
   const lastStepBlock = document.getElementById("last-step");
   const courses = courseData.find((course) => course.id == lastStep.courseId);
-  const modules = courseData.find((module) => module.id == lastStep.moduleId);
+  const modules = courses.find((module) => module.id == lastStep.moduleId);
   const sub = modules.find((sub) => sub.id == lastStep.courseId) || null;
-  const step = modules.find((step) => step.id == lastStep.stepId) || null;
+  const step = sub.find((step) => step.id == lastStep.stepId) || null;
   // console.log(sub.stepList);
   lastStepBlock.innerHTML = `${sub.name} - ${step.number} шаг`;
 }
@@ -129,7 +130,7 @@ async function fetchContent() {
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
-  if (lastStep) {
+  if (lastStep === null) {
     displayLastStep(lastStep, courseData);
   }
   displayLearning(courseData);
