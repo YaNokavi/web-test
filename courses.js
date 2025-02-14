@@ -129,7 +129,7 @@ async function fetchContent() {
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
 
-  if (lastStepArray !== null) {
+  if (lastStepArray[courseId]) {
     displayLastStep(lastStepArray, courseData);
   }
   displayLearning(courseData);
