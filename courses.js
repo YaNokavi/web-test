@@ -41,12 +41,20 @@ if (courseInfo) {
 }
 
 function displayLastStep(lastStepArray, courseData) {
-  const lastStepBlock = document.getElementById("last-step");
-  const lastStep = lastStepArray[courseId]
-  const modules = courseData.courseModuleList.find((module) => module.number == lastStep.moduleId);
-  const sub = modules.submoduleList.find((sub) => sub.number == lastStep.submoduleId) || null;
-  const step = sub.stepList.find((step) => step.number == lastStep.stepId) || null;
-  lastStepBlock.innerHTML = `${sub.name} - ${step.number} шаг`;
+  const lastStepBlock = document.getElementById("last-step-block");
+  lastStepBlock.style.display = "flex";
+  const lastStepHref = document.getElementById("last-step");
+  const lastStep = lastStepArray[courseId];
+  const modules = courseData.courseModuleList.find(
+    (module) => module.number == lastStep.moduleId
+  );
+  const sub =
+    modules.submoduleList.find((sub) => sub.number == lastStep.submoduleId) ||
+    null;
+  const step =
+    sub.stepList.find((step) => step.number == lastStep.stepId) || null;
+  lastStepHref.innerHTML = `${sub.name} - ${step.number} шаг`;
+  lastStepHref.href = `step.html?syllabusId=${courseId}&moduleId=${lastStep.moduleId}&submoduleId=${lastStep.submoduleId}&stepId=${lastStep.stepId}`;
 }
 
 function displayLearning(courseData) {
