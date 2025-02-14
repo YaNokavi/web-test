@@ -5,13 +5,13 @@ const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-// const userId = 1;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 
-const lastStep = localStorage.getItem("lastStep");
+const lastStepArray = JSON.parse(localStorage.getItem("lastStepArray"));
 
 function renderCourse(course) {
   courseElement.innerHTML = `
@@ -40,14 +40,12 @@ if (courseInfo) {
   }
 }
 
-function displayLastStep(lastStep, courseData) {
-  console.log(lastStep)
+function displayLastStep(lastStepArray, courseData) {
   const lastStepBlock = document.getElementById("last-step");
-  const courses = courseData.find((course) => course.id == lastStep.courseId);
-  const modules = courses.find((module) => module.id == lastStep.moduleId);
-  const sub = modules.find((sub) => sub.id == lastStep.courseId) || null;
-  const step = sub.find((step) => step.id == lastStep.stepId) || null;
-  // console.log(sub.stepList);
+  const lastStep = lastStepArray[courseId]
+  const modules = courseData.courseModuleList.find((module) => module.number == lastStep.moduleId);
+  const sub = modules.submoduleList.find((sub) => sub.number == lastStep.submoduleId) || null;
+  const step = sub.stepList.find((step) => step.number == lastStep.stepId) || null;
   lastStepBlock.innerHTML = `${sub.name} - ${step.number} шаг`;
 }
 
@@ -130,8 +128,9 @@ async function fetchContent() {
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
-  if (lastStep === null) {
-    displayLastStep(lastStep, courseData);
+
+  if (lastStepArray !== null) {
+    displayLastStep(lastStepArray, courseData);
   }
   displayLearning(courseData);
   displayModules(courseData);
