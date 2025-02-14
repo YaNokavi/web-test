@@ -14,9 +14,18 @@ const courseElement = document.getElementById("info");
 const lastStepArray = JSON.parse(localStorage.getItem("lastStepArray"));
 
 function renderCourse(course) {
+  let author = course.author;
+
+  if (author.length >= 15) {
+    author = author.slice(0, 15) + "...";
+  }
+
   courseElement.innerHTML = `
-    <a href="https://t.me/${course.author}" class="course-block-author">Автор: @${course.author}</a>
+  <div class="course-media">
+    
     <img src="icons/logo_cuna2.jpg" class="course-logo" />
+    <a href="https://t.me/${course.author}" class="course-block-author">Автор: @${author}</a>
+    </div>
     <div class="course-block-description">
       <div class="course-block-name">${course.name}</div>
       ${course.description}
