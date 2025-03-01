@@ -34,12 +34,12 @@ async function sendUserInfo() {
   const referallId = JSON.parse(localStorage.getItem("referallId"));
   if (!referallId || referallId === userIdData) {
     userInfo = await fetchData(
-      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/info?username=${username}`,
+      `https://cryptunatest-anderm.amvera.io/v1/user/${userIdData}/info?username=${username}`,
       "POST"
     );
   } else {
     userInfo = await fetchData(
-      `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/info?&username=${username}&referrerId=${referallId}`,
+      `https://cryptunatest-anderm.amvera.io/v1/user/${userIdData}/info?&username=${username}&referrerId=${referallId}`,
       "POST"
     );
   }
@@ -57,7 +57,7 @@ async function disableTab() {
 
 async function getFavoriteCourses() {
   const courseInfo = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/user/${userIdData}/favorite-courses`,
+    `https://cryptunatest-anderm.amvera.io/v1/user/${userIdData}/favorite-courses`,
     "GET"
   );
   localStorage.setItem("infoCourse", JSON.stringify(courseInfo));

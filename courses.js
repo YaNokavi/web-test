@@ -141,7 +141,7 @@ function displayModules(courseData) {
 
 async function fetchContent() {
   const courseData = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/course/${courseId}/content?userId=${userId}`
+    `https://cryptunatest-anderm.amvera.io/v1/course/${courseId}/content?userId=${userId}`
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
@@ -224,7 +224,7 @@ button1.addEventListener("click", function () {
 
 async function postDataAdd() {
   const response = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/user/${userId}/favorite-course?courseId=${courseId}`,
+    `https://cryptunatest-anderm.amvera.io/v1/user/${userId}/favorite-course?courseId=${courseId}`,
     "POST",
     null,
     false
@@ -282,7 +282,7 @@ button2.addEventListener("click", function () {
 
 async function postDataRemove() {
   const response = await fetchData(
-    `https://cryptuna-anderm.amvera.io/v1/user/${userId}/favorite-course?courseId=${courseId}`,
+    `https://cryptunatest-anderm.amvera.io/v1/user/${userId}/favorite-course?courseId=${courseId}`,
     "DELETE",
     null,
     false

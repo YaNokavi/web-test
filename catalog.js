@@ -15,7 +15,7 @@ async function fetchCourses() {
     displayCourses();
   } else {
     coursesData = await fetchData(
-      "https://cryptuna-anderm.amvera.io/v1/course/all"
+      "https://cryptunatest-anderm.amvera.io/v1/course/all"
     );
     localStorage.setItem("catalogData", JSON.stringify(coursesData));
     displayCourses();
