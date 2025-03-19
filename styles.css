@@ -919,7 +919,6 @@ a:active {
   font: 400 11px/1 Inter, sans-serif;
   color: var(--theme-text-hint-color);
   text-decoration: none;
-  
 }
 
 /* .course-block-author {
@@ -2108,12 +2107,13 @@ h1 {
   margin-top: 15px;
   margin-left: 15px;
   /* margin-right: 15px; */
-
+  align-items: center;
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
   line-height: 20px;
+  gap: 8px;
 
   display: flex;
   text-align: left;
@@ -2144,12 +2144,59 @@ h1 {
   color: var(--theme-text-hint-color);
 }
 
+.top-block-info {
+  display: flex;
+  -webkit-tap-highlight-color: transparent;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0px;
+  /* margin-left: 8px; */
+  min-width: 30px;
+  min-height: 32px;
+  position: relative;
+
+  /* background: rgba(20, 104, 177, 0.15); */
+  background: var(--theme-button-hint-color);
+  border-radius: 8px;
+}
+
+.top-popup {
+  display: flex;
+  animation: ani 0.3s forwards;
+
+  position: absolute;
+  left: 38px;
+  top: 60px;
+
+  min-width: 230px;
+  width: auto;
+  height: 28px;
+  max-height: 32px;
+  padding: 2px 2px;
+  margin-right: 15px;
+
+  background: var(--theme-bg-hint-color);
+  border-radius: 8px;
+}
+
+.top-popup-text {
+  align-content: center;
+  width: 100%;
+  font: 600 9px/1 Inter, sans-serif;
+  font-style: normal;
+  color: var(--theme-button-color);
+}
+
+.top-hide-popup {
+  animation: aniHide 0.2s forwards;
+}
+
 .friends-block-not-null-text-down {
-  width: 95%;
+  width: 92%;
   height: auto;
   margin-top: 12px;
-  /* margin-bottom: auto; */
-  margin-left: 15px;
+  margin-left: 20px;
   margin-right: 15px;
 
   font-family: "Inter";
@@ -2162,7 +2209,6 @@ h1 {
   text-align: left;
   letter-spacing: -0.4px;
 
-  /* color: #a6a6a6; */
   color: var(--theme-text-hint-color);
 }
 
@@ -2178,21 +2224,121 @@ h1 {
   width: 92%;
   height: auto;
   padding: 10px 0;
-  gap: 20px;
+  gap: 15px;
 
-  /* background: rgba(20, 104, 177, 0.1); */
   background: var(--theme-bg-hint-color);
   border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.list-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 70px;
+  margin-top: -10px;
+  border: 2px solid var(--theme-block-border-color);
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.list-user-rating {
+  display: flex;
+  flex-direction: column;
+  margin-right: 4%;
+  font: 700 12px/1 Inter, sans-serif;
+  gap: 5px;
+  color: var(--theme-text-color);
+  /* align-items: center; */
+  /* justify-content: space-between; */
+
+  /* width: 100%; */
+  /* height: 70px; */
+
+  /* box-sizing: border-box; */
+}
+
+.list-user-rating-place {
+  text-align: right;
+  font: 600 16px/1 Inter, sans-serif;
+  color: var(--theme-text-hint-color);
+  line-height: 20px;
 }
 
 .friends-list-user {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  /* gap: 16px; */
 
   width: 92%;
   height: 50px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--theme-block-border-color);
+}
+
+.friends-list-user:last-child {
+  border-bottom: 0px solid var(--theme-block-border-color);
+}
+
+.friends-list-block-logo-info {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-right: auto;
+  margin-left: 4%;
+}
+
+.list-user-place {
+  display: flex;
+  font: 600 16px/1 Inter, sans-serif;
+
+  width: 10px;
+  height: 19px;
+
+  line-height: 19px;
+
+  text-align: center;
+
+  color: var(--theme-text-hint-color);
+}
+
+.list-user-place.first {
+  color: #f7d306;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.list-user-place.second {
+  color: #c0c0c0;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.list-user-place.third {
+  color: #cd7f32;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.list-user-reward {
+  display: flex;
+  font: 700 16px/1 Inter, sans-serif;
+
+  /* width: 37px;
+  height: 28px; */
+
+  font-style: normal;
+
+  line-height: 19px;
+
+  align-items: center;
+
+  color: var(--theme-text-color);
 }
 
 .friends-list-user-logo {
@@ -2219,7 +2365,7 @@ h1 {
   align-items: flex-start;
   padding: 0px;
   gap: 6px;
-
+  margin-right: auto;
   width: auto;
   height: 50px;
 }

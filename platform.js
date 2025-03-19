@@ -176,6 +176,7 @@ tg.onEvent("themeChanged", function () {
 
   if (theme !== savedTheme) {
     applyTheme(theme);
+
     localStorage.setItem("theme", theme);
   }
 });
