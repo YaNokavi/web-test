@@ -208,7 +208,7 @@ function fixImages() {
       const width = img.width;
       const height = img.height;
 
-      if (width >= 50 || height >= 50) {
+      if (height >= 60) {
         // Обработка больших изображений
         const newImg = document.createElement("img");
         newImg.src = img.src;
