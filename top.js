@@ -32,47 +32,122 @@ import fetchData from "./fetch.js";
 const userId = 1;
 
 async function getTopUsers() {
-  const topUsers = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/user/${userId}/referrals`
-  );
+  // const topUsers = await fetchData(
+  //   `https://cryptunatest-anderm.amvera.io/v1/user/${userId}/referrals`
+  // );
+
+  const topUsers = {
+    username: "Yan Miracles",
+    userBalance: 123,
+    ratingPlace: 1035,
+    usersRatingList: [
+      {
+        username: "Andrey Ermolaev",
+        userBalance: 9999999999,
+      },
+      {
+        username: "Yan Toples",
+        userBalance: 5,
+      },
+      {
+        username: "Vitalik Buterin",
+        userBalance: 0,
+      },
+      {
+        username: "Vitalik Buterin",
+        userBalance: 0,
+      },
+      {
+        username: "Vitalik Buterin",
+        userBalance: 0,
+      },
+      {
+        username: "Vitalik Buterin",
+        userBalance: 0,
+      },
+    ],
+  };
 
   displayTopUsers(topUsers);
 }
 
-// getTopUsers();
+getTopUsers();
 
 function displayTopUsers(topUsers) {
   const main = document.getElementById("top-users");
   main.innerHTML = "";
   main.innerHTML = `
     <div class="friends-block-not-null">
-        <div class="friends-block-not-null-text">Приглашенные друзья
-          <div class="friends-block-not-null-amount">${referrals.length}</div>
-        </div>
+        <div class="friends-block-not-null-text">Таблица лидеров</div>
         <div class="friends-block-not-null-text-down">
-          За каждого приглашенного друга по твоей ссылке ты получишь 5% от его заработанных токенов
-          CUNA
+          Данный топ формируется на основе заработанных CUNA-токенов за
+          прохождение тестов в курсах и сбрасывается каждый месяц.
         </div>
         <div class="friends-block-not-null-list" id="list">
-        </div>
+          
       </div>
   `;
 
   const listFriends = document.getElementById("list");
-  referrals.forEach((item) => {
+  const listUser = document.createElement("div");
+  listUser.classList.add("list-user");
+  listUser.innerHTML = `
+  
+              <div class="friends-list-block-logo-info">
+                <div class="friends-list-user-logo">Y</div>
+                <div class="friends-list-user-info">
+                  <div class="friends-list-user-info-name">${topUsers.username}</div>
+                  <div class="friends-list-user-info-balance">
+                    <div class="friends-list-user-info-balance-text">${topUsers.userBalance}</div>
+                    <div class="friends-list-user-info-balance-logo"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-user-rating">
+                <div class="">Рейтинг</div>
+                <div class="list-user-rating-place">${topUsers.ratingPlace}</div>
+              </div>
+            
+          
+          `;
+  listFriends.append(listUser);
+  console.log(listFriends);
+
+  topUsers.usersRatingList.forEach((item, index) => {
+    // console.log(item)
+    let reward;
+    let place;
+    if (index === 0) {
+      reward = "20$";
+      place = "first";
+    } else if (index === 1) {
+      reward = "10$";
+      place = "second";
+    } else if (index === 2) {
+      reward = "5$";
+      place = "third";
+    } else {
+      reward = "";
+      place = "";
+    }
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
+
     list.innerHTML = `
-            <div class="friends-list-user-logo">${item.name[0].toUpperCase()}</div>
-            <div class="friends-list-user-info">
-              <div class="friends-list-user-info-name">${item.name}</div>
-              <div class="friends-list-user-info-balance">
-                <div class="friends-list-user-info-balance-text">${
-                  item.balance
-                }</div>
-                <div class="friends-list-user-info-balance-logo"></div>
+            <div class="list-user-place ${place}" >${index + 1}</div>
+            <div class="friends-list-block-logo-info">
+              <div class="friends-list-user-logo">Y</div>
+              <div class="friends-list-user-info">
+                <div class="friends-list-user-info-name">${item.username}</div>
+                <div class="friends-list-user-info-balance">
+                  <div class="friends-list-user-info-balance-text">${
+                    item.userBalance
+                  }</div>
+                  <div class="friends-list-user-info-balance-logo"></div>
+                </div>
               </div>
             </div>
+            <div class="list-user-reward">${reward}</div>
    `;
     listFriends.append(list);
   });
