@@ -200,7 +200,7 @@ function addStepProgress() {
 }
 
 function fixImages() {
-  return new Promise((resolve) => {
+  
     const images = document.querySelectorAll("img");
 
     images.forEach((img) => {
@@ -229,8 +229,7 @@ function fixImages() {
         img.style.verticalAlign = "middle";
       }
     });
-    resolve()
-  });
+
 }
 
 async function trackImageLoad() {
@@ -258,7 +257,7 @@ async function trackImageLoad() {
 
   try {
     await Promise.all(imageLoadPromises);
-    await fixImages();
+    fixImages();
     document.getElementById("preloader").style.display = "none";
   } catch (url) {
     console.error(
