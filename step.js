@@ -199,37 +199,35 @@ function addStepProgress() {
   }
 }
 
-function fixImages() {
-  
-    const images = document.querySelectorAll("img");
+async function fixImages() {
+  const images = document.querySelectorAll("img");
 
-    images.forEach((img) => {
-      // Получаем размеры изображения
-      const width = img.width;
-      const height = img.height;
+  images.forEach((img) => {
+    // Получаем размеры изображения
+    const width = img.width;
+    const height = img.height;
 
-      if (height >= 60) {
-        // Обработка больших изображений
-        const newImg = document.createElement("img");
-        newImg.src = img.src;
-        newImg.classList.add("iview-image");
-        newImg.dataset.iview = "";
-        newImg.style.height = `${img.height}px`;
-        newImg.style.width = `${img.width}px`;
-        newImg.style.alignSelf = "center";
+    if (height >= 60) {
+      // Обработка больших изображений
+      const newImg = document.createElement("img");
+      newImg.src = img.src;
+      newImg.classList.add("iview-image");
+      newImg.dataset.iview = "";
+      newImg.style.height = `${img.height}px`;
+      newImg.style.width = `${img.width}px`;
+      newImg.style.alignSelf = "center";
 
-        // Проверяем наличие <p> и удаляем его, если есть
-        if (img.parentNode.tagName === "P") {
-          img.parentNode.parentNode.replaceChild(newImg, img.parentNode);
-        } else {
-          img.parentNode.replaceChild(newImg, img);
-        }
+      // Проверяем наличие <p> и удаляем его, если есть
+      if (img.parentNode.tagName === "P") {
+        img.parentNode.parentNode.replaceChild(newImg, img.parentNode);
       } else {
-        // Обработка маленьких изображений
-        img.style.verticalAlign = "middle";
+        img.parentNode.replaceChild(newImg, img);
       }
-    });
-
+    } else {
+      // Обработка маленьких изображений
+      img.style.verticalAlign = "middle";
+    }
+  });
 }
 
 async function trackImageLoad() {
