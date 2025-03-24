@@ -611,7 +611,7 @@ function displayNotification(numberBalance) {
 
 async function sendProgress() {
   await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
+    `submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
     "POST",
     false
   );
@@ -624,7 +624,7 @@ async function sendProgressTest() {
     answersNumber: optionsAnswers,
   };
   const response = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/submodule-step/${stepProgres.id}/user-completed-test`,
+    `submodule-step/${stepProgres.id}/user-completed-test`,
     "POST",
     sendTest
   );

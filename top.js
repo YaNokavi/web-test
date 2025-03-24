@@ -33,7 +33,7 @@ const userId = 1;
 
 async function getTopUsers() {
   // const topUsers = await fetchData(
-  //   `https://cryptunatest-anderm.amvera.io/v1/user/${userId}/referrals`
+  //   `user/${userId}/referrals`
   // );
 
   const topUsers = {

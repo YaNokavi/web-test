@@ -12,7 +12,7 @@ var modulesData = courseData.courseModuleList;
 
 async function getContent() {
   const contentGet = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/course/${paramId}/content?userId=${userId}`
+    `course/${paramId}/content?userId=${userId}`
   );
   displayModules();
   localStorage.setItem("courseData", JSON.stringify(courseData));

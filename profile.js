@@ -52,7 +52,7 @@ setUserNameProfile(userName);
 
 async function getUserInfo() {
   const userInfo = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/user/${userIdData}/info?username=${userName}`,
+    `user/${userIdData}/info?username=${userName}`,
     "POST"
   );
   balanceText.innerText = userInfo.balance;
@@ -69,7 +69,7 @@ getUserInfo();
 async function getTasks() {
   await getUserInfo();
   const tasksInfo = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/task/all?userId=${userIdData}`,
+    `task/all?userId=${userIdData}`,
     "GET"
   );
 
@@ -80,7 +80,7 @@ getTasks();
 
 async function checkTask(task) {
   const taskCheckInfo = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/task/${task.taskId}/completed?userId=${userIdData}`,
+    `task/${task.taskId}/completed?userId=${userIdData}`,
     "POST"
   );
 

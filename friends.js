@@ -5,7 +5,7 @@ const userId = tg.initDataUnsafe.user.id;
 
 async function getReferrals() {
   const referrals = await fetchData(
-    `https://cryptunatest-anderm.amvera.io/v1/user/${userId}/referrals`
+    `user/${userId}/referrals`
   );
 
   referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();
