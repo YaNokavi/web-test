@@ -61,9 +61,9 @@
   </head>
 
   <body>
-    <!-- <div id="preloader">
+    <div id="preloader">
       <div class="preloader-animation"></div>
-    </div> -->
+    </div>
 
     <div class="profile-header">
       <div class="profile-title">Знатоки</div>
@@ -80,8 +80,10 @@
       "
     >
       <div class="friends-block-not-null">
-        <div class="friends-block-not-null-text">Таблица лидеров</div>
-        <!-- <div class="top-block-info" id="pop">
+        <div class="friends-block-not-null-text">
+          <div style="min-width: 170px; max-height: 22px;">Таблица лидеров</div>
+          
+          <div class="top-block-info" id="pop">
             <svg
               style="
                 -webkit-tap-highlight-color: transparent;
@@ -105,89 +107,24 @@
                 fill="currentColor"
               />
             </svg>
-          </div> -->
-        <!-- <div class="top-popup" id="top-popup">
-            <div class="top-popup-text">
-              Данный топ формируется на основе заработанных CUNA-токенов за прохождение тестов в курсах и сбрасывается каждый месяц.
-            </div>
-          </div> -->
-        <div class="friends-block-not-null-text-down">
-          Данный топ формируется на основе заработанных CUNA-токенов за
-          прохождение тестов в курсах и сбрасывается каждый месяц.
-          <!-- </div> -->
+          </div>
+          <div class="text-timer" id="timer"></div>
         </div>
 
-        <div class="friends-block-not-null-list" id="list">
-          <div class="list-user">
-            <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo">Y</div>
-              <div class="friends-list-user-info">
-                <div class="friends-list-user-info-name">Yan Miracles</div>
-                <div class="friends-list-user-info-balance">
-                  <div class="friends-list-user-info-balance-text">200</div>
-                  <div class="friends-list-user-info-balance-logo"></div>
-                </div>
-              </div>
-            </div>
-            <div class="list-user-rating">
-              <div class="">Рейтинг</div>
-              <div class="list-user-rating-place">1035</div>
-            </div>
+        <div class="text-timer" id="timer"></div>
+
+        <div class="friends-block-not-null-list" id="list"></div>
+      </div>
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-content-text">
+            Данный топ формируется на основе заработанных CUNA-токенов за
+            прохождение тестов в курсах и сбрасывается каждые две недели.
+            <br /><br />Чтобы иметь возможность учавствовать в розыгрыше,
+            необходимо получить минимум 10 CUNA-токенов!
           </div>
-          <div class="friends-list-user">
-            <div class="list-user-place first">1</div>
-            <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo">Y</div>
-              <div class="friends-list-user-info">
-                <div class="friends-list-user-info-name">Yan Miracles</div>
-                <div class="friends-list-user-info-balance">
-                  <div class="friends-list-user-info-balance-text">200</div>
-                  <div class="friends-list-user-info-balance-logo"></div>
-                </div>
-              </div>
-            </div>
-            <div class="list-user-reward">20$</div>
-          </div>
-          <div class="friends-list-user">
-            <div class="list-user-place second">2</div>
-            <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo">Y</div>
-              <div class="friends-list-user-info">
-                <div class="friends-list-user-info-name">Yan Miracles</div>
-                <div class="friends-list-user-info-balance">
-                  <div class="friends-list-user-info-balance-text">200</div>
-                  <div class="friends-list-user-info-balance-logo"></div>
-                </div>
-              </div>
-            </div>
-            <div class="list-user-reward">10$</div>
-          </div>
-          <div class="friends-list-user">
-            <div class="list-user-place third">3</div>
-            <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo">Y</div>
-              <div class="friends-list-user-info">
-                <div class="friends-list-user-info-name">Yan Miracles</div>
-                <div class="friends-list-user-info-balance">
-                  <div class="friends-list-user-info-balance-text">200</div>
-                  <div class="friends-list-user-info-balance-logo"></div>
-                </div>
-              </div>
-            </div>
-            <div class="list-user-reward">5$</div>
-          </div>
-          <div class="friends-list-user">
-            <div class="list-user-place">4</div>
-            <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo">Y</div>
-              <div class="friends-list-user-info">
-                <div class="friends-list-user-info-name">Yan Miracles</div>
-                <div class="friends-list-user-info-balance">
-                  <div class="friends-list-user-info-balance-text">200</div>
-                  <div class="friends-list-user-info-balance-logo"></div>
-                </div>
-              </div>
-            </div>
+          <div class="modal-content-buttons">
+            <div class="modal-content-buttons-yes" id="okButton">Ок</div>
           </div>
         </div>
       </div>
