@@ -31,18 +31,18 @@ function startCountdown(endDate) {
 }
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
+const userId = tg.initDataUnsafe.user.id;
 let username;
 let logoname;
-// if (tg.initDataUnsafe.user.username) {
-//   logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-//   const name = `${tg.initDataUnsafe.user.username}`;
-//   username = DOMPurify.sanitize(name);
-// } else {
+if (tg.initDataUnsafe.user.username) {
+  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  const name = `${tg.initDataUnsafe.user.username}`;
+  username = DOMPurify.sanitize(name);
+} else {
 logoname = "U";
 username = "User";
-// }
-const userId = 1;
+}
+// const userId = 1;
 
 async function getTopUsers() {
   const topUsers = await fetchData(
