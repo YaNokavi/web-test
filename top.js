@@ -46,7 +46,7 @@ const userId = 1;
 
 async function getTopUsers() {
   // const topUsers = await fetchData(
-  //   `user/${userId}/referrals`
+  //   `event/student-competition/userid=${userId}`
   // );
 
   const topUsers = {
