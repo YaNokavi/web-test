@@ -30,152 +30,152 @@ function startCountdown(endDate) {
   }, 1000);
 }
 
-// const userId = tg.initDataUnsafe.user.id;
 const tg = window.Telegram.WebApp;
+const userId = tg.initDataUnsafe.user.id;
 let username;
 let logoname;
-// if (tg.initDataUnsafe.user.username) {
-//   logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-//   const name = `${tg.initDataUnsafe.user.username}`;
-//   username = DOMPurify.sanitize(name);
-// } else {
+if (tg.initDataUnsafe.user.username) {
+  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  const name = `${tg.initDataUnsafe.user.username}`;
+  username = DOMPurify.sanitize(name);
+} else {
 logoname = "U";
 username = "User";
-// }
-const userId = 1;
+}
+// const userId = 1;
 
 async function getTopUsers() {
-  // const topUsers = await fetchData(
-  //   `event/student-competition/userid=${userId}`
-  // );
+  const topUsers = await fetchData(
+    `event/student-competition/userid=${userId}`
+  );
 
-  const topUsers = {
-    userBalance: 0,
-    userPlace: 3,
-    eventEndDate: "2025-03-10T16:39:23.987",
-    userRatingList: [
-      {
-        place: 20,
-        username: "Crypto_bll",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 19,
-        username: "vratskiypenit",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 18,
-        username: "Martellqa",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 17,
-        username: "LintaoVita",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 16,
-        username: "xzsks",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 15,
-        username: "User",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 14,
-        username: "Hzzzzip",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 13,
-        username: "hemlebf",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 12,
-        username: "Jack",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 11,
-        username: "Ivy",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 10,
-        username: "Hank",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 9,
-        username: "Grace",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 8,
-        username: "Frank",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 7,
-        username: "Eve",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 6,
-        username: "David",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 5,
-        username: "Charlie",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 4,
-        username: "example",
-        userBalance: 0,
-        rewardAmount: null,
-      },
-      {
-        place: 3,
-        username: "delovoyslava",
-        userBalance: 0,
-        rewardAmount: 5,
-      },
-      {
-        place: 2,
-        username: "Arrival_D",
-        userBalance: 10,
-        rewardAmount: 10,
-      },
-      {
-        place: 1,
-        username: "Yan_Miracles",
-        userBalance: 30,
-        rewardAmount: 20,
-      },
-    ],
-  };
+  // const topUsers = {
+  //   userBalance: 0,
+  //   userPlace: 3,
+  //   eventEndDate: "2025-04-10T16:39:23.987",
+  //   userRatingList: [
+  //     {
+  //       place: 20,
+  //       username: "Crypto_bll",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 19,
+  //       username: "vratskiypenit",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 18,
+  //       username: "Martellqa",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 17,
+  //       username: "LintaoVita",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 16,
+  //       username: "xzsks",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 15,
+  //       username: "User",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 14,
+  //       username: "Hzzzzip",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 13,
+  //       username: "hemlebf",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 12,
+  //       username: "Jack",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 11,
+  //       username: "Ivy",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 10,
+  //       username: "Hank",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 9,
+  //       username: "Grace",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 8,
+  //       username: "Frank",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 7,
+  //       username: "Eve",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 6,
+  //       username: "David",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 5,
+  //       username: "Charlie",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 4,
+  //       username: "example",
+  //       userBalance: 0,
+  //       rewardAmount: null,
+  //     },
+  //     {
+  //       place: 3,
+  //       username: "delovoyslava",
+  //       userBalance: 0,
+  //       rewardAmount: 5,
+  //     },
+  //     {
+  //       place: 2,
+  //       username: "Arrival_D",
+  //       userBalance: 10,
+  //       rewardAmount: 10,
+  //     },
+  //     {
+  //       place: 1,
+  //       username: "Yan_Miracles",
+  //       userBalance: 30,
+  //       rewardAmount: 20,
+  //     },
+  //   ],
+  // };
 
   displayTopUsers(topUsers);
   startCountdown(topUsers.eventEndDate);
