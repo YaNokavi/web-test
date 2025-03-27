@@ -3,7 +3,7 @@ import fetchData from "./fetch.js";
 // // Обновление таймера каждую секунду
 function startCountdown(endDate) {
   var countDownDate = new Date(endDate).getTime();
-  document.getElementById("preloader").style.display = "none";
+  
   var x = setInterval(function () {
     // Получение текущей даты и времени
     var now = new Date().getTime();
@@ -24,6 +24,7 @@ function startCountdown(endDate) {
       days + "д " + hours + "ч " + minutes + "м " + seconds + "с ";
 
     // Если таймер истёк, отображение сообщения
+    document.getElementById("preloader").style.display = "none";
     if (distance < 0) {
       clearInterval(x);
       document.getElementById("timer").innerHTML = "Награды уже в пути!";
