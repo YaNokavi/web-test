@@ -3,6 +3,7 @@ import fetchData from "./fetch.js";
 // // Обновление таймера каждую секунду
 function startCountdown(endDate) {
   var countDownDate = new Date(endDate).getTime();
+  document.getElementById("preloader").style.display = "none";
   var x = setInterval(function () {
     // Получение текущей даты и времени
     var now = new Date().getTime();
@@ -177,8 +178,8 @@ async function getTopUsers() {
   //   ],
   // };
 
-  displayTopUsers(topUsers);
   startCountdown(topUsers.eventEndDate);
+  displayTopUsers(topUsers);
 }
 
 getTopUsers();
