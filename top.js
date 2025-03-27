@@ -256,7 +256,7 @@ function displayTopUsers(topUsers) {
    `;
     listFriends.append(list);
   });
-  document.getElementById("preloader").style.display = "none";
+  // document.getElementById("preloader").style.display = "none";
 }
 
 const modal = document.getElementById("modal");
