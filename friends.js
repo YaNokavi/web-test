@@ -1,8 +1,8 @@
 import fetchData from "./fetch.js";
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 535799793;
+const userId = tg.initDataUnsafe.user.id;
+// const userId = 535799793;
 
 async function getReferrals() {
   const referrals = await fetchData(`user/${userId}/referrals`);
