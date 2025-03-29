@@ -2336,6 +2336,7 @@ h1 {
 }
 
 .friends-list-user:last-child {
+  padding-bottom: 0px;
   border-bottom: 0px solid var(--theme-block-border-color);
 }
 

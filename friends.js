@@ -1,12 +1,11 @@
 import fetchData from "./fetch.js";
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 535799793;
 
 async function getReferrals() {
-  const referrals = await fetchData(
-    `user/${userId}/referrals`
-  );
+  const referrals = await fetchData(`user/${userId}/referrals`);
 
   referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();
 }
@@ -170,6 +169,7 @@ function displayFriendsNotNull(referrals) {
     list.classList.add("friends-list-user");
     list.innerHTML = `
     
+    <div class="friends-list-block-logo-info">
             <div class="friends-list-user-logo">${item.name[0].toUpperCase()}</div>
             <div class="friends-list-user-info">
               <div class="friends-list-user-info-name">${item.name}</div>
@@ -178,6 +178,7 @@ function displayFriendsNotNull(referrals) {
                   item.balance
                 }</div>
                 <div class="friends-list-user-info-balance-logo"></div>
+              </div>
               </div>
             </div>
    `;
