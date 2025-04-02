@@ -2,6 +2,7 @@ import fetchData from "./fetch.js";
 
 // // Обновление таймера каждую секунду
 function startCountdown(endDate) {
+  // console.log(endDate)
   var countDownDate = new Date(endDate).getTime();
 
   var x = setInterval(function () {
@@ -20,8 +21,14 @@ function startCountdown(endDate) {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     // Отображение результата
-    document.getElementById("timer").innerHTML =
-      days + "д " + hours + "ч " + minutes + "м " + seconds + "с ";
+    let displayString = "";
+    if (days > 0) displayString += days + "д ";
+    if (hours > 0 || days > 0) displayString += hours + "ч "; // Show hours if there are days
+    if (minutes > 0 || hours > 0 || days > 0) displayString += minutes + "м "; // Show minutes if there are hours or days
+    displayString += seconds + "с";
+
+    // Update the timer display
+    document.getElementById("timer").innerHTML = displayString;
 
     // Если таймер истёк, отображение сообщения
     document.getElementById("preloader").style.display = "none";
@@ -33,17 +40,18 @@ function startCountdown(endDate) {
 }
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
 let username;
 let logoname;
-if (tg.initDataUnsafe.user.username) {
-  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  const name = `${tg.initDataUnsafe.user.username}`;
-  username = DOMPurify.sanitize(name);
-} else {
+// if (tg.initDataUnsafe.user.username) {
+//   logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+//   const name = `${tg.initDataUnsafe.user.username}`;
+//   username = DOMPurify.sanitize(name);
+// } else {
   logoname = "U";
   username = "User";
-}
+// }
 
 async function getTopUsers() {
   const topUsers = await fetchData(
