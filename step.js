@@ -207,7 +207,7 @@ async function fixImages() {
     const width = img.width;
     const height = img.height;
 
-    if (height >= 60) {
+    if (height >= 55) {
       // Обработка больших изображений
       const newImg = document.createElement("img");
       newImg.src = img.src;
@@ -337,6 +337,7 @@ submitButton.addEventListener("click", handleSubmit);
 retryButton.addEventListener("click", handleRetry);
 
 function displayTest() {
+  fixImages();
   retryButton.style.display = "none";
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
