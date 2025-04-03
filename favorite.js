@@ -144,3 +144,6 @@ function displayButton() {
   coursesDiv.append(courseButton);
   document.getElementById("preloader").style.display = "none";
 }
+
+const modal = document.getElementById("modal");
+modal.style.display = "flex";
