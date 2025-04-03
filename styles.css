@@ -1216,7 +1216,7 @@ a:active {
   overflow: auto;
   align-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  
+
   /* background-color: var(--theme-bg-modals-color); */
 }
 
@@ -1225,15 +1225,15 @@ a:active {
   flex-direction: column;
   align-items: center;
   margin: auto;
+
   margin-left: 10px;
   margin-right: 10px;
   /* background-color: #fefefe; */
   background-color: var(--theme-bg-color);
   padding: 20px;
-  margin-bottom: 200px;
+  /* margin-bottom: 200px; */
   /* background-size: cover; */
   /* background-image: url(effect.gif); */
-  
 
   width: auto;
   border-radius: 15px;
@@ -1292,7 +1292,7 @@ a:active {
   /* letter-spacing: -0.3px; */
   /* opacity: 1; */
   /* scale: 1; */
-  animation: animationReward .5s ease;
+  animation: animationReward 0.5s ease;
   transition: scale, opacity;
 
   /* color: #000000; */
@@ -1309,7 +1309,7 @@ a:active {
   border-radius: 22px;
 }
 
-ul.modal-list-days-reward  {
+ul.modal-list-days-reward {
   display: flex;
   flex-direction: row;
 
@@ -1325,17 +1325,15 @@ ul.modal-list-days-reward  {
   background-color: var(--theme-bg-step-color);
   border-radius: 5px;
   display: flex;
-  
+
   justify-content: center;
   align-items: center;
   margin-left: 5px;
   font: 600 14px/1 Inter, sans-serif;
-  
 
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 }
-
 
 .modal-list-days-reward li.complete {
   background-color: var(--theme-button-color);
@@ -1345,7 +1343,7 @@ ul.modal-list-days-reward  {
 @keyframes animationReward {
   0% {
     opacity: 0;
-    scale: 1
+    scale: 1;
   }
   80% {
     /* opacity: 1; */

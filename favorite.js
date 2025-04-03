@@ -8,13 +8,15 @@ const tg = window.Telegram.WebApp;
 let username;
 let userIdData;
 
-userIdData = tg.initDataUnsafe.user.id;
-if (tg.initDataUnsafe.user.username) {
-  const name = `${tg.initDataUnsafe.user.username}`;
-  username = DOMPurify.sanitize(name);
-} else {
+// userIdData = tg.initDataUnsafe.user.id;
+// if (tg.initDataUnsafe.user.username) {
+//   const name = `${tg.initDataUnsafe.user.username}`;
+//   username = DOMPurify.sanitize(name);
+// } else {
   username = "User";
-}
+// }
+
+userIdData = 1
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 const modal = document.getElementById("modal");
