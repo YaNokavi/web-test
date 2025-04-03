@@ -146,8 +146,10 @@ function displayButton() {
 }
 
 const modal = document.getElementById("modal");
-modal.style.display = "flex";
-const buttonModal = document.getElementById("okButton")
+const buttonModal = document.getElementById("okButton");
 buttonModal.addEventListener("click", () => {
-  modal.style.display = "none"
-})
+  modal.style.display = "none";
+});
+if (flagFirstJoin === true) {
+  modal.style.display = "flex";
+}
