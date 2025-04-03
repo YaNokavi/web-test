@@ -1216,7 +1216,7 @@ a:active {
   overflow: auto;
   align-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--theme-block-border-color);
+  
   /* background-color: var(--theme-bg-modals-color); */
 }
 
@@ -1234,6 +1234,7 @@ a:active {
 
   width: auto;
   border-radius: 15px;
+  border: 1px solid var(--theme-block-border-color);
 }
 
 .modal-content-text {
