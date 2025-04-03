@@ -12,4 +12,6 @@ localStorage.setItem("referallId", referallId);
 const flagFirstJoin = true;
 localStorage.setItem("flagFirstJoin", flagFirstJoin);
 
-window.location.href = "favorite.html";
+// window.location.href = "favorite.html";
+
+document.getElementById("modal").style.display = "flex"
