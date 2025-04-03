@@ -1231,10 +1231,19 @@ a:active {
   background-color: var(--theme-bg-color);
   padding: 20px;
   margin-bottom: 200px;
+  /* background-size: cover; */
+  /* background-image: url(effect.gif); */
+  
 
   width: auto;
   border-radius: 15px;
   border: 1px solid var(--theme-block-border-color);
+}
+
+.gif-modal {
+  background-size: cover;
+  background-position: center;
+  background-image: url(effect.gif);
 }
 
 .modal-header {
@@ -1270,6 +1279,7 @@ a:active {
 }
 
 .modal-reward {
+  display: flex;
   width: auto;
   height: auto;
   top: 0;
@@ -1279,10 +1289,24 @@ a:active {
   text-align: center;
   font-style: normal;
   line-height: 25px;
-  letter-spacing: -0.3px;
+  /* letter-spacing: -0.3px; */
+  /* opacity: 1; */
+  /* scale: 1; */
+  animation: animationReward .5s ease;
+  transition: scale, opacity;
 
   /* color: #000000; */
   color: var(--theme-text-color);
+}
+
+.modal-coin-logo {
+  width: 24px;
+  height: 24px;
+
+  margin-left: 3px;
+  background-size: cover;
+  background-image: url(icons/logo-token.png);
+  border-radius: 22px;
 }
 
 ul.modal-list-days-reward  {
@@ -1316,6 +1340,21 @@ ul.modal-list-days-reward  {
 .modal-list-days-reward li.complete {
   background-color: var(--theme-button-color);
   color: var(--theme-button-icon-text-color);
+}
+
+@keyframes animationReward {
+  0% {
+    opacity: 0;
+    scale: 1
+  }
+  80% {
+    /* opacity: 1; */
+    scale: 1.6;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
 }
 
 .modal-content-buttons {

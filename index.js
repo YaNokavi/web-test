@@ -1,8 +1,8 @@
-const lastStepArray = localStorage.getItem("lastStepArray")
+const lastStepArray = localStorage.getItem("lastStepArray");
 
 localStorage.clear();
 
-localStorage.setItem("lastStepArray", lastStepArray)
+localStorage.setItem("lastStepArray", lastStepArray);
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -14,4 +14,5 @@ localStorage.setItem("flagFirstJoin", flagFirstJoin);
 
 // window.location.href = "favorite.html";
 
-document.getElementById("modal").style.display = "flex"
+const modal = document.getElementById("modal");
+modal.style.display = "flex"
