@@ -147,3 +147,7 @@ function displayButton() {
 
 const modal = document.getElementById("modal");
 modal.style.display = "flex";
+const buttonModal = document.getElementById("okButton")
+buttonModal.addEventListener("click", () => {
+  modal.style.display = "none"
+})
