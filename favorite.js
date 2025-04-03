@@ -17,7 +17,14 @@ if (tg.initDataUnsafe.user.username) {
 }
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
+const modal = document.getElementById("modal");
+const buttonModal = document.getElementById("okButton");
+buttonModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
 if (flagFirstJoin === true) {
+  modal.style.display = "flex";
   tabBar.forEach((item) => {
     item.style.pointerEvents = "none";
   });
@@ -143,13 +150,4 @@ function displayButton() {
         `;
   coursesDiv.append(courseButton);
   document.getElementById("preloader").style.display = "none";
-}
-
-const modal = document.getElementById("modal");
-const buttonModal = document.getElementById("okButton");
-buttonModal.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-if (flagFirstJoin === true) {
-  modal.style.display = "flex";
 }
