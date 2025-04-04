@@ -53,8 +53,8 @@ setUserNameProfile(userName);
 
 async function getUserInfo() {
   const userInfo = await fetchData(
-    `user/${userIdData}/info?username=${userName}`,
-    "POST"
+    `user/${userIdData}/profile/info`,
+    "GET"
   );
   balanceText.innerText = userInfo.balance;
 
