@@ -24,7 +24,7 @@ async function getReferrals() {
 getReferrals();
 
 function startCountdown(endDate) {
-  // console.log(endDate)
+  
   var countDownDate = new Date(endDate).getTime();
 
   var x = setInterval(function () {
