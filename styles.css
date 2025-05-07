@@ -2310,6 +2310,26 @@ h1 {
   border-radius: 15px;
 }
 
+.friends-block-not-null.top {
+  animation: ani 0.4s forwards;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+  align-items: center;
+
+  margin-top: 10px;
+  /* width: 95%; старая версия */
+   width: 95%; /* новая версия */
+  height: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  background: var(--theme-block-color);
+  border: 1px solid var(--theme-block-border-color);
+  border-radius: 15px;
+}
+
 .friends-block-not-null-text {
   width: 95%;
   height: auto;
