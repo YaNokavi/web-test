@@ -161,7 +161,7 @@ function createNavigationMenu() {
       listStepItem.append(svgActive);
     } else {
       listStepItem.addEventListener("click", function () {
-        window.location.href = `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${step.number}`;
+        window.location.href = `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${step.number}`;
       });
     }
     navigationList.append(listStepItem);
@@ -492,27 +492,27 @@ function updateNextButtonHref() {
     if (submoduleId < totalSubmodules) {
       setButtonHref(
         nextButton,
-        `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
+        `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
           submoduleId + 1
         }&stepId=1`
       );
     } else if (moduleId < totalModules) {
       setButtonHref(
         nextButton,
-        `step.html?syllabusId=${syllabusId}&moduleId=${
+        `step.html?v=103&syllabusId=${syllabusId}&moduleId=${
           moduleId + 1
         }&submoduleId=1&stepId=1`
       );
     } else {
       setButtonHref(nextButton, null);
       nextButton.addEventListener("click", function () {
-        window.location.href = `syllabus.html?id=${syllabusId}`;
+        window.location.href = `syllabus.html?v=103&id=${syllabusId}`;
       });
     }
   } else {
     setButtonHref(
       nextButton,
-      `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
+      `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
         stepId + 1
       }`
     );
@@ -528,7 +528,7 @@ setButtonHref(
   buttonBack,
   stepId == 1
     ? null
-    : `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
+    : `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
         stepId - 1
       }`
 );
@@ -537,7 +537,7 @@ setButtonHref(
   buttonForward,
   stepId == totalSteps
     ? null
-    : `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
+    : `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
         stepId + 1
       }`
 );
@@ -546,7 +546,7 @@ if (stepId == totalSteps) {
   if (submoduleId < totalSubmodules) {
     setButtonHref(
       button,
-      `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
+      `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
         submoduleId + 1
       }&stepId=1`
     );
@@ -554,20 +554,20 @@ if (stepId == totalSteps) {
     console.log("123");
     setButtonHref(
       button,
-      `step.html?syllabusId=${syllabusId}&moduleId=${
+      `step.html?v=103&syllabusId=${syllabusId}&moduleId=${
         moduleId + 1
       }&submoduleId=1&stepId=1`
     );
   } else {
     setButtonHref(button, null);
     button.addEventListener("click", function () {
-      window.location.href = `syllabus.html?id=${syllabusId}`;
+      window.location.href = `syllabus.html?v=103&id=${syllabusId}`;
     });
   }
 } else {
   setButtonHref(
     button,
-    `step.html?syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
+    `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
       stepId + 1
     }`
   );

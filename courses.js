@@ -290,7 +290,7 @@ async function postDataRemove() {
 }
 
 button3.addEventListener("click", function () {
-  window.location.href = `syllabus.html?id=${courseId}`;
+  window.location.href = `syllabus.html?v=103&id=${courseId}`;
 });
 
 var refer = document.referrer.split("/").pop();
