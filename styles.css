@@ -126,8 +126,11 @@ a:active {
   height: 100px;
   min-width: 100px;
   margin: 10px;
-  background-color: #c83838;
+  /* background-color: #c83838; */
   /* background-color: #1468b1; */
+  /* background-image: url(https://t.me/i/userpic/320/yZCzJYgwHw6OMJ7T-HCPIbM0iA0TgjgyVCAdEroCjP0.svg); */
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 15px;
   text-align: center;
   align-items: center;
