@@ -14,23 +14,23 @@ const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
 const tg = window.Telegram.WebApp;
-// const userIdData = tg.initDataUnsafe.user.id;
-const userIdData = 1;
+const userIdData = tg.initDataUnsafe.user.id;
+// const userIdData = 1;
 let logoName;
 let userName;
 
-// if (tg.initDataUnsafe.user.username) {
-//   logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-//   const name = `${tg.initDataUnsafe.user.username}`;
-//   userName = DOMPurify.sanitize(name);
-// } else {
+if (tg.initDataUnsafe.user.username) {
+  logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  const name = `${tg.initDataUnsafe.user.username}`;
+  userName = DOMPurify.sanitize(name);
+} else {
   logoName = "U";
   userName = "User";
-// }
+}
 
 userIdProfile.innerText += userIdData;
 const user = tg.initDataUnsafe.user.photo_url;
-// console.log(user)
+alert(user)
 logoNameProfile.style.backgroundImage = `url('${user}')`;
 // logoNameProfile.innerText = logoName;
 
