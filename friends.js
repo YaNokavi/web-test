@@ -12,8 +12,8 @@ if (tg.initDataUnsafe.user.username) {
   const name = `${tg.initDataUnsafe.user.username}`;
   username = DOMPurify.sanitize(name);
 } else {
-logoname = "U";
-username = "User";
+  logoname = "U";
+  username = "User";
 }
 
 async function getReferrals() {
@@ -126,7 +126,7 @@ function displayTopUsers(topUsers) {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
 
-    if (item.avatarUrl !== undefined) {
+    if (item.avatarUrl !== null) {
       list.innerHTML = `
             <div class="list-user-place ${placeClass}" >${item.place}</div>
             <div class="friends-list-block-logo-info">
@@ -318,8 +318,8 @@ function displayFriendsNotNull(referrals) {
   referrals.forEach((item) => {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
-    
-    if (item.avatarUrl !== undefined) {
+
+    if (item.avatarUrl !== null) {
       list.innerHTML = `
       
       <div class="friends-list-block-logo-info">

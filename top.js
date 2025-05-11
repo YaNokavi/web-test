@@ -119,7 +119,7 @@ function displayTopUsers(topUsers) {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
 
-    if (item.avatarUrl !== undefined) {
+    if (item.avatarUrl !== null) {
       list.innerHTML = `
             <div class="list-user-place ${placeClass}" >${item.place}</div>
             <div class="friends-list-block-logo-info">
