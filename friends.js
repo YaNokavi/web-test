@@ -126,11 +126,11 @@ function displayTopUsers(topUsers) {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
 
-    if (item.avatar_url !== undefined) {
+    if (item.avatarUrl !== undefined) {
       list.innerHTML = `
             <div class="list-user-place ${placeClass}" >${item.place}</div>
             <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo" style="background-image: url('${item.avatar_url}')"></div>
+              <div class="friends-list-user-logo" style="background-image: url('${item.avatarUrl}')"></div>
               <div class="friends-list-user-info">
                 <div class="friends-list-user-info-name">${item.username}</div>
                 <div class="friends-list-user-info-balance">
@@ -319,11 +319,11 @@ function displayFriendsNotNull(referrals) {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
     
-    if (item.avatar_url !== undefined) {
+    if (item.avatarUrl !== undefined) {
       list.innerHTML = `
       
       <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo" style="background-image: url('${item.avatar_url}')"></div>
+              <div class="friends-list-user-logo" style="background-image: url('${item.avatarUrl}')"></div>
               <div class="friends-list-user-info">
                 <div class="friends-list-user-info-name">${item.name}</div>
                 <div class="friends-list-user-info-balance">
