@@ -2570,8 +2570,9 @@ h1 {
 
 .friends-list-user-logo {
   display: flex;
-  background: #e04646;
+  /* background: #e04646; */
   border-radius: 12px;
+  background-size: cover;
 
   text-align: center;
   align-items: center;

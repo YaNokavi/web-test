@@ -4,8 +4,6 @@ localStorage.removeItem("courseData");
 
 const tg = window.Telegram.WebApp;
 // const userId = tg.initDataUnsafe.user.id;
-const user = tg.initDataUnsafe.user.photo_url
-console.log(user)
 
 let coursesData = [];
 

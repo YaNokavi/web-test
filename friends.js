@@ -4,6 +4,7 @@ const tg = window.Telegram.WebApp;
 const userId = tg.initDataUnsafe.user.id;
 // const userId = 535799793;
 // const userId = 1;
+const avatarUrl = tg.initDataUnsafe.user.photo_url;
 let username;
 let logoname;
 if (tg.initDataUnsafe.user.username) {
@@ -11,8 +12,8 @@ if (tg.initDataUnsafe.user.username) {
   const name = `${tg.initDataUnsafe.user.username}`;
   username = DOMPurify.sanitize(name);
 } else {
-  logoname = "U";
-  username = "User";
+logoname = "U";
+username = "User";
 }
 
 async function getReferrals() {
@@ -24,7 +25,6 @@ async function getReferrals() {
 getReferrals();
 
 function startCountdown(endDate) {
-  
   var countDownDate = new Date(endDate).getTime();
 
   var x = setInterval(function () {
@@ -90,7 +90,7 @@ function displayTopUsers(topUsers) {
   listUser.innerHTML = `
   
               <div class="friends-list-block-logo-info">
-                <div class="friends-list-user-logo">${logoname}</div>
+                <div class="friends-list-user-logo" style="background-image: url('${avatarUrl}')"></div>
                 <div class="friends-list-user-info">
                   <div class="friends-list-user-info-name">${username}</div>
                   <div class="friends-list-user-info-balance">
@@ -126,10 +126,26 @@ function displayTopUsers(topUsers) {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
 
-    list.innerHTML = `
+    if (item.avatar_url !== undefined) {
+      list.innerHTML = `
             <div class="list-user-place ${placeClass}" >${item.place}</div>
             <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo">${item.username[0].toUpperCase()}</div>
+              <div class="friends-list-user-logo" style="background-image: url('${item.avatar_url}')"></div>
+              <div class="friends-list-user-info">
+                <div class="friends-list-user-info-name">${item.username}</div>
+                <div class="friends-list-user-info-balance">
+                  <div class="friends-list-user-info-balance-text">${item.userBalance}</div>
+                  <div class="friends-list-user-info-balance-logo"></div>
+                </div>
+              </div>
+            </div>
+            <div class="list-user-reward">${item.rewardAmount}</div>
+   `;
+    } else {
+      list.innerHTML = `
+            <div class="list-user-place ${placeClass}" >${item.place}</div>
+            <div class="friends-list-block-logo-info">
+              <div class="friends-list-user-logo" style="background: #e04646;">${item.username[0].toUpperCase()}</div>
               <div class="friends-list-user-info">
                 <div class="friends-list-user-info-name">${item.username}</div>
                 <div class="friends-list-user-info-balance">
@@ -142,6 +158,7 @@ function displayTopUsers(topUsers) {
             </div>
             <div class="list-user-reward">${item.rewardAmount}</div>
    `;
+    }
     listFriends.append(list);
   });
 }
@@ -301,21 +318,38 @@ function displayFriendsNotNull(referrals) {
   referrals.forEach((item) => {
     const list = document.createElement("div");
     list.classList.add("friends-list-user");
-    list.innerHTML = `
     
-    <div class="friends-list-block-logo-info">
-            <div class="friends-list-user-logo">${item.name[0].toUpperCase()}</div>
-            <div class="friends-list-user-info">
-              <div class="friends-list-user-info-name">${item.name}</div>
-              <div class="friends-list-user-info-balance">
-                <div class="friends-list-user-info-balance-text">${
-                  item.balance
-                }</div>
-                <div class="friends-list-user-info-balance-logo"></div>
+    if (item.avatar_url !== undefined) {
+      list.innerHTML = `
+      
+      <div class="friends-list-block-logo-info">
+              <div class="friends-list-user-logo" style="background-image: url('${item.avatar_url}')"></div>
+              <div class="friends-list-user-info">
+                <div class="friends-list-user-info-name">${item.name}</div>
+                <div class="friends-list-user-info-balance">
+                  <div class="friends-list-user-info-balance-text">${item.balance}</div>
+                  <div class="friends-list-user-info-balance-logo"></div>
+                </div>
+                </div>
               </div>
+     `;
+    } else {
+      list.innerHTML = `
+      
+      <div class="friends-list-block-logo-info">
+              <div class="friends-list-user-logo" style="background: #e04646;">${item.name[0].toUpperCase()}</div>
+              <div class="friends-list-user-info">
+                <div class="friends-list-user-info-name">${item.name}</div>
+                <div class="friends-list-user-info-balance">
+                  <div class="friends-list-user-info-balance-text">${
+                    item.balance
+                  }</div>
+                  <div class="friends-list-user-info-balance-logo"></div>
+                </div>
+                </div>
               </div>
-            </div>
-   `;
+     `;
+    }
     listFriends.append(list);
   });
   document.getElementById("preloader").style.display = "none";

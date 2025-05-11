@@ -7,6 +7,7 @@ localStorage.removeItem("courseData");
 const tg = window.Telegram.WebApp;
 let username;
 let userIdData;
+const avatarUrl = tg.initDataUnsafe.user.photo_url;
 
 userIdData = tg.initDataUnsafe.user.id;
 if (tg.initDataUnsafe.user.username) {
@@ -60,12 +61,12 @@ async function sendUserInfo() {
   const referallId = JSON.parse(localStorage.getItem("referallId"));
   if (!referallId || referallId === userIdData) {
     rewards = await fetchData(
-      `user/${userIdData}/login-and-reward?username=${username}`,
+      `user/${userIdData}/login-and-reward?username=${username}&avatarUrl=${avatarUrl}`,
       "POST"
     );
   } else {
     rewards = await fetchData(
-      `user/${userIdData}/login-and-reward?&username=${username}&referrerId=${referallId}`,
+      `user/${userIdData}/login-and-reward?&username=${username}&avatarUrl=${avatarUrl}&referrerId=${referallId}`,
       "POST"
     );
   }

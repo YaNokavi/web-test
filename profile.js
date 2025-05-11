@@ -16,22 +16,21 @@ const course = document.getElementById("course-info");
 const tg = window.Telegram.WebApp;
 const userIdData = tg.initDataUnsafe.user.id;
 // const userIdData = 1;
-let logoName;
+const userPhoto = tg.initDataUnsafe.user.photo_url;
+// let logoName;
 let userName;
 
 if (tg.initDataUnsafe.user.username) {
-  logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+  // logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
   const name = `${tg.initDataUnsafe.user.username}`;
   userName = DOMPurify.sanitize(name);
 } else {
-  logoName = "U";
+  // logoName = "U";
   userName = "User";
 }
 
 userIdProfile.innerText += userIdData;
-const user = tg.initDataUnsafe.user.photo_url;
-alert(user)
-logoNameProfile.style.backgroundImage = `url('${user}')`;
+logoNameProfile.style.backgroundImage = `url('${userPhoto}')`;
 // logoNameProfile.innerText = logoName;
 
 const setUserNameProfile = (name) => {
@@ -59,7 +58,7 @@ async function getUserInfo() {
     `user/${userIdData}/profile/info`,
     "GET"
   );
-  balanceText.innerText = userInfo.balance;
+  balanceText.innerText = userInfo.balance.toFixed(2);;
 
   if (userInfo.coursesProgress.length != 0) {
     displayProgress(userInfo);
@@ -93,7 +92,7 @@ async function checkTask(task) {
     buttonTask.classList.remove("load-task-animation");
     buttonTask.classList.remove("load-task");
     displayNotification(taskCheckInfo.reward);
-    balanceText.innerText = taskCheckInfo.newBalance;
+    balanceText.innerText = taskCheckInfo.newBalance.toFixed(2);
     buttonTask.classList.add("complete-task");
     buttonTask.textContent = "";
     buttonTask.innerHTML = `
