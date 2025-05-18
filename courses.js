@@ -23,7 +23,7 @@ function renderCourse(course) {
   courseElement.innerHTML = `
   <div class="course-media">
     
-    <img src="icons/logo_cuna2.jpg" class="course-logo" />
+    <img src="${course.iconUrl}" class="course-logo" />
     <a href="https://t.me/${course.author}" class="course-block-author">Автор: @${author}</a>
     </div>
     <div class="course-block-description">

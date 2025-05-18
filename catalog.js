@@ -61,7 +61,7 @@ function displayCourses() {
       courseElement.href = `courses.html?id=${course.id}`;
       courseElement.classList.add("courses-block");
       courseElement.innerHTML = `
-          <img src="icons/logo_cuna2.jpg" class="courses-logo" />
+          <img src="${course.iconUrl}" class="courses-logo" />
             <div class="courses-block-text">
           <div class="courses-block-name" id="favoriteMark${course.id}" style="flex-direction: row;">${course.name}  
           </div>
