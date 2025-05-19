@@ -5,8 +5,8 @@ const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-// const userId = 1;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
@@ -308,17 +308,17 @@ function setupFavorite() {
   favorTab.style.color = "#ffffff";
 }
 
-if (refer == "favorite.html") {
+if (refer === "favorite.html") {
   localStorage.setItem("refer", refer);
   setupFavorite();
-} else if (refer == "catalog.html") {
+} else if (refer === "catalog.html") {
   localStorage.setItem("refer", refer);
   setupCatalog();
 } else if (refer.startsWith("syllabus.html")) {
   let referSyl = localStorage.getItem("refer");
-  if (referSyl == "favorite.html") {
+  if (referSyl === "favorite.html") {
     setupFavorite();
-  } else if (referSyl == "catalog.html") {
+  } else if (referSyl === "catalog.html") {
     setupCatalog();
   }
 }

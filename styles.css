@@ -1005,7 +1005,6 @@ a:active {
   color: var(--theme-text-hint-color);
   text-underline-offset: 3px;
   line-height: 14px;
-  
 }
 
 /* .course-block-author {
@@ -1096,8 +1095,9 @@ a:active {
   cursor: pointer;
   text-decoration: none;
   width: 220px;
-  height: 40px;
+  height: 30px;
   margin-bottom: 10px;
+  gap: 10px;
 
   background-color: var(--theme-button-color);
   border-radius: 15px;
@@ -1111,26 +1111,22 @@ a:active {
 
 .course-block-button-text {
   width: auto;
-  height: 22px;
+  height: auto;
   text-align: center;
-  margin-right: 6px;
-  margin-left: auto;
+  align-content: center;
 
-  font: 600 17px/1 Inter, sans-serif;
+  font: 600 16px/1 Inter, sans-serif;
   font-style: normal;
-  line-height: 22px;
+  
   letter-spacing: 0px;
   text-decoration: none;
 
-  /* color: #ffffff; */
   color: var(--theme-button-icon-text-color);
 }
 
 .course-block-button-icon {
   align-self: center;
   justify-self: center;
-  margin-left: 6px;
-  margin-right: auto;
   color: var(--theme-button-icon-text-color);
 }
 
@@ -1190,8 +1186,8 @@ a:active {
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   text-decoration: none;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   margin-bottom: 10px;
   /* background-color: rgba(20, 104, 177, 0.15); */
   background-color: var(--theme-button-hint-color);
@@ -1208,6 +1204,98 @@ a:active {
   align-self: center;
   justify-self: center;
   color: var(--theme-button-hint-icon-text-color);
+}
+
+.mark-progress-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  gap: 20px;
+}
+
+.mark-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 5px;
+}
+
+.mark-with-star {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0px;
+  gap: 2px;
+
+  font: 500 22px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 22px;
+  color: var(--theme-text-color);
+}
+
+.mark-text-amount-comments {
+  font: 400 14px/1 Inter, sans-serif;
+  font-style: normal;
+  line-height: 15px;
+
+  /* color: var(--theme-text-color); */
+  color: var(--theme-text-hint-color);
+}
+
+.progress-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0px;
+  gap: 3px;
+}
+
+.progress-block-elem {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  height: 10px;
+}
+
+progress {
+  width: 100px;
+  height: 3px;
+  border-radius: 100px;
+  background-color: var(--theme-progress-bg-color);
+  color: var(--theme-progress-color);
+  border: none;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--theme-progress-bg-color);
+
+  border-radius: 100px;
+}
+
+/* Цвет заполненной части (Chrome/Safari) */
+progress::-webkit-progress-value {
+  background-color: var(--theme-progress-color);
+
+  border-radius: 100px;
+}
+
+/* Цвет заполненной части (Firefox) */
+progress::-moz-progress-bar {
+  background-color: var(--theme-progress-color);
+
+  border-radius: 100px;
 }
 
 .modal {
