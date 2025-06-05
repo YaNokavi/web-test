@@ -1,3 +1,10 @@
+:root {
+  --InsetTop: 0px;
+  --InsetTopNavigation: 0px;
+  --tabBarHeight: 55px;
+  --tabBarPadding: 9px;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -5,7 +12,7 @@
   /* padding: 12px 0px; */
   padding-top: calc(2 * var(--InsetTop) + 38px);
   gap: 40px;
-  
+
   justify-content: center;
   overflow: hidden;
 
