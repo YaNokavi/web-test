@@ -57,11 +57,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="styles.css?v=103" />
+    <link rel="stylesheet" type="text/css" href="stories.css" />
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script src="platform.js"></script>
   </head>
 
   <body>
+    <div class="page" id="page"></div>
+
     <div id="preloader">
       <div class="preloader-animation"></div>
     </div>
@@ -70,7 +73,9 @@
       <div class="profile-title" id="title">Мои курсы</div>
     </div>
 
-    <div class="main-block" id="favorite-courses"></div>
+    <div class="main-block" id="favorite-courses">
+      
+    </div>
     <div id="modal" class="modal">
       <div class="modal-content gif-modal">
         <div class="modal-header">Поздравляем!</div>
@@ -208,7 +213,11 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html?v=103" class="tab-item tab-item-active" id="active">
+      <a
+        href="favorite.html?v=103"
+        class="tab-item tab-item-active"
+        id="active"
+      >
         <svg
           class="tab-icon"
           width="28"
@@ -272,6 +281,7 @@
       </a>
     </div>
 
+    <script type="module" src="test.js?v=103"></script>
     <script type="module" src="favorite.js?v=103"></script>
   </body>
 </html>
