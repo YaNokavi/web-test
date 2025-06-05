@@ -3,10 +3,8 @@
   flex-direction: column;
   align-items: center;
   /* padding: 12px 0px; */
-  padding-top: calc(var(--InsetTop) + 38px);
+  padding-top: calc(var(--InsetTop) + var(--InsetTop) + 38px);
   gap: 40px;
-
-  /* height: 100dvh; */
   
   justify-content: center;
   overflow: hidden;
