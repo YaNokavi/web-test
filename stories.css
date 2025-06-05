@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   /* padding: 12px 0px; */
-  padding-top: calc(var(--InsetTop) + var(--InsetTop) + 38px);
+  padding-top: calc(2 * var(--InsetTop) + 38px);
   gap: 40px;
   
   justify-content: center;
@@ -57,7 +57,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
-  padding-bottom: calc(var(--tabBarHeight));
+  padding-bottom: calc(var(--tabBarHeight) + var(--InsetTop));
 
   width: auto;
 
