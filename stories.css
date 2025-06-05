@@ -60,7 +60,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
-  padding-bottom: calc(var(--tabBarHeight) + 60px);
+  padding-bottom: calc(100px + 60px);
 
   width: auto;
 
