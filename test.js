@@ -24,6 +24,7 @@ const htmlForStory = `
     `;
 page.innerHTML = htmlForStory;
 
+
 const textHeader = document.getElementById("text-header");
 const textBottom = document.getElementById("text-bottom");
 const storyGif = document.getElementById("story-gif");
