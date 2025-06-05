@@ -65,9 +65,6 @@ const stories = {
   },
 };
 
-// document.addEventListener("DOMContentLoaded", function () {
-// });
-
 const storyKeys = Object.keys(stories);
 let currentIndex = 0;
 
