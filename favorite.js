@@ -48,7 +48,6 @@ if (flagFirstJoin === true) {
     item.style.pointerEvents = "none";
   });
   sendUserInfo();
-  disableTab();
   flagFirstJoin = false;
   localStorage.setItem("flagFirstJoin", flagFirstJoin);
 } else {
@@ -71,6 +70,10 @@ async function sendUserInfo() {
     );
   }
 
+  if (rewards.newUser === true) {
+    document.getElementById("page").style.display = "flex"
+  }
+
   if (rewards.firstEntryToday === true) {
     createListRewards(rewards);
   }
@@ -79,7 +82,7 @@ async function sendUserInfo() {
   getFavoriteCourses();
 }
 
-async function disableTab() {
+function disableTab() {
   tabBar.forEach((item) => {
     item.style.pointerEvents = "auto";
   });

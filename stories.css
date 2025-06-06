@@ -1,5 +1,5 @@
 .page {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   padding-top: calc(var(--InsetTop) * 1.5 + 12px);
