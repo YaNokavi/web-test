@@ -2,16 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 12px 0px; */
   padding-top: calc(var(--InsetTop) * 1.5 + 12px);
 
   gap: 40px;
 
-  justify-content: center;
-  overflow: hidden;
-
   position: fixed;
-  /* position: relative; */
   left: 0;
   top: 0;
   width: 100%;
@@ -120,7 +115,7 @@
   flex-direction: column;
   align-items: center;
   padding: 0px;
-  gap: 100px;
+  gap: 70px;
   width: 100%;
 
   margin: 0 auto;
