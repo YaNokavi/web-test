@@ -58,7 +58,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
-  padding-bottom: calc(var(--InsetTop) + var(--tabBarHeight) * 0.5);
+  padding-bottom: calc(var(--InsetTop) * 1.8 + var(--tabBarHeight) * 0.5);
 
   width: auto;
 
