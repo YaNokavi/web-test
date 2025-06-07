@@ -154,6 +154,12 @@ skipButton.addEventListener("click", function (event) {
 });
 
 document.body.addEventListener("click", function (event) {
+if (event.target.matches("#button-skip, #button-skip *")) {
+    event.stopPropagation();
+    page.style.display = "none";
+    return;
+  }
+
   const clickX = event.clientX;
   const screenWidth = window.innerWidth;
 
