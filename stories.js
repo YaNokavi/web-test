@@ -86,14 +86,14 @@ function displayStory(index) {
   // storyGif.src = story.gifURL;
 
   currentLoadingIndex = index;
-  
+
   // 1. Сначала показываем плейсхолдер или скрываем GIF
   storyGif.style.visibility = "hidden";
-  
+
   // 2. Создаем новое изображение для предзагрузки
   const img = new Image();
   img.src = story.gifURL;
-  
+
   img.onload = () => {
     // Проверяем, актуальна ли загрузка для текущего индекса
     if (currentLoadingIndex === index) {
@@ -101,7 +101,7 @@ function displayStory(index) {
       storyGif.style.visibility = "visible";
     }
   };
-  
+
   img.onerror = () => {
     if (currentLoadingIndex === index) {
       // Обработка ошибок (можно показать заглушку)
@@ -144,7 +144,11 @@ function goPrev() {
 
 nextButton.addEventListener("click", function (event) {
   event.stopPropagation();
-  goNext();
+  if ((currentIndex = storyKeys.length - 1)) {
+    page.style.display = "none";
+  } else {
+    goNext();
+  }
 });
 
 skipButton.addEventListener("click", function (event) {
@@ -154,9 +158,16 @@ skipButton.addEventListener("click", function (event) {
 });
 
 document.body.addEventListener("click", function (event) {
-if (event.target.matches("#button-skip, #button-skip *")) {
+  const target = event.target;
+  if (target === skipButton || skipButton.contains(target)) {
     event.stopPropagation();
     page.style.display = "none";
+    return;
+  }
+
+  if (target === nextButton || nextButton.contains(target)) {
+    event.stopPropagation();
+    goNext();
     return;
   }
 
