@@ -144,7 +144,7 @@ function goPrev() {
 
 nextButton.addEventListener("click", (event) => {
   event.stopPropagation();
-  if ((currentIndex === storyKeys.length - 1)) {
+  if (currentIndex === storyKeys.length - 1) {
     page.style.display = "none";
   } else {
     goNext();
@@ -158,23 +158,29 @@ skipButton.addEventListener("click", (event) => {
 });
 
 document.addEventListener("click", function (event) {
-  const target = event.target;
-  // if (target === skipButton || skipButton.contains(target)) {
-  //   event.stopPropagation();
-  //   page.style.display = "none";
-  //   return;
-  // }
+  event.stopPropagation();
+  if (event.target === skipButton) {
+    event.stopPropagation();
+    page.style.display = "none";
+  }
 
-  // if (target === nextButton || nextButton.contains(target)) {
-  //   event.stopPropagation();
-  //   goNext();
-  //   return;
-  // }
+  if (event.target === nextButton) {
+    event.stopPropagation();
+    if (currentIndex === storyKeys.length - 1) {
+      page.style.display = "none";
+    } else {
+      goNext();
+    }
+  }
 
   const clickX = event.clientX;
   const screenWidth = window.innerWidth;
 
-  if (clickX > screenWidth / 2 && target !== skipButton && target !== nextButton) {
+  if (
+    clickX > screenWidth / 2 &&
+    target !== skipButton &&
+    target !== nextButton
+  ) {
     goNext();
   } else {
     goPrev();
