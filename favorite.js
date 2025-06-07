@@ -11,7 +11,7 @@ let userIdData;
 const avatarUrl = "tg.initDataUnsafe.user.photo_url";
 
 // userIdData = tg.initDataUnsafe.user.id;
-userIdData = 15
+userIdData = 1
 // if (tg.initDataUnsafe.user.username) {
 //   const name = `${tg.initDataUnsafe.user.username}`;
 //   username = DOMPurify.sanitize(name);

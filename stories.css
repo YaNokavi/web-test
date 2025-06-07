@@ -1,8 +1,9 @@
 .page {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: calc(var(--InsetTop) * 1.5 + 12px);
+
 
   gap: 40px;
 
@@ -72,14 +73,6 @@
   gap: 36px;
 
   margin: 0 auto;
-  /* width: 352px;
-  height: 272px; */
-
-  /* Inside auto layout */
-  /* flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0; */
 
   font-family: "Inter";
   font-style: normal;
@@ -90,24 +83,12 @@
   font-weight: 500;
   font-size: 38px;
   line-height: 46px;
-
-  /* Inside auto layout */
-  /* flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0; */
 }
 
 .text-bottom {
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-
-  /* Inside auto layout */
-  /* flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0; */
 }
 
 .gif-buttons-content {
@@ -135,10 +116,6 @@
 
   width: 100%;
 
-  /* flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0; */
 }
 
 .button {
@@ -160,6 +137,7 @@
   line-height: 19px;
 
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .button.skip {
