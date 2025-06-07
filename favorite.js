@@ -8,14 +8,16 @@ const tg = window.Telegram.WebApp;
 let username;
 let userIdData;
 const avatarUrl = tg.initDataUnsafe.user.photo_url;
+// const avatarUrl = "tg.initDataUnsafe.user.photo_url";
 
-userIdData = tg.initDataUnsafe.user.id;
-if (tg.initDataUnsafe.user.username) {
-  const name = `${tg.initDataUnsafe.user.username}`;
-  username = DOMPurify.sanitize(name);
-} else {
+// userIdData = tg.initDataUnsafe.user.id;
+userIdData = 9
+// if (tg.initDataUnsafe.user.username) {
+//   const name = `${tg.initDataUnsafe.user.username}`;
+//   username = DOMPurify.sanitize(name);
+// } else {
   username = "User";
-}
+// }
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 const modal = document.getElementById("modal");
