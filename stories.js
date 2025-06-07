@@ -157,7 +157,7 @@ skipButton.addEventListener("click", (event) => {
   page.style.display = "none";
 });
 
-document.body.addEventListener("click", function (event) {
+document.addEventListener("click", function (event) {
   const target = event.target;
   // if (target === skipButton || skipButton.contains(target)) {
   //   event.stopPropagation();
