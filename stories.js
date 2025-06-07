@@ -142,7 +142,7 @@ function goPrev() {
   // }
 }
 
-nextButton.addEventListener("click", function (event) {
+nextButton.addEventListener("click", (event) => {
   event.stopPropagation();
   if ((currentIndex = storyKeys.length - 1)) {
     page.style.display = "none";
@@ -151,7 +151,7 @@ nextButton.addEventListener("click", function (event) {
   }
 });
 
-skipButton.addEventListener("click", function (event) {
+skipButton.addEventListener("click", (event) => {
   event.preventDefault();
   event.stopPropagation();
   page.style.display = "none";
@@ -179,4 +179,7 @@ document.body.addEventListener("click", function (event) {
   } else {
     goPrev();
   }
+
+  console.log("nextButton:", nextButton);
+  console.log("skipButton:", skipButton);
 });
