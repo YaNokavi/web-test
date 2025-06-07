@@ -148,6 +148,7 @@ nextButton.addEventListener("click", function (event) {
 });
 
 skipButton.addEventListener("click", function (event) {
+  event.preventDefault();
   event.stopPropagation();
   page.style.display = "none";
 });
