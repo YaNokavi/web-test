@@ -123,9 +123,8 @@ function goNext() {
     // Можно зациклить:
     // currentIndex = 0;
     // displayStory(currentIndex);
-
     // Или заблокировать кнопку:
-    nextButton.disabled = true;
+    // nextButton.disabled = true;
   }
 }
 
@@ -152,26 +151,25 @@ nextButton.addEventListener("click", (event) => {
 });
 
 skipButton.addEventListener("click", (event) => {
-  event.preventDefault();
   event.stopPropagation();
   page.style.display = "none";
 });
 
 document.addEventListener("click", function (event) {
-  event.stopPropagation();
-  if (event.target === skipButton) {
-    event.stopPropagation();
-    page.style.display = "none";
-  }
+  // event.stopPropagation();
+  // if (event.target === skipButton) {
+  //   event.stopPropagation();
+  //   page.style.display = "none";
+  // }
 
-  if (event.target === nextButton) {
-    event.stopPropagation();
-    if (currentIndex === storyKeys.length - 1) {
-      page.style.display = "none";
-    } else {
-      goNext();
-    }
-  }
+  // if (event.target === nextButton) {
+  //   event.stopPropagation();
+  //   if (currentIndex === storyKeys.length - 1) {
+  //     page.style.display = "none";
+  //   } else {
+  //     goNext();
+  //   }
+  // }
 
   const clickX = event.clientX;
   const screenWidth = window.innerWidth;
@@ -185,7 +183,4 @@ document.addEventListener("click", function (event) {
   } else {
     goPrev();
   }
-
-  console.log("nextButton:", nextButton);
-  console.log("skipButton:", skipButton);
 });
