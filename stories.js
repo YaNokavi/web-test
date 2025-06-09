@@ -128,7 +128,7 @@ function goPrev() {
   if (currentIndex > 0) {
     currentIndex--;
     displayStory(currentIndex);
-    nextButton.disabled = false; // разблокируем кнопку next, если была заблокирована
+    nextButton.disabled = false;
   }
   // else {
   //   currentIndex = storyKeys.length - 1;
