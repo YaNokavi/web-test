@@ -86,8 +86,6 @@ function displayStory(index) {
   storyGif.src = story.gifURL;
 
   currentLoadingIndex = index;
-
-  // 1. Сначала показываем плейсхолдер или скрываем GIF
   // storyGif.style.visibility = "hidden";
 
   // 2. Создаем новое изображение для предзагрузки
