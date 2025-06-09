@@ -87,8 +87,6 @@ function displayStory(index) {
 
   currentLoadingIndex = index;
   // storyGif.style.visibility = "hidden";
-
-  // 2. Создаем новое изображение для предзагрузки
   // const img = new Image();
   // img.src = story.gifURL;
 
