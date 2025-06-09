@@ -134,7 +134,6 @@ function goPrev() {
     displayStory(currentIndex);
     nextButton.disabled = false; // разблокируем кнопку next, если была заблокирована
   }
-  // Можно добавить поведение при достижении начала, например, зациклить:
   // else {
   //   currentIndex = storyKeys.length - 1;
   //   displayStory(currentIndex);
