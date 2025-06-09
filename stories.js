@@ -88,26 +88,26 @@ function displayStory(index) {
   currentLoadingIndex = index;
 
   // 1. Сначала показываем плейсхолдер или скрываем GIF
-  storyGif.style.visibility = "hidden";
+  // storyGif.style.visibility = "hidden";
 
   // 2. Создаем новое изображение для предзагрузки
-  const img = new Image();
-  img.src = story.gifURL;
+  // const img = new Image();
+  // img.src = story.gifURL;
 
-  img.onload = () => {
-    // Проверяем, актуальна ли загрузка для текущего индекса
-    if (currentLoadingIndex === index) {
-      storyGif.src = story.gifURL;
-      storyGif.style.visibility = "visible";
-    }
-  };
+  // img.onload = () => {
+  //   // Проверяем, актуальна ли загрузка для текущего индекса
+  //   if (currentLoadingIndex === index) {
+  //     storyGif.src = story.gifURL;
+  //     storyGif.style.visibility = "visible";
+  //   }
+  // };
 
-  img.onerror = () => {
-    if (currentLoadingIndex === index) {
-      // Обработка ошибок (можно показать заглушку)
-      storyGif.style.visibility = "visible";
-    }
-  };
+  // img.onerror = () => {
+  //   if (currentLoadingIndex === index) {
+  //     // Обработка ошибок (можно показать заглушку)
+  //     storyGif.style.visibility = "visible";
+  //   }
+  // };
 
   updateStatusBar(index);
 }
