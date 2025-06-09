@@ -175,8 +175,8 @@ document.addEventListener("click", function (event) {
 
   if (
     clickX > screenWidth / 2 &&
-    target !== skipButton &&
-    target !== nextButton
+    event.target !== skipButton &&
+    event.target !== nextButton
   ) {
     goNext();
   } else {
