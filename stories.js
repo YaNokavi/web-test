@@ -83,7 +83,7 @@ function displayStory(index) {
   page.style.background = story.pageColor;
   textHeader.innerText = story.header;
   textBottom.innerHTML = story.description;
-  // storyGif.src = story.gifURL;
+  storyGif.src = story.gifURL;
 
   currentLoadingIndex = index;
 
