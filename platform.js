@@ -237,7 +237,7 @@ if (
   localStorage.setItem("link", link);
 } else if (
   currentUrl.endsWith("courses.html") &&
-  link.endsWith("syllabus.html")
+  (link.endsWith("syllabus.html") || link.endsWith("rating.html"))
 ) {
   link = localStorage.getItem("link");
 } else if (
