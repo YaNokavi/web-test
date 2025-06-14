@@ -114,13 +114,14 @@ function displayCourses() {
 // }
 
 let refer = document.referrer.split("/").pop();
+refer = refer.split("?")[0];
 const title = document.getElementById("title");
 const catalogTab = document.getElementById("active");
 
 if (
-  refer.startsWith("courses.html") ||
-  refer.startsWith("syllabus.html") ||
-  refer.startsWith("step.html")
+  refer.endsWith("courses.html") ||
+  refer.endsWith("syllabus.html") ||
+  refer.endsWith("step.html")
 ) {
   title.style.animation = "none";
   catalogTab.style.animation = "none";

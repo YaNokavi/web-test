@@ -85,8 +85,8 @@ function setupFavorite() {
   favorTab.style.color = "#ffffff";
 }
 
-if (refer.startsWith("favorite.html")) {
+if (refer.endsWith("favorite.html")) {
   setupFavorite();
-} else if (refer.startsWith("catalog.html")) {
+} else if (refer.endsWith("catalog.html")) {
   setupCatalog();
 }

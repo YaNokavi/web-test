@@ -1670,7 +1670,7 @@ textarea {
   display: none;
   flex-direction: row;
 
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--theme-text-color);
   margin-top: 4px;
   padding-bottom: 2px;
   gap: 5px;

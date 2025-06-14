@@ -578,6 +578,7 @@ const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 let link = document.referrer.split("/").pop();
 link = link.split("&").pop();
+
 const switc = document.getElementById("switc");
 
 function setupTab(tab) {
@@ -585,9 +586,9 @@ function setupTab(tab) {
   tab.style.color = "#ffffff";
 }
 
-if (refer.startsWith("favorite.html")) {
+if (refer.endsWith("favorite.html")) {
   setupTab(favorTab);
-} else if (refer.startsWith("catalog.html")) {
+} else if (refer.endsWith("catalog.html")) {
   setupTab(catalogTab);
 }
 

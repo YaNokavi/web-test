@@ -205,10 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentUrl = window.location.pathname;
 const BackButton = tg.BackButton;
 if (
-  currentUrl.startsWith("courses.html") ||
-  currentUrl.startsWith("syllabus.html") ||
-  currentUrl.startsWith("step.html") ||
-  currentUrl.startsWith("rating.html")
+  currentUrl.endsWith("courses.html") ||
+  currentUrl.endsWith("syllabus.html") ||
+  currentUrl.endsWith("step.html") ||
+  currentUrl.endsWith("rating.html")
 ) {
   BackButton.show();
   swipeAllow();
@@ -217,37 +217,35 @@ if (
 }
 
 let link = document.referrer.split("/").pop();
+link = link.split("?")[0];
 if (!link) link = "favorite.html";
 let idCourse;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 
-if (currentUrl.startsWith("syllabus.html")) {
+if (currentUrl.endsWith("syllabus.html")) {
   idCourse = params.get("id");
-} else if (currentUrl.startsWith("step.html")) {
+} else if (currentUrl.endsWith("step.html")) {
   idCourse = params.get("syllabusId");
-} else if (currentUrl.startsWith("rating.html")) {
-  idCourse = params.get("idCourse")
+} else if (currentUrl.endsWith("rating.html")) {
+  idCourse = params.get("idCourse");
 }
 
 if (
-  currentUrl.startsWith("courses.html") &&
+  currentUrl.endsWith("courses.html") &&
   (link === "favorite.html" || link === "catalog.html")
 ) {
   localStorage.setItem("link", link);
 } else if (
-  currentUrl.startsWith("courses.html") &&
-  link.startsWith("syllabus.html")
+  currentUrl.endsWith("courses.html") &&
+  link.endsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
-} else if (
-  currentUrl.startsWith("syllabus.html") &&
-  link.startsWith("step.html")
-) {
+} else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
   link = `courses.html?v=103&id=${idCourse}`;
-} else if (currentUrl.startsWith("step.html")) {
+} else if (currentUrl.endsWith("step.html")) {
   link = `syllabus.html?v=103&id=${idCourse}`;
-} else if (currentUrl.startsWith("rating.html")) {
+} else if (currentUrl.endsWith("rating.html")) {
   link = `courses.html?v=103&id=${idCourse}`;
 }
 
@@ -255,7 +253,7 @@ tg.onEvent("backButtonClicked", function () {
   tg.HapticFeedback.impactOccurred("medium");
   if (link) {
     window.location.href = link;
-  } 
+  }
 });
 
 function swipeAllow() {

@@ -112,7 +112,6 @@ function displayCourses(courseInfo) {
   const coursesDiv = document.getElementById("favorite-courses");
   coursesDiv.innerHTML = "";
 
-  const fragment = document.createDocumentFragment();
   let rating = null;
 
   courseInfo.forEach((course, index) => {
@@ -151,10 +150,8 @@ function displayCourses(courseInfo) {
           </div>
         </div>
         `;
-      fragment.append(courseElement);
-      if (index === courseInfo.length - 1) {
-        coursesDiv.append(fragment);
-      }
+      coursesDiv.append(courseElement);
+      
     }, (index + 1) * 100);
   });
 }
