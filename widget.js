@@ -1,6 +1,6 @@
 const button1 = document.getElementById("widget-button-first");
 const button2 = document.getElementById("widget-button-second");
-const widgetBlock = document.querySelector(".widget-block");
+const widgetBlock = document.getElementById("buttons-block");
 const buttons = widgetBlock.querySelectorAll(".widget-button");
 const contentSlider = document.querySelector(".content-slider");
 const modal = document.getElementById("modal");

@@ -11,12 +11,10 @@ async function fetchCourses() {
   const cachedCourses = localStorage.getItem("catalogData");
   if (cachedCourses) {
     coursesData = JSON.parse(cachedCourses);
-
+    
     displayCourses();
   } else {
-    coursesData = await fetchData(
-      "course/all"
-    );
+    coursesData = await fetchData("course/all");
     localStorage.setItem("catalogData", JSON.stringify(coursesData));
     displayCourses();
   }
@@ -55,7 +53,14 @@ function setupFavoriteCourse(courseData) {
 function displayCourses() {
   document.getElementById("preloader").style.display = "none";
   const coursesDiv = document.getElementById("courses");
+  let rating = null;
   coursesData.forEach((course, index) => {
+    rating = course.rating;
+
+    const formattedRating = Number.isInteger(rating)
+      ? rating.toString()
+      : rating.toFixed(1);
+
     setTimeout(() => {
       const courseElement = document.createElement("a");
       courseElement.href = `courses.html?id=${course.id}`;
@@ -70,7 +75,7 @@ function displayCourses() {
           </div>
           <div class="courses-block-author-rating">
             <div class="courses-block-author">Автор: @${course.author}</div>
-            <div class="courses-block-rating">${course.rating}/5</div>
+            <div class="courses-block-rating">${formattedRating}/5</div>
             <svg
               class="courses-block-rating-star"
               width="13"

@@ -5,11 +5,13 @@ const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 1;
+const userId = tg.initDataUnsafe.user.id;
+// const userId = 1;
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
+const ratingCourse = document.getElementById("rating");
+const amountComments = document.getElementById("amount-comments");
 
 const lastStepArray = JSON.parse(localStorage.getItem("lastStepArray"));
 
@@ -139,18 +141,69 @@ function displayModules(courseData) {
   });
 }
 
+function getReviewWord(count) {
+  count = Math.abs(count) % 100;
+  const lastDigit = count % 10;
+
+  if (count > 10 && count < 20) {
+    return "отзывов";
+  }
+  if (lastDigit > 1 && lastDigit < 5) {
+    return "отзыва";
+  }
+  if (lastDigit === 1) {
+    return "отзыв";
+  }
+  return "отзывов";
+}
+
+function displayRating(ratingInfo) {
+  
+  const rating = ratingInfo.rating;
+
+  const formattedRating = Number.isInteger(rating)
+    ? rating.toString()
+    : rating.toFixed(1);
+  ratingCourse.innerText = `${formattedRating}/5`;
+  
+  const count = ratingInfo.reviewsTotalNumber;
+  amountComments.innerText = `${count} ${getReviewWord(count)}`;
+
+  const detailed = ratingInfo.detailedRatingTotalNumber;
+  const total = Object.values(detailed).reduce((sum, v) => sum + v, 0);
+
+  const progressBlocks = document.querySelectorAll(".progress-block-elem");
+
+  const values = [
+    detailed[5],
+    detailed[4],
+    detailed[3],
+    detailed[2],
+    detailed[1],
+  ];
+
+  progressBlocks.forEach((block, idx) => {
+    const progress = block.querySelector("progress");
+    const value = values[idx] || 0;
+    const percent = total > 0 ? Math.round((value / total) * 100) : 0;
+    progress.value = percent;
+  });
+}
+
 async function fetchContent() {
   const courseData = await fetchData(
     `course/${courseId}/content?userId=${userId}`
   );
 
   localStorage.setItem(`courseData`, JSON.stringify(courseData));
-
+  console.log(courseData, userId)
   if (lastStepArray !== null && lastStepArray[courseId]) {
     displayLastStep(lastStepArray, courseData);
   }
   displayLearning(courseData);
   displayModules(courseData);
+  displayRating(courseData.ratingInfo);
+
   document.getElementById("preloader").style.display = "none";
 }
 
@@ -159,6 +212,8 @@ fetchContent();
 const button1 = document.getElementById("button1");
 const button2 = document.getElementById("button2");
 const button3 = document.getElementById("button3");
+const buttonHrefComments = document.getElementById("button-href-comments");
+
 const text = document.querySelector(".course-block-button-text");
 const star1 = document.getElementById("star1");
 const star2 = document.getElementById("star2");
@@ -166,6 +221,10 @@ const star2 = document.getElementById("star2");
 const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
+
+buttonHrefComments.addEventListener("click", function () {
+  window.location.href = `rating.html?v=1.0.3&idCourse=${courseId}`;
+});
 
 function setupButtons() {
   let buttonsConfig = [
@@ -229,6 +288,8 @@ async function postDataAdd() {
     null,
     false
   );
+
+  console.log(response)
 }
 
 button2.addEventListener("click", function () {
@@ -294,7 +355,6 @@ button3.addEventListener("click", function () {
 });
 
 var refer = document.referrer.split("/").pop();
-if (!refer || refer === "index.html") refer = "favorite.html";
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 
@@ -308,17 +368,17 @@ function setupFavorite() {
   favorTab.style.color = "#ffffff";
 }
 
-if (refer === "favorite.html") {
+if (refer.startsWith("favorite.html")) {
   localStorage.setItem("refer", refer);
   setupFavorite();
-} else if (refer === "catalog.html") {
+} else if (refer.startsWith("catalog.html")) {
   localStorage.setItem("refer", refer);
   setupCatalog();
 } else if (refer.startsWith("syllabus.html")) {
   let referSyl = localStorage.getItem("refer");
-  if (referSyl === "favorite.html") {
+  if (referSyl.startsWith("favorite.html")) {
     setupFavorite();
-  } else if (referSyl === "catalog.html") {
+  } else if (referSyl.startsWith("catalog.html")) {
     setupCatalog();
   }
 }

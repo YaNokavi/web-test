@@ -1,4 +1,5 @@
 const page = document.getElementById("page");
+//генерить хтмл по-другому
 const htmlForStory = `
       <div class="status-bar">
         <div class="status-bar-element active"></div>
@@ -33,7 +34,7 @@ const nextButton = document.getElementById("button-next");
 
 const statusBarElements = document.querySelectorAll(".status-bar-element");
 
-const stories = {
+const storiesNewUser = {
   first: {
     pageColor: "linear-gradient(90deg, #09518b 0%, #002f52 100%)",
     header: "Добро пожаловать в CunaEdu!",
@@ -64,9 +65,41 @@ const stories = {
   },
 };
 
-const storyKeys = Object.keys(stories);
+const storiesNewUpdate = {
+  first: {
+    pageColor: "linear-gradient(90deg, #09518b 0%, #002f52 100%)",
+    header: "Обновление 1.0.4 уже здесь!",
+    description:
+      "В приложении появились истории, пользовательские оценки курсов, а также иконки курсов от Cryptuna!",
+    gifURL: "gif/octopus(miidle)_compressed.gif",
+  },
+  second: {
+    pageColor: "linear-gradient(90deg, #002F52 0%, #075FA0 100%)",
+    header: "Истории",
+    description:
+      "Теперь в приложении есть истории, в которых мы будем кратко рассказывать о нововведениях!",
+    gifURL: "gif/test/loch.gif",
+  },
+  third: {
+    pageColor: "linear-gradient(90deg, #075FA0 0%, #004375 100%)",
+    header: "Оценка курсов",
+    description:
+      "Мы добавили возможность оставлять оценки и комментарии к курсам, чтобы каждый мог оставить свое мнение, а также ознакомиться с мнением других!",
+    gifURL: "gif/test/star.gif",
+  },
+  fourth: {
+    pageColor: "linear-gradient(90deg, #004475 0%, #00182A 100%)",
+    header: "Новые иконки",
+    description:
+      "Теперь на наших курсах есть красивые иконки.<br><br> Чего же ты ждешь, беги скорее смотреть обновление!",
+    gifURL: "gif/test/gold.gif",
+  },
+};
+
 let currentIndex = 0;
 let currentLoadingIndex = null;
+let storyKeys = null;
+let storyList = null;
 
 function updateStatusBar(activeIndex) {
   statusBarElements.forEach((el, i) => {
@@ -79,36 +112,33 @@ function updateStatusBar(activeIndex) {
 }
 
 function displayStory(index) {
-  const story = stories[storyKeys[index]];
+  console.log(index);
+  const story = storyList[storyKeys[index]];
   page.style.background = story.pageColor;
   textHeader.innerText = story.header;
   textBottom.innerHTML = story.description;
   storyGif.src = story.gifURL;
 
   currentLoadingIndex = index;
-  // storyGif.style.visibility = "hidden";
-  // const img = new Image();
-  // img.src = story.gifURL;
-
-  // img.onload = () => {
-  //   // Проверяем, актуальна ли загрузка для текущего индекса
-  //   if (currentLoadingIndex === index) {
-  //     storyGif.src = story.gifURL;
-  //     storyGif.style.visibility = "visible";
-  //   }
-  // };
-
-  // img.onerror = () => {
-  //   if (currentLoadingIndex === index) {
-  //     // Обработка ошибок (можно показать заглушку)
-  //     storyGif.style.visibility = "visible";
-  //   }
-  // };
 
   updateStatusBar(index);
 }
 
-displayStory(currentIndex);
+window.addEventListener("storiesReady", function () {
+  const storiesType = localStorage.getItem("storiesType");
+
+  if (storiesType) {
+    if (storiesType === "WELCOME") {
+      storyKeys = Object.keys(storiesNewUser);
+      storyList = storiesNewUser;
+    } else if (storiesType === "UPDATE") {
+      storyKeys = Object.keys(storiesNewUpdate);
+      storyList = storiesNewUpdate;
+    }
+  }
+
+  displayStory(currentIndex);
+});
 
 function goNext() {
   if (currentIndex < storyKeys.length - 1) {
@@ -138,6 +168,7 @@ function goPrev() {
 
 nextButton.addEventListener("click", (event) => {
   event.stopPropagation();
+
   if (currentIndex === storyKeys.length - 1) {
     page.style.display = "none";
   } else {
@@ -150,24 +181,10 @@ skipButton.addEventListener("click", (event) => {
   page.style.display = "none";
 });
 
-document.addEventListener("click", function (event) {
-  // event.stopPropagation();
-  // if (event.target === skipButton) {
-  //   event.stopPropagation();
-  //   page.style.display = "none";
-  // }
-
-  // if (event.target === nextButton) {
-  //   event.stopPropagation();
-  //   if (currentIndex === storyKeys.length - 1) {
-  //     page.style.display = "none";
-  //   } else {
-  //     goNext();
-  //   }
-  // }
-
+page.addEventListener("click", function (event) {
   const clickX = event.clientX;
   const screenWidth = window.innerWidth;
+
 
   if (
     clickX > screenWidth / 2 &&
@@ -178,4 +195,5 @@ document.addEventListener("click", function (event) {
   } else {
     goPrev();
   }
+
 });

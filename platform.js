@@ -205,9 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentUrl = window.location.pathname;
 const BackButton = tg.BackButton;
 if (
-  currentUrl.endsWith("courses.html") ||
-  currentUrl.endsWith("syllabus.html") ||
-  currentUrl.endsWith("step.html")
+  currentUrl.startsWith("courses.html") ||
+  currentUrl.startsWith("syllabus.html") ||
+  currentUrl.startsWith("step.html") ||
+  currentUrl.startsWith("rating.html")
 ) {
   BackButton.show();
   swipeAllow();
@@ -221,37 +222,40 @@ let idCourse;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 
-if (currentUrl.endsWith("syllabus.html")) {
+if (currentUrl.startsWith("syllabus.html")) {
   idCourse = params.get("id");
-} else if (currentUrl.endsWith("step.html")) {
+} else if (currentUrl.startsWith("step.html")) {
   idCourse = params.get("syllabusId");
+} else if (currentUrl.startsWith("rating.html")) {
+  idCourse = params.get("idCourse")
 }
 
 if (
-  currentUrl.endsWith("courses.html") &&
-  (link == "favorite.html" || link == "catalog.html")
+  currentUrl.startsWith("courses.html") &&
+  (link === "favorite.html" || link === "catalog.html")
 ) {
   localStorage.setItem("link", link);
 } else if (
-  currentUrl.endsWith("courses.html") &&
+  currentUrl.startsWith("courses.html") &&
   link.startsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
 } else if (
-  currentUrl.endsWith("syllabus.html") &&
+  currentUrl.startsWith("syllabus.html") &&
   link.startsWith("step.html")
 ) {
   link = `courses.html?v=103&id=${idCourse}`;
-} else if (currentUrl.endsWith("step.html")) {
+} else if (currentUrl.startsWith("step.html")) {
   link = `syllabus.html?v=103&id=${idCourse}`;
+} else if (currentUrl.startsWith("rating.html")) {
+  link = `courses.html?v=103&id=${idCourse}`;
 }
 
 tg.onEvent("backButtonClicked", function () {
+  tg.HapticFeedback.impactOccurred("medium");
   if (link) {
     window.location.href = link;
-  } else {
-  }
-  tg.HapticFeedback.impactOccurred("medium");
+  } 
 });
 
 function swipeAllow() {

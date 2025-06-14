@@ -20,7 +20,7 @@ async function fetchData(
       throw new Error(`Ошибка: ${response.status}`);
     }
 
-    return expectResponse ? await response.json() : null;
+    return expectResponse ? await response.json() : response.status;
   } catch (error) {
     console.error("Ошибка при выполнении запроса:", error);
     throw error;

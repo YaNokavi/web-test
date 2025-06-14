@@ -7,17 +7,17 @@ localStorage.removeItem("courseData");
 const tg = window.Telegram.WebApp;
 let username;
 let userIdData;
-// const avatarUrl = tg.initDataUnsafe.user.photo_url;
-const avatarUrl = "tg.initDataUnsafe.user.photo_url";
+const avatarUrl = tg.initDataUnsafe.user.photo_url;
+// const avatarUrl = "tg.initDataUnsafe.user.photo_url";
 
-// userIdData = tg.initDataUnsafe.user.id;
-userIdData = 1
-// if (tg.initDataUnsafe.user.username) {
-//   const name = `${tg.initDataUnsafe.user.username}`;
-//   username = DOMPurify.sanitize(name);
-// } else {
+userIdData = tg.initDataUnsafe.user.id;
+// userIdData = 1;
+if (tg.initDataUnsafe.user.username) {
+  const name = `${tg.initDataUnsafe.user.username}`;
+  username = DOMPurify.sanitize(name);
+} else {
   username = "User";
-// }
+}
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 const modal = document.getElementById("modal");
@@ -72,8 +72,12 @@ async function sendUserInfo() {
     );
   }
 
-  if (rewards.newUser === true) {
-    document.getElementById("page").style.display = "flex"
+  if (rewards.history !== null) {
+    localStorage.setItem("storiesType", rewards.history);
+    document.getElementById("page").style.display = "flex";
+
+    const event = new Event("storiesReady");
+    window.dispatchEvent(event);
   }
 
   if (rewards.firstEntryToday === true) {
@@ -98,7 +102,7 @@ async function getFavoriteCourses() {
     "GET"
   );
   localStorage.setItem("infoCourse", JSON.stringify(courseInfo));
-
+  console.log(courseInfo);
   courseInfo.length ? displayCourses(courseInfo) : displayButton();
 }
 
@@ -109,8 +113,14 @@ function displayCourses(courseInfo) {
   coursesDiv.innerHTML = "";
 
   const fragment = document.createDocumentFragment();
+  let rating = null;
 
   courseInfo.forEach((course, index) => {
+    rating = course.rating;
+
+    const formattedRating = Number.isInteger(rating)
+      ? rating.toString()
+      : rating.toFixed(1);
     setTimeout(() => {
       const courseElement = document.createElement("a");
       courseElement.href = `courses.html?id=${course.id}`;
@@ -124,7 +134,7 @@ function displayCourses(courseInfo) {
           </div>
           <div class="courses-block-author-rating">
             <div class="courses-block-author">Автор: @${course.author}</div>
-            <div class="courses-block-rating">${course.rating}/5</div>
+            <div class="courses-block-rating">${formattedRating}/5</div>
             <svg
               class="courses-block-rating-star"
               width="13"

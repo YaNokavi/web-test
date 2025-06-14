@@ -576,7 +576,7 @@ if (stepId == totalSteps) {
 const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
-var link = document.referrer.split("/").pop();
+let link = document.referrer.split("/").pop();
 link = link.split("&").pop();
 const switc = document.getElementById("switc");
 
@@ -585,13 +585,13 @@ function setupTab(tab) {
   tab.style.color = "#ffffff";
 }
 
-if (refer == "favorite.html") {
+if (refer.startsWith("favorite.html")) {
   setupTab(favorTab);
-} else if (refer == "catalog.html") {
+} else if (refer.startsWith("catalog.html")) {
   setupTab(catalogTab);
 }
 
-if (stepId != 1 || link == "stepId=2") {
+if (stepId != 1 || link === "stepId=2") {
   title.style.animation = "none";
   switc.style.animation = "none";
 }
