@@ -224,13 +224,12 @@ const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 
 if (currentUrl.endsWith("syllabus.html")) {
-  idCourse = params.get("id");
+  idCourse = Number(params.get("id"));
 } else if (currentUrl.endsWith("step.html")) {
-  idCourse = params.get("syllabusId");
+  idCourse = Number(params.get("syllabusId"));
 } else if (currentUrl.endsWith("rating.html")) {
-  idCourse = params.get("idCourse");
+  idCourse = Number(params.get("idCourse"));
 }
-
 if (
   currentUrl.endsWith("courses.html") &&
   (link === "favorite.html" || link === "catalog.html")
@@ -241,12 +240,13 @@ if (
   link.endsWith("syllabus.html")
 ) {
   link = localStorage.getItem("link");
-} else if (currentUrl.endsWith("syllabus.html") && link.endsWith("step.html")) {
+} else if (
+  currentUrl.endsWith("syllabus.html") ||
+  currentUrl.endsWith("rating.html")
+) {
   link = `courses.html?v=103&id=${idCourse}`;
 } else if (currentUrl.endsWith("step.html")) {
   link = `syllabus.html?v=103&id=${idCourse}`;
-} else if (currentUrl.endsWith("rating.html")) {
-  link = `courses.html?v=103&id=${idCourse}`;
 }
 
 tg.onEvent("backButtonClicked", function () {
