@@ -13,9 +13,10 @@ async function fetchData(
       body: body ? JSON.stringify(body) : null,
     };
 
-    const urlDomen = "https://cryptunatest-anderm.amvera.io/v1/" + url
+    const urlDomen = "https://cryptunatest-anderm.amvera.io/v1/" + url;
 
     const response = await fetch(urlDomen, options);
+
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.status}`);
     }

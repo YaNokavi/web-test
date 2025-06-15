@@ -51,10 +51,11 @@ if (courseInfo) {
   }
 }
 
+const lastStepBlock = document.getElementById("last-step-block");
+const lastStepHref = document.getElementById("last-step");
+
 function displayLastStep(lastStepArray, courseData) {
-  const lastStepBlock = document.getElementById("last-step-block");
   lastStepBlock.style.display = "flex";
-  const lastStepHref = document.getElementById("last-step");
   const lastStep = lastStepArray[courseId];
   const modules = courseData.courseModuleList.find(
     (module) => module.number == lastStep.moduleId
@@ -158,14 +159,13 @@ function getReviewWord(count) {
 }
 
 function displayRating(ratingInfo) {
-  
   const rating = ratingInfo.rating;
 
   const formattedRating = Number.isInteger(rating)
     ? rating.toString()
     : rating.toFixed(1);
   ratingCourse.innerText = `${formattedRating}/5`;
-  
+
   const count = ratingInfo.reviewsTotalNumber;
   amountComments.innerText = `${count} ${getReviewWord(count)}`;
 
@@ -194,17 +194,12 @@ async function fetchContent() {
   const courseData = await fetchData(
     `course/${courseId}/content?userId=${userId}`
   );
+  localStorage.setItem("courseData", JSON.stringify(courseData));
 
-  localStorage.setItem(`courseData`, JSON.stringify(courseData));
-  console.log(courseData, userId)
-  if (lastStepArray !== null && lastStepArray[courseId]) {
-    displayLastStep(lastStepArray, courseData);
-  }
+  setupButtons();
   displayLearning(courseData);
   displayModules(courseData);
   displayRating(courseData.ratingInfo);
-
-  document.getElementById("preloader").style.display = "none";
 }
 
 fetchContent();
@@ -223,7 +218,7 @@ const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 
 buttonHrefComments.addEventListener("click", function () {
-  window.location.href = `rating.html?v=1.0.3&idCourse=${courseId}`;
+  window.location.href = `rating.html?v=103&idCourse=${courseId}`;
 });
 
 function setupButtons() {
@@ -239,73 +234,107 @@ function setupButtons() {
     (course) => course.id
   );
 
-  if (idCourse && idCourse.includes(Number(courseId))) {
+  if (idCourse && idCourse.includes(courseId)) {
     buttonsConfig[0].show = false;
     buttonsConfig[1].show = false;
     buttonsConfig[2].show = true;
     buttonsConfig[3].show = true;
     buttonsConfig[4].show = true;
+    if (lastStepArray !== null && lastStepArray[courseId]) {
+      displayLastStep(
+        lastStepArray,
+        JSON.parse(localStorage.getItem("courseData"))
+      );
+    }
   }
 
   buttonsConfig.forEach(({ button, show }) => {
     button.style.display = show ? "flex" : "none";
   });
+
+  setTimeout(() => {
+    document.getElementById("preloader").style.display = "none";
+  }, 100);
+
+  console.log(buttonsConfig);
 }
 
-setupButtons();
-
-button1.addEventListener("click", function () {
-  text.style.animation = "fadeOut 10ms ease";
-  star1.style.animation = "fadeOut 50ms ease";
-  setTimeout(() => {
-    button1.style.animation = "button-course 0.4s ease";
-    text.innerText = "";
-    star1.style.display = "none";
-    setTimeout(() => {
-      star2.style.animation = "fadeIn 100ms ease";
-      star2.style.display = "block";
-      star1.style.animation = "none";
-      button1.style.display = "none";
-      button1.style.animation = "none";
-      button2.style.display = "flex";
-      text.style.animation = "none";
-      button3.style.animation = "fadeIn 100ms ease";
-      button3.style.display = "flex";
-    }, 400);
-  }, 10);
+button1.addEventListener("click", async function () {
+  const response = await postDataAdd();
   let addData = JSON.parse(localStorage.getItem("infoCourse"));
 
-  addData.push(courseInfo);
-  localStorage.setItem("infoCourse", JSON.stringify(addData));
+  if (response !== 0) {
+    addData.push(courseInfo);
+    localStorage.setItem("infoCourse", JSON.stringify(addData));
 
-  postDataAdd();
+    text.style.animation = "fadeOut 10ms ease";
+    star1.style.animation = "fadeOut 50ms ease";
+    setTimeout(() => {
+      button1.style.animation = "button-course 0.4s ease";
+      text.innerText = "";
+      star1.style.display = "none";
+      setTimeout(() => {
+        star2.style.animation = "fadeIn 100ms ease";
+        star2.style.display = "block";
+        star1.style.animation = "none";
+        button1.style.display = "none";
+        button1.style.animation = "none";
+        button2.style.display = "flex";
+        text.style.animation = "none";
+        button3.style.animation = "fadeIn 100ms ease";
+        button3.style.display = "flex";
+      }, 400);
+    }, 10);
+  }
 });
 
 async function postDataAdd() {
-  const response = await fetchData(
-    `user/${userId}/favorite-course?courseId=${courseId}`,
-    "POST",
-    null,
-    false
-  );
+  try {
+    const response = await fetchData(
+      `user/${userId}/favorite-course?courseId=${courseId}`,
+      "POST",
+      null,
+      false
+    );
 
-  console.log(response)
+    if (response === 200) {
+      if (lastStepArray !== null && lastStepArray[courseId]) {
+        displayLastStep(
+          lastStepArray,
+          JSON.parse(localStorage.getItem("courseData"))
+        );
+      }
+    }
+  } catch {
+    alert("Не удалось установить соединение с сервером");
+    return 0;
+  }
 }
 
 button2.addEventListener("click", function () {
   modal.style.display = "block";
-  noButton.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
+});
 
-  document.addEventListener("click", function (event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
+noButton.addEventListener("click", function () {
+  modal.style.display = "none";
+});
 
-  yesButton.addEventListener("click", function () {
+document.addEventListener("click", function (event) {
+  if (event.target === modal) {
     modal.style.display = "none";
+  }
+});
+
+yesButton.addEventListener("click", async function () {
+  modal.style.display = "none";
+  let remData = JSON.parse(localStorage.getItem("infoCourse"));
+
+  const response = await postDataRemove();
+
+  if (response !== 0) {
+    remData = remData.filter((item) => item.id !== Number(courseId));
+    localStorage.setItem("infoCourse", JSON.stringify(remData));
+
     button3.style.animation = "fadeOut 150ms ease";
     setTimeout(() => {
       button3.style.display = "none";
@@ -333,21 +362,27 @@ button2.addEventListener("click", function () {
         }, 50);
       }, 10);
     }, 150);
-    let remData = JSON.parse(localStorage.getItem("infoCourse"));
-    remData = remData.filter((item) => item.id !== Number(courseId));
-    localStorage.setItem("infoCourse", JSON.stringify(remData));
-
-    postDataRemove();
-  });
+  }
 });
 
 async function postDataRemove() {
-  const response = await fetchData(
-    `user/${userId}/favorite-course?courseId=${courseId}`,
-    "DELETE",
-    null,
-    false
-  );
+  try {
+    const response = await fetchData(
+      `user/${userId}/favorite-course?courseId=${courseId}`,
+      "DELETE",
+      null,
+      false
+    );
+
+    if (response === 200) {
+      if (lastStepArray !== null && lastStepArray[courseId]) {
+        lastStepBlock.style.display = "none";
+      }
+    }
+  } catch {
+    alert("Не удалось установить соединение с сервером");
+    return 0;
+  }
 }
 
 button3.addEventListener("click", function () {

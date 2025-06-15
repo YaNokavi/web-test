@@ -897,3 +897,23 @@ button4.addEventListener("click", function () {
     button4.classList.add("active");
   }
 });
+
+const refer = localStorage.getItem("refer");
+const favorTab = document.getElementById("favor");
+const catalogTab = document.getElementById("catalog");
+
+function setupCatalog() {
+  catalogTab.style.animation = "none";
+  catalogTab.style.color = "#ffffff";
+}
+
+function setupFavorite() {
+  favorTab.style.animation = "none";
+  favorTab.style.color = "#ffffff";
+}
+
+if (refer.endsWith("favorite.html")) {
+  setupFavorite();
+} else if (refer.endsWith("catalog.html")) {
+  setupCatalog();
+}
