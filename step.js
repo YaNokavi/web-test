@@ -581,8 +581,9 @@ link = link.split("&").pop();
 
 const switc = document.getElementById("switc");
 
+favorTab.style.animation = "none";
+catalogTab.style.animation = "none";
 function setupTab(tab) {
-  tab.style.animation = "none";
   tab.style.color = "#ffffff";
 }
 

@@ -902,13 +902,13 @@ const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");
 const catalogTab = document.getElementById("catalog");
 
+catalogTab.style.animation = "none";
+favorTab.style.animation = "none";
 function setupCatalog() {
-  catalogTab.style.animation = "none";
   catalogTab.style.color = "#ffffff";
 }
 
 function setupFavorite() {
-  favorTab.style.animation = "none";
   favorTab.style.color = "#ffffff";
 }
 
