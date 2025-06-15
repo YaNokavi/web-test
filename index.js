@@ -1,3 +1,8 @@
+let tabBar = document.querySelectorAll(".tab-item");
+tabBar.forEach((item) => {
+  item.style.pointerEvents = "none";
+});
+
 const lastStepArray = localStorage.getItem("lastStepArray");
 
 localStorage.clear();
@@ -13,5 +18,3 @@ const flagFirstJoin = true;
 localStorage.setItem("flagFirstJoin", flagFirstJoin);
 
 window.location.href = "favorite.html?v=103";
-
-

@@ -1,6 +1,18 @@
 import fetchData from "./fetch.js";
 
+let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 let tabBar = document.querySelectorAll(".tab-item");
+
+if (flagFirstJoin === true) {
+  tabBar.forEach((item) => {
+    item.style.pointerEvents = "none";
+  });
+  sendUserInfo();
+  flagFirstJoin = false;
+  localStorage.setItem("flagFirstJoin", flagFirstJoin);
+} else {
+  getFavoriteCourses();
+}
 
 localStorage.removeItem("courseData");
 
@@ -19,7 +31,6 @@ if (tg.initDataUnsafe.user.username) {
   username = "User";
 }
 
-let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 const modal = document.getElementById("modal");
 const buttonModal = document.getElementById("okButton");
 buttonModal.addEventListener("click", () => {
@@ -43,17 +54,6 @@ function createListRewards(rewards) {
   });
 
   modal.style.display = "flex";
-}
-
-if (flagFirstJoin === true) {
-  tabBar.forEach((item) => {
-    item.style.pointerEvents = "none";
-  });
-  sendUserInfo();
-  flagFirstJoin = false;
-  localStorage.setItem("flagFirstJoin", flagFirstJoin);
-} else {
-  getFavoriteCourses();
 }
 
 async function sendUserInfo() {
@@ -151,7 +151,6 @@ function displayCourses(courseInfo) {
         </div>
         `;
       coursesDiv.append(courseElement);
-      
     }, (index + 1) * 100);
   });
 }
