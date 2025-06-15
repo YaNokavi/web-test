@@ -1,4 +1,4 @@
-let tabBar = document.querySelectorAll(".tab-item");
+const tabBar = document.querySelectorAll(".tab-item");
 tabBar.forEach((item) => {
   item.style.pointerEvents = "none";
 });

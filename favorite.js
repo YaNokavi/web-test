@@ -1,19 +1,5 @@
 import fetchData from "./fetch.js";
 
-let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
-let tabBar = document.querySelectorAll(".tab-item");
-
-if (flagFirstJoin === true) {
-  tabBar.forEach((item) => {
-    item.style.pointerEvents = "none";
-  });
-  sendUserInfo();
-  flagFirstJoin = false;
-  localStorage.setItem("flagFirstJoin", flagFirstJoin);
-} else {
-  getFavoriteCourses();
-}
-
 localStorage.removeItem("courseData");
 
 const tg = window.Telegram.WebApp;
@@ -29,6 +15,20 @@ if (tg.initDataUnsafe.user.username) {
   username = DOMPurify.sanitize(name);
 } else {
   username = "User";
+}
+
+let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
+let tabBar = document.querySelectorAll(".tab-item");
+
+if (flagFirstJoin === true) {
+  tabBar.forEach((item) => {
+    item.style.pointerEvents = "none";
+  });
+  sendUserInfo();
+  flagFirstJoin = false;
+  localStorage.setItem("flagFirstJoin", flagFirstJoin);
+} else {
+  getFavoriteCourses();
 }
 
 const modal = document.getElementById("modal");
