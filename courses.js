@@ -410,7 +410,7 @@ if (refer.endsWith("favorite.html")) {
 } else if (refer.endsWith("catalog.html")) {
   localStorage.setItem("refer", refer);
   setupCatalog();
-} else if (refer.endsWith("syllabus.html")) {
+} else if (refer.endsWith("syllabus.html") || refer.endsWith("rating.html")) {
   let referSyl = localStorage.getItem("refer");
   if (referSyl.endsWith("favorite.html")) {
     setupFavorite();
