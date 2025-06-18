@@ -5,17 +5,18 @@ const urlParams = new URLSearchParams(queryString);
 const paramId = urlParams.get("id");
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-// const userId = 1;
-const courseData = JSON.parse(localStorage.getItem(`courseData`));
-var modulesData = courseData.courseModuleList;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
+// const courseData = JSON.parse(localStorage.getItem(`courseData`));
+// var modulesData = courseData.courseModuleList;
 
 async function getContent() {
-  const contentGet = await fetchData(
+  const modulesData = await fetchData(
     `course/${paramId}/content?userId=${userId}`
   );
-  displayModules();
-  localStorage.setItem("courseData", JSON.stringify(courseData));
+
+  displayModules(modulesData.courseModuleList);
+  // localStorage.setItem("courseData", JSON.stringify(courseData));
 }
 
 getContent();
@@ -27,7 +28,7 @@ function createElement(tag, className, innerHTML) {
   return element;
 }
 
-function displayModules() {
+function displayModules(modulesData) {
   const elementModules = document.getElementById("modules");
   elementModules.innerHTML = "";
 

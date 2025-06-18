@@ -12,8 +12,8 @@ const buttonForward = document.getElementById("button-forward");
 const button = document.getElementById("button-next-step");
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-// const userId = 1;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
 
 const title = document.getElementById("title");
 const steps = document.getElementById("steps-number");
@@ -190,7 +190,7 @@ function addStepProgress() {
       sendProgress();
     }
     stepProgres.completed = true;
-    localStorage.setItem("courseData", JSON.stringify(courseData));
+    // localStorage.setItem("courseData", JSON.stringify(courseData));
   } else {
     const stepComplete = document.createElement("div");
     stepComplete.classList.add("step-complete");
@@ -416,6 +416,7 @@ function displayTest() {
 }
 
 function handleAnswer(selectedValue, isMultipleChoice) {
+  console.log(selectedValue);
   if (!isMultipleChoice) {
     if (selectedValue[0] === testArray.answer[0]) {
       handleCorrectAnswer();
@@ -425,6 +426,8 @@ function handleAnswer(selectedValue, isMultipleChoice) {
   } else if (isMultipleChoice) {
     const answersAsString = JSON.stringify(testArray.answer);
     const selectedValueAsString = JSON.stringify(selectedValue);
+    console.log(answersAsString, selectedValueAsString);
+    console.log(answersAsString.includes(selectedValueAsString));
     if (answersAsString.includes(selectedValueAsString)) {
       handleCorrectAnswer();
     } else {
@@ -613,11 +616,19 @@ function displayNotification(numberBalance) {
 }
 
 async function sendProgress() {
-  await fetchData(
-    `submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
-    "POST",
-    false
-  );
+  let response = null;
+  try {
+    response = await fetchData(
+      `submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
+      "POST",
+      null,
+      false
+    );
+
+    
+  } catch {
+    console.log(response)
+  }
 }
 
 async function sendProgressTest() {

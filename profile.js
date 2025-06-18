@@ -2,6 +2,25 @@ import fetchData from "./fetch.js";
 
 localStorage.removeItem("courseData");
 
+const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+  manifestUrl: 'ton.json',
+  buttonRootId: 'ton-connect'
+});
+
+// console.log(ton.json)
+
+// Отслеживание изменений статуса
+tonConnectUI.onStatusChange(walletInfo => {
+  const addressElement = document.getElementById('wallet-address');
+  
+  if (walletInfo) {
+    addressElement.textContent = walletInfo.account.address;
+    console.log('Подключен кошелек:', walletInfo.walletInfo.name);
+  } else {
+    addressElement.textContent = 'Не подключено';
+  }
+});
+
 const popup = document.querySelector(".popup");
 const popupBtn = document.getElementById("pop");
 const popupBtnSvg = document.getElementById("popu");
@@ -14,20 +33,21 @@ const userNameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
 const tg = window.Telegram.WebApp;
-const userIdData = tg.initDataUnsafe.user.id;
-// const userIdData = 1;
-const userPhoto = tg.initDataUnsafe.user.photo_url;
+// const userIdData = tg.initDataUnsafe.user.id;
+const userIdData = 1;
+// const userPhoto = tg.initDataUnsafe.user.photo_url;
+const userPhoto = "tg.initDataUnsafe.user.photo_url";
 // let logoName;
 let userName;
 
-if (tg.initDataUnsafe.user.username) {
-  // logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  const name = `${tg.initDataUnsafe.user.username}`;
-  userName = DOMPurify.sanitize(name);
-} else {
+// if (tg.initDataUnsafe.user.username) {
+//   // logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
+//   const name = `${tg.initDataUnsafe.user.username}`;
+//   userName = DOMPurify.sanitize(name);
+// } else {
   // logoName = "U";
   userName = "User";
-}
+// }
 
 userIdProfile.innerText += userIdData;
 logoNameProfile.style.backgroundImage = `url('${userPhoto}')`;

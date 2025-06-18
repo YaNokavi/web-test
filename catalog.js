@@ -5,19 +5,9 @@ localStorage.removeItem("courseData");
 const tg = window.Telegram.WebApp;
 // const userId = tg.initDataUnsafe.user.id;
 
-let coursesData = [];
-
 async function fetchCourses() {
-  const cachedCourses = localStorage.getItem("catalogData");
-  if (cachedCourses) {
-    coursesData = JSON.parse(cachedCourses);
-    
-    displayCourses();
-  } else {
-    coursesData = await fetchData("course/all");
-    localStorage.setItem("catalogData", JSON.stringify(coursesData));
-    displayCourses();
-  }
+  const coursesData = await fetchData("course/all");
+  displayCourses(coursesData);
 }
 
 fetchCourses();
@@ -50,7 +40,7 @@ function setupFavoriteCourse(courseData) {
   }
 }
 
-function displayCourses() {
+function displayCourses(coursesData) {
   document.getElementById("preloader").style.display = "none";
   const coursesDiv = document.getElementById("courses");
   let rating = null;

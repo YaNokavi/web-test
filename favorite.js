@@ -5,17 +5,17 @@ localStorage.removeItem("courseData");
 const tg = window.Telegram.WebApp;
 let username;
 let userIdData;
-const avatarUrl = tg.initDataUnsafe.user.photo_url;
-// const avatarUrl = "tg.initDataUnsafe.user.photo_url";
+// const avatarUrl = tg.initDataUnsafe.user.photo_url;
+const avatarUrl = "tg.initDataUnsafe.user.photo_url";
 
-userIdData = tg.initDataUnsafe.user.id;
-// userIdData = 1;
-if (tg.initDataUnsafe.user.username) {
-  const name = `${tg.initDataUnsafe.user.username}`;
-  username = DOMPurify.sanitize(name);
-} else {
-  username = "User";
-}
+// userIdData = tg.initDataUnsafe.user.id;
+userIdData = 1;
+// if (tg.initDataUnsafe.user.username) {
+//   const name = `${tg.initDataUnsafe.user.username}`;
+//   username = DOMPurify.sanitize(name);
+// } else {
+username = "User";
+// }
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
 let tabBar = document.querySelectorAll(".tab-item");
@@ -60,6 +60,7 @@ async function sendUserInfo() {
   let rewards;
 
   const referallId = JSON.parse(localStorage.getItem("referallId"));
+
   if (!referallId || referallId === userIdData) {
     rewards = await fetchData(
       `user/${userIdData}/login-and-reward?username=${username}&avatarUrl=${avatarUrl}`,

@@ -59,6 +59,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css?v=103" />
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script src="platform.js"></script>
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
   </head>
 
   <body>
@@ -138,6 +139,17 @@
           >
             Перейти
           </div>
+        </div>
+      </div>
+      <div class="support-block">
+        <div class="support-block-header">Связь с нами</div>
+        <div class="support-content">
+          <div class="support-text">
+            По вопросам размещения рекламы или неисправностей в приложении вы
+            можете написать нам по кнопке ниже
+          </div>
+          <div id="ton-connect"></div>
+          <p>Адрес кошелька: <span id="wallet-address">Не подключено</span></p>
         </div>
       </div>
     </main>

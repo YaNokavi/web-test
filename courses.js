@@ -5,8 +5,8 @@ const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-// const userId = 1;
+// const userId = tg.initDataUnsafe.user.id;
+const userId = 1;
 
 const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
@@ -40,15 +40,9 @@ function getCourseInfo() {
   return courses.find((course) => course.id == courseId) || null;
 }
 
-var courseInfo = getCourseInfo();
+let courseInfo = getCourseInfo();
 if (courseInfo) {
   renderCourse(courseInfo);
-} else {
-  const catalogData = JSON.parse(localStorage.getItem("catalogData"));
-  var courseInfo = catalogData.find((course) => course.id == courseId) || null;
-  if (courseInfo) {
-    renderCourse(courseInfo);
-  }
 }
 
 const lastStepBlock = document.getElementById("last-step-block");
@@ -190,11 +184,12 @@ function displayRating(ratingInfo) {
   });
 }
 
+let courseData = null;
 async function fetchContent() {
-  const courseData = await fetchData(
+  courseData = await fetchData(
     `course/${courseId}/content?userId=${userId}`
   );
-  localStorage.setItem("courseData", JSON.stringify(courseData));
+  // localStorage.setItem("courseData", JSON.stringify(courseData));
 
   setupButtons();
   displayLearning(courseData);
@@ -243,7 +238,7 @@ function setupButtons() {
     if (lastStepArray !== null && lastStepArray[courseId]) {
       displayLastStep(
         lastStepArray,
-        JSON.parse(localStorage.getItem("courseData"))
+        courseData
       );
     }
   }
@@ -301,7 +296,7 @@ async function postDataAdd() {
       if (lastStepArray !== null && lastStepArray[courseId]) {
         displayLastStep(
           lastStepArray,
-          JSON.parse(localStorage.getItem("courseData"))
+          courseData
         );
       }
     }
