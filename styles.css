@@ -24,6 +24,7 @@
   --theme-bg-notification-color: ;
   --theme-bg-step-color: ;
   --theme-step-text-color: ;
+  --theme-loader-wallet-color: ;
 }
 
 body {
@@ -44,6 +45,23 @@ body {
 a:active {
   color: var(--theme-block-border-color); /* Цвет ссылки при нажатии */
 }
+
+p {
+  margin-block-end: 0em;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 30px;
+  line-height: 40px;
+}
+
+h3 {
+  align-self: center;
+  margin-bottom: 0.5em;
+}
+
 /*Заголовок страницы*/
 .profile-header {
   display: flex;
@@ -73,7 +91,7 @@ a:active {
 .profile-title {
   position: fixed;
   margin-top: 5px;
-  animation: ani 0.4s forwards;
+  /* animation: ani 0.4s forwards; */
 }
 /*Главный экран прокрутки*/
 .main-block {
@@ -100,6 +118,7 @@ a:active {
   scrollbar-width: none;
   padding-top: calc(var(--InsetTop));
 }
+
 /*Профиль*/
 .profile-first-block {
   box-sizing: border-box;
@@ -266,6 +285,504 @@ a:active {
   animation: aniHide 0.2s forwards;
 }
 
+.wallet-block {
+  box-sizing: border-box;
+
+  animation: ani 0.4s forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 10px;
+  width: 95%;
+  height: auto;
+
+  padding: 10px 15px 10px 15px;
+
+  gap: 15px;
+
+  background: var(--theme-block-color);
+
+  border: 1px solid var(--theme-block-border-color);
+  border-radius: 15px;
+}
+
+.wallet-block.not-connected {
+  gap: 0px;
+}
+
+.wallet-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center left;
+  width: 100%;
+  min-height: 30px;
+  gap: 5px;
+}
+
+.wallet-header-name {
+  width: auto;
+
+  font: 600 24px/1 Inter, sans-serif;
+  text-align: left;
+  font-style: normal;
+
+  letter-spacing: -0.43px;
+  /* align-self: flex-start; */
+  justify-self: start;
+
+  color: var(--theme-text-color);
+}
+
+.wallet-connect-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+  padding: 6px 5px;
+  gap: 10px;
+
+  background: var(--theme-bg-hint-color);
+  border-radius: 100px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  cursor: pointer;
+
+  width: 200px;
+}
+
+.wallet-connect-button span {
+  font: 600 14px/1 Inter, sans-serif;
+  text-align: center;
+  font-style: normal;
+  /* color: var(--theme-button-text-color); */
+  color: var(--theme-text-color);
+  /* width: 100%; */
+}
+
+.wallet-connect-button img {
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.wallet-address-block {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center; /* Центрирует всё по горизонтали */
+  justify-content: center;
+  padding: 10px 10px;
+  background: var(--theme-button-color);
+  border-radius: 100px;
+  cursor: pointer;
+  width: auto;
+}
+
+.address-main-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.address-dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(
+    -50%,
+    5px
+  ); /* Центрирует по горизонтали и сдвигает вниз */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-button-color);
+  border-radius: 15px;
+  opacity: 0;
+  pointer-events: none;
+  gap: 10px;
+  transition: opacity 0.3s;
+  z-index: 1;
+  padding: 8px;
+  /* min-width: 150px; */
+}
+
+.address-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  font: 600 12px/1 Inter, sans-serif;
+  text-align: center;
+  color: var(--theme-button-icon-text-color);
+  width: 100%;
+}
+
+.address-dropdown-item span {
+  max-width: fit-content;
+}
+
+.address-dropdown-item span.exit {
+  color: #ff3d3d;
+}
+.address-dropdown-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+.wallet-address-block.active .address-dropdown-content {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wallet-address-block span {
+  font: 600 12px/1 Inter, sans-serif;
+  text-align: center;
+  font-style: normal;
+  color: var(--theme-button-icon-text-color);
+  width: 100%;
+  letter-spacing: 0.2px;
+}
+
+.wallet-address-block svg {
+  color: var(--theme-button-icon-text-color);
+}
+
+.wallet-button-menu {
+  display: none;
+  align-items: center;
+  justify-items: center;
+  width: 40px;
+  height: 30px;
+  --duration: 0.85s;
+  justify-self: end;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  position: relative;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wallet-button-menu svg {
+  width: 40px;
+  height: 30px;
+  stroke: var(--theme-text-hint-color);
+  stroke-width: 5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  display: block;
+  position: absolute;
+}
+
+.wallet-button-menu svg path {
+  transition: stroke-dasharray var(--dash-duration, var(--duration))
+      var(--easing, ease) var(--dash-delay, 0s),
+    stroke-dashoffset var(--dash-duration, var(--duration)) var(--easing, ease)
+      var(--dash-delay, 0s),
+    transform var(--transform-duration, 0s) var(--transform-easing, ease)
+      var(--transform-delay, 0s);
+  transform-origin: 50% 50%;
+}
+
+.wallet-button-menu svg path:nth-child(1) {
+  --dash-array: 26px 100px;
+  --dash-offset: 126px;
+  stroke-dasharray: var(--dash-array);
+  stroke-dashoffset: var(--dash-offset);
+  /* transform: translateY(2px) ; */
+}
+
+.wallet-button-menu svg path:nth-child(2) {
+  --dash-array: 26px 100px;
+  --dash-offset: 126px;
+  --dash-delay: 0.1s;
+  stroke-dasharray: var(--dash-array);
+  stroke-dashoffset: var(--dash-offset);
+  /* transform: translateY(2px) ; */
+}
+
+/* Анимация при активации (превращение в шеврон) */
+.wallet-button-menu.active svg path:nth-child(1) {
+  --dash-offset: 41px;
+  /* --dash-delay: 0.15s; */
+  --easing: cubic-bezier(0.2, 0.4, 0.2, 1.1);
+  --transform-duration: 0.6s;
+  /* --transform-delay: 0.4s; */
+  --transform-easing: cubic-bezier(0.2, 0.4, 0.2, 1.1);
+  /* transform: rotate(0deg); */
+}
+
+.wallet-button-menu.active svg path:nth-child(2) {
+  --dash-offset: 45px;
+  --dash-delay: 0.15s;
+  --easing: cubic-bezier(0.2, 0.4, 0.2, 1.1);
+  --transform-duration: 0.6s;
+  --transform-delay: 0.4s;
+  --transform-easing: cubic-bezier(0.2, 0.4, 0.2, 1.1);
+  /* transform: rotate(0deg); */
+}
+
+.wallet-content {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  position: relative;
+  /* gap: 10px; */
+  width: 100%;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-balance {
+  display: none;
+  font: 500 30px/1 Inter, sans-serif;
+
+  font-style: normal;
+  line-height: 30px;
+
+  color: var(--theme-text-color);
+}
+
+.wallet-balance span {
+  font-weight: 400;
+  color: var(--theme-text-hint-color);
+}
+
+.wallet-content-expanded {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0px 10px;
+  width: 100%;
+
+  margin-top: 25px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.75s ease, opacity 0.35s ease 0.1s,
+    margin-top 0.75s ease;
+}
+
+.tokens {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-content-expanded.active {
+  max-height: 500px; /* Значение должно быть больше реальной высоты */
+  opacity: 1;
+  margin-top: 15px;
+  /* transition: max-height 0.65s ease, opacity 0.35s ease 0.1s margin-top 0.75s ease; */
+}
+
+.wallet-content-expanded:not(.active) {
+  margin-top: 0;
+}
+
+.wallet-buttons-block {
+  flex-direction: column;
+}
+
+.wallet-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.wallet-button div {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  background: var(--theme-button-color);
+  border-radius: 100px;
+}
+
+.wallet-button div svg {
+  width: 24px;
+  height: 24px;
+  color: var(--theme-button-icon-text-color);
+}
+
+.wallet-button span {
+  font: 600 12px/1 Inter, sans-serif;
+
+  font-style: normal;
+
+  color: var(--theme-text-color);
+}
+
+.tokens-list-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 15px;
+  width: 100%;
+
+  background: var(--theme-bg-hint-color);
+  border-radius: 15px;
+}
+
+/* .tokens-list-block.cuna {
+  padding-bottom: 0px;
+} */
+
+.wallet-block.not-connected .tokens-list-block.cuna {
+  margin-top: 15px;
+}
+
+.token-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  width: 100%;
+  height: 50px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--theme-block-border-color);
+}
+
+.token-block:last-child {
+  padding-bottom: 0px;
+  border-bottom: 0px solid var(--theme-block-border-color);
+}
+
+/* .token-logo {
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  border-radius: 50%;
+} */
+
+.token-logo-wrapper {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+
+.token-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: block;
+}
+
+.loader-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(60deg, var(--theme-loader-wallet-color));
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+  z-index: 2;
+  pointer-events: none; /* не мешает кликам по иконке */
+}
+
+.token-block-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: auto;
+  gap: 5px;
+}
+
+.token-block-text .name {
+  font: 600 18px/1 Inter, sans-serif;
+
+  font-style: normal;
+
+  color: var(--theme-text-color);
+}
+
+.token-block-text .name.loader {
+  width: 100px;
+  height: 20px;
+}
+
+.token-block-text .balance {
+  font: 600 12px/1 Inter, sans-serif;
+  font-style: normal;
+  color: var(--theme-text-hint-color);
+}
+
+.token-block-text .balance.loader {
+  width: 80px;
+  height: 20px;
+}
+
+.token-block .total-balance {
+  margin-left: auto;
+  font: 600 18px/1 Inter, sans-serif;
+  font-style: normal;
+  color: var(--theme-text-color);
+}
+
+.token-block .total-balance.loader {
+  width: 60px;
+  height: 30px;
+}
+
+.loader {
+  background: linear-gradient(60deg, var(--theme-loader-wallet-color));
+  background-size: 200% 100%;
+  border-radius: 15px;
+
+  animation: shimmer 1.2s infinite linear;
+  z-index: 100;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.token-block-text .name.loader,
+.token-block-text .balance.loader,
+.token-block .total-balance.loader {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.token-logo.loader {
+  border-radius: 50%;
+}
+
 .progress-bar-block {
   position: relative;
   box-sizing: border-box;
@@ -295,7 +812,7 @@ a:active {
   font: 600 24px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 15px;
+  line-height: 22px;
   letter-spacing: -0.43px;
 
   /* color: #000000; */
@@ -405,7 +922,7 @@ a:active {
   font: 600 24px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 15px;
+  line-height: 22px;
   letter-spacing: -0.43px;
 
   /* color: #000000; */
@@ -576,7 +1093,7 @@ a:active {
   font: 600 24px/1 Inter, sans-serif;
   text-align: left;
   font-style: normal;
-  line-height: 15px;
+  line-height: 22px;
   letter-spacing: -0.43px;
 
   color: var(--theme-text-color);
@@ -713,7 +1230,7 @@ a:active {
 
 .courses-logo {
   display: flex;
-  min-width: 100px;
+  width: 100px;
   height: 100px;
   margin: 10px;
   background-size: cover;
@@ -2475,7 +2992,7 @@ ul.modal-list-days-reward {
   margin-bottom: 15px;
   font: 400 16px/1 Inter, sans-serif;
   font-style: normal;
-  line-height: 25px;
+  line-height: 24px;
   text-align: left;
   /* color: #000000; */
   color: var(--theme-text-color);
@@ -2656,18 +3173,6 @@ ul.modal-list-days-reward {
   background-color: #d4edda; /* Светло-зеленый фон */
   color: #155724; /* Темно-зеленый текст */
   border: 1px solid #c3e6cb; /* Зеленая рамка */
-}
-
-p {
-  margin-block-end: 0em;
-  /* margin-block-start: 10px; */
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 5px;
-  margin-top: 30px;
-  line-height: 30px;
 }
 
 /*Отключение отображения прокрутки*/

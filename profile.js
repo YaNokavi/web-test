@@ -1,23 +1,217 @@
 import fetchData from "./fetch.js";
 
-localStorage.removeItem("courseData");
+const walletBlock = document.getElementById("wallet-block");
+const walletAddressElement = document.getElementById("wallet-address");
+const walletButtonMenu = document.getElementById("wallet-button-menu");
+const addressBlock = document.getElementById("address-block");
+// const walletBalance = document.getElementById("wallet-balance");
+const expandedContent = document.getElementById("expanded-content");
+const buttonConnectWallet = document.getElementById("ton-connect");
+const buttonDisconnectWallet = document.getElementById("button-disconnect");
+const buttonCopyAddress = document.getElementById("button-copy");
+
+const tokenListBlock = document.getElementById("tokens-list-block");
 
 const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-  manifestUrl: 'ton.json',
-  buttonRootId: 'ton-connect'
+  manifestUrl:
+    "https://gist.githubusercontent.com/YaNokavi/694c772e7931855a1c9afe3e9f1b851b/raw/d99b90f06c7466fde6d6f0a7a1bf5de711a59265/ton.json",
 });
 
-// console.log(ton.json)
+let hasWalletInfo = false;
 
-// Отслеживание изменений статуса
-tonConnectUI.onStatusChange(walletInfo => {
-  const addressElement = document.getElementById('wallet-address');
-  
+buttonConnectWallet.addEventListener("click", async () => {
+  buttonConnectWallet.innerHTML = "";
+  buttonConnectWallet.classList.add("load-task-animation");
+  buttonConnectWallet.classList.add("load-task");
+  let walletInfo = null;
+  try {
+    const walletInfoTon = await tonConnectUI.connectWallet();
+    walletInfo = await connectWallet(walletInfoTon.account.address);
+  } catch {
+    buttonConnectWallet.innerHTML = `<img src="icons/ton.png" />
+            <span id="wallet-address">Подключить кошелек</span>`;
+    buttonConnectWallet.classList.remove("load-task-animation");
+    buttonConnectWallet.classList.remove("load-task");
+  }
+
   if (walletInfo) {
-    addressElement.textContent = walletInfo.account.address;
-    console.log('Подключен кошелек:', walletInfo.walletInfo.name);
+    displayBaseWalletInfo(walletInfo.address);
+    displayDetailedWalletInfo(walletInfo);
+    hasWalletInfo = true;
+    buttonConnectWallet.innerHTML = `<img src="icons/ton.png" />
+            <span id="wallet-address">Подключить кошелек</span>`;
+    buttonConnectWallet.classList.remove("load-task-animation");
+    buttonConnectWallet.classList.remove("load-task");
+  }
+});
+
+function displayBaseWalletInfo(address) {
+  walletBlock.classList.remove("not-connected");
+  buttonConnectWallet.style.display = "none";
+  addressBlock.style.display = "flex";
+  walletButtonMenu.style.display = "flex";
+  expandedContent.style.display = "flex";
+  const userFriendlyAddress = address;
+  walletAddressElement.textContent = `${userFriendlyAddress.slice(
+    0,
+    3
+  )}...${userFriendlyAddress.slice(-3)}`;
+
+  buttonCopyAddress.addEventListener("click", function (event) {
+    event.stopPropagation();
+    navigator.clipboard.writeText(userFriendlyAddress);
+    displayNotification(null, "COPY");
+  });
+}
+
+function displayDetailedWalletInfo(walletInfo) {
+  const loadPromises = [];
+  const tokenBlocks = [];
+
+  walletInfo.tokens
+    .slice()
+    .reverse()
+    .forEach((token) => {
+      const tokenBlock = document.querySelector(
+        `.token-block[data-token="${token.name}"]`
+      );
+      if (!tokenBlock) return;
+      tokenBlocks.push(tokenBlock);
+
+      const logo = tokenBlock.querySelector(".token-logo");
+      // Не скрываем overlay здесь, только создаём промис загрузки картинки
+      if (logo && token.iconUrl) {
+        const loadPromise = new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            logo.src = token.iconUrl;
+            resolve();
+          };
+          img.onerror = () => {
+            resolve();
+          };
+          img.src = token.iconUrl;
+        });
+        loadPromises.push(loadPromise);
+      }
+    });
+
+  Promise.allSettled(loadPromises).then(() => {
+    tokenBlocks.forEach((block) => {
+      const overlay = block.querySelector(".loader-overlay");
+      if (overlay) overlay.style.display = "none";
+    });
+
+    walletInfo.tokens
+      .slice()
+      .reverse()
+      .forEach((token) => {
+        const tokenBlock = document.querySelector(
+          `.token-block[data-token="${token.name}"]`
+        );
+        if (!tokenBlock) return;
+
+        const nameEl = tokenBlock.querySelector(".name");
+        const balanceEl = tokenBlock.querySelector(".balance");
+        const balanceUsdEl = tokenBlock.querySelector(".total-balance");
+
+        if (nameEl) {
+          nameEl.textContent = token.name;
+          nameEl.classList.remove("loader");
+        }
+
+        if (balanceEl) {
+          balanceEl.textContent = `${token.amount.toFixed(2)} ${token.symbol}`;
+          balanceEl.classList.remove("loader");
+        }
+
+        if (balanceUsdEl) {
+          balanceUsdEl.textContent = `${token.amountInUsd}$`;
+          balanceUsdEl.classList.remove("loader");
+        }
+      });
+  });
+}
+
+async function getWalletInfo() {
+  try {
+    const walletInfo = await fetchData(`wallet/info`, "GET", {
+      "X-User-Id": userId,
+    });
+
+    displayDetailedWalletInfo(walletInfo);
+    hasWalletInfo = true;
+  } catch (error) {
+    console.error("Ошибка при получении данных кошелька:", error);
+  }
+}
+
+walletButtonMenu.addEventListener("click", function () {
+  if (
+    !this.classList.contains("active") &&
+    walletAddress !== null &&
+    hasWalletInfo === false
+  ) {
+    getWalletInfo();
+  }
+  this.classList.toggle("active");
+  expandedContent.classList.toggle("active");
+});
+
+async function disconnectWallet() {
+  const responce = await fetchData(
+    `wallet`,
+    "DELETE",
+    {
+      "X-User-Id": userId,
+    },
+    null,
+    false
+  );
+
+  return responce;
+}
+
+buttonDisconnectWallet.addEventListener("click", async function (event) {
+  event.stopPropagation();
+  modal.style.display = "block";
+});
+
+const modal = document.getElementById("modal");
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
+
+noButton.addEventListener("click", function () {
+  modal.style.display = "none";
+});
+
+yesButton.addEventListener("click", async function () {
+  const responce = await disconnectWallet();
+  modal.style.display = "none";
+  if (responce === 200) {
+    tonConnectUI.disconnect();
+    walletBlock.classList.add("not-connected");
+    buttonConnectWallet.style.display = "flex";
+    addressBlock.style.display = "none";
+    walletButtonMenu.style.display = "none";
+    expandedContent.style.display = "none";
   } else {
-    addressElement.textContent = 'Не подключено';
+    alert("Не удалось отключить кошелек. Повторите попытку позже");
+  }
+});
+
+addressBlock.addEventListener("click", function () {
+  this.classList.toggle("active");
+});
+
+document.addEventListener("click", function (event) {
+  if (modal.style.display !== "block") {
+    if (!addressBlock.contains(event.target)) {
+      addressBlock.classList.remove("active");
+    }
+  }
+  if (event.target === modal) {
+    modal.style.display = "none";
   }
 });
 
@@ -26,32 +220,20 @@ const popupBtn = document.getElementById("pop");
 const popupBtnSvg = document.getElementById("popu");
 const balanceText = document.getElementById("balance");
 const userIdProfile = document.querySelector(".profile-userid");
-const logoNameProfile = document.querySelector(
-  ".profile-logo"
-);
-const userNameProfile = document.querySelector(".profile-nickname");
+const logoNameProfile = document.querySelector(".profile-logo");
+const usernameProfile = document.querySelector(".profile-nickname");
 const course = document.getElementById("course-info");
 
 const tg = window.Telegram.WebApp;
-// const userIdData = tg.initDataUnsafe.user.id;
-const userIdData = 1;
-// const userPhoto = tg.initDataUnsafe.user.photo_url;
-const userPhoto = "tg.initDataUnsafe.user.photo_url";
-// let logoName;
-let userName;
 
-// if (tg.initDataUnsafe.user.username) {
-//   // logoName = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-//   const name = `${tg.initDataUnsafe.user.username}`;
-//   userName = DOMPurify.sanitize(name);
-// } else {
-  // logoName = "U";
-  userName = "User";
-// }
+const avatarUrl =
+  tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const rawUsername = tg.initDataUnsafe?.user?.username;
+const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
-userIdProfile.innerText += userIdData;
-logoNameProfile.style.backgroundImage = `url('${userPhoto}')`;
-// logoNameProfile.innerText = logoName;
+userIdProfile.innerText += userId;
+logoNameProfile.style.backgroundImage = `url('${avatarUrl}')`;
 
 const setUserNameProfile = (name) => {
   let fontSize;
@@ -65,53 +247,93 @@ const setUserNameProfile = (name) => {
     fontSize = "23px";
   }
 
-  userNameProfile.style.fontSize = fontSize;
+  usernameProfile.style.fontSize = fontSize;
   const sanitizedUserName = DOMPurify.sanitize(name);
-  userNameProfile.innerText = sanitizedUserName;
-  // userNameProfile.innerText = name;
+  usernameProfile.innerText = sanitizedUserName;
+  // usernameProfile.innerText = name;
 };
 
-setUserNameProfile(userName);
+setUserNameProfile(username);
 
+async function connectWallet(address) {
+  const body = {
+    walletAddress: address,
+  };
+  try {
+    const walletInfo = await fetchData(
+      `wallet/connect`,
+      "POST",
+      {
+        "X-User-Id": userId,
+      },
+      body
+    );
+    console.log(walletInfo);
+    if (walletInfo) {
+      return walletInfo;
+    } else {
+      throw Error;
+    }
+  } catch (error) {
+    console.error(
+      "Ошибка получения информации о кошельке:",
+      error,
+      error.status
+    );
+  }
+}
+
+let walletAddress = null;
 async function getUserInfo() {
-  const userInfo = await fetchData(
-    `user/${userIdData}/profile/info`,
-    "GET"
-  );
-  balanceText.innerText = userInfo.balance.toFixed(2);;
+  const userInfo = await fetchData(`user/profile/info`, "GET", {
+    "X-User-Id": userId,
+  });
+
+  const formattedBalance = Number.isInteger(userInfo.cunaTokenBalance)
+    ? userInfo.cunaTokenBalance.toString()
+    : userInfo.cunaTokenBalance.toFixed(2);
+
+  balanceText.innerText = formattedBalance;
+
+  document.getElementById(
+    "balance-cuna"
+  ).innerHTML = `${formattedBalance} CUNA`;
+
+  if (userInfo.walletAddress) {
+    walletAddress = userInfo.walletAddress;
+    displayBaseWalletInfo(walletAddress);
+  }
 
   if (userInfo.coursesProgress.length != 0) {
     displayProgress(userInfo);
   } else {
-    displayButton();
+    displayNotProgress();
   }
 }
 
-getUserInfo();
-
 async function getTasks() {
   await getUserInfo();
-  const tasksInfo = await fetchData(
-    `task/all?userId=${userIdData}`,
-    "GET"
-  );
+  const tasksInfo = await fetchData(`task/all`, "GET", {
+    "X-User-Id": userId,
+  });
 
-  displayTasks(tasksInfo);
+  tasksInfo.length !== 0 ? displayTasks(tasksInfo) : displayNotTasks();
 }
 
 getTasks();
 
 async function checkTask(task) {
   const taskCheckInfo = await fetchData(
-    `task/${task.taskId}/completed?userId=${userIdData}`,
-    "POST"
+    `task/${task.taskId}/completed`,
+    "POST",
+    { "X-User-Id": userId }
   );
 
   const buttonTask = document.getElementById(`task${task.taskId}`);
   if (taskCheckInfo) {
     buttonTask.classList.remove("load-task-animation");
     buttonTask.classList.remove("load-task");
-    displayNotification(taskCheckInfo.reward);
+    displayNotification(taskCheckInfo.reward, "REWARD");
     balanceText.innerText = taskCheckInfo.newBalance.toFixed(2);
     buttonTask.classList.add("complete-task");
     buttonTask.textContent = "";
@@ -122,7 +344,7 @@ async function checkTask(task) {
 </svg>
 `;
   } else {
-    displayNotification();
+    displayNotification(null, "REWARD");
     buttonTask.classList.remove("load-task-animation");
     buttonTask.classList.remove("load-task");
     if (task.taskUrl !== null) {
@@ -270,40 +492,69 @@ function animateProgress() {
   }
 }
 
-function displayButton() {
+function displayNotProgress() {
   course.style.marginLeft = "0";
-  const buttonHtml = `<div class="progress-title-enable-courses">Вы не изучаете ни один курс</div>`;
-  course.innerHTML = buttonHtml;
+  const notProgressHtml = `<div class="progress-title-enable-courses">Вы не изучаете ни один курс</div>`;
+  course.innerHTML = notProgressHtml;
 }
 
-function displayNotification(reward) {
-  if (reward) {
-    const notification = document.getElementById("notification");
-    const notificationBalance = document.getElementById("notification-balance");
-    notificationBalance.innerText = `+${reward}`;
-    const notificationLogo = document.querySelector(".notification-logo");
-    if (!notificationLogo) {
-      notification.innerHTML += '<div class="notification-logo"></div>';
-    }
-    notification.classList.add("show");
-    setTimeout(() => {
-      tg.HapticFeedback.notificationOccurred("success");
-    }, 350);
+function displayNotTasks() {
+  tasksList.style.marginTop = "10px";
+  const notTasksHtml = `<div class="progress-title-enable-courses">Вы уже выполнили все задания</div>`;
+  tasksList.innerHTML = notTasksHtml;
+  document.getElementById("preloader").style.display = "none";
+}
 
-    setTimeout(() => {
-      notification.classList.remove("show");
-    }, 2000);
-  } else {
+function displayNotification(reward, type) {
+  if (type === "REWARD") {
+    if (reward) {
+      const notification = document.getElementById("notification");
+      const notificationBalance = document.getElementById(
+        "notification-balance"
+      );
+      notificationBalance.innerText = `+${reward}`;
+      const notificationLogo = document.querySelector(".notification-logo");
+      if (!notificationLogo) {
+        notification.innerHTML += '<div class="notification-logo"></div>';
+      }
+      notification.classList.add("show");
+      setTimeout(() => {
+        tg.HapticFeedback.notificationOccurred("success");
+      }, 350);
+
+      setTimeout(() => {
+        notification.classList.remove("show");
+      }, 2000);
+    } else {
+      const notification = document.getElementById("notification");
+      const notificationBalance = document.getElementById(
+        "notification-balance"
+      );
+      notificationBalance.innerText = `Задание еще не выполнено`;
+      const notificationLogo = document.querySelector(".notification-logo");
+      if (notificationLogo) {
+        notificationLogo.remove();
+      }
+      notification.classList.add("show");
+      setTimeout(() => {
+        tg.HapticFeedback.notificationOccurred("error");
+      }, 350);
+
+      setTimeout(() => {
+        notification.classList.remove("show");
+      }, 2000);
+    }
+  } else if (type === "COPY") {
     const notification = document.getElementById("notification");
     const notificationBalance = document.getElementById("notification-balance");
-    notificationBalance.innerText = `Задание еще не выполнено`;
+    notificationBalance.innerText = `Адрес успешно скопирован`;
     const notificationLogo = document.querySelector(".notification-logo");
     if (notificationLogo) {
       notificationLogo.remove();
     }
     notification.classList.add("show");
     setTimeout(() => {
-      tg.HapticFeedback.notificationOccurred("error");
+      tg.HapticFeedback.notificationOccurred("success");
     }, 350);
 
     setTimeout(() => {

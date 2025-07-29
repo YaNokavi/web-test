@@ -2,21 +2,17 @@ import fetchData from "./fetch.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const paramId = urlParams.get("id");
+const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 1;
-// const courseData = JSON.parse(localStorage.getItem(`courseData`));
-// var modulesData = courseData.courseModuleList;
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
 
 async function getContent() {
-  const modulesData = await fetchData(
-    `course/${paramId}/content?userId=${userId}`
-  );
+  const modulesData = await fetchData(`course/${courseId}/content`, "GET", {
+    "X-User-Id": userId,
+  });
 
-  displayModules(modulesData.courseModuleList);
-  // localStorage.setItem("courseData", JSON.stringify(courseData));
+  displayModules(modulesData.modules);
 }
 
 getContent();
@@ -31,7 +27,6 @@ function createElement(tag, className, innerHTML) {
 function displayModules(modulesData) {
   const elementModules = document.getElementById("modules");
   elementModules.innerHTML = "";
-
   modulesData.forEach((module) => {
     const moduleMain = createElement("div", "syllabus-modules-main");
     const moduleMainText = createElement(
@@ -45,25 +40,19 @@ function displayModules(modulesData) {
     const moduleAditional = createElement("div", "syllabus-modules-aditional");
     elementModules.append(moduleAditional);
 
-    module.submoduleList.forEach((submodule) => {
+    module.submodules.forEach((submodule) => {
       const submoduleLink = createElement(
         "a",
         "syllabus-name-aditional",
         `${module.number}.${submodule.number} ${submodule.name}`
       );
-      submoduleLink.href = `step.html?syllabusId=${paramId}&moduleId=${module.number}&submoduleId=${submodule.number}&stepId=1`;
 
-      let steps = [];
-      submodule.stepList.forEach((step) => {
-        if (step.completed) {
-          steps.push("1");
-        }
-      });
+      submoduleLink.href = `step.html?v=103&courseId=${courseId}&submoduleId=${submodule.id}&stepNumber=1`;
 
       const stepProgress = createElement(
         "div",
         "syllabus-step-pogress",
-        `${steps.length}/${Object.keys(submodule.stepList).length}`
+        `${submodule.completedStepsCount}/${submodule.totalStepsCount}`
       );
       submoduleLink.append(stepProgress);
       moduleAditional.append(submoduleLink);

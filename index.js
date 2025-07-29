@@ -1,13 +1,11 @@
-const tabBar = document.querySelectorAll(".tab-item");
-tabBar.forEach((item) => {
-  item.style.pointerEvents = "none";
+window.addEventListener("DOMContentLoaded", () => {
+  const tabBar = document.querySelectorAll(".tab-item");
+  tabBar.forEach((item) => {
+    item.style.pointerEvents = "none";
+  });
 });
 
-const lastStepArray = localStorage.getItem("lastStepArray");
-
 localStorage.clear();
-
-localStorage.setItem("lastStepArray", lastStepArray);
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);

@@ -1,23 +1,16 @@
 import fetchData from "./fetch.js";
 
 const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-// const userId = 535799793;
-// const userId = 1;
-const avatarUrl = tg.initDataUnsafe.user.photo_url;
-let username;
-let logoname;
-if (tg.initDataUnsafe.user.username) {
-  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  const name = `${tg.initDataUnsafe.user.username}`;
-  username = DOMPurify.sanitize(name);
-} else {
-  logoname = "U";
-  username = "User";
-}
+
+const avatarUrl =
+  tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const rawUsername = tg.initDataUnsafe?.user?.username;
+const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
+
 
 async function getReferrals() {
-  const referrals = await fetchData(`user/${userId}/referrals`);
+  const referrals = await fetchData(`user/referrals`, "GET", {"X-User-Id": userId});
 
   referrals.length ? displayFriendsNotNull(referrals) : displayFriendsNull();
 }
@@ -63,7 +56,7 @@ function startCountdown(endDate) {
 
 async function getTopUsers() {
   const topUsers = await fetchData(
-    `event/referral-competition?userId=${userId}`
+    `event/referral-competition`, "GET", {"X-User-Id": userId}
   );
 
   startCountdown(topUsers.eventEndDate);

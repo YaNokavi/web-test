@@ -5,17 +5,13 @@ const urlParams = new URLSearchParams(queryString);
 const courseId = Number(urlParams.get("id"));
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 1;
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
 
-const info = localStorage.getItem("infoCourse");
 const courseElement = document.getElementById("info");
 const ratingCourse = document.getElementById("rating");
 const amountComments = document.getElementById("amount-comments");
 
-const lastStepArray = JSON.parse(localStorage.getItem("lastStepArray"));
-
-function renderCourse(course) {
+function displayCourseInfo(course) {
   let author = course.author;
 
   if (author.length >= 15) {
@@ -35,54 +31,36 @@ function renderCourse(course) {
   `;
 }
 
-function getCourseInfo() {
-  const courses = JSON.parse(info) || [];
-  return courses.find((course) => course.id == courseId) || null;
-}
-
-let courseInfo = getCourseInfo();
-if (courseInfo) {
-  renderCourse(courseInfo);
-}
-
 const lastStepBlock = document.getElementById("last-step-block");
 const lastStepHref = document.getElementById("last-step");
 
-function displayLastStep(lastStepArray, courseData) {
+async function displayLastStep(lastStepArray) {
   lastStepBlock.style.display = "flex";
-  const lastStep = lastStepArray[courseId];
-  const modules = courseData.courseModuleList.find(
-    (module) => module.number == lastStep.moduleId
-  );
-  const sub =
-    modules.submoduleList.find((sub) => sub.number == lastStep.submoduleId) ||
-    null;
-  const step =
-    sub.stepList.find((step) => step.number == lastStep.stepId) || null;
-  lastStepHref.innerHTML = `${sub.name} - ${step.number} шаг`;
-  lastStepHref.href = `step.html?syllabusId=${courseId}&moduleId=${lastStep.moduleId}&submoduleId=${lastStep.submoduleId}&stepId=${lastStep.stepId}`;
+  lastStepHref.innerHTML = `${lastStepArray.submoduleName} - ${lastStepArray.number} шаг`;
+  lastStepHref.href = `step.html?courseId=${courseId}&submoduleId=${lastStepArray.submoduleId}&stepNumber=${lastStepArray.number}`;
 }
 
-function displayLearning(courseData) {
+function displayLearning(learningOutcomes) {
+  document.getElementById("learnings-block").style.display = "flex";
   const elementLearning = document.getElementById("points");
   elementLearning.innerHTML = "";
-  courseData.learningOutcomeList.forEach((elem) => {
+  learningOutcomes.forEach((elem) => {
     const pointElement = document.createElement("div");
     pointElement.style.display = "flex";
     pointElement.style.marginBottom = "10px";
     pointElement.innerHTML = `•&nbsp&nbsp`;
     const pointElementText = document.createElement("div");
     pointElementText.style.display = "flex";
-    pointElementText.innerHTML = `${elem.content}`;
+    pointElementText.innerHTML = `${elem}`;
     pointElement.append(pointElementText);
     elementLearning.append(pointElement);
   });
 }
 
-function displayModules(courseData) {
+function displayModules(courseModulesInfo) {
   const elementModules = document.getElementById("modules");
   elementModules.innerHTML = "";
-  courseData.courseModuleList.forEach((elem) => {
+  courseModulesInfo.forEach((elem) => {
     const moduleMain = document.createElement("div");
     moduleMain.className = "syllabus-text-course-main toggle";
     moduleMain.innerHTML = `${elem.name}`;
@@ -115,10 +93,10 @@ function displayModules(courseData) {
     moduleAditional.style.margin = 0;
     moduleAditional.style.paddingLeft = "20px";
 
-    elem.submoduleList.forEach((subElem) => {
+    elem.submoduleNames.forEach((subElem) => {
       const subText = document.createElement("li");
       subText.classList.add("syllabus-text-course-additional");
-      subText.innerText = subElem.name;
+      subText.innerText = subElem;
       moduleAditional.append(subText);
     });
     elementModules.append(moduleAditional);
@@ -184,24 +162,34 @@ function displayRating(ratingInfo) {
   });
 }
 
-let courseData = null;
+let lastStepArray = null;
 async function fetchContent() {
-  courseData = await fetchData(
-    `course/${courseId}/content?userId=${userId}`
-  );
-  // localStorage.setItem("courseData", JSON.stringify(courseData));
+  const courseData = await fetchData(`course/${courseId}/info`, "GET", {
+    "X-User-Id": userId,
+  });
+  localStorage.setItem("courseData", JSON.stringify(courseData));
 
-  setupButtons();
-  displayLearning(courseData);
-  displayModules(courseData);
+  if (courseData.lastCompletedStep) {
+    lastStepArray = courseData.lastCompletedStep;
+    if (courseData.favorite) {
+      displayLastStep(lastStepArray);
+    }
+  }
+  setupButtons(courseData.favorite);
+  displayCourseInfo(courseData);
+  if (courseData.learningOutcomes.length !== 0) {
+    displayLearning(courseData.learningOutcomes);
+  }
+
+  displayModules(courseData.courseModulesInfo);
   displayRating(courseData.ratingInfo);
 }
 
 fetchContent();
 
-const button1 = document.getElementById("button1");
-const button2 = document.getElementById("button2");
-const button3 = document.getElementById("button3");
+const addCourseButton = document.getElementById("add-cours-button");
+const leaveCourseButton = document.getElementById("leave-course-button");
+const goCourseButton = document.getElementById("go-course-button");
 const buttonHrefComments = document.getElementById("button-href-comments");
 
 const text = document.querySelector(".course-block-button-text");
@@ -216,31 +204,21 @@ buttonHrefComments.addEventListener("click", function () {
   window.location.href = `rating.html?v=103&idCourse=${courseId}`;
 });
 
-function setupButtons() {
+function setupButtons(isFavorite) {
   let buttonsConfig = [
-    { button: button1, show: true },
+    { button: addCourseButton, show: true },
     { button: star1, show: true },
-    { button: button2, show: false },
-    { button: button3, show: false },
+    { button: leaveCourseButton, show: false },
+    { button: goCourseButton, show: false },
     { button: star2, show: false },
   ];
 
-  const idCourse = JSON.parse(localStorage.getItem("infoCourse"))?.map(
-    (course) => course.id
-  );
-
-  if (idCourse && idCourse.includes(courseId)) {
+  if (isFavorite === true) {
     buttonsConfig[0].show = false;
     buttonsConfig[1].show = false;
     buttonsConfig[2].show = true;
     buttonsConfig[3].show = true;
     buttonsConfig[4].show = true;
-    if (lastStepArray !== null && lastStepArray[courseId]) {
-      displayLastStep(
-        lastStepArray,
-        courseData
-      );
-    }
   }
 
   buttonsConfig.forEach(({ button, show }) => {
@@ -250,63 +228,46 @@ function setupButtons() {
   setTimeout(() => {
     document.getElementById("preloader").style.display = "none";
   }, 100);
-
-  console.log(buttonsConfig);
 }
 
-button1.addEventListener("click", async function () {
+addCourseButton.addEventListener("click", async function () {
+  animateCourseButton("ADD");
   const response = await postDataAdd();
-  let addData = JSON.parse(localStorage.getItem("infoCourse"));
-
   if (response !== 0) {
-    addData.push(courseInfo);
-    localStorage.setItem("infoCourse", JSON.stringify(addData));
-
-    text.style.animation = "fadeOut 10ms ease";
-    star1.style.animation = "fadeOut 50ms ease";
-    setTimeout(() => {
-      button1.style.animation = "button-course 0.4s ease";
-      text.innerText = "";
-      star1.style.display = "none";
-      setTimeout(() => {
-        star2.style.animation = "fadeIn 100ms ease";
-        star2.style.display = "block";
-        star1.style.animation = "none";
-        button1.style.display = "none";
-        button1.style.animation = "none";
-        button2.style.display = "flex";
-        text.style.animation = "none";
-        button3.style.animation = "fadeIn 100ms ease";
-        button3.style.display = "flex";
-      }, 400);
-    }, 10);
+    if (lastStepArray) {
+      displayLastStep(lastStepArray);
+    }
+  } else {
+    lastStepBlock.style.display = "none";
+    animateCourseButton("LEAVE");
   }
 });
 
 async function postDataAdd() {
   try {
+    const body = {
+      courseId: courseId,
+    };
     const response = await fetchData(
-      `user/${userId}/favorite-course?courseId=${courseId}`,
+      `user/favorite-course`,
       "POST",
-      null,
+      { "X-User-Id": userId },
+      body,
       false
     );
 
-    if (response === 200) {
-      if (lastStepArray !== null && lastStepArray[courseId]) {
-        displayLastStep(
-          lastStepArray,
-          courseData
-        );
-      }
-    }
+    // if (response === 200) {
+    //   if (lastStepArray !== null && lastStepArray[courseId]) {
+    //     displayLastStep(lastStepArray, courseData);
+    //   }
+    // }
   } catch {
     alert("Не удалось установить соединение с сервером");
     return 0;
   }
 }
 
-button2.addEventListener("click", function () {
+leaveCourseButton.addEventListener("click", function () {
   modal.style.display = "block";
 });
 
@@ -320,23 +281,34 @@ document.addEventListener("click", function (event) {
   }
 });
 
-yesButton.addEventListener("click", async function () {
-  modal.style.display = "none";
-  let remData = JSON.parse(localStorage.getItem("infoCourse"));
-
-  const response = await postDataRemove();
-
-  if (response !== 0) {
-    remData = remData.filter((item) => item.id !== Number(courseId));
-    localStorage.setItem("infoCourse", JSON.stringify(remData));
-
-    button3.style.animation = "fadeOut 150ms ease";
+function animateCourseButton(type) {
+  if (type === "ADD") {
+    text.style.animation = "fadeOut 10ms ease";
+    star1.style.animation = "fadeOut 50ms ease";
     setTimeout(() => {
-      button3.style.display = "none";
+      addCourseButton.style.animation = "button-course 0.4s ease";
+      text.innerText = "";
+      star1.style.display = "none";
+      setTimeout(() => {
+        star2.style.animation = "fadeIn 100ms ease";
+        star2.style.display = "block";
+        star1.style.animation = "none";
+        addCourseButton.style.display = "none";
+        addCourseButton.style.animation = "none";
+        leaveCourseButton.style.display = "flex";
+        text.style.animation = "none";
+        goCourseButton.style.animation = "fadeIn 100ms ease";
+        goCourseButton.style.display = "flex";
+      }, 400);
+    }, 10);
+  } else if (type === "LEAVE") {
+    goCourseButton.style.animation = "fadeOut 150ms ease";
+    setTimeout(() => {
+      goCourseButton.style.display = "none";
       setTimeout(() => {
         star2.style.animation = "fadeOut 100ms ease";
         setTimeout(() => {
-          button2.style.animation =
+          leaveCourseButton.style.animation =
             "button-favorite 0.5s cubic-bezier(0.385, -0.220, 0.520, 0.840)";
           star2.style.display = "none";
           setTimeout(() => {
@@ -344,10 +316,10 @@ yesButton.addEventListener("click", async function () {
             star1.style.animation = "fadeIn 50ms ease";
             text.innerText = "Поступить на курс";
             star1.style.display = "block";
-            button2.style.display = "none";
-            button1.style.display = "flex";
-            button2.style.animation = "none";
-            button3.style.animation = "none";
+            leaveCourseButton.style.display = "none";
+            addCourseButton.style.display = "flex";
+            leaveCourseButton.style.animation = "none";
+            goCourseButton.style.animation = "none";
             setTimeout(() => {
               star1.style.animation = "none";
               star2.style.animation = "none";
@@ -358,29 +330,44 @@ yesButton.addEventListener("click", async function () {
       }, 10);
     }, 150);
   }
+}
+
+yesButton.addEventListener("click", async function () {
+  modal.style.display = "none";
+  animateCourseButton("LEAVE");
+  const response = await postDataRemove();
+  if (response !== 0) {
+    lastStepBlock.style.display = "none";
+  } else {
+    animateCourseButton("ADD");
+  }
 });
 
 async function postDataRemove() {
   try {
+    const body = {
+      courseId: courseId,
+    };
     const response = await fetchData(
-      `user/${userId}/favorite-course?courseId=${courseId}`,
+      `user/favorite-course`,
       "DELETE",
-      null,
+      { "X-User-Id": userId },
+      body,
       false
     );
 
-    if (response === 200) {
-      if (lastStepArray !== null && lastStepArray[courseId]) {
-        lastStepBlock.style.display = "none";
-      }
-    }
+    // if (response === 200) {
+    //   if (lastStepArray !== null && lastStepArray[courseId]) {
+    //     lastStepBlock.style.display = "none";
+    //   }
+    // }
   } catch {
     alert("Не удалось установить соединение с сервером");
     return 0;
   }
 }
 
-button3.addEventListener("click", function () {
+goCourseButton.addEventListener("click", function () {
   window.location.href = `syllabus.html?v=103&id=${courseId}`;
 });
 

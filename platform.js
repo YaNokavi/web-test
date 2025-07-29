@@ -86,6 +86,13 @@ function applyTheme(theme) {
       "--theme-step-text-color",
       `#4f4e4e`
     );
+    document.documentElement.style.setProperty(
+      "--theme-loader-wallet-color",
+      `
+    rgba(205, 205, 205) 25%,
+    rgba(225, 225, 225) 50%,
+    rgba(205, 205, 205) 75%`
+    );
   } else {
     tg.setHeaderColor("#191919");
     document.documentElement.style.setProperty("--theme-bg-color", `#131313`);
@@ -159,6 +166,12 @@ function applyTheme(theme) {
       "--theme-step-text-color",
       `#b0b0b0`
     );
+    document.documentElement.style.setProperty(
+      "--theme-loader-wallet-color",
+      `rgba(100, 100, 100, 1) 25%,
+    rgba(125, 125, 125, 1) 50%,
+    rgba(100, 100, 100, 1) 75%`
+    );
   }
 }
 
@@ -169,6 +182,7 @@ if (!localStorage.getItem("theme")) {
 }
 const savedTheme = localStorage.getItem("theme");
 applyTheme(savedTheme);
+// applyTheme("savedTheme");
 
 tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;
@@ -273,3 +287,56 @@ function swipeAllow() {
     }
   });
 }
+
+// let userOnline = true;
+// let tabBar = null;
+// window.addEventListener("DOMContentLoaded", () => {
+//   tabBar = document.querySelectorAll(".tab-item");
+// });
+
+// const listeners = [];
+
+// function setUserOnline(status) {
+//   userOnline = status;
+//   // Вызываем все подписанные обработчики
+//   listeners.forEach((fn) => fn(userOnline));
+// }
+
+// function onUserOnlineChange(fn) {
+//   listeners.push(fn);
+// }
+
+// // Навешиваем слушатели на события браузера
+// window.addEventListener("online", () => {
+//   console.log("Пользователь онлайн");
+//   setUserOnline(true);
+// });
+
+// window.addEventListener("offline", () => {
+//   console.log("Пользователь офлайн");
+//   alert("Какие-то неполадки. Проверьте подключение к интернету");
+//   setUserOnline(false);
+// });
+
+// // Подписываемся на изменения статуса
+// onUserOnlineChange((status) => {
+//   console.log("Статус сети изменился:", status);
+//   if (status === true) {
+//     document.getElementById("preloader").style.display = "none";
+//     disableTab();
+//   } else {
+//     document.getElementById("preloader").style.display = "flex";
+
+//     tabBar.forEach((item) => {
+//       item.style.pointerEvents = "none";
+//     });
+//   }
+// });
+
+// function disableTab() {
+//   tabBar.forEach((item) => {
+//     item.style.pointerEvents = "auto";
+//   });
+//   const tab = document.getElementById("active");
+//   tab.style.pointerEvents = "none";
+// }

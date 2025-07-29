@@ -39,25 +39,16 @@ function startCountdown(endDate) {
   }, 1000);
 }
 
-const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe.user.id;
-const avatarUrl = tg.initDataUnsafe.user.photo_url;
-// const userId = 1;
-let username;
-let logoname;
-if (tg.initDataUnsafe.user.username) {
-  logoname = `${tg.initDataUnsafe.user.username}`[0].toUpperCase();
-  const name = `${tg.initDataUnsafe.user.username}`;
-  username = DOMPurify.sanitize(name);
-} else {
-  logoname = "U";
-  username = "User";
-}
+const avatarUrl =
+  tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const rawUsername = tg.initDataUnsafe?.user?.username;
+const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
 async function getTopUsers() {
-  const topUsers = await fetchData(
-    `event/student-competition?userId=${userId}`
-  );
+  const topUsers = await fetchData(`event/student-competition`, "GET", {
+    "X-User-Id": userId,
+  });
 
   startCountdown(topUsers.eventEndDate);
   displayTopUsers(topUsers);

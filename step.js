@@ -2,132 +2,89 @@ import fetchData from "./fetch.js";
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const syllabusId = Number(urlParams.get("syllabusId"));
-const moduleId = Number(urlParams.get("moduleId"));
 const submoduleId = Number(urlParams.get("submoduleId"));
-const stepId = Number(urlParams.get("stepId"));
+const stepNumber = Number(urlParams.get("stepNumber"));
+const courseId = Number(urlParams.get("courseId"));
 
 const buttonBack = document.getElementById("button-back");
 const buttonForward = document.getElementById("button-forward");
 const button = document.getElementById("button-next-step");
+const nextButton = document.getElementById("next-button");
+
+const buttonsArray = [
+  {
+    buttonHtml: buttonBack,
+    buttonType: "BACK",
+  },
+  {
+    buttonHtml: buttonForward,
+    buttonType: "FORWARD",
+  },
+  {
+    buttonHtml: button,
+    buttonType: "FORWARD",
+  },
+  {
+    buttonHtml: nextButton,
+    buttonType: "FORWARD",
+  },
+];
 
 const tg = window.Telegram.WebApp;
-// const userId = tg.initDataUnsafe.user.id;
-const userId = 1;
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
 
-const title = document.getElementById("title");
-const steps = document.getElementById("steps-number");
 const mediaContent = document.getElementById("content");
 
-const courseData = JSON.parse(localStorage.getItem(`courseData`));
-const modulesData = courseData.courseModuleList;
-const submoduleLength = modulesData[moduleId - 1].submoduleList;
-const stepInfo =
-  modulesData[moduleId - 1].submoduleList[submoduleId - 1].stepList;
-let stepProgres = stepInfo[stepId - 1];
-
-const urlContent = stepInfo[stepId - 1].contentUrl;
-const isTest = stepInfo[stepId - 1].test;
-
-const lastStepArray = JSON.parse(localStorage.getItem("lastStepArray")) || {};
-
-if (!Object.keys(lastStepArray).length) {
-  const syllabusIds = [syllabusId];
-
-  syllabusIds.forEach((id) => {
-    lastStepArray[id] = {
-      moduleId: moduleId,
-      submoduleId: submoduleId,
-      stepId: stepId,
-    };
-  });
-
-  // Сохраняем объект в localStorage
-  localStorage.setItem("lastStepArray", JSON.stringify(lastStepArray));
-  console.log("Добавлен новый элемент:", lastStepArray);
-} else {
-  if (!lastStepArray[syllabusId]) {
-    lastStepArray[syllabusId] = {
-      moduleId: moduleId,
-      submoduleId: submoduleId,
-      stepId: stepId,
-    };
-    console.log(`Элемент с ключом ${syllabusId} добавлен:`, lastStepArray);
+async function getSteps() {
+  let stepsData = null;
+  const storedData = JSON.parse(localStorage.getItem("stepsData")) || [];
+  if (
+    storedData &&
+    storedData.currentSubmoduleId === submoduleId &&
+    Date.now() - storedData.storedTime < 3_600_000
+  ) {
+    stepsData = storedData;
   } else {
-    const existingItem = lastStepArray[syllabusId];
+    stepsData = await fetchData(`submodule/${submoduleId}/steps`, "GET", {
+      "X-User-Id": userId,
+    });
 
-    if (
-      existingItem.moduleId !== moduleId ||
-      existingItem.submoduleId !== submoduleId ||
-      existingItem.stepId !== stepId
-    ) {
-      lastStepArray[syllabusId] = {
-        moduleId: moduleId,
-        submoduleId: submoduleId,
-        stepId: stepId,
-      };
-      console.log(`Элемент с ключом ${syllabusId} обновлён:`, lastStepArray);
-    } else {
-      console.log(`Элемент с ключом ${syllabusId} совпадает:`, existingItem);
-    }
+    stepsData.currentSubmoduleId = submoduleId;
+    stepsData.storedTime = Date.now();
+    localStorage.setItem("stepsData", JSON.stringify(stepsData));
   }
 
-  localStorage.setItem("lastStepArray", JSON.stringify(lastStepArray));
+  displayStepInfo(stepsData.steps.length);
+  createNavigationMenu(stepsData.steps);
+  getCourseContent(stepsData.steps);
+  setButtonHref(buttonsArray, stepsData);
 }
 
-steps.innerHTML = `<div class="button-navigation" id="button-navigation">
-            <svg
-            style="color: var(--theme-button-hint-icon-text-color);"
-              width="20"
-              height="20"
-              viewBox="0 0 28 28"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.875 14H24.875"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M3.875 7H24.875"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M3.875 21H24.875"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>`;
-steps.innerHTML += `${stepId} из ${stepInfo.length}`;
+getSteps();
 
-const navigationBlock = document.getElementById("navigation");
-const navigationList = document.getElementById("navigation-list");
-const navigationButton = document.getElementById("button-navigation");
-navigationButton.addEventListener("click", function () {
-  navigationBlock.classList.toggle("move-right");
-  navigationBlock.classList.toggle("disable");
-});
+function displayStepInfo(stepsDataLength) {
+  const stepsCount = document.getElementById("steps-count");
+  stepsCount.innerText = `${stepNumber} из ${stepsDataLength}`;
+  const navigationBlock = document.getElementById("navigation");
+  const navigationButton = document.getElementById("button-navigation");
+  navigationButton.addEventListener("click", function () {
+    navigationBlock.classList.toggle("move-right");
+    navigationBlock.classList.toggle("disable");
+  });
 
-document.addEventListener("click", function (event) {
-  if (
-    !navigationBlock.contains(event.target) &&
-    !navigationBlock.classList.contains("disable") &&
-    !navigationButton.contains(event.target)
-  ) {
-    navigationBlock.classList.add("disable");
-  }
-});
+  document.addEventListener("click", function (event) {
+    if (
+      !navigationBlock.contains(event.target) &&
+      !navigationBlock.classList.contains("disable") &&
+      !navigationButton.contains(event.target)
+    ) {
+      navigationBlock.classList.add("disable");
+    }
+  });
+}
 
-function createNavigationMenu() {
+function createNavigationMenu(stepsData) {
+  const navigationList = document.getElementById("navigation-list");
   const svgNS = "http://www.w3.org/2000/svg";
 
   const svgActive = document.createElementNS(svgNS, "svg");
@@ -147,7 +104,7 @@ function createNavigationMenu() {
   path.setAttribute("fill", "currentColor");
 
   svgActive.appendChild(path);
-  stepInfo.forEach((step) => {
+  stepsData.forEach((step) => {
     const listStepItem = document.createElement("li");
 
     if (step.completed == true) {
@@ -156,19 +113,22 @@ function createNavigationMenu() {
     if (step.test === true) {
       listStepItem.innerText = "?";
     }
-    if (step.number == stepId) {
+    if (step.number === stepNumber) {
       listStepItem.classList.add("active");
+
       listStepItem.append(svgActive);
     } else {
       listStepItem.addEventListener("click", function () {
-        window.location.href = `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${step.number}`;
+        window.location.href = `step.html?v=103&courseId=${courseId}&submoduleId=${submoduleId}&stepNumber=${step.number}`;
       });
     }
     navigationList.append(listStepItem);
   });
+  const navigationBlock = document.getElementById("navigation");
   navigationList.style.maxHeight = `${navigationBlock.offsetHeight - 30}px`;
 
   const activeItem = document.querySelector(".active");
+
   const itemRect = activeItem.getBoundingClientRect();
   const containerRect = navigationBlock.getBoundingClientRect();
   const offset =
@@ -180,35 +140,12 @@ function createNavigationMenu() {
   navigationBlock.scrollTop += offset;
 }
 
-createNavigationMenu();
-
-function addStepProgress() {
-  if (stepProgres.completed === false) {
-    if (isTest) {
-      sendProgressTest();
-    } else {
-      sendProgress();
-    }
-    stepProgres.completed = true;
-    // localStorage.setItem("courseData", JSON.stringify(courseData));
-  } else {
-    const stepComplete = document.createElement("div");
-    stepComplete.classList.add("step-complete");
-    stepComplete.innerText = "Шаг пройден!";
-    document.getElementById("blockContent").append(stepComplete);
-  }
-}
-
-async function fixImages() {
-  const images = document.querySelectorAll("img");
-
+async function fixImages(images) {
   images.forEach((img) => {
-    // Получаем размеры изображения
     const width = img.width;
     const height = img.height;
 
-    if (height >= 55) {
-      // Обработка больших изображений
+    if (height >= 55 || width >= 100) {
       const newImg = document.createElement("img");
       newImg.src = img.src;
       newImg.classList.add("iview-image");
@@ -216,87 +153,88 @@ async function fixImages() {
       newImg.style.height = `${img.height}px`;
       newImg.style.width = `${img.width}px`;
       newImg.style.alignSelf = "center";
+      newImg.style.marginTop = "1em";
 
-      // Проверяем наличие <p> и удаляем его, если есть
       if (img.parentNode.tagName === "P") {
         img.parentNode.parentNode.replaceChild(newImg, img.parentNode);
       } else {
         img.parentNode.replaceChild(newImg, img);
       }
     } else {
-      // Обработка маленьких изображений
       img.style.verticalAlign = "middle";
+      img.style.margin = "0 5px";
     }
   });
 }
 
 async function trackImageLoad() {
-  const imageLoadPromises = [];
-
   const imgElements = document.querySelectorAll("img");
-
-  imgElements.forEach((img) => {
-    const imgLoadPromise = new Promise((resolve, reject) => {
-      if (img.complete) {
-        resolve(img.src);
-      } else {
-        img.onload = () => {
-          resolve(img.src);
-        };
-        img.onerror = () => {
-          console.error(`Ошибка загрузки изображения: ${img.src}`);
-          reject(img.src);
-        };
-      }
+  const promises = Array.from(imgElements).map((img) => {
+    return new Promise((resolve) => {
+      if (img.complete) resolve(img.src);
+      img.onload = () => resolve(img.src);
+      img.onerror = () => resolve(null);
     });
-
-    imageLoadPromises.push(imgLoadPromise);
   });
-
-  try {
-    await Promise.all(imageLoadPromises);
-    fixImages();
-    document.getElementById("preloader").style.display = "none";
-  } catch (url) {
-    console.error(
-      `Ошибка при загрузке одного или нескольких изображений: ${url}`
-    );
-  }
+  await Promise.all(promises);
+  fixImages(imgElements);
+  document.getElementById("preloader").style.display = "none";
 }
 
-async function getCourseContent() {
+async function getCourseContent(stepsData) {
+  const urlContent = stepsData.find(
+    (step) => step.number === stepNumber
+  ).contentUrl;
+
+  const isTest = stepsData.find((step) => step.number === stepNumber).test;
+
+  const isComplete = stepsData.find(
+    (step) => step.number === stepNumber
+  ).completed;
+
+  const stepId = stepsData.find((step) => step.number === stepNumber).id;
+
   try {
     const response = await fetch(urlContent);
     if (!response.ok) {
-      throw new Error(`Ошибка: ${response.status}`);
+      throw new Error(
+        `Ошибка загрузки контента: ${response.status} - ${response.statusText}`
+      );
     }
     const content = await response.text();
-    displayContent(content);
+    displayContent(content, stepId, isTest, isComplete);
   } catch (error) {
-    console.error("Ошибка при получении контента:", error);
+    console.error(`Ошибка в getCourseContent: ${error.message}`);
+    alert("Произошла ошибка при загрузке шага. Попробуйте позже.");
   }
 }
-getCourseContent();
 
-let testArray;
-let optionsAnswers;
-function displayContent(content) {
+async function displayComplete() {
+  const stepComplete = document.createElement("div");
+  stepComplete.classList.add("step-complete");
+  stepComplete.innerText = "Шаг пройден!";
+  document.getElementById("blockContent").append(stepComplete);
+}
+
+function displayContent(content, stepId, isTest, isComplete) {
   if (isTest === false) {
     mediaContent.innerHTML = content;
-
     trackImageLoad();
-    addStepProgress();
+    sendProgressText(stepId);
+
+    if (isComplete) {
+      displayComplete();
+    }
   } else {
     const jsonObject = JSON.parse(content);
-
-    testArray = {
+    const testData = {
       question: jsonObject.question,
       image: jsonObject.image,
       options: jsonObject.options,
       answer: jsonObject.answer,
     };
-    optionsAnswers = jsonObject.options.length;
-    displayTest();
+
+    displayTest(stepId, isComplete, testData, jsonObject.options.length);
   }
 }
 
@@ -306,15 +244,16 @@ const resultContainer = document.getElementById("result-container");
 const resultSvgCorrect = document.getElementById("result-svg-correct");
 const resultSvgIncorrect = document.getElementById("result-svg-incorrect");
 const retryButton = document.getElementById("retry-button");
-const nextButton = document.getElementById("next-button");
 
-const handleSubmit = () => {
+function handleSubmit(stepId, testData, optionsCount) {
+  submitButton.disabled = true;
   const inputs = document.querySelectorAll('input[name="question"]');
+
   inputs.forEach((input) => {
     input.disabled = true;
   });
   let selectedOptions;
-  const isMultipleChoice = testArray.answer.length > 1;
+  const isMultipleChoice = testData.answer.length > 1;
   if (isMultipleChoice) {
     selectedOptions = Array.from(inputs)
       .filter((input) => input.checked)
@@ -326,31 +265,30 @@ const handleSubmit = () => {
     selectedOptions = selectedOption ? [selectedOption.value] : [];
   }
 
-  handleAnswer(selectedOptions, isMultipleChoice);
-};
+  handleAnswer(
+    selectedOptions,
+    isMultipleChoice,
+    stepId,
+    testData,
+    optionsCount
+  );
+}
 
-const handleRetry = () => {
-  displayTest();
-};
-
-submitButton.addEventListener("click", handleSubmit);
-retryButton.addEventListener("click", handleRetry);
-
-function displayTest() {
-  fixImages();
+function displayTest(stepId, isComplete, testData, optionsCount) {
+  trackImageLoad();
   retryButton.style.display = "none";
   testDiv.style.display = "flex";
   submitButton.style.display = "flex";
   submitButton.disabled = "true";
   resultContainer.style.display = "flex";
 
-  const isMultipleChoice = testArray.answer.length > 1;
+  const isMultipleChoice = testData.answer.length > 1;
 
-  testDiv.innerHTML = `<h2 style="margin-bottom: 10px; line-height: 32px;">${testArray.question}</h2>`;
+  testDiv.innerHTML = `<h2 style="margin-bottom: 10px; line-height: 32px;">${testData.question}</h2>`;
 
-  if (testArray.image && testArray.image.url) {
+  if (testData.image && testData.image.url) {
     testDiv.innerHTML += `
-      <img src="${testArray.image.url}" height="${testArray.image.height}" width="${testArray.image.width}" style="align-self: center">
+      <img src="${testData.image.url}" height="${testData.image.height}" width="${testData.image.width}" style="align-self: center">
     `;
   }
 
@@ -360,7 +298,7 @@ function displayTest() {
     } вариант${isMultipleChoice ? "ов" : ""} ответа</p>
   `;
 
-  testArray.options.forEach((option, index) => {
+  testData.options.forEach((option, index) => {
     const label = document.createElement("label");
     label.innerHTML = `
           <input type="${
@@ -368,8 +306,8 @@ function displayTest() {
           }" name="question" id="optionTest${index + 1}" value="${option}">
           ${option}
       `;
-    if (stepProgres.completed === true) {
-      if (testArray.answer.includes(option)) {
+    if (isComplete === true) {
+      if (testData.answer.includes(option)) {
         label.querySelector("input").checked = true;
       } else {
         label.querySelector("input").disabled = true;
@@ -384,20 +322,32 @@ function displayTest() {
   resultSvgIncorrect.style.display = "none";
   retryButton.style.display = "none";
 
+  if (retryButton._handler) {
+    retryButton.removeEventListener("click", retryButton._handler);
+  }
+  if (submitButton._handler) {
+    submitButton.removeEventListener("click", submitButton._handler);
+  }
+
+  // Создаём новые обработчики с замыканием на локальные переменные
+  retryButton._handler = () =>
+    displayTest(stepId, isComplete, testData, optionsCount);
+  submitButton._handler = () => handleSubmit(stepId, testData, optionsCount);
+
+  // Добавляем обработчики
+  retryButton.addEventListener("click", retryButton._handler);
+  submitButton.addEventListener("click", submitButton._handler);
+
   submitButton.classList.add("disabled");
 
   const inputs = document.querySelectorAll('input[name="question"]');
 
-  if (stepProgres.completed === true) {
-    const stepComplete = document.createElement("div");
-    stepComplete.classList.add("step-complete");
-    stepComplete.innerText = "Шаг пройден!";
-    document.getElementById("blockContent").append(stepComplete);
+  if (isComplete === true) {
+    displayComplete();
     submitButton.style.display = "none";
 
     nextButton.style.display = "flex";
 
-    updateNextButtonHref();
     resultContainer.innerText = "Правильно!";
     resultSvgCorrect.style.display = "flex";
 
@@ -415,50 +365,60 @@ function displayTest() {
   document.getElementById("preloader").style.display = "none";
 }
 
-function handleAnswer(selectedValue, isMultipleChoice) {
-  console.log(selectedValue);
+function handleAnswer(
+  selectedValue,
+  isMultipleChoice,
+  stepId,
+  testData,
+  optionsCount
+) {
   if (!isMultipleChoice) {
-    if (selectedValue[0] === testArray.answer[0]) {
-      handleCorrectAnswer();
+    if (selectedValue[0] === testData.answer[0]) {
+      handleCorrectAnswer(stepId, optionsCount);
     } else {
       handleIncorrectAnswer();
     }
   } else if (isMultipleChoice) {
-    const answersAsString = JSON.stringify(testArray.answer);
+    const answersAsString = JSON.stringify(testData.answer);
     const selectedValueAsString = JSON.stringify(selectedValue);
-    console.log(answersAsString, selectedValueAsString);
-    console.log(answersAsString.includes(selectedValueAsString));
     if (answersAsString.includes(selectedValueAsString)) {
-      handleCorrectAnswer();
+      handleCorrectAnswer(stepId, optionsCount);
     } else {
       handleIncorrectAnswer();
     }
   }
 }
 
-function handleCorrectAnswer() {
-  addStepProgress();
-  submitButton.style.animation = "fadeOut 0.2s ease";
+async function handleCorrectAnswer(stepId, optionsCount) {
+  const sendTest = {
+    incorrectAnswersNumber: incorrectAnswers,
+    answersNumber: optionsCount,
+  };
+  const responce = await sendProgressTest(stepId, sendTest);
 
-  setTimeout(() => {
-    submitButton.style.display = "none";
-    submitButton.style.animation = "none";
-    nextButton.style.display = "flex";
-    nextButton.style.animation = "fadeIn 0.2s ease";
-
-    resultContainer.innerText = "Правильно!";
-    resultSvgCorrect.style.display = "flex";
-    resultContainer.style.animation = "fadeIn 0.2s ease";
-    resultSvgCorrect.style.animation = "fadeIn 0.2s ease";
+  if (responce !== 200) {
+    alert("Нет соединения с сервером. Повторите попытку позже");
+  } else {
+    submitButton.style.animation = "fadeOut 0.2s ease";
 
     setTimeout(() => {
-      nextButton.style.animation = "none";
-      resultContainer.style.animation = "none";
-      resultSvgCorrect.style.animation = "none";
-    }, 200);
-  }, 200);
+      submitButton.style.display = "none";
+      submitButton.style.animation = "none";
+      nextButton.style.display = "flex";
+      nextButton.style.animation = "fadeIn 0.2s ease";
 
-  updateNextButtonHref();
+      resultContainer.innerText = "Правильно!";
+      resultSvgCorrect.style.display = "flex";
+      resultContainer.style.animation = "fadeIn 0.2s ease";
+      resultSvgCorrect.style.animation = "fadeIn 0.2s ease";
+
+      setTimeout(() => {
+        nextButton.style.animation = "none";
+        resultContainer.style.animation = "none";
+        resultSvgCorrect.style.animation = "none";
+      }, 200);
+    }, 200);
+  }
 }
 
 let incorrectAnswers = 0;
@@ -486,94 +446,39 @@ function handleIncorrectAnswer() {
   }, 200);
 }
 
-const totalSteps = Object.keys(stepInfo).length;
-const totalSubmodules = Object.keys(submoduleLength).length;
-const totalModules = Object.keys(modulesData).length;
+function setButtonHref(buttons, stepsData) {
+  let href = null;
+  let stepsLength = stepsData.steps.length;
+  let nextSubmoduleId = stepsData.nextSubmoduleId;
+  let previousSubmoduleId = stepsData.previousSubmoduleId;
 
-function updateNextButtonHref() {
-  if (stepId == totalSteps) {
-    if (submoduleId < totalSubmodules) {
-      setButtonHref(
-        nextButton,
-        `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
-          submoduleId + 1
-        }&stepId=1`
-      );
-    } else if (moduleId < totalModules) {
-      setButtonHref(
-        nextButton,
-        `step.html?v=103&syllabusId=${syllabusId}&moduleId=${
-          moduleId + 1
-        }&submoduleId=1&stepId=1`
-      );
-    } else {
-      setButtonHref(nextButton, null);
-      nextButton.addEventListener("click", function () {
-        window.location.href = `syllabus.html?v=103&id=${syllabusId}`;
-      });
+  buttons.forEach((button) => {
+    if (button.buttonType === "BACK") {
+      if (stepNumber !== 1) {
+        href = `step.html?v=103&courseId=${courseId}&submoduleId=${submoduleId}&stepNumber=${
+          stepNumber - 1
+        }`;
+      } else if (previousSubmoduleId !== null) {
+        href = `step.html?v=103&courseId=${courseId}&submoduleId=${previousSubmoduleId}&stepNumber=1`;
+      }
+    } else if (button.buttonType === "FORWARD") {
+      if (stepNumber !== stepsLength) {
+        href = `step.html?v=103&courseId=${courseId}&submoduleId=${submoduleId}&stepNumber=${
+          stepNumber + 1
+        }`;
+      } else if (nextSubmoduleId !== null) {
+        href = `step.html?v=103&courseId=${courseId}&submoduleId=${nextSubmoduleId}&stepNumber=1`;
+      } else if (nextSubmoduleId === null) {
+        href = `syllabus.html?v=103&id=${courseId}`;
+      }
     }
-  } else {
-    setButtonHref(
-      nextButton,
-      `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
-        stepId + 1
-      }`
-    );
-  }
-}
 
-function setButtonHref(button, href) {
-  if (href) button.href = href;
-  else button.removeAttribute("href");
-}
-
-setButtonHref(
-  buttonBack,
-  stepId == 1
-    ? null
-    : `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
-        stepId - 1
-      }`
-);
-
-setButtonHref(
-  buttonForward,
-  stepId == totalSteps
-    ? null
-    : `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
-        stepId + 1
-      }`
-);
-
-if (stepId == totalSteps) {
-  if (submoduleId < totalSubmodules) {
-    setButtonHref(
-      button,
-      `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${
-        submoduleId + 1
-      }&stepId=1`
-    );
-  } else if (moduleId < totalModules) {
-    console.log("123");
-    setButtonHref(
-      button,
-      `step.html?v=103&syllabusId=${syllabusId}&moduleId=${
-        moduleId + 1
-      }&submoduleId=1&stepId=1`
-    );
-  } else {
-    setButtonHref(button, null);
-    button.addEventListener("click", function () {
-      window.location.href = `syllabus.html?v=103&id=${syllabusId}`;
-    });
-  }
-} else {
-  setButtonHref(
-    button,
-    `step.html?v=103&syllabusId=${syllabusId}&moduleId=${moduleId}&submoduleId=${submoduleId}&stepId=${
-      stepId + 1
-    }`
-  );
+    if (href) {
+      button.buttonHtml.href = href;
+    } else {
+      button.buttonHtml.removeAttribute("href");
+    }
+  });
 }
 
 const refer = localStorage.getItem("refer");
@@ -596,12 +501,11 @@ if (refer.endsWith("favorite.html")) {
   setupTab(catalogTab);
 }
 
-if (stepId != 1 || link === "stepId=2") {
-  title.style.animation = "none";
+if (stepNumber != 1 || link === "stepNumber=2") {
   switc.style.animation = "none";
 }
 
-function displayNotification(numberBalance) {
+async function displayNotification(numberBalance) {
   const notification = document.getElementById("notification");
   const notificationBalance = document.getElementById("notification-balance");
   notificationBalance.innerText = `+${numberBalance}`;
@@ -615,34 +519,56 @@ function displayNotification(numberBalance) {
   }, 2000);
 }
 
-async function sendProgress() {
-  let response = null;
+function changeStorage(stepId) {
+  const storedData = JSON.parse(localStorage.getItem("stepsData"));
+  const stepsArray = storedData.steps;
+  const step = stepsArray.find((step) => step.id === stepId);
+  if (step) {
+    step.completed = true;
+  } else {
+    console.warn(`Шаг с id=${stepId} не найден`);
+  }
+  storedData.steps = stepsArray;
+
+  localStorage.setItem("stepsData", JSON.stringify(storedData));
+}
+
+async function sendProgressText(stepId) {
   try {
-    response = await fetchData(
-      `submodule-step/${stepProgres.id}/user-completed-step?userId=${userId}`,
+    const response = await fetchData(
+      `submodule-step/${stepId}/user-completed-step`,
       "POST",
+      { "X-User-Id": userId },
       null,
       false
     );
-
-    
-  } catch {
-    console.log(response)
+    if (response !== 200) {
+      throw Error;
+    } else {
+      changeStorage(stepId);
+    }
+  } catch (error) {
+    console.error("Ошибка отправки прогресса:", error, error.status);
   }
 }
 
-async function sendProgressTest() {
-  const sendTest = {
-    userId: userId,
-    incorrectAnswersNumber: incorrectAnswers,
-    answersNumber: optionsAnswers,
-  };
-  const response = await fetchData(
-    `submodule-step/${stepProgres.id}/user-completed-test`,
-    "POST",
-    sendTest
-  );
-  if (response) {
-    displayNotification(response);
+async function sendProgressTest(stepId, sendTest) {
+  try {
+    const response = await fetchData(
+      `submodule-step/${stepId}/user-completed-test`,
+      "POST",
+      { "X-User-Id": userId },
+      sendTest
+    );
+    if (response) {
+      displayNotification(response);
+      changeStorage(stepId);
+      return 200;
+    } else {
+      throw Error;
+    }
+  } catch (error) {
+    console.error(error, error.status);
+    return error.status;
   }
 }

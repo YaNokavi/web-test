@@ -72,7 +72,7 @@
     <div class="main-block">
       <div class="course-block">
         <div class="course-block-text" id="info"></div>
-        <div class="course-block-button" id="button1">
+        <div class="course-block-button" id="add-cours-button">
           <div class="course-block-button-text">Поступить на курс</div>
 
           <svg
@@ -95,14 +95,14 @@
         </div>
         <a
           class="course-block-button"
-          id="button3"
+          id="go-course-button"
           style="display: none; position: absolute; bottom: 0"
         >
           <div class="course-block-button-text">Приступить к изучению</div>
         </a>
         <div
           class="course-block-button-favorite"
-          id="button2"
+          id="leave-course-button"
           style="display: none"
         >
           <svg
@@ -131,8 +131,8 @@
         <a class="last-step" id="last-step"></a>
       </div>
 
-      <div class="course-block">
-        <div class="syllabus-text">О чем вы узнаете</div>
+      <div class="course-block" style="display: none" id="learnings-block">
+        <div class="syllabus-text">Чему вы научитесь</div>
         <div class="point-text" id="points"></div>
       </div>
 
@@ -375,7 +375,9 @@
         </div>
 
         <div class="course-block-button">
-          <div class="course-block-button-text" id="button-href-comments">Перейти к отзывам</div>
+          <div class="course-block-button-text" id="button-href-comments">
+            Перейти к отзывам
+          </div>
         </div>
       </div>
     </div>

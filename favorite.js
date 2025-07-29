@@ -3,33 +3,27 @@ import fetchData from "./fetch.js";
 localStorage.removeItem("courseData");
 
 const tg = window.Telegram.WebApp;
-let username;
-let userIdData;
-// const avatarUrl = tg.initDataUnsafe.user.photo_url;
-const avatarUrl = "tg.initDataUnsafe.user.photo_url";
-
-// userIdData = tg.initDataUnsafe.user.id;
-userIdData = 1;
-// if (tg.initDataUnsafe.user.username) {
-//   const name = `${tg.initDataUnsafe.user.username}`;
-//   username = DOMPurify.sanitize(name);
-// } else {
-username = "User";
-// }
+const avatarUrl =
+  tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const rawUsername = tg.initDataUnsafe?.user?.username;
+const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
 let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
-let tabBar = document.querySelectorAll(".tab-item");
-
-if (flagFirstJoin === true) {
-  tabBar.forEach((item) => {
-    item.style.pointerEvents = "none";
-  });
-  sendUserInfo();
-  flagFirstJoin = false;
-  localStorage.setItem("flagFirstJoin", flagFirstJoin);
-} else {
-  getFavoriteCourses();
-}
+let tabBar;
+document.addEventListener("DOMContentLoaded", () => {
+  tabBar = document.querySelectorAll(".tab-item");
+  if (flagFirstJoin === true) {
+    tabBar.forEach((item) => {
+      item.style.pointerEvents = "none";
+    });
+    sendUserInfo();
+    flagFirstJoin = false;
+    localStorage.setItem("flagFirstJoin", flagFirstJoin);
+  } else {
+    getFavoriteCourses();
+  }
+});
 
 const modal = document.getElementById("modal");
 const buttonModal = document.getElementById("okButton");
@@ -57,36 +51,44 @@ function createListRewards(rewards) {
 }
 
 async function sendUserInfo() {
-  let rewards;
+  let referallId = JSON.parse(localStorage.getItem("referallId"));
 
-  const referallId = JSON.parse(localStorage.getItem("referallId"));
+  if (referallId && referallId === userId) {
+    referallId = null;
+  }
 
-  if (!referallId || referallId === userIdData) {
-    rewards = await fetchData(
-      `user/${userIdData}/login-and-reward?username=${username}&avatarUrl=${avatarUrl}`,
-      "POST"
+  let body = {};
+
+  body = {
+    username: username,
+    avatarUrl: avatarUrl,
+    referrerId: referallId,
+  };
+  try {
+    const rewards = await fetchData(
+      `user/login-and-reward`,
+      "POST",
+      { "X-User-Id": userId },
+      body
     );
-  } else {
-    rewards = await fetchData(
-      `user/${userIdData}/login-and-reward?&username=${username}&avatarUrl=${avatarUrl}&referrerId=${referallId}`,
-      "POST"
-    );
+
+    if (rewards.history !== null) {
+      localStorage.setItem("storiesType", rewards.history);
+      document.getElementById("page").style.display = "flex";
+
+      const event = new Event("storiesReady");
+      window.dispatchEvent(event);
+    }
+
+    if (rewards.firstEntryToday === true) {
+      createListRewards(rewards);
+    }
+
+    disableTab();
+    getFavoriteCourses();
+  } catch (error) {
+    console.error(error, error.status);
   }
-
-  if (rewards.history !== null) {
-    localStorage.setItem("storiesType", rewards.history);
-    document.getElementById("page").style.display = "flex";
-
-    const event = new Event("storiesReady");
-    window.dispatchEvent(event);
-  }
-
-  if (rewards.firstEntryToday === true) {
-    createListRewards(rewards);
-  }
-
-  disableTab();
-  getFavoriteCourses();
 }
 
 function disableTab() {
@@ -98,13 +100,15 @@ function disableTab() {
 }
 
 async function getFavoriteCourses() {
-  const courseInfo = await fetchData(
-    `user/${userIdData}/favorite-courses`,
-    "GET"
-  );
-  localStorage.setItem("infoCourse", JSON.stringify(courseInfo));
-  console.log(courseInfo);
-  courseInfo.length ? displayCourses(courseInfo) : displayButton();
+  try {
+    const courseInfo = await fetchData(`user/favorite-courses`, "GET", {
+      "X-User-Id": userId,
+    });
+    courseInfo.length ? displayCourses(courseInfo) : displayButton();
+  } catch (error) {
+    console.error(error, error.status);
+  }
+  // localStorage.setItem("infoCourse", JSON.stringify(courseInfo));
 }
 
 function displayCourses(courseInfo) {

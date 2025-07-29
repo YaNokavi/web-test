@@ -116,6 +116,154 @@
           </div>
         </div>
       </div>
+      <div class="wallet-block not-connected" id="wallet-block">
+        <div class="wallet-header">
+          <div class="wallet-header-name">Кошелек</div>
+          <div class="wallet-address-block" id="address-block">
+            <div class="address-main-content">
+              <span id="wallet-address"></span>
+              <svg
+                width="13"
+                height="8"
+                viewBox="0 0 13 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.5 1L6.40196 6L11.5 1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+            </div>
+            <div class="address-dropdown-content">
+              <!-- Контент, который должен появляться -->
+              <div class="address-dropdown-item" id="button-copy">
+                <span>Скопировать</span>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 26 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.75 19.4998V20.5832C16.75 21.7799 15.78 22.7499 14.5833 22.7499H5.91667C4.72005 22.7499 3.75 21.7799 3.75 20.5832V11.9164C3.75 10.7199 4.71999 9.74984 5.91658 9.7498L7 9.74976M16.75 9.74989V7.04155M16.75 9.74989V12.4582M16.75 9.74989H14.0417M16.75 9.74989H19.4583M12.4167 3.24976H21.0833C22.28 3.24976 23.25 4.2198 23.25 5.41642V14.0831C23.25 15.2797 22.28 16.2498 21.0833 16.2498H12.4167C11.22 16.2498 10.25 15.2797 10.25 14.0831V5.41642C10.25 4.2198 11.22 3.24976 12.4167 3.24976Z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="address-dropdown-item" id="button-disconnect">
+                <span class="exit">Отключить</span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 12C4 12.2652 4.10536 12.5196 4.29289 12.7071C4.48043 12.8946 4.73478 13 5 13H12.59L10.29 15.29C10.1963 15.383 10.1219 15.4936 10.0711 15.6154C10.0203 15.7373 9.9942 15.868 9.9942 16C9.9942 16.132 10.0203 16.2627 10.0711 16.3846C10.1219 16.5064 10.1963 16.617 10.29 16.71C10.383 16.8037 10.4936 16.8781 10.6154 16.9289C10.7373 16.9797 10.868 17.0058 11 17.0058C11.132 17.0058 11.2627 16.9797 11.3846 16.9289C11.5064 16.8781 11.617 16.8037 11.71 16.71L15.71 12.71C15.801 12.6149 15.8724 12.5028 15.92 12.38C16.02 12.1365 16.02 11.8635 15.92 11.62C15.8724 11.4972 15.801 11.3851 15.71 11.29L11.71 7.29C11.6168 7.19676 11.5061 7.1228 11.3842 7.07234C11.2624 7.02188 11.1319 6.99591 11 6.99591C10.8681 6.99591 10.7376 7.02188 10.6158 7.07234C10.4939 7.1228 10.3832 7.19676 10.29 7.29C10.1968 7.38324 10.1228 7.49393 10.0723 7.61575C10.0219 7.73757 9.99591 7.86814 9.99591 8C9.99591 8.13186 10.0219 8.26243 10.0723 8.38425C10.1228 8.50607 10.1968 8.61676 10.29 8.71L12.59 11H5C4.73478 11 4.48043 11.1054 4.29289 11.2929C4.10536 11.4804 4 11.7348 4 12ZM17 2H7C6.20435 2 5.44129 2.31607 4.87868 2.87868C4.31607 3.44129 4 4.20435 4 5V8C4 8.26522 4.10536 8.51957 4.29289 8.70711C4.48043 8.89464 4.73478 9 5 9C5.26522 9 5.51957 8.89464 5.70711 8.70711C5.89464 8.51957 6 8.26522 6 8V5C6 4.73478 6.10536 4.48043 6.29289 4.29289C6.48043 4.10536 6.73478 4 7 4H17C17.2652 4 17.5196 4.10536 17.7071 4.29289C17.8946 4.48043 18 4.73478 18 5V19C18 19.2652 17.8946 19.5196 17.7071 19.7071C17.5196 19.8946 17.2652 20 17 20H7C6.73478 20 6.48043 19.8946 6.29289 19.7071C6.10536 19.5196 6 19.2652 6 19V16C6 15.7348 5.89464 15.4804 5.70711 15.2929C5.51957 15.1054 5.26522 15 5 15C4.73478 15 4.48043 15.1054 4.29289 15.2929C4.10536 15.4804 4 15.7348 4 16V19C4 19.7956 4.31607 20.5587 4.87868 21.1213C5.44129 21.6839 6.20435 22 7 22H17C17.7956 22 18.5587 21.6839 19.1213 21.1213C19.6839 20.5587 20 19.7956 20 19V5C20 4.20435 19.6839 3.44129 19.1213 2.87868C18.5587 2.31607 17.7956 2 17 2Z"
+                    fill="#ff3d3d"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="wallet-connect-button" id="ton-connect">
+            <img src="icons/ton.png" />
+            <span id="wallet-address">Подключить кошелек</span>
+          </div>
+          <div class="wallet-button-menu" id="wallet-button-menu">
+            <svg viewBox="0 0 64 48">
+              <path d="M12,13 L32,30 C70,15 58,-2 49,7 L19,37" />
+
+              <path d="M52,13 L32,30 C-8,33 6,-2 22,14 L44,37" />
+            </svg>
+          </div>
+        </div>
+        <div class="wallet-content">
+          <!-- <div class="wallet-balance" id="wallet-balance"></div> -->
+          <div class="tokens-list-block cuna">
+            <div class="token-block">
+              <img class="token-logo" src="icons/logo-token.png" />
+              <div class="token-block-text">
+                <span class="name">Cryptuna</span>
+                <span class="balance" id="balance-cuna"></span>
+              </div>
+
+              <span class="total-balance"></span>
+            </div>
+          </div>
+          <div class="wallet-content-expanded" id="expanded-content">
+            <!-- <div class="wallet-buttons-block">
+              <div class="wallet-button">
+                <div>
+                  <svg
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12.5"
+                      cy="12"
+                      r="8.75"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M12.5 7V11.9243C12.5 11.9737 12.5146 12.0219 12.542 12.063L14.5 15"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <span>История</span>
+              </div>
+            </div> -->
+            <div class="tokens">
+              <div class="tokens-list-block" id="tokens-list-block">
+                <div class="token-block" data-token="Toncoin">
+                  <div class="token-logo-wrapper">
+                    <img
+                      class="token-logo"
+                      src="icons/temp.png"
+                      alt="Toncoin logo"
+                    />
+                    <div class="loader-overlay"></div>
+                  </div>
+                  <div class="token-block-text">
+                    <span class="name loader"></span>
+                    <span class="balance loader"></span>
+                  </div>
+                  <span class="total-balance loader"></span>
+                </div>
+
+                <div class="token-block" data-token="Tether USD">
+                  <div class="token-logo-wrapper">
+                    <img
+                      class="token-logo loader"
+                      src="icons/temp.png"
+                      alt="Tether USD logo"
+                    />
+                    <div class="loader-overlay"></div>
+                  </div>
+                  <div class="token-block-text">
+                    <span class="name loader"></span>
+                    <span class="balance loader"></span>
+                  </div>
+                  <span class="total-balance loader"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="progress-bar-block">
         <div class="progress-bar-header">Прогресс</div>
         <div class="course-info" id="course-info"></div>
@@ -141,18 +289,18 @@
           </div>
         </div>
       </div>
-      <div class="support-block">
-        <div class="support-block-header">Связь с нами</div>
-        <div class="support-content">
-          <div class="support-text">
-            По вопросам размещения рекламы или неисправностей в приложении вы
-            можете написать нам по кнопке ниже
-          </div>
-          <div id="ton-connect"></div>
-          <p>Адрес кошелька: <span id="wallet-address">Не подключено</span></p>
+    </main>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-content-text">
+          Вы уверены, что хотите отключить кошелек?
+        </div>
+        <div class="modal-content-buttons">
+          <div class="modal-content-buttons-yes" id="yesButton">Да</div>
+          <div class="modal-content-buttons-no" id="noButton">Нет</div>
         </div>
       </div>
-    </main>
+    </div>
     <div class="tab-bar" id="tab">
       <a href="friends.html?v=103" class="tab-item">
         <svg
