@@ -59,6 +59,7 @@ function displayBaseWalletInfo(address) {
 
   buttonCopyAddress.addEventListener("click", function (event) {
     event.stopPropagation();
+    addressBlock.classList.remove("active");
     navigator.clipboard.writeText(userFriendlyAddress);
     displayNotification(null, "COPY");
   });
@@ -181,7 +182,9 @@ const modal = document.getElementById("modal");
 const yesButton = document.getElementById("yesButton");
 const noButton = document.getElementById("noButton");
 
-noButton.addEventListener("click", function () {
+noButton.addEventListener("click", function (event) {
+  event.stopPropagation();
+
   modal.style.display = "none";
 });
 
@@ -268,7 +271,7 @@ async function connectWallet(address) {
       },
       body
     );
-    console.log(walletInfo);
+    
     if (walletInfo) {
       return walletInfo;
     } else {
@@ -280,34 +283,39 @@ async function connectWallet(address) {
       error,
       error.status
     );
+    return error.status
   }
 }
 
 let walletAddress = null;
 async function getUserInfo() {
-  const userInfo = await fetchData(`user/profile/info`, "GET", {
-    "X-User-Id": userId,
-  });
+  try {
+    const userInfo = await fetchData(`user/profile/info`, "GET", {
+      "X-User-Id": userId,
+    });
 
-  const formattedBalance = Number.isInteger(userInfo.cunaTokenBalance)
-    ? userInfo.cunaTokenBalance.toString()
-    : userInfo.cunaTokenBalance.toFixed(2);
+    const formattedBalance = Number.isInteger(userInfo.cunaTokenBalance)
+      ? userInfo.cunaTokenBalance.toString()
+      : userInfo.cunaTokenBalance.toFixed(2);
 
-  balanceText.innerText = formattedBalance;
+    balanceText.innerText = formattedBalance;
 
-  document.getElementById(
-    "balance-cuna"
-  ).innerHTML = `${formattedBalance} CUNA`;
+    document.getElementById(
+      "balance-cuna"
+    ).innerHTML = `${formattedBalance} CUNA`;
 
-  if (userInfo.walletAddress) {
-    walletAddress = userInfo.walletAddress;
-    displayBaseWalletInfo(walletAddress);
-  }
+    if (userInfo.walletAddress) {
+      walletAddress = userInfo.walletAddress;
+      displayBaseWalletInfo(walletAddress);
+    }
 
-  if (userInfo.coursesProgress.length != 0) {
-    displayProgress(userInfo);
-  } else {
-    displayNotProgress();
+    if (userInfo.coursesProgress.length != 0) {
+      displayProgress(userInfo);
+    } else {
+      displayNotProgress();
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
