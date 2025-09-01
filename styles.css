@@ -2250,6 +2250,7 @@ main::-webkit-scrollbar {
 
 .friends-block-button.link-not-null {
   width: 45px;
+  min-width: 45px;
 }
 
 .friends-block-button-text {
@@ -2272,7 +2273,7 @@ main::-webkit-scrollbar {
 
 .friends-block-not-null-text {
   width: 100%;
-  align-items: center;
+  align-items: end;
   font-weight: 600;
   font-size: 20px;
   gap: 5px;
