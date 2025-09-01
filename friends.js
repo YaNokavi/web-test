@@ -142,9 +142,7 @@ class FriendsUI {
       list.innerHTML = `
             <div class="list-user-place ${placeClass}" >${item.place}</div>
             <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo" style="background-image: url('${
-                item.avatarUrl
-              }')"></div>
+              <div class="friends-list-user-logo"></div>
               <div class="friends-list-user-info">
                 <div class="friends-list-user-info-name">${DOMPurify.sanitize(
                   item.username
@@ -160,6 +158,16 @@ class FriendsUI {
             <div class="list-user-reward">${item.rewardAmount}</div>
    `;
       listFriends.append(list);
+
+      const logoDiv = list.querySelector(".friends-list-user-logo");
+      if (item.avatarUrl) {
+        logoDiv.style.backgroundImage = `url('${item.avatarUrl}')`;
+        logoDiv.style.backgroundColor = "";
+      } else {
+        logoDiv.innerText = item.username[0].toUpperCase();
+        logoDiv.style.backgroundImage = "none";
+        logoDiv.style.backgroundColor = "#e04646";
+      }
     });
   }
 
@@ -316,9 +324,7 @@ class FriendsUI {
 
       list.innerHTML = `
       <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo" style="background-image: url('${
-                item.avatarUrl
-              }')"></div>
+              <div class="friends-list-user-logo"></div>
               <div class="friends-list-user-info">
                 <div class="friends-list-user-info-name">${DOMPurify.sanitize(
                   item.name
@@ -333,6 +339,16 @@ class FriendsUI {
               </div>
      `;
       listFriends.append(list);
+
+      const logoDiv = list.querySelector(".friends-list-user-logo");
+      if (item.avatarUrl) {
+        logoDiv.style.backgroundImage = `url('${item.avatarUrl}')`;
+        logoDiv.style.backgroundColor = "";
+      } else {
+        logoDiv.innerText = item.name[0].toUpperCase();
+        logoDiv.style.backgroundImage = "none";
+        logoDiv.style.backgroundColor = "#e04646";
+      }
     });
     this.buttons.bindDynamicButtons(this.userId);
 
@@ -429,8 +445,8 @@ const tg = window.Telegram.WebApp;
 
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
-const userId = tg.initDataUnsafe?.user?.id ?? 1;
-// const userId = tg.initDataUnsafe?.user?.id ?? 535799793;
+// const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const userId = tg.initDataUnsafe?.user?.id ?? 535799793;
 const rawUsername = tg.initDataUnsafe?.user?.username;
 const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 

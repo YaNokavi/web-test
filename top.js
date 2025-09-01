@@ -119,12 +119,12 @@ class TopUI {
       }
       const list = document.createElement("div");
       list.classList.add("friends-list-user");
+
       list.innerHTML = `
             <div class="list-user-place ${placeClass}" >${item.place}</div>
             <div class="friends-list-block-logo-info">
-              <div class="friends-list-user-logo" style="background-image: url('${
-                item.avatarUrl
-              }')"></div>
+              
+              <div class="friends-list-user-logo"></div>
               <div class="friends-list-user-info">
                 <div class="friends-list-user-info-name">${DOMPurify.sanitize(
                   item.username
@@ -141,6 +141,16 @@ class TopUI {
    `;
 
       listFriends.append(list);
+
+      const logoDiv = list.querySelector(".friends-list-user-logo");
+      if (item.avatarUrl) {
+        logoDiv.style.backgroundImage = `url('${item.avatarUrl}')`;
+        logoDiv.style.backgroundColor = "";
+      } else {
+        logoDiv.innerText = item.username[0].toUpperCase()
+        logoDiv.style.backgroundImage = "none";
+        logoDiv.style.backgroundColor = "#e04646";
+      }
     });
   }
 }

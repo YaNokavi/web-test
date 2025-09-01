@@ -158,6 +158,7 @@ main {
   align-items: flex-start;
   place-content: center;
   gap: 10px;
+  margin-bottom: 30px;
 }
 
 .profile-nickname {
@@ -1099,11 +1100,9 @@ main {
 }
 
 .course-media {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   float: left;
-  gap: 5px;
+  padding-right: 10px;
+  height: 120px;
 }
 
 .course-logo {
@@ -1117,12 +1116,6 @@ main {
   font: 400 11px Inter, sans-serif;
   color: var(--theme-text-hint-color);
   text-underline-offset: 3px;
-}
-
-.course-block-text {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
 }
 
 .course-block-name {
@@ -2444,6 +2437,11 @@ main::-webkit-scrollbar {
   background-size: cover;
   width: 50px;
   height: 50px;
+
+  align-items: center;
+  justify-content: center;
+  font: 500 20px/1 Inter, sans-serif;
+  color: #ffffff;
 }
 
 .friends-list-user-info {
