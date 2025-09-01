@@ -42,6 +42,16 @@
           alt=""
         /></div
     ></noscript>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' telegram.org cdnjs.cloudflare.com;
+  style-src 'self' 'unsafe-inline' fonts.googleapis.com ;
+  font-src 'self' fonts.gstatic.com data:;
+connect-src 'self' https://cryptunatest-anderm.amvera.io;
+"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -53,9 +63,10 @@
       name="viewport"
       content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
+
     <title>Cryptuna</title>
 
-    <link rel="stylesheet" type="text/css" href="styles.css?v=103" />
+    <link rel="stylesheet" type="text/css" href="styles.css?v=1.0.7" />
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script src="platform.js"></script>
   </head>
@@ -65,15 +76,18 @@
       <div class="preloader-animation"></div>
     </div>
 
-    <div class="profile-header">
-      <div class="profile-title" id="title">Отзывы</div>
-    </div>
+    <header>Отзывы</header>
 
-    <div class="main-block">
-      <div class="course-block" style="-webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;">
+    <main>
+      <div
+        class="block course-block"
+        style="
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        "
+      >
         <div class="mark-progress-block">
           <div class="mark-block">
             <div class="mark-with-star">
@@ -386,71 +400,50 @@
           </div>
         </div>
         <div class="course-block-button" id="button-write-comment">
-          <div class="course-block-button-text">Оставить отзыв</div>
+          <span>Оставить отзыв</span>
         </div>
         <div class="buttons-block-rating" id="comment-buttons">
-          <div class="center-group">
-            <div class="course-block-button" id="button-send-comment">
-              <div class="course-block-button-text">Отправить</div>
-            </div>
-            <div
-              class="rating-button-reverse"
-              
-              id="button-reverse"
-            >
-              <div class="course-block-button-text">Отмена</div>
-              
-            </div>
+          <div class="course-block-button" id="button-send-comment">
+            <span>Отправить</span>
           </div>
-          <div class="right-group">
-            <div class="rating-button-delete" id="button-delete">
-              <!-- <svg
-                class="course-block-button-favorite-icon"
-                width="25"
-                height="24"
-                viewBox="0 0 25 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.5 8L3.79289 8.70711L3.08579 8L3.79289 7.29289L4.5 8ZM9.5 20C8.94772 20 8.5 19.5523 8.5 19C8.5 18.4477 8.94772 18 9.5 18L9.5 20ZM9.5 13L8.79289 13.7071L3.79289 8.70711L4.5 8L5.20711 7.29289L10.2071 12.2929L9.5 13ZM4.5 8L3.79289 7.29289L8.79289 2.29289L9.5 3L10.2071 3.70711L5.20711 8.70711L4.5 8ZM4.5 8L4.5 7L15 7L15 8L15 9L4.5 9L4.5 8ZM15 19L15 20L9.5 20L9.5 19L9.5 18L15 18L15 19ZM20.5 13.5L21.5 13.5C21.5 17.0898 18.5898 20 15 20L15 19L15 18C17.4853 18 19.5 15.9853 19.5 13.5L20.5 13.5ZM15 8L15 7C18.5898 7 21.5 9.91015 21.5 13.5L20.5 13.5L19.5 13.5C19.5 11.0147 17.4853 9 15 9L15 8Z"
-                  fill="currentColor"
-                />
-              </svg> -->
-              <svg
+          <div class="rating-button-reverse" id="button-reverse">
+            <span>Отмена</span>
+          </div>
+
+          <div class="rating-button-delete" id="button-delete">
+            <svg
               class="course-block-button-favorite-icon"
-                width="24"
-                height="25"
-                viewBox="0 0 24 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 15.5L10 12.5"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M14 15.5L14 12.5"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M3 7.5H21V7.5C20.0681 7.5 19.6022 7.5 19.2346 7.65224C18.7446 7.85523 18.3552 8.24458 18.1522 8.73463C18 9.10218 18 9.56812 18 10.5V16.5C18 18.3856 18 19.3284 17.4142 19.9142C16.8284 20.5 15.8856 20.5 14 20.5H10C8.11438 20.5 7.17157 20.5 6.58579 19.9142C6 19.3284 6 18.3856 6 16.5V10.5C6 9.56812 6 9.10218 5.84776 8.73463C5.64477 8.24458 5.25542 7.85523 4.76537 7.65224C4.39782 7.5 3.93188 7.5 3 7.5V7.5Z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M10.0681 3.87059C10.1821 3.76427 10.4332 3.67033 10.7825 3.60332C11.1318 3.53632 11.5597 3.5 12 3.5C12.4403 3.5 12.8682 3.53632 13.2175 3.60332C13.5668 3.67033 13.8179 3.76427 13.9319 3.87059"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </div>
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 15.5L10 12.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M14 15.5L14 12.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M3 7.5H21V7.5C20.0681 7.5 19.6022 7.5 19.2346 7.65224C18.7446 7.85523 18.3552 8.24458 18.1522 8.73463C18 9.10218 18 9.56812 18 10.5V16.5C18 18.3856 18 19.3284 17.4142 19.9142C16.8284 20.5 15.8856 20.5 14 20.5H10C8.11438 20.5 7.17157 20.5 6.58579 19.9142C6 19.3284 6 18.3856 6 16.5V10.5C6 9.56812 6 9.10218 5.84776 8.73463C5.64477 8.24458 5.25542 7.85523 4.76537 7.65224C4.39782 7.5 3.93188 7.5 3 7.5V7.5Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M10.0681 3.87059C10.1821 3.76427 10.4332 3.67033 10.7825 3.60332C11.1318 3.53632 11.5597 3.5 12 3.5C12.4403 3.5 12.8682 3.53632 13.2175 3.60332C13.5668 3.67033 13.8179 3.76427 13.9319 3.87059"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
           </div>
         </div>
         <div
@@ -458,7 +451,7 @@
           style="display: none"
           id="button-change-comment"
         >
-          <div class="course-block-button-text">Изменить отзыв</div>
+          <span>Изменить отзыв</span>
         </div>
       </div>
       <div class="sorting-block-swipes" id="buttons-block">
@@ -467,399 +460,22 @@
         <div class="widget-button" id="widget-button-third">Плохие</div>
         <div class="widget-button" id="widget-button-fourth">Полезные</div>
       </div>
-      <div style="width: 95%" id="comments">
-        <div class="comment-block medium">
-          <div class="comment-info">
-            <!-- <img src="icons/logo_cuna2.jpg" /> -->
-            <div class="comment-text-rating">
-              <div class="comment-header">
-                <div
-                  style="
-                    display: flex;
-                    flex-direction: row;
-                    gap: 10px;
-                    align-items: center;
-                    min-width: 0;
-                    width: 100%;
-                  "
-                >
-                  <div class="comment-username">
-                    <span>Yan_MiraclesОченьДлинныйНик...</span>
-                  </div>
-                  <div class="comment-date">15 часов назад</div>
-                </div>
-                <div class="comment-mark-rating">
-                  3/5
-                  <svg
-                    style="margin-top: 2px"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.5 0L4.69667 4.01794L0.318132 4.49139L3.58216 7.44806L2.6794 11.7586L6.5 9.568L10.3206 11.7586L9.41784 7.44806L12.6819 4.49139L8.30333 4.01794L6.5 0Z"
-                      fill="#F1D904"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="comment-description">
-                Данный топ формируется на основе заработанных CUNA-токенов
-                вашими рефералами! Топ сбрасывается каждые четыре недели, и
-                после награды отправляются победителям.
-                <br /><br />Чтобы иметь возможность получить награду, необходимо
-                пригласить минимум 5 друзей, которые должны в сумме получить не
-                менее 1500 CUNA-токенов. Учитываются только новые друзья,
-                приглашенные во время гонки рефералов!
-              </div>
-            </div>
-          </div>
-          <div class="footer-comment-block">
-            <div class="user-marks-block">
-              <div class="user-mark">
-                <svg
-                  class="user-mark-icon like"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 25 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.45067 13.9082L11.4033 20.4395C11.6428 20.6644 11.7625 20.7769 11.9037 20.8046C11.9673 20.8171 12.0327 20.8171 12.0963 20.8046C12.2375 20.7769 12.3572 20.6644 12.5967 20.4395L19.5493 13.9082C21.5055 12.0706 21.743 9.0466 20.0978 6.92607L19.7885 6.52734C17.8203 3.99058 13.8696 4.41601 12.4867 7.31365C12.2913 7.72296 11.7087 7.72296 11.5133 7.31365C10.1304 4.41601 6.17972 3.99058 4.21154 6.52735L3.90219 6.92607C2.25695 9.0466 2.4945 12.0706 4.45067 13.9082Z"
-                    stroke="currentColor"
-                  />
-                </svg>
-                <span>30</span>
-              </div>
-              <div class="user-mark">
-                <svg
-                  class="user-mark-icon dislike"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.4033 20.4392L4.45065 13.908C2.49447 12.0704 2.25692 9.04637 3.90216 6.92584L4.21151 6.52711C5.79541 4.48564 8.66322 4.36257 10.4435 5.90254L11.9999 7L13.7063 5.77883C15.494 4.37083 18.2482 4.54198 19.7884 6.52711L20.0978 6.92583C21.743 9.04636 21.5055 12.0704 19.5493 13.908L12.5967 20.4392C12.3572 20.6642 12.2374 20.7767 12.0963 20.8044C12.0327 20.8169 11.9673 20.8169 11.9037 20.8044C11.7625 20.7767 11.6428 20.6642 11.4033 20.4392Z"
-                  />
-                  <path
-                    d="M10.4435 5.90254C8.66322 4.36257 5.79541 4.48564 4.21151 6.52711L3.90216 6.92584C2.25692 9.04637 2.49447 12.0704 4.45065 13.908L11.4033 20.4392C11.6428 20.6642 11.7625 20.7767 11.9037 20.8044C11.9673 20.8169 12.0327 20.8169 12.0963 20.8044C12.2374 20.7767 12.3572 20.6642 12.5967 20.4392L19.5493 13.908C21.5055 12.0704 21.743 9.04636 20.0978 6.92583L19.7884 6.52711C18.2482 4.54198 15.494 4.37083 13.7063 5.77883L11.9999 7L10.4435 5.90254ZM10.4435 5.90254L9.40778 7.21531C8.75184 8.04672 8.42387 8.46243 8.50535 8.90711C8.58682 9.35179 9.04087 9.62421 9.94896 10.1691L11.2014 10.9205C12.0457 11.4271 12.4679 11.6804 12.5618 12.0982C12.6558 12.516 12.3827 12.9256 11.8365 13.7449L11 14.9997"
-                    stroke="currentColor"
-                  />
-                </svg>
-                <span>10</span>
-              </div>
-            </div>
-            <div class="button-expand-description">
-              <span>Раскрыть</span>
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 13 13"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12.35 3.8999L6.50002 9.7499L0.650024 3.8999"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="comment-block medium">
-          <div class="comment-info">
-            <!-- <img src="icons/logo_cuna2.jpg" /> -->
-            <div class="comment-text-rating">
-              <div class="comment-header">
-                <div
-                  style="
-                    display: flex;
-                    flex-direction: row;
-                    gap: 10px;
-                    align-items: center;
-                    min-width: 0;
-                    width: 100%;
-                  "
-                >
-                  <div class="comment-username">
-                    <span>Yan_MiraclesОченьДлинныйНик...</span>
-                  </div>
-                  <div class="comment-date">15 часов назад</div>
-                </div>
-                <div class="comment-mark-rating">
-                  3/5
-                  <svg
-                    style="margin-top: 2px"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.5 0L4.69667 4.01794L0.318132 4.49139L3.58216 7.44806L2.6794 11.7586L6.5 9.568L10.3206 11.7586L9.41784 7.44806L12.6819 4.49139L8.30333 4.01794L6.5 0Z"
-                      fill="#F1D904"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="comment-description">
-                Данный топ формируется на основе заработанных CUNA-токенов
-                вашими рефералами! Топ сбрасывается каждые четыре недели, и
-                после награды отправляются победителям.
-                <br /><br />Чтобы иметь возможность получить награду, необходимо
-                пригласить минимум 5 друзей, которые должны в сумме получить не
-                менее 1500 CUNA-токенов. Учитываются только новые друзья,
-                приглашенные во время гонки рефералов!
-              </div>
-            </div>
-          </div>
-          <div class="footer-comment-block">
-            <div class="user-marks-block">
-              <div class="user-mark">
-                <svg
-                  class="user-mark-icon like"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 25 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.45067 13.9082L11.4033 20.4395C11.6428 20.6644 11.7625 20.7769 11.9037 20.8046C11.9673 20.8171 12.0327 20.8171 12.0963 20.8046C12.2375 20.7769 12.3572 20.6644 12.5967 20.4395L19.5493 13.9082C21.5055 12.0706 21.743 9.0466 20.0978 6.92607L19.7885 6.52734C17.8203 3.99058 13.8696 4.41601 12.4867 7.31365C12.2913 7.72296 11.7087 7.72296 11.5133 7.31365C10.1304 4.41601 6.17972 3.99058 4.21154 6.52735L3.90219 6.92607C2.25695 9.0466 2.4945 12.0706 4.45067 13.9082Z"
-                    stroke="currentColor"
-                  />
-                </svg>
-                <span>30</span>
-              </div>
-              <div class="user-mark">
-                <svg
-                  class="user-mark-icon dislike"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.4033 20.4392L4.45065 13.908C2.49447 12.0704 2.25692 9.04637 3.90216 6.92584L4.21151 6.52711C5.79541 4.48564 8.66322 4.36257 10.4435 5.90254L11.9999 7L13.7063 5.77883C15.494 4.37083 18.2482 4.54198 19.7884 6.52711L20.0978 6.92583C21.743 9.04636 21.5055 12.0704 19.5493 13.908L12.5967 20.4392C12.3572 20.6642 12.2374 20.7767 12.0963 20.8044C12.0327 20.8169 11.9673 20.8169 11.9037 20.8044C11.7625 20.7767 11.6428 20.6642 11.4033 20.4392Z"
-                  />
-                  <path
-                    d="M10.4435 5.90254C8.66322 4.36257 5.79541 4.48564 4.21151 6.52711L3.90216 6.92584C2.25692 9.04637 2.49447 12.0704 4.45065 13.908L11.4033 20.4392C11.6428 20.6642 11.7625 20.7767 11.9037 20.8044C11.9673 20.8169 12.0327 20.8169 12.0963 20.8044C12.2374 20.7767 12.3572 20.6642 12.5967 20.4392L19.5493 13.908C21.5055 12.0704 21.743 9.04636 20.0978 6.92583L19.7884 6.52711C18.2482 4.54198 15.494 4.37083 13.7063 5.77883L11.9999 7L10.4435 5.90254ZM10.4435 5.90254L9.40778 7.21531C8.75184 8.04672 8.42387 8.46243 8.50535 8.90711C8.58682 9.35179 9.04087 9.62421 9.94896 10.1691L11.2014 10.9205C12.0457 11.4271 12.4679 11.6804 12.5618 12.0982C12.6558 12.516 12.3827 12.9256 11.8365 13.7449L11 14.9997"
-                    stroke="currentColor"
-                  />
-                </svg>
-                <span>10</span>
-              </div>
-            </div>
-            <div class="button-expand-description">
-              <span>Раскрыть</span>
-              <svg
-                width="13"
-                height="13"
-                viewBox="0 0 13 13"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12.35 3.8999L6.50002 9.7499L0.650024 3.8999"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div class="comment-block good">
-          <div class="comment-info">
-            <!-- <img src="icons/logo_cuna2.jpg" /> -->
-            <div class="comment-text-rating">
-              <div class="comment-header">
-                <div
-                  style="
-                    display: flex;
-                    flex-direction: row;
-                    gap: 10px;
-                    align-items: center;
-                    min-width: 0;
-                    width: 100%;
-                  "
-                >
-                  <div class="comment-username">
-                    <!-- <span>gilyazove_lena</span> -->
-                    <span>Marina_Vasiltsova</span>
-                  </div>
-                  <div class="comment-date">10 месяцев назад</div>
-                </div>
-                <div class="comment-mark-rating">
-                  3/5
-                  <svg
-                    style="margin-top: 2px"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.5 0L4.69667 4.01794L0.318132 4.49139L3.58216 7.44806L2.6794 11.7586L6.5 9.568L10.3206 11.7586L9.41784 7.44806L12.6819 4.49139L8.30333 4.01794L6.5 0Z"
-                      fill="#F1D904"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="comment-description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                lorem nibh, consectetur. vel lacus in, fringilla suscipit nibh.
-                Suspendisse aliquet fermentum eleifend. Nulla molestie tristique
-                tincidunt. In varius pulvinar tristique
-              </div>
-            </div>
-          </div>
-          <div class="user-marks-block">
-            <div class="user-mark">
-              <svg
-                class="user-mark-icon like"
-                width="24"
-                height="24"
-                viewBox="0 0 25 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.45067 13.9082L11.4033 20.4395C11.6428 20.6644 11.7625 20.7769 11.9037 20.8046C11.9673 20.8171 12.0327 20.8171 12.0963 20.8046C12.2375 20.7769 12.3572 20.6644 12.5967 20.4395L19.5493 13.9082C21.5055 12.0706 21.743 9.0466 20.0978 6.92607L19.7885 6.52734C17.8203 3.99058 13.8696 4.41601 12.4867 7.31365C12.2913 7.72296 11.7087 7.72296 11.5133 7.31365C10.1304 4.41601 6.17972 3.99058 4.21154 6.52735L3.90219 6.92607C2.25695 9.0466 2.4945 12.0706 4.45067 13.9082Z"
-                  stroke="currentColor"
-                />
-              </svg>
-              <span>30</span>
-            </div>
-            <div class="user-mark">
-              <svg
-                class="user-mark-icon dislike"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.4033 20.4392L4.45065 13.908C2.49447 12.0704 2.25692 9.04637 3.90216 6.92584L4.21151 6.52711C5.79541 4.48564 8.66322 4.36257 10.4435 5.90254L11.9999 7L13.7063 5.77883C15.494 4.37083 18.2482 4.54198 19.7884 6.52711L20.0978 6.92583C21.743 9.04636 21.5055 12.0704 19.5493 13.908L12.5967 20.4392C12.3572 20.6642 12.2374 20.7767 12.0963 20.8044C12.0327 20.8169 11.9673 20.8169 11.9037 20.8044C11.7625 20.7767 11.6428 20.6642 11.4033 20.4392Z"
-                />
-                <path
-                  d="M10.4435 5.90254C8.66322 4.36257 5.79541 4.48564 4.21151 6.52711L3.90216 6.92584C2.25692 9.04637 2.49447 12.0704 4.45065 13.908L11.4033 20.4392C11.6428 20.6642 11.7625 20.7767 11.9037 20.8044C11.9673 20.8169 12.0327 20.8169 12.0963 20.8044C12.2374 20.7767 12.3572 20.6642 12.5967 20.4392L19.5493 13.908C21.5055 12.0704 21.743 9.04636 20.0978 6.92583L19.7884 6.52711C18.2482 4.54198 15.494 4.37083 13.7063 5.77883L11.9999 7L10.4435 5.90254ZM10.4435 5.90254L9.40778 7.21531C8.75184 8.04672 8.42387 8.46243 8.50535 8.90711C8.58682 9.35179 9.04087 9.62421 9.94896 10.1691L11.2014 10.9205C12.0457 11.4271 12.4679 11.6804 12.5618 12.0982C12.6558 12.516 12.3827 12.9256 11.8365 13.7449L11 14.9997"
-                  stroke="currentColor"
-                />
-              </svg>
-              <span>10</span>
-            </div>
-          </div>
-        </div>
-        <div class="comment-block bad">
-          <div class="comment-info">
-            <!-- <img src="icons/logo_cuna2.jpg" /> -->
-            <div class="comment-text-rating">
-              <div class="comment-header">
-                <div
-                  style="
-                    display: flex;
-                    flex-direction: row;
-                    gap: 10px;
-                    align-items: center;
-                    min-width: 0;
-                    width: 100%;
-                  "
-                >
-                  <div class="comment-username">
-                    <span>gilyazove_lena</span>
-                  </div>
-                  <div class="comment-date">1 год назад</div>
-                </div>
-                <div class="comment-mark-rating">
-                  3/5
-                  <svg
-                    style="margin-top: 2px"
-                    width="13"
-                    height="13"
-                    viewBox="0 0 13 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.5 0L4.69667 4.01794L0.318132 4.49139L3.58216 7.44806L2.6794 11.7586L6.5 9.568L10.3206 11.7586L9.41784 7.44806L12.6819 4.49139L8.30333 4.01794L6.5 0Z"
-                      fill="#F1D904"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div class="comment-description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                lorem nibh, consectetur. vel lacus in, fringilla suscipit nibh.
-                Suspendisse aliquet fermentum eleifend. Nulla molestie tristique
-                tincidunt. In varius pulvinar tristique
-              </div>
-            </div>
-          </div>
-          <div class="user-marks-block">
-            <div class="user-mark">
-              <svg
-                class="user-mark-icon like"
-                width="24"
-                height="24"
-                viewBox="0 0 25 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.45067 13.9082L11.4033 20.4395C11.6428 20.6644 11.7625 20.7769 11.9037 20.8046C11.9673 20.8171 12.0327 20.8171 12.0963 20.8046C12.2375 20.7769 12.3572 20.6644 12.5967 20.4395L19.5493 13.9082C21.5055 12.0706 21.743 9.0466 20.0978 6.92607L19.7885 6.52734C17.8203 3.99058 13.8696 4.41601 12.4867 7.31365C12.2913 7.72296 11.7087 7.72296 11.5133 7.31365C10.1304 4.41601 6.17972 3.99058 4.21154 6.52735L3.90219 6.92607C2.25695 9.0466 2.4945 12.0706 4.45067 13.9082Z"
-                  stroke="currentColor"
-                />
-              </svg>
-              <span>30</span>
-            </div>
-            <div class="user-mark">
-              <svg
-                class="user-mark-icon dislike"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.4033 20.4392L4.45065 13.908C2.49447 12.0704 2.25692 9.04637 3.90216 6.92584L4.21151 6.52711C5.79541 4.48564 8.66322 4.36257 10.4435 5.90254L11.9999 7L13.7063 5.77883C15.494 4.37083 18.2482 4.54198 19.7884 6.52711L20.0978 6.92583C21.743 9.04636 21.5055 12.0704 19.5493 13.908L12.5967 20.4392C12.3572 20.6642 12.2374 20.7767 12.0963 20.8044C12.0327 20.8169 11.9673 20.8169 11.9037 20.8044C11.7625 20.7767 11.6428 20.6642 11.4033 20.4392Z"
-                />
-                <path
-                  d="M10.4435 5.90254C8.66322 4.36257 5.79541 4.48564 4.21151 6.52711L3.90216 6.92584C2.25692 9.04637 2.49447 12.0704 4.45065 13.908L11.4033 20.4392C11.6428 20.6642 11.7625 20.7767 11.9037 20.8044C11.9673 20.8169 12.0327 20.8169 12.0963 20.8044C12.2374 20.7767 12.3572 20.6642 12.5967 20.4392L19.5493 13.908C21.5055 12.0704 21.743 9.04636 20.0978 6.92583L19.7884 6.52711C18.2482 4.54198 15.494 4.37083 13.7063 5.77883L11.9999 7L10.4435 5.90254ZM10.4435 5.90254L9.40778 7.21531C8.75184 8.04672 8.42387 8.46243 8.50535 8.90711C8.58682 9.35179 9.04087 9.62421 9.94896 10.1691L11.2014 10.9205C12.0457 11.4271 12.4679 11.6804 12.5618 12.0982C12.6558 12.516 12.3827 12.9256 11.8365 13.7449L11 14.9997"
-                  stroke="currentColor"
-                />
-              </svg>
-              <span>10</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="comment-list" id="comments"></div>
+    </main>
     <div id="modal" class="modal">
       <div class="modal-content">
-        <div class="modal-content-text">
+        <div class="modal-content-text" id="modal-text">
           Вы уверены, что хотите удалить отзыв?
         </div>
         <div class="modal-content-buttons">
-          <div class="modal-content-buttons-yes" id="yesButton">Да</div>
-          <div class="modal-content-buttons-no" id="noButton">Нет</div>
+          <div class="modal-content-button" id="yesButton">Да</div>
+          <div class="modal-content-button" id="noButton">Нет</div>
         </div>
       </div>
     </div>
 
     <div class="tab-bar" id="tab">
-      <a href="friends.html?v=103" class="tab-item">
+      <a href="friends.html?v=1.0.7" class="tab-item">
         <svg
           class="tab-icon"
           width="28"
@@ -913,7 +529,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="top.html?v=103" class="tab-item">
+      <a href="top.html?v=1.0.7" class="tab-item">
         <svg
           class="tab-icon"
           width="29"
@@ -946,7 +562,7 @@
         <div class="tab-label">Знатоки</div>
       </a>
 
-      <a href="catalog.html?v=103" class="tab-item" id="catalog">
+      <a href="catalog.html?v=1.0.7" class="tab-item" id="catalog">
         <svg
           class="tab-icon"
           width="28"
@@ -981,7 +597,7 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html?v=103" class="tab-item" id="favor">
+      <a href="favorite.html?v=1.0.7" class="tab-item" id="favor">
         <svg
           class="tab-icon"
           width="28"
@@ -1009,7 +625,7 @@
         <div class="tab-label">Мои курсы</div>
       </a>
 
-      <a href="profile.html?v=103" class="tab-item">
+      <a href="profile.html?v=1.0.7" class="tab-item">
         <svg
           class="tab-icon"
           width="28"

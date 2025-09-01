@@ -55,7 +55,7 @@
     />
     <title>Cryptuna</title>
 
-    <link rel="stylesheet" type="text/css" href="styles.css?v=103" />
+    <link rel="stylesheet" type="text/css" href="styles.css?v=1.0.7" />
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script src="platform.js"></script>
   </head>
@@ -65,15 +65,13 @@
       <div class="preloader-animation"></div>
     </div>
 
-    <div class="profile-header">
-      <div class="profile-title" id="title">Курс</div>
-    </div>
+    <header>Курс</header>
 
-    <div class="main-block">
-      <div class="course-block">
+    <main>
+      <div class="block course-block">
         <div class="course-block-text" id="info"></div>
-        <div class="course-block-button" id="add-cours-button">
-          <div class="course-block-button-text">Поступить на курс</div>
+        <div class="course-block-button" id="add-course-button">
+          <span>Поступить на курс</span>
 
           <svg
             class="course-block-button-icon"
@@ -93,57 +91,59 @@
             />
           </svg>
         </div>
-        <a
-          class="course-block-button"
-          id="go-course-button"
-          style="display: none; position: absolute; bottom: 0"
-        >
-          <div class="course-block-button-text">Приступить к изучению</div>
-        </a>
-        <div
-          class="course-block-button-favorite"
-          id="leave-course-button"
-          style="display: none"
-        >
-          <svg
-            class="course-block-button-favorite-icon"
+        <div id="buttons-block" style="display: none; flex-direction: row">
+          <a
+            class="course-block-button"
+            id="go-course-button"
             style="display: none"
-            id="star2"
-            width="22"
-            height="22"
-            viewBox="0 0 25 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M8.5 3H6.5C5.96957 3 5.46086 3.21071 5.08579 3.58579C4.71071 3.96086 4.5 4.46957 4.5 5V19C4.5 19.5304 4.71071 20.0391 5.08579 20.4142C5.46086 20.7893 5.96957 21 6.5 21H12.5M8.5 3V12L11.5 9L14.5 12V3M8.5 3H14.5M14.5 3H18.5C19.0304 3 19.5391 3.21071 19.9142 3.58579C20.2893 3.96086 20.5 4.46957 20.5 5V12M17 19L19 21L22 16"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+            <span>Приступить к изучению</span>
+          </a>
+          <div
+            class="course-block-button-favorite"
+            id="leave-course-button"
+            style="display: none"
+          >
+            <svg
+              class="course-block-button-favorite-icon"
+              style="display: none"
+              id="star2"
+              width="22"
+              height="22"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5 3H6.5C5.96957 3 5.46086 3.21071 5.08579 3.58579C4.71071 3.96086 4.5 4.46957 4.5 5V19C4.5 19.5304 4.71071 20.0391 5.08579 20.4142C5.46086 20.7893 5.96957 21 6.5 21H12.5M8.5 3V12L11.5 9L14.5 12V3M8.5 3H14.5M14.5 3H18.5C19.0304 3 19.5391 3.21071 19.9142 3.58579C20.2893 3.96086 20.5 4.46957 20.5 5V12M17 19L19 21L22 16"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
         </div>
       </div>
 
-      <div class="course-block" style="display: none" id="last-step-block">
-        <div class="syllabus-text">Последний шаг</div>
+      <div class="block course-block" style="display: none" id="last-step-block">
+        <div class="course-block-header">Последний шаг</div>
         <a class="last-step" id="last-step"></a>
       </div>
 
-      <div class="course-block" style="display: none" id="learnings-block">
-        <div class="syllabus-text">Чему вы научитесь</div>
+      <div class="block course-block" style="display: none" id="learnings-block">
+        <div class="course-block-header">Чему вы научитесь</div>
         <div class="point-text" id="points"></div>
       </div>
 
-      <div class="course-block">
-        <div class="syllabus-text">Содержание</div>
+      <div class="block course-block">
+        <div class="course-block-header">Содержание</div>
 
         <div class="syllabus-text-course" id="modules"></div>
       </div>
 
-      <div class="course-block" style="margin-bottom: 10px">
-        <div class="syllabus-text">Отзывы</div>
+      <div class="block course-block">
+        <div class="course-block-header">Отзывы</div>
 
         <div class="mark-progress-block">
           <div class="mark-block">
@@ -375,26 +375,24 @@
         </div>
 
         <div class="course-block-button">
-          <div class="course-block-button-text" id="button-href-comments">
-            Перейти к отзывам
-          </div>
+          <span id="button-href-comments"> Перейти к отзывам </span>
         </div>
       </div>
-    </div>
+    </main>
     <div id="modal" class="modal">
       <div class="modal-content">
         <div class="modal-content-text">
           Вы уверены, что хотите покинуть курс?
         </div>
         <div class="modal-content-buttons">
-          <div class="modal-content-buttons-yes" id="yesButton">Да</div>
-          <div class="modal-content-buttons-no" id="noButton">Нет</div>
+          <div class="modal-content-button" id="yesButton">Да</div>
+          <div class="modal-content-button" id="noButton">Нет</div>
         </div>
       </div>
     </div>
 
     <div class="tab-bar" id="tab">
-      <a href="friends.html?v=103" class="tab-item">
+      <a href="friends.html?v=1.0.7" class="tab-item">
         <svg
           class="tab-icon"
           width="28"
@@ -448,7 +446,7 @@
         <div class="tab-label">Друзья</div>
       </a>
 
-      <a href="top.html?v=103" class="tab-item">
+      <a href="top.html?v=1.0.7" class="tab-item">
         <svg
           class="tab-icon"
           width="29"
@@ -481,7 +479,7 @@
         <div class="tab-label">Знатоки</div>
       </a>
 
-      <a href="catalog.html?v=103" class="tab-item" id="catalog">
+      <a href="catalog.html?v=1.0.7" class="tab-item" id="catalog">
         <svg
           class="tab-icon"
           width="28"
@@ -516,7 +514,7 @@
         <div class="tab-label">Каталог</div>
       </a>
 
-      <a href="favorite.html?v=103" class="tab-item" id="favor">
+      <a href="favorite.html?v=1.0.7" class="tab-item" id="favor">
         <svg
           class="tab-icon"
           width="28"
@@ -544,7 +542,7 @@
         <div class="tab-label">Мои курсы</div>
       </a>
 
-      <a href="profile.html?v=103" class="tab-item">
+      <a href="profile.html?v=1.0.7" class="tab-item">
         <svg
           class="tab-icon"
           width="28"
@@ -580,6 +578,6 @@
       </a>
     </div>
 
-    <script type="module" src="courses.js?v=103"></script>
+    <script type="module" src="courses.js?v=1.0.7"></script>
   </body>
 </html>

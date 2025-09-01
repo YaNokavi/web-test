@@ -1,205 +1,22 @@
 import fetchData from "./fetch.js";
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const courseId = Number(urlParams.get("idCourse"));
+let originalText = "";
+let originalStars = 0;
+let currentRating = 0;
+let reviews = null; // для хранения данных отзывов
 
-const tg = window.Telegram.WebApp;
-const userId = tg.initDataUnsafe?.user?.id ?? 1;
-
-const amountComments = document.getElementById("amount-comments");
-const buttonWriteComment = document.getElementById("button-write-comment");
 const commentButtons = document.getElementById("comment-buttons");
-const buttonSendComment = document.getElementById("button-send-comment");
-const buttonReverse = document.getElementById("button-reverse");
+const commentZone = document.getElementById("comment-zone");
+const starsRating = document.querySelectorAll(".stars-svg-rating .star-rating");
+const textarea = document.getElementById("comment");
+
+const buttonWriteComment = document.getElementById("button-write-comment");
 const buttonDelete = document.getElementById("button-delete");
 const buttonChangeComment = document.getElementById("button-change-comment");
-const commentZone = document.getElementById("comment-zone");
-const textarea = document.getElementById("comment");
-const starsRating = document.querySelectorAll(".stars-svg-rating .star-rating");
 
-const modal = document.getElementById("modal");
-const buttonConfirmDelete = document.getElementById("yesButton");
-const buttonCancelDelete = document.getElementById("noButton");
-
-async function sendComment(comment, rating) {
-  const body = {
-    rating: rating,
-    comment: comment,
-  };
-
-  try {
-    await fetchData(
-      `course/${courseId}/review`,
-      "POST",
-      { "X-User-Id": userId },
-      body,
-      false
-    );
-    getReviews("NEW_FIRST", false);
-  } catch (error) {
-    console.error("Ошибка при отправке коммента:", error);
-  }
+function stripHtmlTags(input) {
+  return input.replace(/<\/?[^>]+(>|$)/g, "");
 }
-
-async function changeComment(reviewId, comment, rating) {
-  const body = {
-    reviewId: reviewId,
-    rating: rating,
-    comment: comment,
-  };
-
-  try {
-    await fetchData(`course/${courseId}/review`, "PUT", {}, body, false);
-    getReviews("NEW_FIRST", false);
-  } catch (error) {
-    console.error("Ошибка при отправке коммента:", error);
-  }
-}
-
-async function deleteComment(reviewId) {
-  try {
-    const body = {
-      reviewId: reviewId,
-    };
-
-    await fetchData(`course/${courseId}/review`, "DELETE", {}, body, false);
-
-    modal.style.display = "none";
-    buttonWriteComment.style.display = "flex";
-    buttonChangeComment.style.display = "none";
-    buttonDelete.style.display = "none";
-    commentButtons.style.display = "none";
-    commentZone.style.display = "none";
-    textarea.value = "";
-    starsRating.forEach((star) => {
-      star.classList.remove("active");
-    });
-    getReviews("NEW_FIRST", false);
-  } catch (error) {
-    console.error("Ошибка при отправке коммента:", error);
-  }
-}
-
-function getReviewWord(count) {
-  count = Math.abs(count) % 100;
-  const lastDigit = count % 10;
-
-  if (count > 10 && count < 20) {
-    return "отзывов";
-  }
-  if (lastDigit > 1 && lastDigit < 5) {
-    return "отзыва";
-  }
-  if (lastDigit === 1) {
-    return "отзыв";
-  }
-  return "отзывов";
-}
-
-buttonWriteComment.addEventListener("click", function () {
-  buttonWriteComment.style.display = "none";
-  commentButtons.style.display = "flex";
-  commentZone.style.display = "flex";
-  textarea.value = "";
-});
-
-function resetButtons() {
-  commentButtons.style.display = "none";
-  commentZone.style.display = "none";
-
-  buttonWriteComment.style.display = reviews.currentUserReview
-    ? "none"
-    : "flex";
-  buttonChangeComment.style.display = reviews.currentUserReview
-    ? "flex"
-    : "none";
-
-  textarea.value = "";
-  starsRating.forEach((star) => {
-    star.classList.remove("active");
-  });
-}
-
-buttonReverse.addEventListener("click", function () {
-  resetButtons();
-});
-
-buttonSendComment.addEventListener("click", function () {
-  if (currentRating === 0) {
-    console.log("Не все данные заполнены");
-  } else if (!textarea.value) {
-    const text = null;
-    if (reviews.currentUserReview) {
-      changeComment(reviews.currentUserReview.reviewId, text, currentRating);
-      resetButtons();
-    } else {
-      sendComment(text, currentRating);
-      resetButtons();
-    }
-  } else if (textarea.value) {
-    if (reviews.currentUserReview) {
-      changeComment(
-        reviews.currentUserReview.reviewId,
-        textarea.value,
-        currentRating
-      );
-      resetButtons();
-    } else {
-      sendComment(textarea.value, currentRating);
-      resetButtons();
-    }
-  }
-});
-
-buttonChangeComment.addEventListener("click", function () {
-  commentZone.style.display = "flex";
-  commentButtons.style.display = "flex";
-  buttonChangeComment.style.display = "none";
-
-  textarea.value = reviews.currentUserReview.message;
-  updateStars(reviews.currentUserReview.rating);
-});
-
-document.addEventListener("click", function (event) {
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-});
-
-buttonDelete.addEventListener("click", function () {
-  modal.style.display = "flex";
-});
-
-buttonConfirmDelete.addEventListener("click", function () {
-  deleteComment(reviews.currentUserReview.reviewId);
-});
-
-buttonCancelDelete.addEventListener("click", function () {
-  modal.style.display = "none";
-});
-
-const maxLength = 2000;
-
-textarea.addEventListener("input", function () {
-  const currentLength = textarea.value.length;
-  if (currentLength > maxLength) {
-    // Обрезаем текст до максимума
-    textarea.value = textarea.value.substring(0, maxLength);
-  }
-
-  this.style.height = "auto"; // Сброс высоты
-  this.style.height = this.scrollHeight + "px"; // Установка высоты по содержимому
-});
-
-let currentRating = 0;
-
-starsRating.forEach((star) => {
-  star.addEventListener("click", () => {
-    const rating = +star.getAttribute("data-value");
-    updateStars(rating);
-  });
-});
 
 function updateStars(newRating) {
   if (newRating > currentRating) {
@@ -231,438 +48,245 @@ function updateStars(newRating) {
   currentRating = newRating;
 }
 
-function displayRating(ratingInfo) {
-  const rating = ratingInfo.rating;
+class RatingController {
+  constructor(userId, courseId) {
+    this.userId = userId;
+    this.courseId = courseId;
 
-  const formattedRating = Number.isInteger(rating)
-    ? rating.toString()
-    : rating.toFixed(1);
-  document.getElementById("rating").innerText = `${formattedRating}/5`;
-
-  const count = ratingInfo.reviewsTotalNumber;
-  amountComments.innerText = `${count} ${getReviewWord(count)}`;
-
-  const detailed = ratingInfo.detailedRatingTotalNumber;
-  const total = Object.values(detailed).reduce((sum, v) => sum + v, 0);
-
-  const progressBlocks = document.querySelectorAll(".progress-block-elem");
-
-  const values = [
-    detailed[5],
-    detailed[4],
-    detailed[3],
-    detailed[2],
-    detailed[1],
-  ];
-
-  progressBlocks.forEach((block, idx) => {
-    const progress = block.querySelector("progress");
-    const value = values[idx] || 0;
-    const percent = total > 0 ? Math.round((value / total) * 100) : 0;
-    progress.value = percent;
-  });
-}
-
-const commentsBlock = document.getElementById("comments");
-
-async function sendUserReaction(reviewId, reaction) {
-  try {
-    const body = {
-      reaction: reaction,
-    };
-
-    const response = await fetchData(
-      `course/review/${reviewId}/reaction`,
-      "POST",
-      { "X-User-Id": userId },
-      body,
-      false
-    );
-
-    return response;
-  } catch (error) {
-    console.error("Ошибка при отправке реакции:", error);
+    this.ratingUI = new RatingUI(userId);
   }
-}
 
-async function updateUserReaction(reviewId, reaction) {
-  try {
-    const body = {
-      reaction: reaction,
-    };
+  async getReviews(sortType, filter) {
+    try {
+      reviews = await fetchData(
+        `course/${this.courseId}/reviews?sort=${sortType}`,
+        "GET",
+        { "X-User-Id": this.userId }
+      );
 
-    const response = await fetchData(
-      `course/review/${reviewId}/reaction`,
-      "PUT",
-      { "X-User-Id": userId },
-      body,
-      false
-    );
-    return response;
-  } catch (error) {
-    console.error("Ошибка при изменении реакции:", error);
-  }
-}
+      this.ratingUI.displayComments(reviews.courseReviews);
 
-async function deleteUserReaction(reviewId) {
-  try {
-    const response = await fetchData(
-      `course/review/${reviewId}/reaction`,
-      "DELETE",
-      { "X-User-Id": userId },
-      null,
-      false
-    );
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.error("Ошибка при удалении реакции:", error);
-  }
-}
+      this.ratingUI.displayRating(reviews.courseRatingInfo);
 
-function addListenerOnUserMarks(courseReviews) {
-  document.querySelectorAll(".comment-block").forEach((commentBlock) => {
-    const reviewId = commentBlock.dataset.reviewId;
-    if (!reviewId) return;
+      if (reviews.currentUserReview && !filter) {
+        originalText = reviews.currentUserReview.message ?? "";
+        originalStars = reviews.currentUserReview.rating;
 
-    const review = courseReviews.find((r) => r.reviewId == reviewId);
-    if (!review) return;
+        buttonWriteComment.style.display = "none";
+        buttonChangeComment.style.display = "flex";
+        buttonDelete.style.display = "flex";
 
-    const likeMark = commentBlock.querySelector(".user-mark-icon.like");
-    const dislikeMark = commentBlock.querySelector(".user-mark-icon.dislike");
-    const likeCount = likeMark?.nextElementSibling;
-    const dislikeCount = dislikeMark?.nextElementSibling;
-
-    if (!likeMark || !dislikeMark || !likeCount || !dislikeCount) return;
-
-    likeCount.dataset.original = review.likesCount;
-    dislikeCount.dataset.original = review.dislikesCount;
-
-    likeMark.addEventListener("click", async () => {
-      const isLikeActive = likeMark.classList.contains("active");
-      const isDislikeActive = dislikeMark.classList.contains("active");
-
-      if (isLikeActive) {
-        // Удаление лайка
-        likeMark.classList.remove("active");
-        likeCount.textContent = Number(likeCount.textContent) - 1;
-
-        try {
-          // Дожидаемся ответа от сервера
-          const response = await deleteUserReaction(review.reviewId);
-
-          console.log(response);
-
-          // Если сервер вернул ошибку
-          if (response !== 200) {
-            // Откатываем изменения в UI
-            likeMark.classList.add("active");
-            likeCount.textContent = Number(likeCount.textContent) + 1;
-            alert("Ошибка при удалении реакции");
-          }
-        } catch (error) {
-          console.error("Ошибка:", error);
-          // Откатываем изменения в UI при ошибке сети
-          likeMark.classList.add("active");
-          likeCount.textContent = Number(likeCount.textContent) + 1;
-          alert("Сетевая ошибка");
-        }
-      } else {
-        // Оптимистичное обновление UI
-        likeMark.classList.add("active");
-        likeCount.textContent = Number(likeCount.textContent) + 1;
-
-        try {
-          let response;
-          if (isDislikeActive) {
-            // Замена дизлайка на лайк
-            dislikeMark.classList.remove("active");
-            dislikeCount.textContent = Number(dislikeCount.textContent) - 1;
-
-            response = await updateUserReaction(
-              review.reviewId,
-
-              "LIKE"
-            );
-          } else {
-            // Новый лайк
-            response = await sendUserReaction(review.reviewId, "LIKE");
-          }
-
-          console.log(response);
-
-          // Если сервер вернул ошибку
-          if (response !== 200) {
-            // Откатываем все изменения в UI
-            likeMark.classList.remove("active");
-            likeCount.textContent = Number(likeCount.textContent) - 1;
-
-            if (isDislikeActive) {
-              dislikeMark.classList.add("active");
-              dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
-            }
-
-            alert("Ошибка при отправке реакции");
-          }
-        } catch (error) {
-          console.error("Ошибка:", error);
-          // Откатываем все изменения в UI при ошибке сети
-          likeMark.classList.remove("active");
-          likeCount.textContent = Number(likeCount.textContent) - 1;
-
-          if (isDislikeActive) {
-            dislikeMark.classList.add("active");
-            dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
-          }
-
-          alert("Сетевая ошибка");
-        }
+        updateStars(originalStars);
+        textarea.value = originalText;
       }
+    } catch {
+      console.error("Не удалось получить отзывы");
+    }
+  }
+}
+
+class RatingUI {
+  constructor(userId) {
+    this.userId = userId;
+
+    this.widgetBlock = document.getElementById("buttons-block");
+    this.amountComments = document.getElementById("amount-comments");
+    this.commentsBlock = document.getElementById("comments");
+
+    this.userReactionButtons = new UserReactionButtons(this.userId);
+
+    this._bindEvents();
+  }
+
+  _bindEvents() {
+    window.addEventListener("resize", () => {
+      this.checkExpandButtons();
     });
+  }
 
-    // Обработчик для дизлайков
-    dislikeMark.addEventListener("click", async () => {
-      const isDislikeActive = dislikeMark.classList.contains("active");
-      const isLikeActive = likeMark.classList.contains("active");
+  declOfNum(number, titles) {
+    const cases = [2, 0, 1, 1, 1, 2];
+    return titles[
+      number % 100 > 4 && number % 100 < 20
+        ? 2
+        : cases[number % 10 < 5 ? number % 10 : 5]
+    ];
+  }
 
-      // Блокируем кнопки на время запроса
+  calculateDate(createTime) {
+    const now = new Date();
+    const past = new Date(createTime);
 
-      try {
-        if (isDislikeActive) {
-          // Удаление дизлайка
-          dislikeMark.classList.remove("active");
-          dislikeCount.textContent = Number(dislikeCount.textContent) - 1;
+    const diffMs = now - past;
+    if (diffMs < 0) return "только что";
 
-          // Дожидаемся ответа от сервера
-          const response = await deleteUserReaction(review.reviewId);
+    const seconds = Math.floor(diffMs / 1000);
+    if (seconds < 60) {
+      return `${seconds} ${this.declOfNum(seconds, [
+        "секунда",
+        "секунды",
+        "секунд",
+      ])} назад`;
+    }
 
-          console.log(response);
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+      return `${minutes} ${this.declOfNum(minutes, [
+        "минута",
+        "минуты",
+        "минут",
+      ])} назад`;
+    }
 
-          // Если сервер вернул ошибку
-          if (response !== 200) {
-            throw new Error("Ошибка при удалении реакции");
-          }
-        } else {
-          // Оптимистичное обновление UI
-          dislikeMark.classList.add("active");
-          dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      return `${hours} ${this.declOfNum(hours, [
+        "час",
+        "часа",
+        "часов",
+      ])} назад`;
+    }
 
-          let response;
-          if (isLikeActive) {
-            // Замена лайка на дизлайк
-            likeMark.classList.remove("active");
-            likeCount.textContent = Number(likeCount.textContent) - 1;
+    const days = Math.floor(hours / 24);
+    if (days < 7) {
+      return `${days} ${this.declOfNum(days, ["день", "дня", "дней"])} назад`;
+    }
 
-            response = await updateUserReaction(
-              review.reviewId,
+    const weeks = Math.floor(days / 7);
+    if (weeks < 5) {
+      return `${weeks} ${this.declOfNum(weeks, [
+        "неделя",
+        "недели",
+        "недель",
+      ])} назад`;
+    }
 
-              "DISLIKE"
-            );
-          } else {
-            // Новый дизлайк
-            response = await sendUserReaction(
-              review.reviewId,
+    const months = Math.floor(days / 30);
+    if (months < 12) {
+      return `${months} ${this.declOfNum(months, [
+        "месяц",
+        "месяца",
+        "месяцев",
+      ])} назад`;
+    }
 
-              "DISLIKE"
-            );
-          }
+    const years = Math.floor(days / 365);
+    return `${years} ${this.declOfNum(years, ["год", "года", "лет"])} назад`;
+  }
 
-          console.log(response);
+  initExpandHandlers() {
+    document
+      .querySelectorAll(".button-expand-description")
+      .forEach((button) => {
+        button.addEventListener("click", (e) => {
+          e.stopPropagation(); // Предотвращаем всплытие
+          this.toggleCommentExpand(e.currentTarget);
+        });
+      });
 
-          // Если сервер вернул ошибку
-          if (response !== 200) {
-            throw new Error("Ошибка при отправке реакции");
-          }
-        }
-      } catch (error) {
-        console.error("Ошибка:", error);
-
-        // Откатываем изменения в UI
-        if (isDislikeActive) {
-          // Откат удаления дизлайка
-          dislikeMark.classList.add("active");
-          dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
-        } else {
-          // Откат добавления дизлайка
-          dislikeMark.classList.remove("active");
-          dislikeCount.textContent = Number(dislikeCount.textContent) - 1;
-
-          // Восстанавливаем лайк, если он был
-          if (isLikeActive) {
-            likeMark.classList.add("active");
-            likeCount.textContent = Number(likeCount.textContent) + 1;
-          }
-        }
-
-        alert(error.message || "Сетевая ошибка");
-      }
+    // Обработчики для текста комментариев
+    document.querySelectorAll(".comment-description").forEach((desc) => {
+      desc.addEventListener("click", (event) => this.toggleDescription(event));
     });
-  });
-}
-
-function declOfNum(number, titles) {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return titles[
-    number % 100 > 4 && number % 100 < 20
-      ? 2
-      : cases[number % 10 < 5 ? number % 10 : 5]
-  ];
-}
-
-function calculateDate(createTime) {
-  const now = new Date();
-  const past = new Date(createTime);
-
-  const diffMs = now - past;
-  if (diffMs < 0) return "только что";
-
-  const seconds = Math.floor(diffMs / 1000);
-  if (seconds < 60) {
-    return `${seconds} ${declOfNum(seconds, [
-      "секунда",
-      "секунды",
-      "секунд",
-    ])} назад`;
   }
 
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) {
-    return `${minutes} ${declOfNum(minutes, [
-      "минута",
-      "минуты",
-      "минут",
-    ])} назад`;
-  }
-
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) {
-    return `${hours} ${declOfNum(hours, ["час", "часа", "часов"])} назад`;
-  }
-
-  const days = Math.floor(hours / 24);
-  if (days < 7) {
-    return `${days} ${declOfNum(days, ["день", "дня", "дней"])} назад`;
-  }
-
-  const weeks = Math.floor(days / 7);
-  if (weeks < 5) {
-    return `${weeks} ${declOfNum(weeks, ["неделя", "недели", "недель"])} назад`;
-  }
-
-  const months = Math.floor(days / 30);
-  if (months < 12) {
-    return `${months} ${declOfNum(months, [
-      "месяц",
-      "месяца",
-      "месяцев",
-    ])} назад`;
-  }
-
-  const years = Math.floor(days / 365);
-  return `${years} ${declOfNum(years, ["год", "года", "лет"])} назад`;
-}
-
-function initExpandHandlers() {
-  // Обработчики для кнопок
-  document.querySelectorAll(".button-expand-description").forEach((button) => {
-    button.addEventListener("click", function (e) {
-      e.stopPropagation(); // Предотвращаем всплытие
-      toggleCommentExpand(this);
-    });
-  });
-
-  // Обработчики для текста комментариев
-  document.querySelectorAll(".comment-description").forEach((desc) => {
-    desc.addEventListener("click", toggleDescription);
-  });
-}
-
-// Функция для переключения состояния комментария
-function toggleDescription() {
-  const commentBlock = this.closest(".comment-block");
-  const button = commentBlock.querySelector(".button-expand-description");
-
-  // Проверяем, нужна ли кнопка вообще
-  if (button.style.display === "none") return;
-
-  toggleCommentExpand(button);
-}
-
-// Общая функция переключения состояния
-function toggleCommentExpand(element) {
-  const commentBlock = element.closest(".comment-block");
-  commentBlock.classList.toggle("expanded");
-
-  const button = commentBlock.querySelector(".button-expand-description");
-  const span = button.querySelector("span");
-  span.textContent = commentBlock.classList.contains("expanded")
-    ? "Свернуть"
-    : "Раскрыть";
-}
-
-// Проверка необходимости кнопок
-function checkExpandButtons() {
-  const descriptions = document.querySelectorAll(".comment-description");
-
-  descriptions.forEach((desc) => {
-    const commentBlock = desc.closest(".comment-block");
+  toggleDescription(event) {
+    const element = event.currentTarget; // или event.target, в зависимости от задачи
+    const commentBlock = element.closest(".comment-block");
     const button = commentBlock.querySelector(".button-expand-description");
 
-    // Вычисляем реальную высоту текста
-    const lineHeight = parseInt(getComputedStyle(desc).lineHeight);
-    const maxHeight = lineHeight * 2;
+    if (button.style.display === "none") return;
 
-    // Проверяем, превышает ли контент 2 строки
-    if (desc.scrollHeight <= maxHeight) {
-      button.style.display = "none";
+    this.toggleCommentExpand(button);
+  }
 
-      // Убираем курсор-указатель для коротких комментариев
-      desc.style.cursor = "default";
-    } else {
-      button.style.display = "flex";
+  toggleCommentExpand(element) {
+    const commentBlock = element.closest(".comment-block");
+    commentBlock.classList.toggle("expanded");
 
-      // Добавляем курсор-указатель для длинных комментариев
-      desc.style.cursor = "pointer";
-    }
-  });
-}
+    const button = commentBlock.querySelector(".button-expand-description");
+    const span = button.querySelector("span");
+    span.textContent = commentBlock.classList.contains("expanded")
+      ? "Свернуть"
+      : "Раскрыть";
+  }
 
-window.addEventListener("resize", () => {
-  checkExpandButtons();
-});
+  checkExpandButtons() {
+    const descriptions = document.querySelectorAll(".comment-description");
 
-function displayComments(courseReviews) {
-  commentsBlock.innerHTML = "";
-  //Добавить условие для добавления кнопки раскрыть/свернуть
+    descriptions.forEach((desc) => {
+      const commentBlock = desc.closest(".comment-block");
+      const button = commentBlock.querySelector(".button-expand-description");
 
-  let commentColor = null;
-  let date = null;
-  let messageUser = null;
-  // let userReactionLike = null;
-  // let userReactionDislike = null;
-  courseReviews.forEach((review) => {
-    if (review.rating >= 4) {
-      commentColor = "good";
-    } else if (review.rating === 3) {
-      commentColor = "medium";
-    } else if (review.rating <= 2) {
-      commentColor = "bad";
-    }
-    date = calculateDate(review.createTime);
+      // Вычисляем реальную высоту текста
+      const lineHeight = parseInt(getComputedStyle(desc).lineHeight);
+      const maxHeight = lineHeight * 2;
 
-    messageUser = review.message ? review.message : "";
+      // Проверяем, превышает ли контент 2 строки
+      if (desc.scrollHeight <= maxHeight) {
+        button.style.display = "none";
 
-    let userReactionLike = null;
-    let userReactionDislike = null;
-    if (review.currentUserReaction) {
-      if (review.currentUserReaction === "LIKE") {
-        userReactionLike = "active";
-      } else if (review.currentUserReaction === "DISLIKE") {
-        userReactionDislike = "active";
+        // Убираем курсор-указатель для коротких комментариев
+        desc.style.cursor = "default";
+      } else {
+        button.style.display = "flex";
+
+        // Добавляем курсор-указатель для длинных комментариев
+        desc.style.cursor = "pointer";
       }
-    }
+    });
+  }
 
-    let comment = `<div class="comment-block ${commentColor}" data-review-id="${review.reviewId}">
+  getReviewWord(count) {
+    count = Math.abs(count) % 100;
+    const lastDigit = count % 10;
+
+    if (count > 10 && count < 20) {
+      return "отзывов";
+    }
+    if (lastDigit > 1 && lastDigit < 5) {
+      return "отзыва";
+    }
+    if (lastDigit === 1) {
+      return "отзыв";
+    }
+    return "отзывов";
+  }
+
+  displayComments(courseReviews) {
+    this.commentsBlock.innerHTML = "";
+
+    let commentColor = null;
+    let date = null;
+    let messageUser = null;
+    if (courseReviews.length > 0) {
+      this.widgetBlock.style.display = "flex";
+    } else {
+      this.widgetBlock.style.display = "none";
+    }
+    courseReviews.forEach((review) => {
+      if (review.rating >= 4) {
+        commentColor = "good";
+      } else if (review.rating === 3) {
+        commentColor = "medium";
+      } else if (review.rating <= 2) {
+        commentColor = "bad";
+      }
+      date = this.calculateDate(review.createTime);
+
+      messageUser = review.message ? stripHtmlTags(review.message) : "";
+
+      let userReactionLike = null;
+      let userReactionDislike = null;
+      if (review.currentUserReaction) {
+        if (review.currentUserReaction === "LIKE") {
+          userReactionLike = "active";
+        } else if (review.currentUserReaction === "DISLIKE") {
+          userReactionDislike = "active";
+        }
+      }
+
+      let comment = `<div class="comment-block ${commentColor}" data-review-id="${review.reviewId}">
           <div class="comment-info">
             <div class="comment-text-rating">
               <div class="comment-header">
@@ -705,8 +329,8 @@ function displayComments(courseReviews) {
           </div>
           <div class="footer-comment-block">
             <div class="user-marks-block">
-              <div class="user-mark">
-                <svg
+            <div class="user-mark">
+               <svg
                   class="user-mark-icon like ${userReactionLike}"
                   width="24"
                   height="24"
@@ -719,7 +343,7 @@ function displayComments(courseReviews) {
                     stroke="currentColor"
                   />
                 </svg>
-                <span>${review.likesCount}</span>
+                <span>${review.likesCount}</span> 
               </div>
               <div class="user-mark">
                 <svg
@@ -760,148 +384,601 @@ function displayComments(courseReviews) {
           </div>
         </div>`;
 
-    commentsBlock.innerHTML += comment;
-  });
+      this.commentsBlock.innerHTML += comment;
+    });
 
-  const commentBlocks = commentsBlock.querySelectorAll(".comment-block");
-  commentBlocks.forEach((block) => {
-    const desc = block.querySelector(".comment-description");
-    const buttonExpand = block.querySelector(".button-expand-description");
+    const commentBlocks = this.commentsBlock.querySelectorAll(".comment-block");
+    commentBlocks.forEach((block) => {
+      const desc = block.querySelector(".comment-description");
+      const buttonExpand = block.querySelector(".button-expand-description");
 
-    // Проверяем, нужна ли кнопка
-    if (desc.scrollHeight <= desc.clientHeight) {
-      buttonExpand.classList.add("hidden");
-    } else {
-      buttonExpand.classList.remove("hidden");
+      // Проверяем, нужна ли кнопка
+      if (desc.scrollHeight <= desc.clientHeight) {
+        buttonExpand.classList.add("hidden");
+      } else {
+        buttonExpand.classList.remove("hidden");
+      }
+    });
+
+    setTimeout(() => {
+      this.checkExpandButtons();
+      this.initExpandHandlers(); // Инициализируем обработчики
+    }, 0);
+
+    if (courseReviews.length > 0) {
+      this.userReactionButtons.addListenerOnUserMarks(courseReviews);
     }
-  });
+    document.getElementById("preloader").style.display = "none";
+  }
 
-  setTimeout(() => {
-    checkExpandButtons();
-    initExpandHandlers(); // Инициализируем обработчики
-  }, 0);
+  displayRating(ratingInfo) {
+    const rating = ratingInfo.rating;
 
-  addListenerOnUserMarks(courseReviews);
-  document.getElementById("preloader").style.display = "none";
-}
+    const formattedRating = Number.isInteger(rating)
+      ? rating.toString()
+      : rating.toFixed(1);
+    document.getElementById("rating").innerText = `${formattedRating}/5`;
 
-let reviews;
-async function getReviews(sortType, filter) {
-  reviews = await fetchData(
-    `course/${courseId}/reviews?sort=${sortType}`,
-    "GET",
-    { "X-User-Id": userId }
-  );
+    const count = ratingInfo.reviewsTotalNumber;
+    this.amountComments.innerText = `${count} ${this.getReviewWord(count)}`;
 
-  displayComments(reviews.courseReviews);
+    const detailed = ratingInfo.detailedRatingTotalNumber;
+    const total = Object.values(detailed).reduce((sum, v) => sum + v, 0);
 
-  displayRating(reviews.courseRatingInfo);
+    const progressBlocks = document.querySelectorAll(".progress-block-elem");
 
-  if (reviews.currentUserReview && !filter) {
-    buttonWriteComment.style.display = "none";
-    buttonChangeComment.style.display = "flex";
-    buttonDelete.style.display = "flex";
+    const values = [
+      detailed[5],
+      detailed[4],
+      detailed[3],
+      detailed[2],
+      detailed[1],
+    ];
+
+    progressBlocks.forEach((block, idx) => {
+      const progress = block.querySelector("progress");
+      const value = values[idx] || 0;
+      const percent = total > 0 ? Math.round((value / total) * 100) : 0;
+      progress.value = percent;
+    });
   }
 }
 
-getReviews("NEW_FIRST", false);
+class UserCommentController {
+  constructor(ratingController, filterManager) {
+    this.ratingController = ratingController;
+    this.filterManager = filterManager;
+  }
 
-const button1 = document.getElementById("widget-button-first");
-const button2 = document.getElementById("widget-button-second");
-const button3 = document.getElementById("widget-button-third");
-const button4 = document.getElementById("widget-button-fourth");
-const widgetBlock = document.getElementById("buttons-block");
-const buttons = widgetBlock.querySelectorAll(".widget-button");
+  async sendComment(comment, rating) {
+    const body = {
+      rating: rating,
+      comment: comment,
+    };
 
-let activeIndex = 0;
+    try {
+      await fetchData(
+        `course/${courseId}/review`,
+        "POST",
+        { "X-User-Id": userId },
+        body,
+        false
+      );
 
-function setActivePosition(index) {
-  const translatePercent = index * 100; // 0% или 100%
-  widgetBlock.style.setProperty("--pseudo-x", `${translatePercent}%`);
-  activeIndex = index;
+      // Вызов методов через объекты
+      this.filterManager.setActivePosition(0);
+      this.ratingController.getReviews("NEW_FIRST", false);
+    } catch (error) {
+      console.error("Ошибка при отправке коммента:", error);
+    }
+  }
 
-  buttons.forEach((btn, i) => {
-    btn.classList.toggle("active", i === index);
-  });
+  async changeComment(reviewId, comment, rating) {
+    const body = {
+      reviewId: reviewId,
+      rating: rating,
+      comment: comment,
+    };
+
+    try {
+      await fetchData(`course/${courseId}/review`, "PUT", {}, body, false);
+
+      this.filterManager.setActivePosition(0);
+      this.ratingController.getReviews("NEW_FIRST", false);
+    } catch (error) {
+      console.error("Ошибка при отправке коммента:", error);
+    }
+  }
+
+  async deleteComment(reviewId) {
+    try {
+      const body = {
+        reviewId: reviewId,
+      };
+
+      await fetchData(`course/${courseId}/review`, "DELETE", {}, body, false);
+
+      // После удаления обновляем UI и отзывы
+      buttonWriteComment.style.display = "flex";
+      buttonChangeComment.style.display = "none";
+      buttonDelete.style.display = "none";
+      commentButtons.style.display = "none";
+      commentZone.style.display = "none";
+      textarea.value = "";
+      starsRating.forEach((star) => {
+        star.classList.remove("active");
+      });
+
+      this.filterManager.setActivePosition(0);
+      this.ratingController.getReviews("NEW_FIRST", false);
+    } catch (error) {
+      console.error("Ошибка при отправке коммента:", error);
+    }
+  }
 }
 
-setActivePosition(activeIndex);
+class UserCommentManager {
+  constructor(userCommentController) {
+    this.userCommentController = userCommentController;
 
-button1.addEventListener("click", function () {
-  if (
-    button2.classList.contains("active") ||
-    button3.classList.contains("active") ||
-    button4.classList.contains("active")
-  ) {
-    button2.classList.remove("active");
-    button3.classList.remove("active");
-    button4.classList.remove("active");
+    this.modal = document.getElementById("modal");
+    this.buttonConfirmDelete = document.getElementById("yesButton");
+    this.buttonCancelDelete = document.getElementById("noButton");
 
-    widgetBlock.style.setProperty("--active-pos", "0%");
+    this.buttonSendComment = document.getElementById("button-send-comment");
+    this.buttonReverse = document.getElementById("button-reverse");
 
-    setActivePosition(0);
-    getReviews("NEW_FIRST", true);
+    this.maxLength = 2000;
 
-    button1.classList.add("active");
+    this.currentAction = null;
+
+    this._bindEvents();
   }
-});
 
-button2.addEventListener("click", function () {
-  if (
-    button1.classList.contains("active") ||
-    button3.classList.contains("active") ||
-    button4.classList.contains("active")
-  ) {
-    button1.classList.remove("active");
-    button3.classList.remove("active");
-    button4.classList.remove("active");
+  _bindEvents() {
+    starsRating.forEach((star) => {
+      star.addEventListener("click", () => {
+        const rating = +star.getAttribute("data-value");
+        updateStars(rating);
+      });
+    });
 
-    widgetBlock.style.setProperty("--active-pos", "25%");
+    buttonWriteComment.addEventListener("click", () => {
+      buttonWriteComment.style.display = "none";
+      commentButtons.style.display = "flex";
+      commentZone.style.display = "flex";
+      textarea.value = "";
+      starsRating.forEach((star) => {
+        star.classList.remove("active");
+      });
+    });
 
-    setActivePosition(1); // Обновляем позицию и классы
-    getReviews("POSITIVE_FIRST", true);
+    this.buttonReverse.addEventListener("click", () => {
+      const currentText = textarea.value;
+      const currentStars = Array.from(starsRating).filter((star) =>
+        star.classList.contains("active")
+      ).length;
 
-    button2.classList.add("active");
+      const isTextChanged = currentText !== originalText;
+      const isStarsChanged = currentStars !== originalStars;
+
+      if (isTextChanged || isStarsChanged) {
+        this.currentAction = "reverse";
+        document.getElementById("modal-text").innerText =
+          "Вы уверены, что хотите отменить отзыв?";
+        this.modal.style.display = "flex";
+      } else {
+        this.resetButtons(reviews.currentUserReview);
+      }
+    });
+
+    this.buttonSendComment.addEventListener("click", () => {
+      if (currentRating === 0) {
+        alert("Обязательно поставьте свою оценку!");
+      } else if (!textarea.value) {
+        const text = null;
+        if (reviews.currentUserReview) {
+          this.userCommentController.changeComment(
+            reviews.currentUserReview.reviewId,
+            text,
+            currentRating
+          );
+          this.resetButtons(reviews.currentUserReview);
+        } else {
+          this.userCommentController.sendComment(text, currentRating);
+          this.resetButtons(reviews.currentUserReview);
+        }
+      } else if (textarea.value) {
+        if (reviews.currentUserReview) {
+          const currentText = textarea.value;
+          const currentStars = Array.from(starsRating).filter((star) =>
+            star.classList.contains("active")
+          ).length;
+
+          const isTextChanged = currentText !== originalText;
+          const isStarsChanged = currentStars !== originalStars;
+          if (isTextChanged || isStarsChanged) {
+            this.userCommentController.changeComment(
+              reviews.currentUserReview.reviewId,
+              stripHtmlTags(textarea.value),
+              currentRating
+            );
+            this.resetButtons(reviews.currentUserReview);
+          } else {
+            alert("Ваш отзыв не изменился!")
+          }
+        } else {
+          this.userCommentController.sendComment(
+            stripHtmlTags(textarea.value),
+            currentRating
+          );
+          this.resetButtons(reviews.currentUserReview);
+        }
+      }
+    });
+
+    buttonChangeComment.addEventListener("click", () => {
+      commentZone.style.display = "flex";
+      commentButtons.style.display = "flex";
+      buttonChangeComment.style.display = "none";
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target === this.modal) {
+        this.modal.style.display = "none";
+        this.currentAction = null;
+      }
+    });
+
+    buttonDelete.addEventListener("click", () => {
+      this.currentAction = "delete";
+      document.getElementById("modal-text").innerText =
+        "Вы уверены, что хотите удалить отзыв?";
+      this.modal.style.display = "flex";
+    });
+
+    this.buttonConfirmDelete.addEventListener("click", () => {
+      if (this.currentAction === "delete") {
+        originalText = "";
+        originalStars = 0;
+        updateStars(originalStars);
+        this.userCommentController.deleteComment(
+          reviews.currentUserReview.reviewId
+        );
+      } else if (this.currentAction === "reverse") {
+        this.resetButtons(reviews.currentUserReview);
+        textarea.value = originalText;
+        updateStars(originalStars);
+      }
+      this.modal.style.display = "none";
+      this.currentAction = null; // Сбрасываем действие после подтверждения
+    });
+
+    this.buttonCancelDelete.addEventListener("click", () => {
+      this.modal.style.display = "none";
+      this.currentAction = null;
+    });
+
+    textarea.addEventListener("input", () => {
+      const currentLength = textarea.value.length;
+      if (currentLength > this.maxLength) {
+        // Обрезаем текст до максимума
+        textarea.value = textarea.value.substring(0, this.maxLength);
+      }
+
+      textarea.style.height = "auto"; // Сброс высоты
+      textarea.style.height = textarea.scrollHeight + "px"; // Установка высоты по содержимому
+    });
   }
-});
 
-button3.addEventListener("click", function () {
-  if (
-    button1.classList.contains("active") ||
-    button2.classList.contains("active") ||
-    button4.classList.contains("active")
-  ) {
-    button1.classList.remove("active");
-    button2.classList.remove("active");
-    button4.classList.remove("active");
+  resetButtons(currentUserReview) {
+    commentButtons.style.display = "none";
+    commentZone.style.display = "none";
 
-    widgetBlock.style.setProperty("--active-pos", "50%");
-
-    setActivePosition(2); // Обновляем позицию и классы
-    getReviews("NEGATIVE_FIRST", true);
-
-    button3.classList.add("active");
+    buttonWriteComment.style.display = currentUserReview ? "none" : "flex";
+    buttonChangeComment.style.display = currentUserReview ? "flex" : "none";
   }
-});
+}
 
-button4.addEventListener("click", function () {
-  if (
-    button1.classList.contains("active") ||
-    button2.classList.contains("active") ||
-    button3.classList.contains("active")
-  ) {
-    button1.classList.remove("active");
-    button2.classList.remove("active");
-    button3.classList.remove("active");
-
-    widgetBlock.style.setProperty("--active-pos", "75%");
-
-    setActivePosition(3); // Обновляем позицию и классы
-    getReviews("USEFUL_FIRST", true);
-
-    button4.classList.add("active");
+class UserReactionController {
+  constructor(userId) {
+    this.userId = userId;
   }
-});
+
+  async sendUserReaction(reviewId, reaction) {
+    try {
+      const body = {
+        reaction: reaction,
+      };
+
+      const response = await fetchData(
+        `course/review/${reviewId}/reaction`,
+        "POST",
+        { "X-User-Id": this.userId },
+        body,
+        false
+      );
+
+      return response;
+    } catch (error) {
+      console.error("Ошибка при отправке реакции:", error);
+    }
+  }
+
+  async updateUserReaction(reviewId, reaction) {
+    try {
+      const body = {
+        reaction: reaction,
+      };
+
+      const response = await fetchData(
+        `course/review/${reviewId}/reaction`,
+        "PUT",
+        { "X-User-Id": this.userId },
+        body,
+        false
+      );
+
+      return response;
+    } catch (error) {
+      console.error("Ошибка при изменении реакции:", error);
+    }
+  }
+
+  async deleteUserReaction(reviewId) {
+    try {
+      const response = await fetchData(
+        `course/review/${reviewId}/reaction`,
+        "DELETE",
+        { "X-User-Id": this.userId },
+        null,
+        false
+      );
+
+      return response;
+    } catch (error) {
+      console.error("Ошибка при удалении реакции:", error);
+    }
+  }
+}
+
+class UserReactionButtons {
+  constructor(userId) {
+    this.userId = userId;
+    this.userReactionController = new UserReactionController(this.userId);
+  }
+
+  addListenerOnUserMarks(courseReviews) {
+    document.querySelectorAll(".comment-block").forEach((commentBlock) => {
+      const reviewId = commentBlock.dataset.reviewId;
+      if (!reviewId) return;
+
+      const review = courseReviews.find((r) => r.reviewId == reviewId);
+      if (!review) return;
+
+      const likeMark = commentBlock.querySelector(".user-mark-icon.like");
+      const dislikeMark = commentBlock.querySelector(".user-mark-icon.dislike");
+      const likeCount = likeMark?.nextElementSibling;
+      const dislikeCount = dislikeMark?.nextElementSibling;
+
+      if (!likeMark || !dislikeMark || !likeCount || !dislikeCount) return;
+
+      likeCount.dataset.original = review.likesCount;
+      dislikeCount.dataset.original = review.dislikesCount;
+
+      likeMark.addEventListener("click", async () => {
+        const isLikeActive = likeMark.classList.contains("active");
+        const isDislikeActive = dislikeMark.classList.contains("active");
+        if (isLikeActive) {
+          // Удаление лайка
+          likeMark.classList.remove("active");
+          likeCount.textContent = Number(likeCount.textContent) - 1;
+
+          try {
+            // Дожидаемся ответа от сервера
+            const response =
+              await this.userReactionController.deleteUserReaction(
+                review.reviewId
+              );
+
+            // Если сервер вернул ошибку
+            if (response !== 200) {
+              // Откатываем изменения в UI
+              likeMark.classList.add("active");
+              likeCount.textContent = Number(likeCount.textContent) + 1;
+              alert("Ошибка при удалении реакции");
+            }
+          } catch (error) {
+            console.error("Ошибка:", error);
+            // Откатываем изменения в UI при ошибке сети
+            likeMark.classList.add("active");
+            likeCount.textContent = Number(likeCount.textContent) + 1;
+            alert("Сетевая ошибка");
+          }
+        } else {
+          // Оптимистичное обновление UI
+
+          likeMark.classList.add("active");
+          likeCount.textContent = Number(likeCount.textContent) + 1;
+
+          try {
+            let response;
+            if (isDislikeActive) {
+              // Замена дизлайка на лайк
+              dislikeMark.classList.remove("active");
+              dislikeCount.textContent = Number(dislikeCount.textContent) - 1;
+
+              response = await this.userReactionController.updateUserReaction(
+                review.reviewId,
+                "LIKE"
+              );
+            } else {
+              // Новый лайк
+              response = await this.userReactionController.sendUserReaction(
+                review.reviewId,
+                "LIKE"
+              );
+            }
+
+            // Если сервер вернул ошибку
+            if (response !== 200) {
+              // Откатываем все изменения в UI
+              likeMark.classList.remove("active");
+              likeCount.textContent = Number(likeCount.textContent) - 1;
+
+              if (isDislikeActive) {
+                dislikeMark.classList.add("active");
+                dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
+              }
+
+              alert("Ошибка при отправке реакции");
+            }
+          } catch (error) {
+            console.error("Ошибка:", error);
+            // Откатываем все изменения в UI при ошибке сети
+            likeMark.classList.remove("active");
+            likeCount.textContent = Number(likeCount.textContent) - 1;
+
+            if (isDislikeActive) {
+              dislikeMark.classList.add("active");
+              dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
+            }
+
+            alert("Сетевая ошибка");
+          }
+        }
+      });
+
+      // Обработчик для дизлайков
+      dislikeMark.addEventListener("click", async () => {
+        const isDislikeActive = dislikeMark.classList.contains("active");
+        const isLikeActive = likeMark.classList.contains("active");
+
+        // Блокируем кнопки на время запроса
+
+        try {
+          if (isDislikeActive) {
+            // Удаление дизлайка
+            dislikeMark.classList.remove("active");
+            dislikeCount.textContent = Number(dislikeCount.textContent) - 1;
+
+            // Дожидаемся ответа от сервера
+            const response =
+              await this.userReactionController.deleteUserReaction(
+                review.reviewId
+              );
+
+            // Если сервер вернул ошибку
+            if (response !== 200) {
+              throw new Error("Ошибка при удалении реакции");
+            }
+          } else {
+            // Оптимистичное обновление UI
+            dislikeMark.classList.add("active");
+            dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
+
+            let response;
+            if (isLikeActive) {
+              // Замена лайка на дизлайк
+              likeMark.classList.remove("active");
+              likeCount.textContent = Number(likeCount.textContent) - 1;
+
+              response = await this.userReactionController.updateUserReaction(
+                review.reviewId,
+                "DISLIKE"
+              );
+            } else {
+              // Новый дизлайк
+              response = await this.userReactionController.sendUserReaction(
+                review.reviewId,
+                "DISLIKE"
+              );
+            }
+
+            // Если сервер вернул ошибку
+            if (response !== 200) {
+              throw new Error("Ошибка при отправке реакции");
+            }
+          }
+        } catch (error) {
+          console.error("Ошибка:", error);
+
+          // Откатываем изменения в UI
+          if (isDislikeActive) {
+            // Откат удаления дизлайка
+            dislikeMark.classList.add("active");
+            dislikeCount.textContent = Number(dislikeCount.textContent) + 1;
+          } else {
+            // Откат добавления дизлайка
+            dislikeMark.classList.remove("active");
+            dislikeCount.textContent = Number(dislikeCount.textContent) - 1;
+
+            // Восстанавливаем лайк, если он был
+            if (isLikeActive) {
+              likeMark.classList.add("active");
+              likeCount.textContent = Number(likeCount.textContent) + 1;
+            }
+          }
+
+          alert(error.message || "Сетевая ошибка");
+        }
+      });
+    });
+  }
+}
+
+class FilterManager {
+  constructor(activeIndex, ratingController) {
+    this.activeIndex = activeIndex;
+    this.ratingController = ratingController;
+    this.widgetBlock = document.getElementById("buttons-block");
+    this.buttons = this.widgetBlock.querySelectorAll(".widget-button");
+
+    this.reviewTypes = [
+      "NEW_FIRST",
+      "POSITIVE_FIRST",
+      "NEGATIVE_FIRST",
+      "USEFUL_FIRST",
+    ];
+  }
+
+  setActivePosition(index) {
+    this.widgetBlock.style.setProperty("--pseudo-x", `${index * 100}%`);
+    this.activeIndex = index;
+
+    this.buttons.forEach((btn, i) => {
+      btn.classList.toggle("active", i === index);
+    });
+  }
+
+  init() {
+    this.buttons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        if (this.activeIndex === index) return;
+
+        this.setActivePosition(index);
+        this.ratingController.getReviews(this.reviewTypes[index], true);
+      });
+    });
+  }
+}
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const courseId = Number(urlParams.get("courseId"));
+
+const tg = window.Telegram.WebApp;
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
+
+const rating = new RatingController(userId, courseId);
+const filterManager = new FilterManager(0, rating);
+
+filterManager.init();
+
+const userCommentController = new UserCommentController(rating, filterManager);
+const userCommentManager = new UserCommentManager(userCommentController);
+
+rating.getReviews("NEW_FIRST", false);
 
 const refer = localStorage.getItem("refer");
 const favorTab = document.getElementById("favor");

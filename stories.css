@@ -2,19 +2,14 @@
   display: none;
   flex-direction: column;
   align-items: center;
-  padding-top: calc(var(--InsetTop) * 1.5 + 12px);
-
-
+  padding-top: calc(var(--inset-top) * 1.5 + 12px);
   gap: 40px;
-
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-
   z-index: 99990;
-
   overflow: hidden;
 }
 
@@ -23,29 +18,24 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px 5px;
+  padding: 0 5px;
   width: auto;
   gap: 5px;
-
   height: 3px;
-
   align-self: stretch;
 }
 
 .status-bar-element {
   display: flex;
-
   width: auto;
   height: 3px;
-
-  background: rgba(255, 255, 255, 0.4);
+  background: rgb(255 255 255 / 40%);
   border-radius: 100px;
-
   flex-grow: 1;
 }
 
 .status-bar-element.active {
-  background: #ffffff;
+  background: #fff;
 }
 
 .main-content {
@@ -53,11 +43,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 24px;
-  padding-bottom: calc(var(--InsetTop) * 1.8 + var(--tabBarHeight) * 0.5);
-
+  padding: 0 24px;
+  padding-bottom: calc(var(--inset-top) * 1.8 + var(--tab-bar-height) * 0.5);
   width: auto;
-
   flex: none;
   order: 1;
   align-self: stretch;
@@ -69,14 +57,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0;
   gap: 36px;
-
   margin: 0 auto;
-
   font-family: "Inter";
   font-style: normal;
-  color: #ffffff;
+  color: #fff;
 }
 
 .text-header {
@@ -95,12 +81,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px;
+  padding: 0;
   gap: 70px;
   width: 100%;
-
   margin: 0 auto;
-
   flex: none;
   order: 1;
   align-self: stretch;
@@ -112,10 +96,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0px;
-
+  padding: 0;
   width: 100%;
-
 }
 
 .button {
@@ -123,29 +105,25 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px 10px;
-
+  padding: 0 10px;
   width: 110px;
   height: 35px;
-
   border-radius: 1000px;
-
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
-
   cursor: pointer;
   pointer-events: auto;
 }
 
 .button.skip {
-  background: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
+  background: rgb(0 0 0 / 30%);
+  color: #fff;
 }
 
 .button.next {
-  background: #ffffff;
-  color: #000000;
+  background: #fff;
+  color: #000;
 }

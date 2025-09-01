@@ -1,135 +1,94 @@
 import fetchData from "./fetch.js";
 
-localStorage.removeItem("courseData");
+class FavoriteController {
+  constructor(userId, tabManager, modalManager) {
+    this.userId = userId;
+    this.tabManager = tabManager;
+    this.modalManager = modalManager;
 
-const tg = window.Telegram.WebApp;
-const avatarUrl =
-  tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
-const userId = tg.initDataUnsafe?.user?.id ?? 1;
-const rawUsername = tg.initDataUnsafe?.user?.username;
-const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
-
-let flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
-let tabBar;
-document.addEventListener("DOMContentLoaded", () => {
-  tabBar = document.querySelectorAll(".tab-item");
-  if (flagFirstJoin === true) {
-    tabBar.forEach((item) => {
-      item.style.pointerEvents = "none";
-    });
-    sendUserInfo();
-    flagFirstJoin = false;
-    localStorage.setItem("flagFirstJoin", flagFirstJoin);
-  } else {
-    getFavoriteCourses();
-  }
-});
-
-const modal = document.getElementById("modal");
-const buttonModal = document.getElementById("okButton");
-buttonModal.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-function createListRewards(rewards) {
-  const listRewards = document.getElementById("listRewards");
-  const divReward = document.getElementById("reward");
-  divReward.innerHTML = `+${rewards.userReward} CUNA<div class="modal-coin-logo"></div>
-  `;
-
-  rewards.dailyEntryRewardList.forEach((item) => {
-    const reward = document.createElement("li");
-    if (rewards.userStreakDays >= item.streakDays) {
-      reward.classList.add("complete");
-    }
-    reward.innerText = item.reward;
-
-    listRewards.append(reward);
-  });
-
-  modal.style.display = "flex";
-}
-
-async function sendUserInfo() {
-  let referallId = JSON.parse(localStorage.getItem("referallId"));
-
-  if (referallId && referallId === userId) {
-    referallId = null;
+    this.favoriteUI = new FavoriteUI("favorite-courses");
   }
 
-  let body = {};
+  async sendUserInfo() {
+    let referallId = JSON.parse(localStorage.getItem("referallId"));
 
-  body = {
-    username: username,
-    avatarUrl: avatarUrl,
-    referrerId: referallId,
-  };
-  try {
-    const rewards = await fetchData(
-      `user/login-and-reward`,
-      "POST",
-      { "X-User-Id": userId },
-      body
-    );
-
-    if (rewards.history !== null) {
-      localStorage.setItem("storiesType", rewards.history);
-      document.getElementById("page").style.display = "flex";
-
-      const event = new Event("storiesReady");
-      window.dispatchEvent(event);
+    if (referallId && referallId === userId) {
+      referallId = null;
     }
 
-    if (rewards.firstEntryToday === true) {
-      createListRewards(rewards);
+    let body = {};
+
+    body = {
+      username: username,
+      avatarUrl: avatarUrl,
+      referrerId: referallId,
+    };
+    try {
+      const rewards = await fetchData(
+        `user/login-and-reward`,
+        "POST",
+        { "X-User-Id": this.userId },
+        body
+      );
+
+      if (rewards.history !== null) {
+        localStorage.setItem("storiesType", rewards.history);
+        document.getElementById("page").style.display = "flex";
+
+        const event = new Event("storiesReady");
+        window.dispatchEvent(event);
+      }
+
+      if (rewards.firstEntryToday === true) {
+        this.modalManager.createListRewards(rewards);
+      }
+
+      localStorage.setItem("flagFirstJoin", false);
+      this.tabManager.enableTabs();
+      this.getFavoriteCourses();
+    } catch (error) {
+      console.error(error, error.status);
     }
+  }
 
-    disableTab();
-    getFavoriteCourses();
-  } catch (error) {
-    console.error(error, error.status);
+  async getFavoriteCourses() {
+    try {
+      const courseInfo = await fetchData(`user/favorite-courses`, "GET", {
+        "X-User-Id": this.userId,
+      });
+      courseInfo.length
+        ? this.favoriteUI.displayCourses(courseInfo)
+        : this.favoriteUI.displayButton();
+    } catch (error) {
+      console.error(error, error.status);
+    }
   }
 }
 
-function disableTab() {
-  tabBar.forEach((item) => {
-    item.style.pointerEvents = "auto";
-  });
-  const tab = document.getElementById("active");
-  tab.style.pointerEvents = "none";
-}
-
-async function getFavoriteCourses() {
-  try {
-    const courseInfo = await fetchData(`user/favorite-courses`, "GET", {
-      "X-User-Id": userId,
-    });
-    courseInfo.length ? displayCourses(courseInfo) : displayButton();
-  } catch (error) {
-    console.error(error, error.status);
+class FavoriteUI {
+  constructor(favoriteBlock) {
+    this.favoriteBlock = document.getElementById(favoriteBlock);
   }
-  // localStorage.setItem("infoCourse", JSON.stringify(courseInfo));
-}
 
-function displayCourses(courseInfo) {
-  document.getElementById("preloader").style.display = "none";
+  displayCourses(courseInfo) {
+    document.getElementById("preloader").style.display = "none";
 
-  const coursesDiv = document.getElementById("favorite-courses");
-  coursesDiv.innerHTML = "";
+    this.favoriteBlock.innerHTML = "";
 
-  let rating = null;
+    let rating = null;
 
-  courseInfo.forEach((course, index) => {
-    rating = course.rating;
+    courseInfo.forEach((course, index) => {
+      rating = course.rating;
 
-    const formattedRating = Number.isInteger(rating)
-      ? rating.toString()
-      : rating.toFixed(1);
-    setTimeout(() => {
-      const courseElement = document.createElement("a");
-      courseElement.href = `courses.html?id=${course.id}`;
-      courseElement.classList.add("courses-block");
-      courseElement.innerHTML = `
+      const formattedRating = Number.isInteger(rating)
+        ? rating.toString()
+        : rating.toFixed(1);
+      setTimeout(() => {
+        const courseElement = document.createElement("a");
+        courseElement.href = `courses.html?courseId=${course.id}`;
+        courseElement.classList.add("block");
+        courseElement.classList.add("courses-block");
+        courseElement.innerHTML = `
             <img src="${course.iconUrl}" class="courses-logo" />
             <div class="courses-block-text">
           <div class="courses-block-name">${course.name}</div>
@@ -155,17 +114,17 @@ function displayCourses(courseInfo) {
           </div>
         </div>
         `;
-      coursesDiv.append(courseElement);
-    }, (index + 1) * 100);
-  });
-}
+        this.favoriteBlock.append(courseElement);
+      }, (index + 1) * 100);
+    });
+  }
 
-function displayButton() {
-  const coursesDiv = document.getElementById("favorite-courses");
-  coursesDiv.innerHTML = "";
-  const courseButton = document.createElement("div");
-  courseButton.classList.add("favorite-courses-enable");
-  courseButton.innerHTML = `
+  displayButton() {
+    this.favoriteBlock.innerHTML = "";
+    const courseButton = document.createElement("div");
+    courseButton.classList.add("block");
+    courseButton.classList.add("favorite-courses-enable");
+    courseButton.innerHTML = `
         <div class="favorite-courses-enable-title">У вас еще нет курсов</div>
         <a href="catalog.html" class="favorite-courses-enable-button">
           <div class="favorite-courses-enable-button-text">Добавить курс</div>
@@ -188,6 +147,101 @@ function displayButton() {
         </a>
 
         `;
-  coursesDiv.append(courseButton);
-  document.getElementById("preloader").style.display = "none";
+    this.favoriteBlock.append(courseButton);
+    document.getElementById("preloader").style.display = "none";
+  }
 }
+
+class TabManager {
+  constructor(tabElements) {
+    this.tabs = Array.from(tabElements);
+  }
+
+  disableTabs() {
+    this.tabs.forEach((tab) => {
+      tab.style.pointerEvents = "none";
+    });
+  }
+
+  enableTabs() {
+    this.tabs.forEach((tab) => {
+      tab.style.pointerEvents = "auto";
+    });
+    const tab = document.getElementById("active");
+    tab.style.pointerEvents = "none";
+  }
+}
+
+class ModalManager {
+  constructor() {
+    this.modal = document.getElementById("modal");
+    this.buttonModal = document.getElementById("okButton");
+
+    this._bindEvents();
+  }
+
+  _bindEvents() {
+    this.buttonModal.addEventListener("click", () => {
+      this.hide();
+    });
+
+    this.modal.addEventListener("click", (event) => {
+      if (event.target === this.modal) {
+        this.hide();
+      }
+    });
+  }
+
+  createListRewards(rewards) {
+    const listRewards = document.getElementById("listRewards");
+    const divReward = document.getElementById("reward");
+    divReward.innerHTML = `+${rewards.userReward} CUNA<div class="modal-coin-logo"></div>
+  `;
+
+    rewards.dailyEntryRewardList.forEach((item) => {
+      const reward = document.createElement("li");
+      if (rewards.userStreakDays >= item.streakDays) {
+        reward.classList.add("complete");
+      }
+      reward.innerText = item.reward;
+
+      listRewards.append(reward);
+    });
+
+    this.show();
+  }
+
+  show() {
+    this.modal.style.display = "flex";
+  }
+
+  hide() {
+    this.modal.style.display = "none";
+  }
+}
+
+const tg = window.Telegram.WebApp;
+const avatarUrl =
+  tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const rawUsername = tg.initDataUnsafe?.user?.username;
+const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
+
+const flagFirstJoin = JSON.parse(localStorage.getItem("flagFirstJoin"));
+document.addEventListener("DOMContentLoaded", () => {
+  const tabBar = document.querySelectorAll(".tab-item");
+  const tabManager = new TabManager(tabBar);
+  const modalManager = new ModalManager();
+  const favoriteController = new FavoriteController(
+    userId,
+    tabManager,
+    modalManager
+  );
+
+  if (flagFirstJoin) {
+    tabManager.disableTabs();
+    favoriteController.sendUserInfo();
+  } else {
+    favoriteController.getFavoriteCourses();
+  }
+});

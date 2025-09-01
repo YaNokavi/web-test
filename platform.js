@@ -197,13 +197,13 @@ tg.onEvent("themeChanged", function () {
 
 if ((platform == "ios" || platform == "android") && version > 6) {
   tg.requestFullscreen();
-  document.documentElement.style.setProperty("--InsetTop", `${60}px`);
-  document.documentElement.style.setProperty("--tabBarHeight", `${70}px`);
-  document.documentElement.style.setProperty("--tabBarPadding", `${12}px`);
-  document.documentElement.style.setProperty("--InsetTopNavigation", `${90}px`);
+  document.documentElement.style.setProperty("--inset-top", `${60}px`);
+  document.documentElement.style.setProperty("--tab-bar-height", `${70}px`);
+  document.documentElement.style.setProperty("--tab-bar-padding", `${12}px`);
+  document.documentElement.style.setProperty("--inset-top-navigation", `${90}px`);
 } else {
-  document.documentElement.style.setProperty("--tabBarHeight", `${55}px`);
-  document.documentElement.style.setProperty("--tabBarPadding", `${9}px`);
+  document.documentElement.style.setProperty("--tab-bar-height", `${55}px`);
+  document.documentElement.style.setProperty("--tab-bar-padding", `${9}px`);
 }
 tg.lockOrientation();
 tg.expand();
@@ -233,17 +233,19 @@ if (
 let link = document.referrer.split("/").pop();
 link = link.split("?")[0];
 if (!link) link = "favorite.html";
-let idCourse;
+let courseId;
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 
+
 if (currentUrl.endsWith("syllabus.html")) {
-  idCourse = Number(params.get("id"));
+  courseId = Number(params.get("courseId"));
 } else if (currentUrl.endsWith("step.html")) {
-  idCourse = Number(params.get("syllabusId"));
+  courseId = Number(params.get("courseId"));
 } else if (currentUrl.endsWith("rating.html")) {
-  idCourse = Number(params.get("idCourse"));
+  courseId = Number(params.get("courseId"));
 }
+
 if (
   currentUrl.endsWith("courses.html") &&
   (link === "favorite.html" || link === "catalog.html")
@@ -258,9 +260,9 @@ if (
   currentUrl.endsWith("syllabus.html") ||
   currentUrl.endsWith("rating.html")
 ) {
-  link = `courses.html?v=103&id=${idCourse}`;
+  link = `courses.html?v=1.0.7&courseId=${courseId}`;
 } else if (currentUrl.endsWith("step.html")) {
-  link = `syllabus.html?v=103&id=${idCourse}`;
+  link = `syllabus.html?v=1.0.7&courseId=${courseId}`;
 }
 
 tg.onEvent("backButtonClicked", function () {

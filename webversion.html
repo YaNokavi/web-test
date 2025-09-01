@@ -55,43 +55,36 @@
     />
     <title>Cryptuna</title>
 
-    <link rel="stylesheet" type="text/css" href="styles.css?v=103" />
+    <link rel="stylesheet" type="text/css" href="styles.css?v=1.0.7" />
   </head>
 
   <body>
-    <div class="profile-header">
-      <div class="profile-title"></div>
-    </div>
+    <header></header>
 
-    <div class="main-block">
+    <main>
       <div
         class="course-block"
         style="
-          position: absolute;
-          top: 40%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
           height: 100px;
-          align-self: center;
-          justify-self: center;
+          margin: auto;
         "
       >
         <div
           class="course-block-text"
           style="
-            display: flex;
-            position: relative;
-            flex-direction: column;
-            font: 600 22px/1 Inter, sans-serif;
-            font-style: normal;
-            line-height: 20px;
-            letter-spacing: -0.43px;
             text-align: center;
-            color: #000000;
+            font-size: 22px;
+            color: var(--theme-text-color);
           "
         >
           CunaEdu не поддерживает web-версию телеграм. Приносим свои извинения!
         </div>
       </div>
-    </div>
+    </main>
     <div class="tab-bar" id="tab"></div>
   </body>
 </html>
