@@ -112,9 +112,9 @@ main {
   box-sizing: border-box;
   animation: ani 0.4s forwards;
   display: flex;
-  padding: 15px;
+  padding: 10px;
   width: 100%;
-  gap: 15px;
+  gap: 10px;
   background: var(--theme-block-color);
   border: 1px solid var(--theme-block-border-color);
   border-radius: 15px;
@@ -1176,7 +1176,7 @@ a.course-block-button {
   }
 
   95% {
-    margin-right: 40%;
+    margin-right: 22%;
     align-self: center;
   }
 
@@ -1199,7 +1199,7 @@ a.course-block-button {
 
   30% {
     margin-left: 60%;
-    margin-right: 60%;
+    margin-right: 50%;
   }
 
   100% {
@@ -2273,7 +2273,7 @@ main::-webkit-scrollbar {
 
 .friends-block-not-null-text {
   width: 100%;
-  align-items: end;
+  align-items: center;
   font-weight: 600;
   font-size: 20px;
   gap: 5px;
@@ -2286,6 +2286,7 @@ main::-webkit-scrollbar {
   display: flex;
   margin-left: auto;
   font-size: 12px;
+  font-variant-numeric: tabular-nums;
   color: var(--theme-text-hint-color);
 }
 
@@ -2293,6 +2294,7 @@ main::-webkit-scrollbar {
   width: 20px;
   text-align: right;
   font-weight: 500;
+  margin-top: 2px;
   font-size: 18px;
   color: var(--theme-text-hint-color);
 }
@@ -2461,12 +2463,18 @@ main::-webkit-scrollbar {
   color: var(--theme-text-color);
 }
 
+.friends-list-user-info-data {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
 .friends-list-user-info-balance {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0 8px;
-  gap: 5px;
+  gap: 4px;
   width: fit-content;
   height: 22px;
   background: var(--theme-bg-hint-color);
@@ -2485,6 +2493,10 @@ main::-webkit-scrollbar {
   background-size: cover;
   background-image: url("icons/logo-token.png");
   border-radius: 22px;
+}
+
+.friends-list-user-info-balance-icon {
+  color: var(--theme-button-hint-icon-text-color);
 }
 
 /*** Всплювающее уведомление баланса ***/

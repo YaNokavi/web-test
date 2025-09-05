@@ -65,13 +65,14 @@ class TopUI {
     }, 1000);
   }
 
-  displayTopUsers(topUsers) {
+  displayTopUsers({ currentUserInfo, userRatingList }) {
     let placeClass;
-    if (topUsers.userPlace === 1) {
+
+    if (currentUserInfo.place === 1) {
       placeClass = "first";
-    } else if (topUsers.userPlace === 2) {
+    } else if (currentUserInfo.place === 2) {
       placeClass = "second";
-    } else if (topUsers.userPlace === 3) {
+    } else if (currentUserInfo.place === 3) {
       placeClass = "third";
     } else {
       placeClass = "";
@@ -89,7 +90,7 @@ class TopUI {
                   )}</div>
                   <div class="friends-list-user-info-balance">
                     <div class="friends-list-user-info-balance-text">${
-                      topUsers.userBalance
+                      currentUserInfo.userEventScore
                     }</div>
                     <div class="friends-list-user-info-balance-logo"></div>
                   </div>
@@ -98,11 +99,11 @@ class TopUI {
               <div class="list-user-rating">
                 <div class="">Рейтинг</div>
                 <div class="list-user-rating-place ${placeClass}">${
-      topUsers.userPlace
+      currentUserInfo.place
     }</div></div>`;
     listFriends.append(listUser);
 
-    topUsers.userRatingList.reverse().forEach((item) => {
+    userRatingList.forEach((item) => {
       let placeClass;
       if (item.place === 1) {
         item.rewardAmount += "$";
@@ -131,7 +132,7 @@ class TopUI {
                 )}</div>
                 <div class="friends-list-user-info-balance">
                   <div class="friends-list-user-info-balance-text">${
-                    item.userBalance
+                    item.userEventScore
                   }</div>
                   <div class="friends-list-user-info-balance-logo"></div>
                 </div>
@@ -147,7 +148,7 @@ class TopUI {
         logoDiv.style.backgroundImage = `url('${item.avatarUrl}')`;
         logoDiv.style.backgroundColor = "";
       } else {
-        logoDiv.innerText = item.username[0].toUpperCase()
+        logoDiv.innerText = item.username[0].toUpperCase();
         logoDiv.style.backgroundImage = "none";
         logoDiv.style.backgroundColor = "#e04646";
       }

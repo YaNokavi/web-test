@@ -85,13 +85,14 @@ class FriendsUI {
     }, 1000);
   }
 
-  displayTopUsers(topUsers) {
+  displayTopUsers({ currentUserInfo, userRatingList }) {
+    console.log(currentUserInfo);
     let placeClass;
-    if (topUsers.userPlace === 1) {
+    if (currentUserInfo.place === 1) {
       placeClass = "first";
-    } else if (topUsers.userPlace === 2) {
+    } else if (currentUserInfo.place === 2) {
       placeClass = "second";
-    } else if (topUsers.userPlace === 3) {
+    } else if (currentUserInfo.place === 3) {
       placeClass = "third";
     } else {
       placeClass = "";
@@ -106,22 +107,39 @@ class FriendsUI {
                 <div class="friends-list-user-logo" style="background-image: url('${avatarUrl}')"></div>
                 <div class="friends-list-user-info">
                   <div class="friends-list-user-info-name">${username}</div>
-                  <div class="friends-list-user-info-balance">
-                    <div class="friends-list-user-info-balance-text">${topUsers.userBalance}</div>
-                    <div class="friends-list-user-info-balance-logo"></div>
+                  <div class="friends-list-user-info-data">
+                    <div class="friends-list-user-info-balance">
+                      <div class="friends-list-user-info-balance-text">${currentUserInfo.userEventScore}</div>
+                      <div class="friends-list-user-info-balance-logo"></div>
+                    </div>
+                    <div class="friends-list-user-info-balance">
+                      <div class="friends-list-user-info-balance-text">${currentUserInfo.referralsNumber}</div>
+                        <svg class="friends-list-user-info-balance-icon" width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_51_711)">
+                            <path d="M19.9584 24.5V22.1667C19.9584 20.929 19.4667 19.742 18.5916 18.8668C17.7164 17.9917 16.5294 17.5 15.2917 17.5H5.95841C4.72074 17.5 3.53375 17.9917 2.65858 18.8668C1.78341 19.742 1.29175 20.929 1.29175 22.1667V24.5"
+                             stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M10.6249 12.8333C13.2022 12.8333 15.2916 10.744 15.2916 8.16667C15.2916 5.58934 13.2022 3.5 10.6249 3.5C8.04759 3.5 5.95825 5.58934 5.95825 8.16667C5.95825 10.744 8.04759 12.8333 10.6249 12.8333Z"
+                             stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M26.9583 24.4999V22.1666C26.9575 21.1326 26.6133 20.1282 25.9798 19.311C25.3464 18.4938 24.4594 17.9101 23.4583 17.6516" 
+                            stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M18.7917 3.65161C19.7956 3.90863 20.6853 4.49243 21.3207 5.31097C21.956 6.12952 22.3009 7.13625 22.3009 8.17244C22.3009 9.20864 21.956 10.2154 21.3207 11.0339C20.6853 11.8525 19.7956 12.4363 18.7917 12.6933" 
+                            stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </g>
+                        </svg>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="list-user-rating">
                 <div class="">Рейтинг</div>
-                <div class="list-user-rating-place ${placeClass}">${topUsers.userPlace}</div>
+                <div class="list-user-rating-place ${placeClass}">${currentUserInfo.place}</div>
               </div>
             
           
           `;
     listFriends.append(listUser);
 
-    topUsers.userRatingList.reverse().forEach((item) => {
+    userRatingList.forEach((item) => {
       let placeClass;
       if (item.place === 1) {
         item.rewardAmount += "$";
@@ -147,12 +165,31 @@ class FriendsUI {
                 <div class="friends-list-user-info-name">${DOMPurify.sanitize(
                   item.username
                 )}</div>
-                <div class="friends-list-user-info-balance">
-                  <div class="friends-list-user-info-balance-text">${
-                    item.userBalance
-                  }</div>
-                  <div class="friends-list-user-info-balance-logo"></div>
-                </div>
+                  <div class="friends-list-user-info-data">
+                    <div class="friends-list-user-info-balance">
+                      <div class="friends-list-user-info-balance-text">${
+                        item.userEventScore
+                      }</div>
+                      <div class="friends-list-user-info-balance-logo"></div>
+                    </div>
+                    <div class="friends-list-user-info-balance">
+                      <div class="friends-list-user-info-balance-text">${
+                        item.referralsNumber
+                      }</div>
+                        <svg class="friends-list-user-info-balance-icon" width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_51_711)">
+                            <path d="M19.9584 24.5V22.1667C19.9584 20.929 19.4667 19.742 18.5916 18.8668C17.7164 17.9917 16.5294 17.5 15.2917 17.5H5.95841C4.72074 17.5 3.53375 17.9917 2.65858 18.8668C1.78341 19.742 1.29175 20.929 1.29175 22.1667V24.5"
+                             stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M10.6249 12.8333C13.2022 12.8333 15.2916 10.744 15.2916 8.16667C15.2916 5.58934 13.2022 3.5 10.6249 3.5C8.04759 3.5 5.95825 5.58934 5.95825 8.16667C5.95825 10.744 8.04759 12.8333 10.6249 12.8333Z"
+                             stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M26.9583 24.4999V22.1666C26.9575 21.1326 26.6133 20.1282 25.9798 19.311C25.3464 18.4938 24.4594 17.9101 23.4583 17.6516" 
+                            stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M18.7917 3.65161C19.7956 3.90863 20.6853 4.49243 21.3207 5.31097C21.956 6.12952 22.3009 7.13625 22.3009 8.17244C22.3009 9.20864 21.956 10.2154 21.3207 11.0339C20.6853 11.8525 19.7956 12.4363 18.7917 12.6933" 
+                            stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </g>
+                        </svg>
+                    </div>
+                  </div>
               </div>
             </div>
             <div class="list-user-reward">${item.rewardAmount}</div>
