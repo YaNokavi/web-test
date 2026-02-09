@@ -615,7 +615,7 @@ main {
   color: var(--theme-text-color);
 }
 
-.token-block-text .name.loader {
+.token-block-text .name.wallet-loader {
   width: 100px;
   height: 20px;
 }
@@ -625,7 +625,7 @@ main {
   color: var(--theme-text-hint-color);
 }
 
-.token-block-text .balance.loader {
+.token-block-text .balance.wallet-loader {
   width: 80px;
   height: 20px;
 }
@@ -636,12 +636,12 @@ main {
   color: var(--theme-text-color);
 }
 
-.token-block .total-balance.loader {
+.token-block .total-balance.wallet-loader {
   width: 60px;
   height: 30px;
 }
 
-.loader {
+.wallet-loader {
   background: linear-gradient(60deg, var(--theme-loader-wallet-color));
   background-size: 200% 100%;
   border-radius: 15px;
@@ -659,15 +659,15 @@ main {
   }
 }
 
-.token-block-text .name.loader,
-.token-block-text .balance.loader,
-.token-block .total-balance.loader {
+.token-block-text .name.wallet-loader,
+.token-block-text .balance.wallet-loader,
+.token-block .total-balance.wallet-loader {
   position: relative;
   color: transparent;
   pointer-events: none;
 }
 
-.token-logo.loader {
+.token-logo.wallet-loader {
   border-radius: 50%;
 }
 

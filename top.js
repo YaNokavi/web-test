@@ -97,7 +97,7 @@ class TopUI {
                 </div>
               </div>
               <div class="list-user-rating">
-                <div class="">Рейтинг</div>
+                <div>Рейтинг</div>
                 <div class="list-user-rating-place ${placeClass}">${
       currentUserInfo.place
     }</div></div>`;

@@ -63,7 +63,6 @@ class RatingController {
         "GET",
         { "X-User-Id": this.userId }
       );
-
       this.ratingUI.displayComments(reviews.courseReviews);
 
       this.ratingUI.displayRating(reviews.courseRatingInfo);
@@ -605,7 +604,7 @@ class UserCommentManager {
             );
             this.resetButtons(reviews.currentUserReview);
           } else {
-            alert("Ваш отзыв не изменился!")
+            alert("Ваш отзыв не изменился!");
           }
         } else {
           this.userCommentController.sendComment(

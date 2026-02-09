@@ -9,6 +9,18 @@ class FavoriteController {
     this.favoriteUI = new FavoriteUI("favorite-courses");
   }
 
+  async getUserIP() {
+    try {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+
+      return data.ip;
+    } catch (error) {
+      console.error("Ошибка получения IP:", error);
+      return null;
+    }
+  }
+
   async sendUserInfo() {
     let referallId = JSON.parse(localStorage.getItem("referallId"));
 
@@ -24,11 +36,13 @@ class FavoriteController {
       referrerId: referallId,
     };
     try {
+      const userIp = await this.getUserIP();
+
       const rewards = await fetchData(
         `user/login-and-reward`,
         "POST",
-        { "X-User-Id": this.userId },
-        body
+        { "X-User-Id": this.userId, "X-User-Ip": userIp },
+        body,
       );
 
       if (rewards.history !== null) {
@@ -83,12 +97,13 @@ class FavoriteUI {
       const formattedRating = Number.isInteger(rating)
         ? rating.toString()
         : rating.toFixed(1);
-      setTimeout(() => {
-        const courseElement = document.createElement("a");
-        courseElement.href = `courses.html?courseId=${course.id}`;
-        courseElement.classList.add("block");
-        courseElement.classList.add("courses-block");
-        courseElement.innerHTML = `
+      setTimeout(
+        () => {
+          const courseElement = document.createElement("a");
+          courseElement.href = `courses.html?courseId=${course.id}`;
+          courseElement.classList.add("block");
+          courseElement.classList.add("courses-block");
+          courseElement.innerHTML = `
             <img src="${course.iconUrl}" class="courses-logo" />
             <div class="courses-block-text">
           <div class="courses-block-name">${course.name}</div>
@@ -114,8 +129,10 @@ class FavoriteUI {
           </div>
         </div>
         `;
-        this.favoriteBlock.append(courseElement);
-      }, (index + 1) * 100);
+          this.favoriteBlock.append(courseElement);
+        },
+        (index + 1) * 100,
+      );
     });
   }
 
@@ -235,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const favoriteController = new FavoriteController(
     userId,
     tabManager,
-    modalManager
+    modalManager,
   );
 
   if (flagFirstJoin) {

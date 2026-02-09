@@ -426,19 +426,19 @@ class WalletUI {
 
           if (nameEl) {
             nameEl.textContent = token.name;
-            nameEl.classList.remove("loader");
+            nameEl.classList.remove("wallet-loader");
           }
 
           if (balanceEl) {
             balanceEl.textContent = `${token.amount.toFixed(2)} ${
               token.symbol
             }`;
-            balanceEl.classList.remove("loader");
+            balanceEl.classList.remove("wallet-loader");
           }
 
           if (balanceUsdEl) {
             balanceUsdEl.textContent = `${token.amountInUsd}$`;
-            balanceUsdEl.classList.remove("loader");
+            balanceUsdEl.classList.remove("wallet-loader");
           }
         });
     });
