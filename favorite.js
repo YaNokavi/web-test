@@ -9,6 +9,73 @@ class FavoriteController {
     this.favoriteUI = new FavoriteUI("favorite-courses");
   }
 
+  async getDeviceTag() {
+    return new Promise((resolve) => {
+      // 1. Проверяем LocalStorage (привязан к браузеру/устройству)
+      let localTag = localStorage.getItem("device_unique_tag");
+
+      // Если CloudStorage недоступен (старая версия Telegram), работаем только с LocalStorage
+      if (!this.tg.isVersionAtLeast("6.9")) {
+        if (!localTag) {
+          localTag = "DEV-" + Math.random().toString(36).substr(2, 9);
+          localStorage.setItem("device_unique_tag", localTag);
+        }
+        return resolve({ tag: localTag, suspect: false });
+      }
+
+      // 2. Проверяем CloudStorage (привязан к аккаунту Telegram)
+      this.tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
+        if (err) {
+          console.error("CloudStorage error:", err);
+          // В случае ошибки возвращаем то, что есть в локале, или генерим новый
+          if (!localTag) {
+            localTag = "DEV-" + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem("device_unique_tag", localTag);
+          }
+          return resolve({ tag: localTag, suspect: false });
+        }
+
+        // --- ЛОГИКА КАПКАНА ---
+
+        // Случай А: Чистый юзер (нет ни там, ни там)
+        if (!localTag && !cloudTag) {
+          const newTag = "DEV-" + Math.random().toString(36).substr(2, 9);
+          localStorage.setItem("device_unique_tag", newTag);
+          this.tg.CloudStorage.setItem("device_unique_tag", newTag);
+          return resolve({ tag: newTag, suspect: false });
+        }
+
+        // Случай Б: Сменил устройство (есть в облаке, нет в локале)
+        if (!localTag && cloudTag) {
+          localStorage.setItem("device_unique_tag", cloudTag); // Синхронизируем
+          return resolve({ tag: cloudTag, suspect: false });
+        }
+
+        // Случай В: Переустановил приложение/очистил облако (есть в локале, нет в облаке)
+        if (localTag && !cloudTag) {
+          this.tg.CloudStorage.setItem("device_unique_tag", localTag); // Восстанавливаем в облако
+          return resolve({ tag: localTag, suspect: false });
+        }
+
+        // Случай Г: МУЛЬТИАККАУНТ (Есть и там, и там, но РАЗНЫЕ)
+        // В локале лежит тег от Аккаунта №1, а в облаке тег от Аккаунта №2
+        if (localTag && cloudTag && localTag !== cloudTag) {
+          // Это срабатывает, когда на одном телефоне зашли с другого Telegram аккаунта
+
+          // ДЕМОНСТРАЦИЯ ДЛЯ ТЕСТА:
+          this.tg.showAlert(
+            `⚠️ Обнаружен мультиаккаунтинг!\nУстройство: ${localTag}\nАккаунт: ${cloudTag}`,
+          );
+
+          return resolve({ tag: localTag, suspect: true });
+        }
+
+        // Если всё совпадает
+        return resolve({ tag: localTag, suspect: false });
+      });
+    });
+  }
+
   async getUserIP() {
     try {
       const response = await fetch("https://api.ipify.org?format=json");
@@ -24,7 +91,7 @@ class FavoriteController {
   async sendUserInfo() {
     let referallId = JSON.parse(localStorage.getItem("referallId"));
 
-    if (referallId && referallId === userId) {
+    if (referallId && referallId === this.userId) {
       referallId = null;
     }
 
@@ -36,9 +103,15 @@ class FavoriteController {
       referrerId: referallId,
     };
 
-    console.log(tg);
     try {
-      const userIp = await this.getUserIP();
+      // const userIp = await this.getUserIP();
+
+      const [userIp, deviceData] = await Promise.all([
+        this.getUserIP(),
+        this.getDeviceTag(),
+      ]);
+
+      alert("Device Check:", deviceData);
 
       const rewards = await fetchData(
         `user/login-and-reward`,
@@ -240,8 +313,6 @@ class ModalManager {
 }
 
 const tg = window.Telegram.WebApp;
-alert(tg.initData);
-alert(JSON.stringify(tg.initDataUnsafe, null, 2));
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
 const userId = tg.initDataUnsafe?.user?.id ?? 1;
