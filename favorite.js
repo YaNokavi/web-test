@@ -68,15 +68,14 @@ class FavoriteController {
         this.getDeviceTag(),
       ]);
 
-      alert(
-        `📱 Fingerprint (Device): ${deviceData}\n` +
-          `🆔 User ID: ${this.userId}`,
-      );
-
       const rewards = await fetchData(
         `user/login-and-reward`,
         "POST",
-        { "X-User-Id": this.userId, "X-User-Ip": userIp },
+        {
+          "X-User-Id": this.userId,
+          "X-User-Ip": userIp,
+          "X-User-Device-Id": deviceData,
+        },
         body,
       );
 
