@@ -15,7 +15,7 @@ class FavoriteController {
       let localTag = localStorage.getItem("device_unique_tag");
 
       // Если CloudStorage недоступен (старая версия Telegram), работаем только с LocalStorage
-      if (!this.tg.isVersionAtLeast("6.9")) {
+      if (!tg.isVersionAtLeast("6.9")) {
         if (!localTag) {
           localTag = "DEV-" + Math.random().toString(36).substr(2, 9);
           localStorage.setItem("device_unique_tag", localTag);
@@ -24,7 +24,7 @@ class FavoriteController {
       }
 
       // 2. Проверяем CloudStorage (привязан к аккаунту Telegram)
-      this.tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
+      tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
         if (err) {
           console.error("CloudStorage error:", err);
           // В случае ошибки возвращаем то, что есть в локале, или генерим новый
@@ -41,7 +41,7 @@ class FavoriteController {
         if (!localTag && !cloudTag) {
           const newTag = "DEV-" + Math.random().toString(36).substr(2, 9);
           localStorage.setItem("device_unique_tag", newTag);
-          this.tg.CloudStorage.setItem("device_unique_tag", newTag);
+          tg.CloudStorage.setItem("device_unique_tag", newTag);
           return resolve({ tag: newTag, suspect: false });
         }
 
@@ -53,7 +53,7 @@ class FavoriteController {
 
         // Случай В: Переустановил приложение/очистил облако (есть в локале, нет в облаке)
         if (localTag && !cloudTag) {
-          this.tg.CloudStorage.setItem("device_unique_tag", localTag); // Восстанавливаем в облако
+          tg.CloudStorage.setItem("device_unique_tag", localTag); // Восстанавливаем в облако
           return resolve({ tag: localTag, suspect: false });
         }
 
@@ -63,7 +63,7 @@ class FavoriteController {
           // Это срабатывает, когда на одном телефоне зашли с другого Telegram аккаунта
 
           // ДЕМОНСТРАЦИЯ ДЛЯ ТЕСТА:
-          this.tg.showAlert(
+          tg.showAlert(
             `⚠️ Обнаружен мультиаккаунтинг!\nУстройство: ${localTag}\nАккаунт: ${cloudTag}`,
           );
 
@@ -315,7 +315,7 @@ class ModalManager {
 const tg = window.Telegram.WebApp;
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
-const userId = tg.initDataUnsafe?.user?.id ?? 1;
+const userId = tg.initDataUnsafe?.user?.id ?? 2;
 const rawUsername = tg.initDataUnsafe?.user?.username;
 const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
