@@ -1,79 +1,104 @@
 import fetchData from "./fetch.js";
+import FingerprintJS from "https://openfpcdn.io/fingerprintjs/v4";
 
 class FavoriteController {
   constructor(userId, tabManager, modalManager) {
     this.userId = userId;
     this.tabManager = tabManager;
     this.modalManager = modalManager;
+    this.tg = window.Telegram.WebApp;
 
     this.favoriteUI = new FavoriteUI("favorite-courses");
   }
 
   async getDeviceTag() {
-    return new Promise((resolve) => {
-      // 1. Проверяем LocalStorage (привязан к браузеру/устройству)
-      let localTag = localStorage.getItem("device_unique_tag");
-
-      // Если CloudStorage недоступен (старая версия Telegram), работаем только с LocalStorage
-      if (!tg.isVersionAtLeast("6.9")) {
-        if (!localTag) {
-          localTag = "DEV-" + Math.random().toString(36).substr(2, 9);
-          localStorage.setItem("device_unique_tag", localTag);
-        }
-        return resolve({ tag: localTag, suspect: false });
+    return new Promise(async (resolve) => {
+      // 1. Получаем "Железный" Fingerprint (замена ненадежному localStorage)
+      let deviceFingerprint = "unknown";
+      try {
+        const fp = await FingerprintJS.load();
+        const result = await fp.get();
+        deviceFingerprint = result.visitorId;
+        console.log("Browser Fingerprint:", deviceFingerprint);
+      } catch (e) {
+        console.error("Fingerprint error:", e);
+        // Фолбэк, если либа заблокирована: используем хотя бы localStorage
+        deviceFingerprint =
+          localStorage.getItem("device_unique_tag") ||
+          "DEV-" + Math.random().toString(36).substr(2, 9);
       }
 
-      console.log(tg.CloudStorage);
+      // Сохраним локально для подстраховки (хотя мы уже поняли, что это может стираться)
+      localStorage.setItem("device_unique_tag", deviceFingerprint);
+
+      // Если CloudStorage недоступен, возвращаем только fingerprint
+      if (!this.tg.isVersionAtLeast("6.9")) {
+        return resolve({
+          tag: deviceFingerprint,
+          cloudTag: null,
+          suspect: false,
+        });
+      }
 
       // 2. Проверяем CloudStorage (привязан к аккаунту Telegram)
-      tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
+      this.tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
         if (err) {
           console.error("CloudStorage error:", err);
-          // В случае ошибки возвращаем то, что есть в локале, или генерим новый
-          if (!localTag) {
-            localTag = "DEV-" + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem("device_unique_tag", localTag);
-          }
-          return resolve({ tag: localTag, suspect: false });
+          return resolve({
+            tag: deviceFingerprint,
+            cloudTag: null,
+            suspect: false,
+          });
         }
 
-        // --- ЛОГИКА КАПКАНА ---
+        // --- ЛОГИКА СРАВНЕНИЯ ---
 
-        // Случай А: Чистый юзер (нет ни там, ни там)
-        if (!localTag && !cloudTag) {
-          const newTag = "DEV-" + Math.random().toString(36).substr(2, 9);
-          localStorage.setItem("device_unique_tag", newTag);
-          tg.CloudStorage.setItem("device_unique_tag", newTag);
-          return resolve({ tag: newTag, suspect: false });
+        // cloudTag - это то, что мы записали в облако ЭТОГО юзера ранее.
+        // deviceFingerprint - это то, что мы вычислили прямо сейчас на ЭТОМ устройстве.
+
+        // Сценарий 1: Новый юзер (в облаке пусто)
+        if (!cloudTag) {
+          // Записываем его текущий fingerprint в облако
+          this.tg.CloudStorage.setItem("device_unique_tag", deviceFingerprint);
+          return resolve({
+            tag: deviceFingerprint,
+            cloudTag: null,
+            suspect: false,
+          });
         }
 
-        // Случай Б: Сменил устройство (есть в облаке, нет в локале)
-        if (!localTag && cloudTag) {
-          localStorage.setItem("device_unique_tag", cloudTag); // Синхронизируем
-          return resolve({ tag: cloudTag, suspect: false });
+        // Сценарий 2: Юзер вернулся с ТОГО ЖЕ устройства
+        if (cloudTag === deviceFingerprint) {
+          return resolve({
+            tag: deviceFingerprint,
+            cloudTag: cloudTag,
+            suspect: false,
+          });
         }
 
-        // Случай В: Переустановил приложение/очистил облако (есть в локале, нет в облаке)
-        if (localTag && !cloudTag) {
-          tg.CloudStorage.setItem("device_unique_tag", localTag); // Восстанавливаем в облако
-          return resolve({ tag: localTag, suspect: false });
+        // Сценарий 3: Юзер зашел с НОВОГО устройства (fingerprint другой)
+        // Это нормально, люди меняют телефоны.
+        if (cloudTag !== deviceFingerprint) {
+          // Здесь мы не можем точно сказать, мультиаккаунт это или просто смена телефона.
+          // Но мы вернем оба ID, и сервер решит.
+          // Важно: мы НЕ перезаписываем облако сразу, чтобы не потерять историю.
+          // Или перезаписываем, если считаем это просто новым входом.
+
+          // ДЛЯ МУЛЬТИАККАУНТА ВАЖНО ДРУГОЕ:
+          // На сервере вы должны искать: "Есть ли другие юзеры с таким же deviceFingerprint?"
+
+          return resolve({
+            tag: deviceFingerprint,
+            cloudTag: cloudTag,
+            suspect: false,
+          });
         }
 
-        // Случай Г: МУЛЬТИАККАУНТ (Есть и там, и там, но РАЗНЫЕ)
-        // В локале лежит тег от Аккаунта №1, а в облаке тег от Аккаунта №2
-        if (localTag && cloudTag && localTag !== cloudTag) {
-          // Это срабатывает, когда на одном телефоне зашли с другого Telegram аккаунта
-
-          // ДЕМОНСТРАЦИЯ ДЛЯ ТЕСТА:
-          tg.showAlert(
-            `⚠️ Обнаружен мультиаккаунтинг!\nУстройство: ${localTag}\nАккаунт: ${cloudTag}`,
-          );
-
-          return resolve({ tag: localTag, suspect: true });
-        }
-
-        // Если всё совпадает
-        return resolve({ tag: localTag, suspect: false });
+        return resolve({
+          tag: deviceFingerprint,
+          cloudTag: cloudTag,
+          suspect: false,
+        });
       });
     });
   }
@@ -112,6 +137,15 @@ class FavoriteController {
         this.getUserIP(),
         this.getDeviceTag(),
       ]);
+
+      // --- ТЕСТОВЫЙ ALERT ---
+      // Показываем текущий Fingerprint устройства и то, что сохранено в облаке
+      this.tg.showAlert(
+        `🔍 Диагностика:\n` +
+          `📱 Fingerprint (Device): ${deviceData.tag}\n` +
+          `☁️ Cloud Tag (Account): ${deviceData.cloudTag || "Пусто (Новый)"}\n` +
+          `🆔 User ID: ${this.userId}`,
+      );
 
       tg.showAlert(deviceData.tag);
 
