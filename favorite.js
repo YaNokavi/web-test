@@ -35,6 +35,8 @@ class FavoriteController {
       avatarUrl: avatarUrl,
       referrerId: referallId,
     };
+
+    console.log(tg);
     try {
       const userIp = await this.getUserIP();
 
@@ -238,6 +240,8 @@ class ModalManager {
 }
 
 const tg = window.Telegram.WebApp;
+alert(tg.initData);
+alert(JSON.stringify(tg.initDataUnsafe, null, 2));
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
 const userId = tg.initDataUnsafe?.user?.id ?? 1;
