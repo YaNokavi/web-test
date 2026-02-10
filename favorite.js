@@ -23,6 +23,8 @@ class FavoriteController {
         return resolve({ tag: localTag, suspect: false });
       }
 
+      console.log(tg.CloudStorage);
+
       // 2. Проверяем CloudStorage (привязан к аккаунту Telegram)
       tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
         if (err) {
@@ -111,7 +113,7 @@ class FavoriteController {
         this.getDeviceTag(),
       ]);
 
-      alert("Device Check:", deviceData);
+      alert("Device Check:", String(deviceData.tag));
 
       const rewards = await fetchData(
         `user/login-and-reward`,
@@ -315,7 +317,7 @@ class ModalManager {
 const tg = window.Telegram.WebApp;
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
-const userId = tg.initDataUnsafe?.user?.id ?? 2;
+const userId = tg.initDataUnsafe?.user?.id ?? 1;
 const rawUsername = tg.initDataUnsafe?.user?.username;
 const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
