@@ -12,95 +12,27 @@ class FavoriteController {
   }
 
   async getDeviceTag() {
-    return new Promise(async (resolve) => {
-      // 1. Получаем "Железный" Fingerprint (замена ненадежному localStorage)
-      let deviceFingerprint = "unknown";
-      try {
-        const fp = await FingerprintJS.load();
-        const result = await fp.get();
-        deviceFingerprint = result.visitorId;
-        console.log("Browser Fingerprint:", deviceFingerprint);
-      } catch (e) {
-        console.error("Fingerprint error:", e);
-        // Фолбэк, если либа заблокирована: используем хотя бы localStorage
-        deviceFingerprint =
-          localStorage.getItem("device_unique_tag") ||
-          "DEV-" + Math.random().toString(36).substr(2, 9);
+    // Больше не нужен Promise обертка, так как FingerprintJS и так промис,
+    // а колбэков CloudStorage больше нет.
+    let deviceFingerprint = "unknown";
+    try {
+      const fp = await FingerprintJS.load();
+      const result = await fp.get();
+      deviceFingerprint = result.visitorId;
+      console.log("Browser Fingerprint:", deviceFingerprint);
+    } catch (e) {
+      console.error("Fingerprint error:", e);
+      // Фолбэк на случай блокировки скрипта (например, AdBlock)
+      // Используем localStorage как "мягкий" идентификатор
+      deviceFingerprint = localStorage.getItem("device_unique_tag");
+
+      if (!deviceFingerprint) {
+        deviceFingerprint = "DEV-" + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem("device_unique_tag", deviceFingerprint);
       }
+    }
 
-      // Сохраним локально для подстраховки (хотя мы уже поняли, что это может стираться)
-      localStorage.setItem("device_unique_tag", deviceFingerprint);
-
-      // Если CloudStorage недоступен, возвращаем только fingerprint
-      if (!this.tg.isVersionAtLeast("6.9")) {
-        return resolve({
-          tag: deviceFingerprint,
-          cloudTag: null,
-          suspect: false,
-        });
-      }
-
-      // 2. Проверяем CloudStorage (привязан к аккаунту Telegram)
-      this.tg.CloudStorage.getItem("device_unique_tag", (err, cloudTag) => {
-        if (err) {
-          console.error("CloudStorage error:", err);
-          return resolve({
-            tag: deviceFingerprint,
-            cloudTag: null,
-            suspect: false,
-          });
-        }
-
-        // --- ЛОГИКА СРАВНЕНИЯ ---
-
-        // cloudTag - это то, что мы записали в облако ЭТОГО юзера ранее.
-        // deviceFingerprint - это то, что мы вычислили прямо сейчас на ЭТОМ устройстве.
-
-        // Сценарий 1: Новый юзер (в облаке пусто)
-        if (!cloudTag) {
-          // Записываем его текущий fingerprint в облако
-          this.tg.CloudStorage.setItem("device_unique_tag", deviceFingerprint);
-          return resolve({
-            tag: deviceFingerprint,
-            cloudTag: null,
-            suspect: false,
-          });
-        }
-
-        // Сценарий 2: Юзер вернулся с ТОГО ЖЕ устройства
-        if (cloudTag === deviceFingerprint) {
-          return resolve({
-            tag: deviceFingerprint,
-            cloudTag: cloudTag,
-            suspect: false,
-          });
-        }
-
-        // Сценарий 3: Юзер зашел с НОВОГО устройства (fingerprint другой)
-        // Это нормально, люди меняют телефоны.
-        if (cloudTag !== deviceFingerprint) {
-          // Здесь мы не можем точно сказать, мультиаккаунт это или просто смена телефона.
-          // Но мы вернем оба ID, и сервер решит.
-          // Важно: мы НЕ перезаписываем облако сразу, чтобы не потерять историю.
-          // Или перезаписываем, если считаем это просто новым входом.
-
-          // ДЛЯ МУЛЬТИАККАУНТА ВАЖНО ДРУГОЕ:
-          // На сервере вы должны искать: "Есть ли другие юзеры с таким же deviceFingerprint?"
-
-          return resolve({
-            tag: deviceFingerprint,
-            cloudTag: cloudTag,
-            suspect: false,
-          });
-        }
-
-        return resolve({
-          tag: deviceFingerprint,
-          cloudTag: cloudTag,
-          suspect: false,
-        });
-      });
-    });
+    return deviceFingerprint;
   }
 
   async getUserIP() {
@@ -131,23 +63,15 @@ class FavoriteController {
     };
 
     try {
-      // const userIp = await this.getUserIP();
-
       const [userIp, deviceData] = await Promise.all([
         this.getUserIP(),
         this.getDeviceTag(),
       ]);
 
-      // --- ТЕСТОВЫЙ ALERT ---
-      // Показываем текущий Fingerprint устройства и то, что сохранено в облаке
-      this.tg.showAlert(
-        `🔍 Диагностика:\n` +
-          `📱 Fingerprint (Device): ${deviceData.tag}\n` +
-          `☁️ Cloud Tag (Account): ${deviceData.cloudTag || "Пусто (Новый)"}\n` +
+      alert(
+        `📱 Fingerprint (Device): ${deviceData}\n` +
           `🆔 User ID: ${this.userId}`,
       );
-
-      tg.showAlert(deviceData.tag);
 
       const rewards = await fetchData(
         `user/login-and-reward`,
