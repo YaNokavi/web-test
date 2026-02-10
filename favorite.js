@@ -113,7 +113,7 @@ class FavoriteController {
         this.getDeviceTag(),
       ]);
 
-      tg.showAlert("Device Check:", deviceData.tag);
+      tg.showAlert(deviceData.tag);
 
       const rewards = await fetchData(
         `user/login-and-reward`,
