@@ -18,6 +18,12 @@ class FavoriteController {
     try {
       const fp = await FingerprintJS.load();
       const result = await fp.get();
+      alert(
+        result.components.platform.value,
+        result.components.vendor.value,
+        result.components.vendorFlavors.value,
+      );
+
       deviceFingerprint = result.visitorId;
       console.log("Browser Fingerprint:", deviceFingerprint);
     } catch (e) {
