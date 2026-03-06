@@ -23,8 +23,9 @@
   --theme-bg-notification-color: #2c2c2b;
   --theme-bg-step-color: rgb(114 114 114 / 70%);
   --theme-step-text-color: #b0b0b0;
-  --theme-loader-wallet-color: rgb(100 100 100 / 100%) 25%,
-    rgb(125 125 125 / 100%) 50%, rgb(100 100 100 / 100%) 75%;
+  --theme-loader-wallet-color:
+    rgb(100 100 100 / 100%) 25%, rgb(125 125 125 / 100%) 50%,
+    rgb(100 100 100 / 100%) 75%;
 }
 
 body {
@@ -148,7 +149,9 @@ main {
 .profile-userid {
   display: flex;
   height: auto;
-  font: 400 10px Inter, sans-serif;
+  font:
+    400 10px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
@@ -164,7 +167,9 @@ main {
 .profile-nickname {
   display: flex;
   text-align: left;
-  font: 700 30px Inter, sans-serif;
+  font:
+    700 30px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -232,7 +237,9 @@ main {
 .popup-text {
   align-content: center;
   width: 205px;
-  font: 600 9px Inter, sans-serif;
+  font:
+    600 9px Inter,
+    sans-serif;
   color: var(--theme-button-color);
 }
 
@@ -259,7 +266,9 @@ main {
 
 .wallet-header-name {
   width: auto;
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   text-align: left;
   justify-self: start;
   color: var(--theme-text-color);
@@ -283,7 +292,9 @@ main {
 }
 
 .wallet-connect-button span {
-  font: 600 14px Inter, sans-serif;
+  font:
+    600 14px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-text-color);
 }
@@ -341,7 +352,9 @@ main {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  font: 600 12px Inter, sans-serif;
+  font:
+    600 12px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-button-icon-text-color);
   width: 100%;
@@ -367,7 +380,9 @@ main {
 }
 
 .wallet-address-block span {
-  font: 600 12px Inter, sans-serif;
+  font:
+    600 12px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-button-icon-text-color);
   width: 100%;
@@ -411,8 +426,9 @@ main {
 }
 
 .wallet-button-menu svg path {
-  transition: stroke-dasharray var(--dash-duration, var(--duration))
-      var(--easing, ease) var(--dash-delay, 0s),
+  transition:
+    stroke-dasharray var(--dash-duration, var(--duration)) var(--easing, ease)
+      var(--dash-delay, 0s),
     stroke-dashoffset var(--dash-duration, var(--duration)) var(--easing, ease)
       var(--dash-delay, 0s),
     transform var(--transform-duration, 0s) var(--transform-easing, ease)
@@ -467,7 +483,9 @@ main {
 
 .wallet-balance {
   display: none;
-  font: 500 30px Inter, sans-serif;
+  font:
+    500 30px Inter,
+    sans-serif;
   line-height: 30px;
   color: var(--theme-text-color);
 }
@@ -487,7 +505,9 @@ main {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.75s ease, opacity 0.35s ease 0.1s,
+  transition:
+    max-height 0.75s ease,
+    opacity 0.35s ease 0.1s,
     margin-top 0.75s ease;
 }
 
@@ -540,7 +560,9 @@ main {
 }
 
 .wallet-button span {
-  font: 600 12px Inter, sans-serif;
+  font:
+    600 12px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -611,7 +633,9 @@ main {
 }
 
 .token-block-text .name {
-  font: 600 18px Inter, sans-serif;
+  font:
+    600 18px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -621,7 +645,9 @@ main {
 }
 
 .token-block-text .balance {
-  font: 600 12px Inter, sans-serif;
+  font:
+    600 12px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
@@ -632,7 +658,9 @@ main {
 
 .token-block .total-balance {
   margin-left: auto;
-  font: 600 18px Inter, sans-serif;
+  font:
+    600 18px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -677,7 +705,9 @@ main {
 
 .progress-bar-header {
   width: auto;
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -685,7 +715,9 @@ main {
 .progress-title-enable-courses {
   width: 100%;
   margin-bottom: 25px;
-  font: 600 17px Inter, sans-serif;
+  font:
+    600 17px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
@@ -697,7 +729,9 @@ main {
 
 .course-info-name {
   width: auto;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -730,7 +764,9 @@ main {
 }
 
 .course-info-percent {
-  font: 600 15px Inter, sans-serif;
+  font:
+    600 15px Inter,
+    sans-serif;
   line-height: 19px;
   align-items: center;
   color: var(--theme-progress-color);
@@ -742,7 +778,9 @@ main {
 
 .tasks-block-header {
   width: auto;
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -792,14 +830,18 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font: 500 15px Inter, sans-serif;
+  font:
+    500 15px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
 
 .task-item-description {
   display: flex;
-  font: 400 11px Inter, sans-serif;
+  font:
+    400 11px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-text-hint-color);
 }
@@ -825,7 +867,9 @@ main {
   background-color: var(--theme-button-color);
   border-radius: 15px;
   text-align: center;
-  font: 600 12px Inter, sans-serif;
+  font:
+    600 12px Inter,
+    sans-serif;
   text-decoration: none;
   color: var(--theme-button-icon-text-color);
 }
@@ -866,7 +910,9 @@ main {
 .support-block-header {
   align-self: flex-start;
   width: auto;
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -875,7 +921,9 @@ main {
   display: flex;
   width: auto;
   height: auto;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-text-color);
 }
@@ -917,7 +965,9 @@ main {
 .tab-label {
   text-align: center;
   width: 60px;
-  font: 500 10px Inter, sans-serif;
+  font:
+    500 10px Inter,
+    sans-serif;
 }
 
 .tab-item.tab-item-active {
@@ -977,14 +1027,18 @@ main {
 
 .courses-block-name {
   display: flex;
-  font: 700 16px/1 Inter, sans-serif;
+  font:
+    700 16px/1 Inter,
+    sans-serif;
   text-align: left;
   text-decoration: none;
   color: var(--theme-text-color);
 }
 
 .courses-block-description {
-  font: 400 13px Inter, sans-serif;
+  font:
+    400 13px Inter,
+    sans-serif;
   line-height: 16px;
   text-align: left;
   text-decoration: none;
@@ -1006,12 +1060,16 @@ main {
 
 .courses-block-author {
   margin-right: auto;
-  font: 400 11px Inter, sans-serif;
+  font:
+    400 11px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
 .courses-block-rating {
-  font: 400 12px Inter, sans-serif;
+  font:
+    400 12px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
@@ -1031,7 +1089,9 @@ main {
 
 .favorite-courses-enable-title {
   display: flex;
-  font: 600 17px Inter, sans-serif;
+  font:
+    600 17px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -1053,7 +1113,9 @@ main {
 
 .favorite-courses-enable-button-text {
   display: flex;
-  font: 600 17px Inter, sans-serif;
+  font:
+    600 17px Inter,
+    sans-serif;
   color: var(--theme-button-icon-text-color);
 }
 
@@ -1094,7 +1156,9 @@ main {
 
 .course-block-header {
   width: auto;
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -1113,20 +1177,26 @@ main {
 
 .course-block-author {
   display: block;
-  font: 400 11px Inter, sans-serif;
+  font:
+    400 11px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
   text-underline-offset: 3px;
 }
 
 .course-block-name {
   margin-bottom: 5px;
-  font: 700 17px Inter, sans-serif;
+  font:
+    700 17px Inter,
+    sans-serif;
   color: var(--theme-text-color);
   text-align: left;
 }
 
 .course-block-description {
-  font: 400 14px Inter, sans-serif;
+  font:
+    400 14px Inter,
+    sans-serif;
   line-height: 18px;
   color: var(--theme-text-hint-color);
   text-align: left;
@@ -1154,7 +1224,9 @@ main {
 }
 
 .course-block-button span {
-  font: 600 16px Inter, sans-serif;
+  font:
+    600 16px Inter,
+    sans-serif;
   text-decoration: none;
   color: var(--theme-button-icon-text-color);
 }
@@ -1255,13 +1327,17 @@ a.course-block-button {
   text-align: center;
   padding: 0;
   gap: 2px;
-  font: 500 22px Inter, sans-serif;
+  font:
+    500 22px Inter,
+    sans-serif;
   line-height: 22px;
   color: var(--theme-text-color);
 }
 
 .mark-text-amount-comments {
-  font: 400 14px Inter, sans-serif;
+  font:
+    400 14px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
@@ -1324,7 +1400,9 @@ textarea {
   border: none;
   padding: 5px 10px;
   width: 100%;
-  font: 400 12px Inter, sans-serif;
+  font:
+    400 12px Inter,
+    sans-serif;
   line-height: 16px;
   color: var(--theme-text-color);
   outline: none;
@@ -1341,7 +1419,9 @@ textarea {
   align-items: center;
   padding: 0;
   gap: 10px;
-  font: 500 18px Inter, sans-serif;
+  font:
+    500 18px Inter,
+    sans-serif;
   line-height: 16px;
   color: var(--theme-text-color);
 }
@@ -1395,7 +1475,9 @@ textarea {
 }
 
 .rating-button-reverse span {
-  font: 600 16px Inter, sans-serif;
+  font:
+    600 16px Inter,
+    sans-serif;
   text-decoration: none;
   color: var(--theme-button-icon-text-color);
 }
@@ -1516,7 +1598,9 @@ textarea {
 }
 
 .comment-username {
-  font: 700 15px Inter, sans-serif;
+  font:
+    700 15px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -1529,14 +1613,18 @@ textarea {
 }
 
 .comment-date {
-  font: 400 12px Inter, sans-serif;
+  font:
+    400 12px Inter,
+    sans-serif;
   color: var(--theme-step-text-color);
   text-align: left;
   width: 110px;
 }
 
 .comment-description {
-  font: 400 13px Inter, sans-serif;
+  font:
+    400 13px Inter,
+    sans-serif;
   line-height: 18px;
   text-align: left;
   display: -webkit-box;
@@ -1564,7 +1652,9 @@ textarea {
 .comment-mark-rating {
   display: flex;
   align-items: center;
-  font: 400 13px Inter, sans-serif;
+  font:
+    400 13px Inter,
+    sans-serif;
   gap: 1px;
   color: var(--theme-text-color);
 }
@@ -1587,7 +1677,9 @@ textarea {
   gap: 5px;
   align-items: center;
   color: var(--theme-text-color);
-  font: 400 12px Inter, sans-serif;
+  font:
+    400 12px Inter,
+    sans-serif;
   transition: transform 0.3s ease;
   cursor: pointer;
 }
@@ -1611,7 +1703,9 @@ textarea {
   flex-direction: row;
   align-items: center;
   gap: 2px;
-  font: 400 14px Inter, sans-serif;
+  font:
+    400 14px Inter,
+    sans-serif;
   color: var(--theme-text-color);
 }
 
@@ -1642,7 +1736,9 @@ textarea {
 .modal {
   display: none;
   position: fixed;
+  box-sizing: border-box;
   z-index: 1;
+  padding: 0 10px;
   left: 0;
   top: 0;
   width: 100%;
@@ -1653,15 +1749,103 @@ textarea {
   background-color: rgb(0 0 0 / 50%);
 }
 
+.modal-border {
+  position: relative;
+  padding: 4px;
+  border-radius: 18px;
+  min-width: 320px;
+  width: 100%;
+}
+
+/* TODO Определиться что нужно */
+:root {
+  /* доля дуги, которая уйдёт на переход цвета (примерно 5% круга) */
+  --transition-part: 0.05;
+}
+.modal-border-progress {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: conic-gradient(
+    from 0deg,
+    #4caf50 0deg,
+    #4caf50 calc(var(--progress, 0) * 360deg),
+    var(--theme-block-border-color) calc(var(--progress, 0) * 360deg),
+    var(--theme-block-border-color) 360deg
+  );
+
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 60px),
+    #000 calc(100% - 40px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 60px),
+    #000 calc(100% - 40px)
+  );
+}
+
+@keyframes border-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.modal-border-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--arc-red-opacity, 0);
+  transition: opacity 2s linear;
+
+  background: conic-gradient(
+    from 0deg,
+    #f44336 0deg,
+    #f44336 calc(var(--progress, 0) * 360deg),
+    transparent calc(var(--progress, 0) * 360deg),
+    transparent 360deg
+  );
+
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 60px),
+    #000 calc(100% - 40px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 60px),
+    #000 calc(100% - 40px)
+  );
+}
+
+.modal-border-progress.blink::after {
+  animation: border-blink
+    calc((0.8 - 0.4 * (var(--progress, 0.01) - 0.7) / 0.3) * 1s) linear infinite;
+}
+
 .modal-content {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 10px;
+
   background-color: var(--theme-bg-color);
   padding: 15px;
   gap: 15px;
   width: auto;
+  height: auto;
+
   border-radius: 15px;
   border: 1px solid var(--theme-block-border-color);
 }
@@ -1673,23 +1857,29 @@ textarea {
 }
 
 .modal-header {
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-text-color);
 }
 
 .modal-content-text {
-  font: 600 16px Inter, sans-serif;
+  font:
+    600 16px Inter,
+    sans-serif;
   text-align: center;
   color: var(--theme-text-color);
   line-height: 22px;
 }
 
 .modal-reward {
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
-  font: 600 24px Inter, sans-serif;
+  font:
+    600 24px Inter,
+    sans-serif;
   margin: 10px 0;
   gap: 5px;
   animation: animation-reward 0.5s ease;
@@ -1704,7 +1894,7 @@ textarea {
   background-image: url("icons/logo-token.png");
 }
 
-ul.modal-list-days-reward {
+/* ul.modal-list-days-reward {
   display: flex;
   flex-direction: row;
   padding-inline-start: 0;
@@ -1723,7 +1913,9 @@ ul.modal-list-days-reward {
   justify-content: center;
   align-items: center;
   margin-left: 5px;
-  font: 600 14px Inter, sans-serif;
+  font:
+    600 14px Inter,
+    sans-serif;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
 }
@@ -1731,7 +1923,7 @@ ul.modal-list-days-reward {
 .modal-list-days-reward li.complete {
   background-color: var(--theme-button-color);
   color: var(--theme-button-icon-text-color);
-}
+} */
 
 @keyframes animation-reward {
   0% {
@@ -1767,7 +1959,9 @@ ul.modal-list-days-reward {
   height: 30px;
   background-color: var(--theme-button-color);
   border-radius: 15px;
-  font: 600 16px Inter, sans-serif;
+  font:
+    600 16px Inter,
+    sans-serif;
   color: var(--theme-button-icon-text-color);
 }
 
@@ -1775,7 +1969,9 @@ ul.modal-list-days-reward {
   width: auto;
   height: auto;
   margin-left: 10px;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
   text-decoration: underline;
@@ -1791,7 +1987,9 @@ ul.modal-list-days-reward {
   gap: 15px;
   margin-left: 10px;
   height: auto;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -1836,7 +2034,9 @@ ul.modal-list-days-reward {
   width: auto;
   height: auto;
   margin: 0 10px;
-  font: 400 18px Inter, sans-serif;
+  font:
+    400 18px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
   cursor: pointer;
@@ -1851,7 +2051,9 @@ ul.modal-list-days-reward {
   width: auto;
   height: auto;
   margin-left: 20px;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -1887,7 +2089,9 @@ ul.modal-list-days-reward {
 }
 
 .syllabus-text {
-  font: 500 24px Inter, sans-serif;
+  font:
+    500 24px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -1912,7 +2116,9 @@ ul.modal-list-days-reward {
 }
 
 .syllabus-name-main {
-  font: 500 20px Inter, sans-serif;
+  font:
+    500 20px Inter,
+    sans-serif;
   text-align: left;
   color: var(--theme-text-color);
 }
@@ -1934,7 +2140,9 @@ ul.modal-list-days-reward {
   padding: 15px;
   justify-self: center;
   justify-content: space-between;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   text-align: left;
   line-height: 22px;
   gap: 10px;
@@ -1991,7 +2199,9 @@ ul.modal-list-days-reward {
   height: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  font: 500 22px Inter, sans-serif;
+  font:
+    500 22px Inter,
+    sans-serif;
   color: var(--theme-step-text-color);
   display: flex;
   flex-direction: column;
@@ -2081,11 +2291,13 @@ ul.modal-list-days-reward {
 .step-block-content-media {
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 100%;
   height: auto;
-  font: 400 16px Inter, sans-serif;
+  font:
+    400 16px Inter,
+    sans-serif;
   line-height: 24px;
-  margin-bottom: 10px;
+
   text-align: left;
   color: var(--theme-text-color);
   -webkit-user-select: auto;
@@ -2122,9 +2334,13 @@ ul.modal-list-days-reward {
   border-radius: 15px;
   border: 0;
   text-align: center;
-  font: 600 14px Inter, sans-serif;
+  font:
+    600 14px Inter,
+    sans-serif;
   text-decoration: none;
   color: var(--theme-button-icon-text-color);
+
+  margin-top: 15px;
 }
 
 #submit-button {
@@ -2133,6 +2349,7 @@ ul.modal-list-days-reward {
 
 #button-next-step {
   align-self: flex-end;
+  margin-top: 0;
 }
 
 #next-button {
@@ -2148,6 +2365,7 @@ ul.modal-list-days-reward {
 .disabled {
   transition: opacity 0.3s ease;
   opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .result {
@@ -2157,8 +2375,10 @@ ul.modal-list-days-reward {
   gap: 5px;
   text-align: center;
   height: 20px;
-  margin-top: 10px;
-  font: 600 14px Inter, sans-serif;
+  margin-top: 15px;
+  font:
+    600 14px Inter,
+    sans-serif;
   text-decoration: none;
   color: var(--theme-text-color);
 }
@@ -2254,7 +2474,9 @@ main::-webkit-scrollbar {
 }
 
 .friends-block-button-text {
-  font: 600 17px Inter, sans-serif;
+  font:
+    600 17px Inter,
+    sans-serif;
   text-decoration: none;
   color: var(--theme-button-icon-text-color);
 }
@@ -2350,14 +2572,18 @@ main::-webkit-scrollbar {
 .list-user-rating {
   display: flex;
   flex-direction: column;
-  font: 700 12px Inter, sans-serif;
+  font:
+    700 12px Inter,
+    sans-serif;
   gap: 5px;
   color: var(--theme-text-color);
 }
 
 .list-user-rating-place {
   text-align: right;
-  font: 600 16px Inter, sans-serif;
+  font:
+    600 16px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
 }
 
@@ -2404,7 +2630,9 @@ main::-webkit-scrollbar {
 }
 
 .list-user-place {
-  font: 600 16px Inter, sans-serif;
+  font:
+    600 16px Inter,
+    sans-serif;
   width: 20px;
   color: var(--theme-text-hint-color);
 }
@@ -2429,7 +2657,9 @@ main::-webkit-scrollbar {
 
 .list-user-reward {
   display: flex;
-  font: 700 16px Inter, sans-serif;
+  font:
+    700 16px Inter,
+    sans-serif;
   align-items: center;
   color: var(--theme-text-color);
 }
@@ -2443,7 +2673,9 @@ main::-webkit-scrollbar {
 
   align-items: center;
   justify-content: center;
-  font: 500 20px/1 Inter, sans-serif;
+  font:
+    500 20px/1 Inter,
+    sans-serif;
   color: #ffffff;
 }
 
@@ -2691,13 +2923,17 @@ main::-webkit-scrollbar {
   height: 100%;
   background: transparent;
   border-radius: 15px;
-  font: 600 14px Inter, sans-serif;
+  font:
+    600 14px Inter,
+    sans-serif;
   color: var(--theme-text-hint-color);
   text-decoration: none;
   cursor: pointer;
   z-index: 1;
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .widget-button.active {
@@ -2741,4 +2977,1264 @@ main::-webkit-scrollbar {
 .widget-content:last-child {
   margin-left: -37px;
   margin-right: 1px;
+}
+
+/* ============================================= */
+/* АДАПТИВ: Маленькие экраны                     */
+/* ============================================= */
+
+/* ---- Средние мобильные (до 360px) ---- */
+@media screen and (max-width: 360px) {
+  /* === Общие === */
+  h1 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  /* === Header === */
+  header {
+    font-size: 18px;
+    height: 34px;
+  }
+
+  main {
+    margin-top: 34px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .block {
+    padding: 8px;
+    gap: 8px;
+    border-radius: 12px;
+  }
+
+  /* === Профиль === */
+  .profile-logo {
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    min-height: 75px;
+    border-radius: 12px;
+  }
+
+  .list-user {
+    width: calc(100% + 20px);
+
+    margin-top: -10px;
+  }
+
+  .profile-nickname {
+    font-size: 22px;
+  }
+
+  .nickname-balance-block {
+    margin-bottom: 15px;
+    gap: 8px;
+  }
+
+  .profile-balance-block-text {
+    font-size: 14px;
+  }
+
+  /* === Кошелёк === */
+  .wallet-header {
+    grid-template-columns: auto 1fr auto;
+    gap: 5px;
+  }
+
+  .wallet-header-name {
+    font-size: 20px;
+  }
+
+  .wallet-connect-button {
+    width: 160px;
+    padding: 4px;
+    gap: 5px;
+  }
+
+  .wallet-connect-button span {
+    font-size: 12px;
+  }
+
+  .wallet-balance {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .token-block-text .name {
+    font-size: 15px;
+  }
+
+  .token-block .total-balance {
+    font-size: 15px;
+  }
+
+  .token-logo-wrapper,
+  .token-logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  /* === Прогресс-бар курсов === */
+  .course-info-frame-bar {
+    width: 100%;
+  }
+
+  .course-info-bar {
+    width: 100%;
+  }
+
+  .progress-bar-header {
+    font-size: 20px;
+  }
+
+  .progress-title-enable-courses {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  /* === Задания === */
+  .tasks-block-header {
+    font-size: 20px;
+  }
+
+  .task-item {
+    gap: 8px;
+  }
+
+  .task-item-logo {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+  }
+
+  .task-item-name {
+    font-size: 13px;
+  }
+
+  .task-item-description {
+    font-size: 10px;
+  }
+
+  .task-button-block {
+    width: 75px;
+    min-width: 75px;
+  }
+
+  .task-item-button {
+    font-size: 11px;
+    height: 28px;
+    padding: 0 6px;
+  }
+
+  /* === Каталог курсов === */
+  .courses-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+  }
+
+  .courses-block-text {
+    height: 80px;
+  }
+
+  .courses-block-name {
+    font-size: 14px;
+  }
+
+  .courses-block-description {
+    font-size: 12px;
+    line-height: 14px;
+    -webkit-line-clamp: 2;
+  }
+
+  /* === Страница курса === */
+  .course-block-header {
+    font-size: 20px;
+  }
+
+  .course-media {
+    height: 95px;
+  }
+
+  .course-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .course-block-name {
+    font-size: 15px;
+  }
+
+  .course-block-description {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .course-block-button span {
+    font-size: 14px;
+  }
+
+  /* === Оценка и прогресс === */
+  .mark-progress-block {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .mark-with-star {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .mark-text-amount-comments {
+    font-size: 12px;
+  }
+
+  progress {
+    width: 70px;
+  }
+
+  /* === Комментарии === */
+  .comment-info img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .comment-username {
+    font-size: 13px;
+  }
+
+  .comment-username span {
+    max-width: 30vw;
+  }
+
+  .comment-date {
+    font-size: 11px;
+    width: auto;
+  }
+
+  .comment-description {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .stars-text-block {
+    font-size: 15px;
+    gap: 5px;
+  }
+
+  /* === Навигация шагов === */
+  .navigation-block {
+    width: 45px;
+  }
+
+  .navigation-list {
+    font-size: 18px;
+  }
+
+  .navigation-list li {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+  }
+
+  .steps-number {
+    font-size: 15px;
+  }
+
+  .step-block-content-media {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  /* === Шаг курса === */
+  .syllabus-text {
+    font-size: 20px;
+  }
+
+  .syllabus-name-main {
+    font-size: 17px;
+  }
+
+  .syllabus-text-course-main {
+    font-size: 15px;
+    margin: 0 5px;
+  }
+
+  .syllabus-text-course-additional {
+    font-size: 14px;
+    margin-left: 15px;
+  }
+
+  .syllabus-name-aditional {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px;
+  }
+
+  /* === Модальное окно === */
+  .modal {
+    padding: 0 6px;
+  }
+
+  .modal-border {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .modal-content {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .modal-header {
+    font-size: 20px;
+  }
+
+  .modal-content-text {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .modal-reward {
+    font-size: 20px;
+  }
+
+  .modal-content-button {
+    font-size: 14px;
+    min-width: 60px;
+    padding: 0 8px;
+  }
+
+  /* === Друзья === */
+  .friends-block-null-text {
+    font-size: 24px;
+  }
+
+  .friends-block-null-text-down {
+    font-size: 13px;
+  }
+
+  .friends-block-button {
+    height: 40px;
+    min-height: 40px;
+    border-radius: 12px;
+  }
+
+  .friends-block-button-text {
+    font-size: 14px;
+  }
+
+  .friends-block-not-null-text {
+    font-size: 17px;
+  }
+
+  .friends-list-user-logo {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .friends-list-user-info-name {
+    font-size: 14px;
+  }
+
+  .friends-list-user-info-balance-text {
+    font-size: 11px;
+  }
+
+  .list-user-rating-place {
+    font-size: 14px;
+  }
+
+  .list-user-reward {
+    font-size: 14px;
+  }
+
+  .list-user-place {
+    font-size: 14px;
+  }
+
+  .friends-block-not-null-list {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .friends-list-user {
+    gap: 10px;
+  }
+
+  .friends-list-block-logo-info {
+    gap: 10px;
+  }
+
+  /* === Поддержка === */
+  .support-block-header {
+    font-size: 20px;
+  }
+
+  .support-text {
+    font-size: 14px;
+  }
+
+  /* === Таб-бар === */
+  .tab-label {
+    font-size: 9px;
+    width: 50px;
+  }
+
+  .tab-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* === Виджет-слайдер === */
+  .widget-button {
+    font-size: 12px;
+  }
+
+  /* === Избранные курсы === */
+  .favorite-courses-enable {
+    min-width: 200px;
+    width: 80%;
+  }
+
+  .favorite-courses-enable-title {
+    font-size: 15px;
+  }
+
+  .favorite-courses-enable-button {
+    min-width: 170px;
+    height: 35px;
+  }
+
+  .favorite-courses-enable-button-text {
+    font-size: 14px;
+  }
+
+  /* === Sorting swipes === */
+  .sorting-block-swipes {
+    height: 28px;
+  }
+
+  /* === Текстовый таймер === */
+  .text-timer {
+    font-size: 11px;
+  }
+}
+
+/* ---- Очень маленькие экраны (до 300px) ---- */
+@media screen and (max-width: 300px) {
+  h1 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  header {
+    font-size: 16px;
+    height: 32px;
+  }
+
+  main {
+    margin-top: 32px;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .block {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  /* === Профиль: перестраиваем в колонку === */
+  .profile-block-user {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-userid-block {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .profile-logo {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .profile-userid {
+    font-size: 9px;
+  }
+
+  .nickname-balance-block {
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 6px;
+  }
+
+  .profile-nickname {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .profile-balance-info-block {
+    justify-content: center;
+  }
+
+  .profile-balance-block-text {
+    font-size: 13px;
+  }
+
+  .popup-text {
+    width: 170px;
+    font-size: 8px;
+  }
+
+  /* === Кошелёк === */
+  .wallet-header {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: 8px;
+  }
+
+  .wallet-header-name {
+    font-size: 18px;
+  }
+
+  .wallet-connect-button {
+    width: 100%;
+    max-width: 200px;
+    justify-self: center;
+  }
+
+  .wallet-address-block {
+    justify-self: center;
+  }
+
+  .wallet-button-menu {
+    justify-self: end;
+  }
+
+  .wallet-balance {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .token-block {
+    gap: 6px;
+  }
+
+  .token-block-text .name {
+    font-size: 13px;
+  }
+
+  .token-block-text .balance {
+    font-size: 11px;
+  }
+
+  .token-block .total-balance {
+    font-size: 13px;
+  }
+
+  .token-logo-wrapper,
+  .token-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* === Задания === */
+  .tasks-block-header {
+    font-size: 18px;
+  }
+
+  .task-item {
+    gap: 6px;
+  }
+
+  .task-item-logo {
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+    min-height: 25px;
+  }
+
+  .task-item-name {
+    font-size: 12px;
+  }
+
+  .task-button-block {
+    width: 65px;
+    min-width: 65px;
+  }
+
+  .task-item-button {
+    font-size: 10px;
+    height: 26px;
+  }
+
+  /* === Каталог курсов: перестраиваем в колонку === */
+  .courses-block {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .courses-logo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-width: 150px;
+    border-radius: 12px;
+  }
+
+  .courses-block-text {
+    height: auto;
+    min-height: 60px;
+  }
+
+  .courses-block-author-rating {
+    position: relative;
+  }
+
+  .courses-block-name {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .courses-block-description {
+    text-align: center;
+    font-size: 11px;
+  }
+
+  /* === Страница курса === */
+  .course-block-header {
+    font-size: 18px;
+  }
+
+  .course-media {
+    float: none;
+    display: flex;
+    justify-content: center;
+    padding-right: 0;
+    padding-bottom: 10px;
+    height: auto;
+  }
+
+  .course-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .course-block-name {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .course-block-description {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  .course-block-button span {
+    font-size: 13px;
+  }
+
+  /* === Оценка и прогресс === */
+  .mark-progress-block {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .progress-block {
+    align-items: center;
+  }
+
+  progress {
+    width: 60px;
+  }
+
+  /* === Комментарии === */
+  .comment-info {
+    gap: 6px;
+  }
+
+  .comment-info img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .comment-username {
+    font-size: 12px;
+  }
+
+  .comment-username span {
+    max-width: 25vw;
+  }
+
+  .comment-date {
+    font-size: 10px;
+    width: auto;
+  }
+
+  .comment-description {
+    font-size: 11px;
+    line-height: 15px;
+  }
+
+  .user-marks-block {
+    gap: 8px;
+  }
+
+  .user-mark {
+    font-size: 12px;
+  }
+
+  .stars-text-block {
+    font-size: 13px;
+  }
+
+  .star-rating svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .buttons-block-rating .course-block-button span,
+  .rating-button-reverse span {
+    font-size: 13px;
+  }
+
+  /* === Навигация шагов === */
+  .navigation-block {
+    width: 38px;
+  }
+
+  .navigation-list {
+    font-size: 15px;
+  }
+
+  .navigation-list li {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .steps-number {
+    font-size: 13px;
+  }
+
+  .step-block-content-media {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .step-block-button {
+    font-size: 12px;
+    min-width: 75px;
+    min-height: 30px;
+  }
+
+  /* === Syllabus === */
+  .syllabus-text {
+    font-size: 18px;
+  }
+
+  .syllabus-name-main {
+    font-size: 15px;
+  }
+
+  .syllabus-modules-main {
+    padding: 10px;
+  }
+
+  .syllabus-text-course-main {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .syllabus-text-course-additional {
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  .syllabus-name-aditional {
+    font-size: 13px;
+    line-height: 16px;
+    padding: 8px;
+  }
+
+  /* === Модальное окно === */
+  .modal {
+    padding: 0 4px;
+  }
+
+  .modal-border {
+    min-width: unset;
+    width: 100%;
+    padding: 3px;
+  }
+
+  .modal-content {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .modal-header {
+    font-size: 17px;
+  }
+
+  .modal-content-text {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .modal-reward {
+    font-size: 18px;
+  }
+
+  .modal-coin-logo {
+    width: 20px;
+    height: 20px;
+  }
+
+  .modal-content-buttons {
+    gap: 10px;
+  }
+
+  .modal-content-button {
+    font-size: 13px;
+    height: 28px;
+    min-width: 55px;
+    padding: 0 6px;
+  }
+
+  /* === Друзья === */
+  .friends-block-null-text {
+    font-size: 20px;
+  }
+
+  .friends-block-null-text-down {
+    font-size: 12px;
+  }
+
+  .friends-block-button {
+    height: 38px;
+    min-height: 38px;
+  }
+
+  .friends-block-button-text {
+    font-size: 13px;
+  }
+
+  .friends-block-not-null-text {
+    font-size: 15px;
+  }
+
+  .friends-list-user-logo {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .friends-list-user-info {
+    gap: 4px;
+    height: auto;
+  }
+
+  .friends-list-user-info-name {
+    font-size: 13px;
+  }
+
+  .friends-list-user-info-balance {
+    height: 20px;
+  }
+
+  .friends-list-user-info-balance-text {
+    font-size: 10px;
+  }
+
+  .friends-list-user-info-balance-logo {
+    width: 12px;
+    height: 12px;
+  }
+
+  .list-user {
+    padding: 8px 10px;
+  }
+
+  .list-user-rating {
+    font-size: 11px;
+  }
+
+  .list-user-rating-place {
+    font-size: 13px;
+  }
+
+  .list-user-reward {
+    font-size: 13px;
+  }
+
+  /* === Поддержка === */
+  .support-block-header {
+    font-size: 18px;
+  }
+
+  .support-text {
+    font-size: 13px;
+  }
+
+  /* === Таб-бар === */
+  .tab-bar {
+    height: 48px;
+    padding-top: 6px;
+  }
+
+  .tab-label {
+    font-size: 8px;
+    width: 45px;
+  }
+
+  .tab-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* === Виджет-слайдер === */
+  .widget-button {
+    font-size: 11px;
+  }
+
+  /* === Избранные курсы === */
+  .favorite-courses-enable {
+    min-width: unset;
+    width: 90%;
+    height: auto;
+  }
+
+  .favorite-courses-enable-title {
+    font-size: 14px;
+  }
+
+  .favorite-courses-enable-button {
+    min-width: unset;
+    width: 100%;
+    height: 35px;
+  }
+
+  .favorite-courses-enable-button-text {
+    font-size: 13px;
+  }
+
+  /* === Point text, last step === */
+  .point-text {
+    font-size: 14px;
+    margin-left: 5px;
+    gap: 10px;
+  }
+
+  .last-step {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  /* === Текстовый таймер === */
+  .text-timer {
+    font-size: 10px;
+  }
+
+  /* === Прогресс-бар === */
+  .progress-bar-header {
+    font-size: 18px;
+  }
+
+  .progress-title-enable-courses {
+    font-size: 13px;
+  }
+
+  .course-info-name {
+    font-size: 14px;
+  }
+
+  .course-info-percent {
+    font-size: 13px;
+  }
+}
+
+/* ---- Экстремально маленькие экраны (до 250px) ---- */
+@media screen and (max-width: 250px) {
+  header {
+    font-size: 14px;
+    height: 30px;
+  }
+
+  main {
+    margin-top: 30px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .block {
+    padding: 5px;
+    gap: 5px;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* === Профиль === */
+  .profile-logo {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 10px;
+  }
+
+  .profile-nickname {
+    font-size: 15px;
+  }
+
+  .profile-balance-block {
+    height: 28px;
+    padding: 0 6px;
+  }
+
+  .profile-balance-block-text {
+    font-size: 12px;
+  }
+
+  .profile-balance-block-info {
+    width: 26px;
+    height: 28px;
+  }
+
+  /* === Кошелёк === */
+  .wallet-connect-button span {
+    font-size: 11px;
+  }
+
+  .wallet-header-name {
+    font-size: 16px;
+  }
+
+  .token-block-text .name {
+    font-size: 12px;
+  }
+
+  .token-block .total-balance {
+    font-size: 12px;
+  }
+
+  .token-block-text .balance {
+    font-size: 10px;
+  }
+
+  /* === Задания === */
+  .task-item-logo {
+    display: none;
+  }
+
+  .task-button-block {
+    width: 55px;
+    min-width: 55px;
+  }
+
+  .task-item-button {
+    font-size: 9px;
+    height: 24px;
+    padding: 0 4px;
+  }
+
+  /* === Навигация шагов === */
+  .navigation-block {
+    width: 32px;
+  }
+
+  .navigation-list li {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+  }
+
+  .navigation-list {
+    font-size: 13px;
+  }
+
+  /* === Модальное окно === */
+  .modal-header {
+    font-size: 15px;
+  }
+
+  .modal-content-text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .modal-content {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  /* === Друзья === */
+  .friends-block-null-text {
+    font-size: 17px;
+  }
+
+  .friends-list-user-logo {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 10px;
+  }
+
+  .friends-list-user-info-name {
+    font-size: 12px;
+  }
+
+  /* === Таб-бар === */
+  .tab-bar {
+    height: 42px;
+    padding-top: 5px;
+  }
+
+  .tab-label {
+    display: none;
+  }
+
+  .tab-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* === Комментарии === */
+  .comment-info img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .comment-header {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* === Sorting === */
+  .sorting-block-swipes {
+    height: 24px;
+  }
+}
+
+/* ---- Адаптив по высоте экрана ---- */
+
+/* Невысокие экраны (до 600px высоты) */
+@media screen and (max-height: 600px) {
+  .modal {
+    place-items: start center; /* прижимаем к верху, но центрируем по горизонтали */
+    place-content: start center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .modal-border {
+    max-height: calc(100dvh - 20px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-content {
+    max-height: calc(100dvh - 30px);
+    overflow-y: auto;
+    padding: 12px;
+    gap: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .modal-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .modal-header {
+    font-size: 20px;
+  }
+
+  .modal-content-text {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .modal-reward {
+    margin: 5px 0;
+  }
+}
+
+/* Очень невысокие экраны (до 500px высоты) */
+@media screen and (max-height: 500px) {
+  .modal {
+    padding-top: 36px;
+    padding-bottom: 55px;
+  }
+
+  .modal-content {
+    max-height: 360px;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .modal-header {
+    font-size: 18px;
+  }
+
+  .modal-content-text {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .modal-content-button {
+    height: 28px;
+    font-size: 13px;
+  }
+}
+
+/* Экстремально низкие экраны (до 400px высоты) */
+@media screen and (max-height: 400px) {
+  .modal-content {
+    max-height: calc(100dvh - 14px);
+    padding: 8px;
+    gap: 6px;
+  }
+
+  .modal-header {
+    font-size: 16px;
+  }
+
+  .modal-content-text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .modal-reward {
+    font-size: 18px;
+    margin: 3px 0;
+  }
+
+  .modal-content-buttons {
+    gap: 8px;
+  }
+
+  .modal-content-button {
+    height: 26px;
+    font-size: 12px;
+    min-width: 55px;
+  }
 }

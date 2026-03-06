@@ -35,7 +35,7 @@ const buttonsArray = [
 
 function setButtonHref(
   buttons,
-  { steps, nextSubmoduleId, previousSubmoduleId }
+  { steps, nextSubmoduleId, previousSubmoduleId },
 ) {
   const stepsLength = steps.length;
 
@@ -49,8 +49,8 @@ function setButtonHref(
               stepNumber - 1
             }`
           : previousSubmoduleId
-          ? `step.html?v=1.0.7&courseId=${courseId}&submoduleId=${previousSubmoduleId}&stepNumber=1`
-          : null;
+            ? `step.html?v=1.0.7&courseId=${courseId}&submoduleId=${previousSubmoduleId}&stepNumber=1`
+            : null;
     } else {
       href =
         stepNumber < stepsLength
@@ -58,8 +58,8 @@ function setButtonHref(
               stepNumber + 1
             }`
           : nextSubmoduleId
-          ? `step.html?v=1.0.7&courseId=${courseId}&submoduleId=${nextSubmoduleId}&stepNumber=1`
-          : `syllabus.html?v=1.0.7&courseId=${courseId}`;
+            ? `step.html?v=1.0.7&courseId=${courseId}&submoduleId=${nextSubmoduleId}&stepNumber=1`
+            : `syllabus.html?v=1.0.7&courseId=${courseId}`;
     }
 
     href ? (buttonHtml.href = href) : buttonHtml.removeAttribute("href");
@@ -90,7 +90,7 @@ class StepController {
         "GET",
         {
           "X-User-Id": this.userId,
-        }
+        },
       );
 
       stepsData.currentSubmoduleId = this.submoduleId;
@@ -106,13 +106,13 @@ class StepController {
 
   async getCourseContent(stepsData) {
     const urlContent = stepsData.find(
-      (step) => step.number === stepNumber
+      (step) => step.number === stepNumber,
     ).contentUrl;
 
     const isTest = stepsData.find((step) => step.number === stepNumber).test;
 
     const isComplete = stepsData.find(
-      (step) => step.number === stepNumber
+      (step) => step.number === stepNumber,
     ).completed;
 
     const stepId = stepsData.find((step) => step.number === stepNumber).id;
@@ -121,7 +121,7 @@ class StepController {
       const response = await fetch(urlContent);
       if (!response.ok) {
         throw new Error(
-          `Ошибка загрузки контента: ${response.status} - ${response.statusText}`
+          `Ошибка загрузки контента: ${response.status} - ${response.statusText}`,
         );
       }
       const content = await response.text();
@@ -160,7 +160,7 @@ class StepProgressController {
         "POST",
         { "X-User-Id": this.userId },
         null,
-        false
+        false,
       );
       if (response !== 200) {
         throw Error;
@@ -178,7 +178,7 @@ class StepProgressController {
         `submodule-step/${stepId}/user-completed-test`,
         "POST",
         { "X-User-Id": this.userId },
-        sendTest
+        sendTest,
       );
 
       if (response) {
@@ -272,7 +272,7 @@ class StepTestManager {
         .map((input) => input.value);
     } else {
       const selectedOption = document.querySelector(
-        `input[name="question"]:checked`
+        `input[name="question"]:checked`,
       );
       selectedOptions = selectedOption ? [selectedOption.value] : [];
     }
@@ -282,7 +282,7 @@ class StepTestManager {
       isMultipleChoice,
       stepId,
       testData,
-      optionsCount
+      optionsCount,
     );
   }
 
@@ -291,7 +291,7 @@ class StepTestManager {
     isMultipleChoice,
     stepId,
     testData,
-    optionsCount
+    optionsCount,
   ) {
     if (!isMultipleChoice) {
       if (selectedValue[0] === testData.answer[0]) {
@@ -317,7 +317,7 @@ class StepTestManager {
     };
     const responce = await this.stepProgressController.sendProgressTest(
       stepId,
-      sendTest
+      sendTest,
     );
 
     if (responce !== 200) {
@@ -430,7 +430,7 @@ class StepUI {
     path.setAttribute("clip-rule", "evenodd");
     path.setAttribute(
       "d",
-      "M7.6177 10.063L3.37495 14.5414L2.31445 13.422L6.02695 9.50325L2.31445 5.5845L3.37495 4.46509L7.6177 8.94355C7.75831 9.09201 7.83729 9.29333 7.83729 9.50325C7.83729 9.71318 7.75831 9.9145 7.6177 10.063Z"
+      "M7.6177 10.063L3.37495 14.5414L2.31445 13.422L6.02695 9.50325L2.31445 5.5845L3.37495 4.46509L7.6177 8.94355C7.75831 9.09201 7.83729 9.29333 7.83729 9.50325C7.83729 9.71318 7.75831 9.9145 7.6177 10.063Z",
     );
     path.setAttribute("fill", "currentColor");
 
@@ -499,7 +499,7 @@ class StepUI {
     }
   }
 
-  displayTest(stepId, isComplete, testData, optionsCount) {
+  async displayTest(stepId, isComplete, testData, optionsCount) {
     const { question, image, options, answer } = testData;
     retryButton.style.display = "none";
     testDiv.style.display = "flex";
@@ -554,7 +554,6 @@ class StepUI {
       submitButton.removeEventListener("click", submitButton._handler);
     }
 
-    // Создаём новые обработчики с замыканием на локальные переменные
     retryButton._handler = () =>
       this.displayTest(stepId, isComplete, testData, optionsCount);
     submitButton._handler = () =>
@@ -588,6 +587,7 @@ class StepUI {
         });
       });
     }
+    await this.stepImageController.trackImageLoad();
     document.getElementById("preloader").style.display = "none";
   }
 }

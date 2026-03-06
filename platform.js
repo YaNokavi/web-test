@@ -182,6 +182,7 @@ if (!localStorage.getItem("theme")) {
 }
 const savedTheme = localStorage.getItem("theme");
 applyTheme(savedTheme);
+// applyTheme("savedTheme");
 
 tg.onEvent("themeChanged", function () {
   const theme = tg.colorScheme;

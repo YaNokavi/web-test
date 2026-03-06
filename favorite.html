@@ -81,21 +81,59 @@
 
     <header>Мои курсы</header>
 
+    <div class="notification-block" id="notification">
+      <div class="notification-balance" id="notification-balance"></div>
+    </div>
+
     <main id="favorite-courses"></main>
 
+    <!-- <div id="modal" class="modal">
+      <div class="modal-border" id="modalBorder">
+        <div class="modal-content gif-modal">
+        
+          <div class="modal-header">Поздравляем!</div>
+          <div class="modal-content-text">
+            Вы получили ежедневную награду, продолжайте в том же духе!
+          </div>
+          <div class="modal-reward" id="reward">
+            <div class="modal-coin-logo"></div>
+          </div>
+          <ul class="modal-list-days-reward" id="listRewards"></ul>
+          <div class="modal-content-buttons">
+            <div class="modal-content-button" id="okButton">Класс!</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
     <div id="modal" class="modal">
-      <div class="modal-content gif-modal">
-        <div class="modal-header">Поздравляем!</div>
-        <div class="modal-content-text">
-          Вы получили ежедневную награду, продолжайте в том же духе!
-        </div>
-        <div class="modal-reward" id="reward">
-          +20 CUNA
-          <div class="modal-coin-logo"></div>
-        </div>
-        <ul class="modal-list-days-reward" id="listRewards"></ul>
-        <div class="modal-content-buttons">
-          <div class="modal-content-button" id="okButton">Класс!</div>
+      <div class="modal-border">
+        <div class="modal-border-progress" id="modalBorderProgress"></div>
+        <div class="modal-content">
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr auto 1fr;
+              width: 100%;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <div></div>
+
+            <div
+              class="modal-header"
+              style="text-align: center; justify-self: center"
+            >
+              Ежедневный тест!
+            </div>
+
+            <div class="text-timer" id="timer" style="justify-self: end">
+              Осталось: 20с
+            </div>
+          </div>
+
+          <div class="step-block-content-media daily-test" id="test"></div>
         </div>
       </div>
     </div>
@@ -293,5 +331,7 @@
 
     <script type="module" src="favorite.js?v=1.0.7"></script>
     <script src="stories.js?v=1.0.7"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="iview.js?v=1.0.7"></script>
   </body>
 </html>
