@@ -59,20 +59,44 @@ const storiesNewUser = {
   },
 };
 
+// const storiesNewUpdate = {
+//   first: {
+//     pageColor: "linear-gradient(90deg, #09518b 0%, #002f52 100%)",
+//     header: "Новый курс уже в приложении!",
+//     description:
+//       "Теперь у вас есть возможность пройти наш новый курс об экосистеме TON!",
+//     gifURL: "gif/octopus(miidle)_compressed.gif",
+//   },
+//   second: {
+//     pageColor: "linear-gradient(90deg, #002F52 0%, #075FA0 100%)",
+//     header: "Экосистема TON",
+//     description:
+//       "Пройдя курс, вы узнаете много нового: от популярных приложение в сети до создания своей собственный монеты! <br><br> Чего же ты ждешь? Вперед!",
+//     gifURL: "gif/test/star.gif",
+//   },
+// };
+
 const storiesNewUpdate = {
   first: {
     pageColor: "linear-gradient(90deg, #09518b 0%, #002f52 100%)",
-    header: "Новый курс уже в приложении!",
+    header: "Новый формат ежедневных наград!",
     description:
-      "Теперь у вас есть возможность пройти наш новый курс об экосистеме TON!",
+      "Мы полностью обновили систему ежедневных бонусов. Теперь просто зайти в приложение недостаточно — придется немного размять мозги!",
     gifURL: "gif/octopus(miidle)_compressed.gif",
   },
   second: {
     pageColor: "linear-gradient(90deg, #002F52 0%, #075FA0 100%)",
-    header: "Экосистема TON",
+    header: "Ежедневный блиц-тест",
     description:
-      "Пройдя курс, вы узнаете много нового: от популярных приложение в сети до создания своей собственный монеты! <br><br> Чего же ты ждешь? Вперед!",
-    gifURL: "gif/test/star.gif",
+      "Каждый день вас ждет один новый вопрос по пройденным курсам. Будьте внимательны: на ответ дается <b>всего 20 секунд</b>!",
+    gifURL: "gif/test/star.gif", // Можно заменить на гифку с часами/таймером, если есть
+  },
+  third: {
+    pageColor: "linear-gradient(90deg, #075FA0 0%, #004375 100%)",
+    header: "Больше знаний — больше токенов!",
+    description:
+      "Успели ответить правильно? Получайте увеличенную награду в Cuna-токенах! <br><br>Готовы проверить себя? Тест начнется прямо сейчас!",
+    gifURL: "gif/test/gold.gif",
   },
 };
 
@@ -143,11 +167,18 @@ function goPrev() {
   }
 }
 
+function closeStories() {
+  page.style.display = "none";
+  currentIndex = 0;
+  statusBar.innerHTML = "";
+  window.dispatchEvent(new Event("storiesClosed"));
+}
+
 nextButton.addEventListener("click", (event) => {
   event.stopPropagation();
 
   if (currentIndex === storyKeys.length - 1) {
-    page.style.display = "none";
+    closeStories();
   } else {
     goNext();
   }
@@ -155,7 +186,7 @@ nextButton.addEventListener("click", (event) => {
 
 skipButton.addEventListener("click", (event) => {
   event.stopPropagation();
-  page.style.display = "none";
+  closeStories();
 });
 
 page.addEventListener("click", function (event) {

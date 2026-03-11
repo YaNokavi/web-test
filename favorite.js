@@ -99,6 +99,8 @@ class FavoriteController {
         body,
       );
 
+      console.log(userTest.historyType);
+
       if (userTest.historyType !== null) {
         localStorage.setItem("storiesType", userTest.history);
         document.getElementById("page").style.display = "flex";
@@ -349,16 +351,26 @@ class DailyTestManager {
       promises.push(loadPromise);
     }
 
-    // Искусственная минимальная задержка (опционально), чтобы скелет не моргал, если картинка в кэше
-    promises.push(new Promise((res) => setTimeout(res, 500)));
+    const pageElement = document.getElementById("page");
+    const areStoriesOpen =
+      pageElement && window.getComputedStyle(pageElement).display !== "none";
 
-    // Ждем полной загрузки картинок
+    if (areStoriesOpen) {
+      const storiesPromise = new Promise((resolve) => {
+        const onStoriesClosed = () => {
+          window.removeEventListener("storiesClosed", onStoriesClosed);
+          resolve();
+        };
+        window.addEventListener("storiesClosed", onStoriesClosed);
+      });
+      promises.push(storiesPromise);
+    }
+
     await Promise.allSettled(promises);
 
-    // Теперь, когда всё загружено в кэш браузера, заменяем скелет на реальную верстку
-    this._renderActualTest(testData, testStartDate, resolveCallback);
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // И только сейчас запускаем таймер
+    this._renderActualTest(testData, testStartDate, resolveCallback);
     this.modalManager.startTimer();
   }
 
@@ -797,7 +809,7 @@ class ModalManager {
 const tg = window.Telegram.WebApp;
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
-const userId = tg.initDataUnsafe?.user?.id ?? 2;
+const userId = tg.initDataUnsafe?.user?.id ?? 4;
 const rawUsername = tg.initDataUnsafe?.user?.username;
 const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
