@@ -99,10 +99,8 @@ class FavoriteController {
         body,
       );
 
-      console.log(userTest.historyType);
-
       if (userTest.historyType !== null) {
-        localStorage.setItem("storiesType", userTest.history);
+        localStorage.setItem("storiesType", userTest.historyType);
         document.getElementById("page").style.display = "flex";
 
         const event = new Event("storiesReady");
@@ -809,7 +807,7 @@ class ModalManager {
 const tg = window.Telegram.WebApp;
 const avatarUrl =
   tg.initDataUnsafe?.user?.photo_url ?? "tg.initDataUnsafe.user.photo_url";
-const userId = tg.initDataUnsafe?.user?.id ?? 4;
+const userId = tg.initDataUnsafe?.user?.id ?? 2;
 const rawUsername = tg.initDataUnsafe?.user?.username;
 const username = rawUsername ? DOMPurify.sanitize(rawUsername) : "User";
 
