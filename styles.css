@@ -1749,6 +1749,11 @@ textarea {
   background-color: rgb(0 0 0 / 50%);
 }
 
+.modal {
+  padding-top: 36px;
+  padding-bottom: 55px;
+}
+
 .modal-border {
   position: relative;
   padding: 4px;
@@ -1848,6 +1853,17 @@ textarea {
 
   border-radius: 15px;
   border: 1px solid var(--theme-block-border-color);
+
+  max-height: calc(
+    100dvh - (38px + var(--inset-top)) -
+      (var(--tab-bar-height) + var(--tab-bar-padding)) - 30px
+  );
+
+  overflow: hidden;
+}
+
+.daily-test {
+  overflow: auto;
 }
 
 .gif-modal {
@@ -3276,9 +3292,9 @@ main::-webkit-scrollbar {
   }
 
   /* === Модальное окно === */
-  .modal {
+  /* .modal {
     padding: 0 6px;
-  }
+  } */
 
   .modal-border {
     min-width: unset;
@@ -4137,23 +4153,21 @@ main::-webkit-scrollbar {
 /* ---- Адаптив по высоте экрана ---- */
 
 /* Невысокие экраны (до 600px высоты) */
-@media screen and (max-height: 600px) {
-  .modal {
-    place-items: start center; /* прижимаем к верху, но центрируем по горизонтали */
+@media screen and (max-height: 700px) {
+  /* .modal {
+    place-items: start center;
     place-content: start center;
     padding-top: 10px;
-    padding-bottom: 10px;
-  }
+    padding-bottom: 20px;
+  } */
 
-  .modal-border {
+  /* .modal-border {
     max-height: calc(100dvh - 20px);
     display: flex;
     flex-direction: column;
-  }
+  } */
 
   .modal-content {
-    max-height: calc(100dvh - 30px);
-    overflow-y: auto;
     padding: 12px;
     gap: 10px;
     scrollbar-width: none;
@@ -4180,13 +4194,7 @@ main::-webkit-scrollbar {
 
 /* Очень невысокие экраны (до 500px высоты) */
 @media screen and (max-height: 500px) {
-  .modal {
-    padding-top: 36px;
-    padding-bottom: 55px;
-  }
-
   .modal-content {
-    max-height: 360px;
     padding: 10px;
     gap: 8px;
   }
@@ -4209,7 +4217,6 @@ main::-webkit-scrollbar {
 /* Экстремально низкие экраны (до 400px высоты) */
 @media screen and (max-height: 400px) {
   .modal-content {
-    max-height: calc(100dvh - 14px);
     padding: 8px;
     gap: 6px;
   }
